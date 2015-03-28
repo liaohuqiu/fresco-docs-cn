@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Supported URIs</title>
+    <title>Fresco | 支持的URIs</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Supported URIs" />
+    <meta property="og:title" content="支持的URIs" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -52,7 +52,7 @@
 <nav class='toc'>
   
     <section>
-      <h3>快速起步</h3>
+      <h3>配置和使用</h3>
       <ul>
         
           <li>
@@ -273,31 +273,31 @@
 
 <article class='withtoc'>
     <h1>
-      Supported URIs
+      支持的URIs
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/00-supported-uris.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>Fresco supports images in a variety of locations. </p>
+    <p>Fresco 支持许多URI格式。</p>
 
-<p>Fresco does <strong>not</strong> accept relative URIs. All URIs must be absolute and must include the scheme.</p>
+<p>特别注意：Fresco <strong>不支持</strong> 相对路径的URI. 所有的URI都必须是绝对路径，并且带上该URI的scheme。</p>
 
-<p>These are the URI schemes accepted:</p>
+<p>如下：</p>
 
 <table><thead>
 <tr>
-<th>Type</th>
+<th>类型</th>
 <th>Scheme</th>
-<th>Fetch method used</th>
+<th>示例</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>File on network</td>
+<td>远程图片</td>
 <td><code>http://,</code> <code>https://</code></td>
-<td><code>HttpURLConnection</code> or <a href="using-other-network-layers.html">network layer</a></td>
+<td><code>HttpURLConnection</code> 或者参考 <a href="using-other-network-layers.html">使用其他网络加载方案</a></td>
 </tr>
 <tr>
-<td>File on device</td>
+<td>本地文件</td>
 <td><code>file://</code></td>
 <td><code>FileInputStream</code></td>
 </tr>
@@ -307,12 +307,12 @@
 <td><code>ContentResolver</code></td>
 </tr>
 <tr>
-<td>Asset in app</td>
+<td>asset目录下的资源</td>
 <td><code>asset://</code></td>
 <td><code>AssetManager</code></td>
 </tr>
 <tr>
-<td>Resource in app</td>
+<td>res目录下的资源</td>
 <td><code>res://</code></td>
 <td><code>Resources.openRawResource</code></td>
 </tr>

@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Drawee Image Branches</title>
+    <title>Fresco | 使用Drawee呈现不同的效果</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Drawee Image Branches" />
+    <meta property="og:title" content="使用Drawee呈现不同的效果" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -52,7 +52,7 @@
 <nav class='toc'>
   
     <section>
-      <h3>快速起步</h3>
+      <h3>配置和使用</h3>
       <ul>
         
           <li>
@@ -273,55 +273,61 @@
 
 <article class='withtoc'>
     <h1>
-      Drawee Image Branches
+      使用Drawee呈现不同的效果
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-drawee-components.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <h2>Contents</h2>
+    <h2>内容导航</h2>
 
 <ul>
-<li><a href="#Definitions">Definitions</a></li>
-<li><a href="#Actual">Actual</a></li>
-<li><a href="#Placeholder">Placeholder</a></li>
-<li><a href="#Failure">Failure</a></li>
-<li><a href="#Retry">Retry</a></li>
-<li><a href="#ProgressBar">Progress Bar</a></li>
+<li><a href="#Definitions">定义</a></li>
+<li><a href="#Actual">设置要加载的图片</a></li>
+<li><a href="#Placeholder">占位图</a></li>
+<li><a href="#Failure">加载失败时的占位图</a></li>
+<li><a href="#%E7%82%B9%E5%87%BB%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD(Retry)">点击重新加载</a></li>
+<li><a href="#%E8%BF%9B%E5%BA%A6%E6%9D%A1(ProgressBar)">进度条(ProgressBar)</a></li>
 <li><a href="#Backgrounds">Backgrounds</a></li>
 <li><a href="#Overlays">Overlays</a></li>
 <li><a href="#PressedStateOverlay">Pressed State Overlay</a></li>
 </ul>
 
-<h2>Definitions</h2>
+<h2><a name='Definitions'></a>定义</h2>
 
-<p>This page outlines the different image branches that can be displayed in a Drawee, and how they are set.</p>
+<p>本页说明如何设置实现不同的图片呈现效果。</p>
 
-<p>Except for the actual image, all of them can be set by an XML attribute. The value in XML must be either an Android drawable or color resource.</p>
+<p>除了要加载的图片，其他各个设置都可以在xml中指定。在xml中指定的时候，可以是drawable/下的资源，也可以颜色。</p>
 
-<p>They can also be set by a method in the <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html">GenericDraweeHierarchyBuilder</a> class, if <a href="using-drawees-code.html">setting programmatically</a>. In code, the value can either be from resources or be a custom subclass of <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a>.</p>
+<p>在Java 代码中也可以指定。如果需要 <a href="using-drawees-code.html">通过程序设定</a> 的话会接触到这个类: <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html">GenericDraweeHierarchyBuilder</a> </p>
 
-<p>Some of the items can even be changed on the fly after the hierarchy has been built. These have a method in the <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html">GenericDraweeHierarchy</a> class.</p>
+<p>通过代码设置是，设置的值可以是资源id，也可以是Drawable的子类。</p>
 
-<p>Several of the drawables can be <a href="scaling.html">scaled</a>.</p>
+<p>创建完<a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html">GenericDraweeHierarchy</a>之后，也可以通过该类的相关方法，重新设置一些效果。</p>
 
-<h2>Actual</h2>
+<p>大多数的用户呈现不同效果的drawables都是可以<a href="scaling.html">缩放的</a>.</p>
 
-<p>The <em>actual</em> image is the target; everything else is either an alternative or a decoration. This is specified using a URI, which can point to an image over the Internet, a local file, a resource, or a content provider.</p>
+<h2><a name='Actual'></a>设置要加载的图</h2>
+
+<p>除了需要下载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。</p>
+
+<p>所需下载的图片实际是DraweeController的一个属性，而不是DraweeHierarchy的属性。</p>
+
+<p>可使用<code>setImageURI</code>方法或者<a href="using-controllerbuilder.html">通过设置DraweeController</a> 来进行设置。</p>
 
 <p>This is a property of the controller, not the hierarchy. It therefore is not set by any of the methods used by the other Drawee components.</p>
 
-<p>Instead, use the <code>setImageURI</code> method or <a href="using-controllerbuilder.html">set a controller</a> programmatically.</p>
+<p>对于可缩放的类型，DraweeHierarchy 仅对所需下载的图片属性</p>
 
 <p>In addition to the scale type, the hierarchy exposes other methods only for the actual image. These are:</p>
 
 <ul>
-<li>the focus point (used for the <a href="scaling.html#FocusCrop">focusCrop</a> scale type only)</li>
-<li>a color filter</li>
+<li>focus point (used for the <a href="scaling.html#FocusCrop">focusCrop</a> scale type only)</li>
+<li>color filter</li>
 </ul>
 
-<p>Default scale type: <code>centerCrop</code></p>
+<p>默认的缩放类型是: <code>centerCrop</code></p>
 
-<h2>Placeholder</h2>
+<h2><a name="Placeholder"></a>占位图(Placeholder)</h2>
 
 <p>The <em>placeholder</em> is shown in the Drawee when it first appears on screen. After you have called <code>setController</code> or <code>setImageURI</code> to load an image, the placeholder continues to be shown until the image has loaded. </p>
 
@@ -333,7 +339,7 @@ Hierarchy method: <code>setPlaceholderImage</code><br>
 Default value: a transparent <a href="http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html">ColorDrawable</a><br>
 Default scale type: <code>centerInside</code>  </p>
 
-<h2>Failure</h2>
+<h2>设置加载失败占位图</h2>
 
 <p>The <em>failure</em> image appears if there is an error loading your image. The most common cause of this is an invalid URI, or lack of connection to the network.</p>
 
@@ -342,7 +348,7 @@ Hierarchy builder method: <code>setFailureImage</code><br>
 Default value: The placeholder image<br>
 Default scale type: <code>centerInside</code></p>
 
-<h2>Retry</h2>
+<h2>设置：点击重新加载图</h2>
 
 <p>The <em>retry</em> image appears instead of the failure image if you have set your controller to enable the tap-to-retry feature. </p>
 
