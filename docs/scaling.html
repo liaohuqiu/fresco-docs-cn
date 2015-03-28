@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset='utf-8'>
+    <title>Fresco | Scaling</title>
+    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
+    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
+    <link rel='shortcut icon' href='/static/favicon.png'>
+    <meta name='viewport' content='width=480'>
+    <meta property="og:title" content="Scaling" />
+    <meta property="og:site_name" content="fresco">
+    <meta property='og:description' content='Fresco is an image management library.'>
+    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/scaling.html">
+    
+    <meta property='og:type' content='website'>
+    
+    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
+    <!-- Google Analytics -->
+</head>
+<body>
+
+<header class='topbar'><nav class='width'>
+<a href='/'>
+  <img src="/static/fresco-logo.png" class="logo">
+</a>
+    <ul>
+      <li><a href="/docs/index.html#_"
+          
+          class="active" >
+          文档
+      </a></li>
+      <li><a href="/"
+          >
+          关于
+      </a></li>
+      <li><a href="/support.html"
+          >
+          支持
+      </a></li>
+      <li><a href="/javadoc">
+          API
+      </a></li>
+      <li><a href="http://github.com/facebook/fresco">GitHub</a>
+    </ul>
+</nav></header>
+
+
+<section class='content'><div class='width'>
+
+<nav class='toc'>
+  
+    <section>
+      <h3>快速起步</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/download-fresco.html#_">
+              下载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/index.html#_">
+              配置和开始使用
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/concepts.html#_">
+              关键概念
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/supported-uris.html#_">
+              支持的 URIs
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Drawee 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-drawees-xml.html#_">
+              在XML中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-drawees-code.html#_">
+              在Java代码中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/drawee-components.html#_">
+              Drawee 模块的组成
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/scaling.html#_" class="active">
+              缩放
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/rounded-corners-and-circles.html#_">
+              圆角/圆圈
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-controllerbuilder.html#_">
+              使用ControllerBuilder
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/progressive-jpegs.html#_">
+              Progressive JPEGs
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/animations.html#_">
+              Animated Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/requesting-multiple-images.html#_">
+              Requesting Multiple Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/listening-download-events.html#_">
+              监听下载事件
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/resizing-rotating.html#_">
+              缩放和旋转
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/modifying-image.html#_">
+              图片的修改
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/image-requests.html#_">
+              Image Requests
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/writing-custom-views.html#_">
+              Writing Custom Views
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/gotchas.html#_">
+              Gotchas
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Image Pipeline 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/intro-image-pipeline.html#_">
+              什么是Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/configure-image-pipeline.html#_">
+              Image Pipeline的配置
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/caching.html#_">
+              缓存的行为控制
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-image-pipeline.html#_">
+              直接使用Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/datasources-datasubscribers.html#_">
+              数据源/订阅数据源
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/closeable-references.html#_">
+              Closeable References
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>第三方类库</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-other-network-layers.html#_">
+              自定义网络加载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-other-image-loaders.html#_">
+              使用其他的Image Loader
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+</nav>
+
+
+<article class='withtoc'>
+    <h1>
+      Scaling
+      <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-scaling.md" target="_blank">Edit on GitHub</a>
+    </h1>
+    <p></p>
+
+    <p>You can specify a different scale type for each of the <a href="drawee-components.html">different drawables</a> in your Drawee. The </p>
+
+<h3>Available scale types</h3>
+
+<table><thead>
+<tr>
+<th>Scale Type</th>
+<th>Explanation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>center</td>
+<td>Center the image in the view, but perform no scaling.</td>
+</tr>
+<tr>
+<td>centerCrop</td>
+<td>Scales the image so that both dimensions will be greater than or equal to the corresponding dimension of the parent. <br>One of width or height will fit exactly. <br>The image is centered within parent&#39;s bounds.</td>
+</tr>
+<tr>
+<td><a href="#focusCrop">focusCrop</a></td>
+<td>Same as centerCrop, but based around a caller-specified focus point instead of the center.</td>
+</tr>
+<tr>
+<td>centerInside</td>
+<td>Downscales the image so that it fits entirely inside the parent. <br>Unlike <code>fitCenter,</code> no upscaling will be performed. <br>Aspect ratio is preserved. <br>The image is centered within parent&#39;s bounds.</td>
+</tr>
+<tr>
+<td>fitCenter</td>
+<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is centered within the parent&#39;s bounds.</td>
+</tr>
+<tr>
+<td>fitStart</td>
+<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the top-left corner of the parent.</td>
+</tr>
+<tr>
+<td>fitEnd</td>
+<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the bottom-right corner of the parent.</td>
+</tr>
+<tr>
+<td>fitXY</td>
+<td>Scales width and height independently, so that the image matches the parent exactly. <br>Aspect ratio is not preserved.</td>
+</tr>
+<tr>
+<td><a href="#none">none</a></td>
+<td>Used for Android&#39;s tile mode.</td>
+</tr>
+</tbody></table>
+
+<p>These are mostly the same as those supported by the Android <a href="http://developer.android.com/reference/android/widget/ImageView.ScaleType.html">ImageView</a> class.</p>
+
+<p>The one unsupported type is <code>matrix.</code> In its place, Fresco offers <code>focusCrop,</code> which will usually work better.</p>
+
+<h3>focusCrop</h3>
+
+<p>Android, and Fresco, offer a <code>centerCrop</code> scale type, which will fill the entire viewing area while preserving the aspect ratio of the image, cropping as necessary.</p>
+
+<p>This is very useful, but the trouble is the cropping doesn&#39;t always happen where you need it. If, for instance, you want to crop to someone&#39;s face in the bottom right corner of the image, <code>centerCrop</code> will do the wrong thing.</p>
+
+<p>By specifying a focus point, you can say which part of the image should be centered in the view. If you specify the focus point to be at the top of the image, such as (0.5f, 0f), we guarantee that, no matter what, this point will be visible and centered in the view as much as possible.</p>
+
+<p>Focus points are specified in a relative coordinate system. That is, (0f, 0f) is the top-left corner, and (1f, 1f) is the bottom-right corner. Relative coordinates allow focus points to be scale-invariant, which is highly useful.</p>
+
+<p>A focus point of (0.5f, 0.5f) is equivalent to a scale type of <code>centerCrop.</code></p>
+
+<p>To use focus points, you must first set the right scale type in your XML:</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">  fresco:actualImageScaleType=&quot;focusCrop&quot;
+</code></pre></div>
+<p>In your Java code, you must programmatically set the correct focus point for your image:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">PointF</span> <span class="n">focusPoint</span><span class="o">;</span>
+<span class="c1">// your app populates the focus point</span>
+<span class="n">mSimpleDraweeView</span>
+    <span class="o">.</span><span class="na">getHierarchy</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setActualImageFocusPoint</span><span class="o">(</span><span class="n">focusPoint</span><span class="o">);</span>
+</code></pre></div>
+<h3>none</h3>
+
+<p>If you are using Drawables that make use of Android&#39;s tile mode, you need to use the <code>none</code> scale type for this to work correctly.</p>
+
+
+    <div class="docs-prevnext">
+      
+        <a href="/docs/drawee-components.html#_">&larr; 上一页</a>
+      
+      
+        <a class="right" href="/docs/rounded-corners-and-circles.html#_">下一页 &rarr;</a>
+      
+    </div>
+
+    <a id="_"></a>
+</article>
+
+</div></section>
+<footer><div class='width'>
+    &copy; Copyright 2015, Facebook Inc.
+</div></footer>
+
+<script src="/static/linkify.js"></script>
+<!-- Google Analytics -->
+</body>
+</html>
+

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset='utf-8'>
+    <title>Fresco | Drawee Image Branches</title>
+    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
+    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
+    <link rel='shortcut icon' href='/static/favicon.png'>
+    <meta name='viewport' content='width=480'>
+    <meta property="og:title" content="Drawee Image Branches" />
+    <meta property="og:site_name" content="fresco">
+    <meta property='og:description' content='Fresco is an image management library.'>
+    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/drawee-components.html">
+    
+    <meta property='og:type' content='website'>
+    
+    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
+    <!-- Google Analytics -->
+</head>
+<body>
+
+<header class='topbar'><nav class='width'>
+<a href='/'>
+  <img src="/static/fresco-logo.png" class="logo">
+</a>
+    <ul>
+      <li><a href="/docs/index.html#_"
+          
+          class="active" >
+          文档
+      </a></li>
+      <li><a href="/"
+          >
+          关于
+      </a></li>
+      <li><a href="/support.html"
+          >
+          支持
+      </a></li>
+      <li><a href="/javadoc">
+          API
+      </a></li>
+      <li><a href="http://github.com/facebook/fresco">GitHub</a>
+    </ul>
+</nav></header>
+
+
+<section class='content'><div class='width'>
+
+<nav class='toc'>
+  
+    <section>
+      <h3>快速起步</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/download-fresco.html#_">
+              下载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/index.html#_">
+              配置和开始使用
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/concepts.html#_">
+              关键概念
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/supported-uris.html#_">
+              支持的 URIs
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Drawee 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-drawees-xml.html#_">
+              在XML中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-drawees-code.html#_">
+              在Java代码中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/drawee-components.html#_" class="active">
+              Drawee 模块的组成
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/scaling.html#_">
+              缩放
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/rounded-corners-and-circles.html#_">
+              圆角/圆圈
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-controllerbuilder.html#_">
+              使用ControllerBuilder
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/progressive-jpegs.html#_">
+              Progressive JPEGs
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/animations.html#_">
+              Animated Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/requesting-multiple-images.html#_">
+              Requesting Multiple Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/listening-download-events.html#_">
+              监听下载事件
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/resizing-rotating.html#_">
+              缩放和旋转
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/modifying-image.html#_">
+              图片的修改
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/image-requests.html#_">
+              Image Requests
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/writing-custom-views.html#_">
+              Writing Custom Views
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/gotchas.html#_">
+              Gotchas
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Image Pipeline 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/intro-image-pipeline.html#_">
+              什么是Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/configure-image-pipeline.html#_">
+              Image Pipeline的配置
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/caching.html#_">
+              缓存的行为控制
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-image-pipeline.html#_">
+              直接使用Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/datasources-datasubscribers.html#_">
+              数据源/订阅数据源
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/closeable-references.html#_">
+              Closeable References
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>第三方类库</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-other-network-layers.html#_">
+              自定义网络加载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-other-image-loaders.html#_">
+              使用其他的Image Loader
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+</nav>
+
+
+<article class='withtoc'>
+    <h1>
+      Drawee Image Branches
+      <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-drawee-components.md" target="_blank">Edit on GitHub</a>
+    </h1>
+    <p></p>
+
+    <h2>Contents</h2>
+
+<ul>
+<li><a href="#Definitions">Definitions</a></li>
+<li><a href="#Actual">Actual</a></li>
+<li><a href="#Placeholder">Placeholder</a></li>
+<li><a href="#Failure">Failure</a></li>
+<li><a href="#Retry">Retry</a></li>
+<li><a href="#ProgressBar">Progress Bar</a></li>
+<li><a href="#Backgrounds">Backgrounds</a></li>
+<li><a href="#Overlays">Overlays</a></li>
+<li><a href="#PressedStateOverlay">Pressed State Overlay</a></li>
+</ul>
+
+<h2>Definitions</h2>
+
+<p>This page outlines the different image branches that can be displayed in a Drawee, and how they are set.</p>
+
+<p>Except for the actual image, all of them can be set by an XML attribute. The value in XML must be either an Android drawable or color resource.</p>
+
+<p>They can also be set by a method in the <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html">GenericDraweeHierarchyBuilder</a> class, if <a href="using-drawees-code.html">setting programmatically</a>. In code, the value can either be from resources or be a custom subclass of <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a>.</p>
+
+<p>Some of the items can even be changed on the fly after the hierarchy has been built. These have a method in the <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html">GenericDraweeHierarchy</a> class.</p>
+
+<p>Several of the drawables can be <a href="scaling.html">scaled</a>.</p>
+
+<h2>Actual</h2>
+
+<p>The <em>actual</em> image is the target; everything else is either an alternative or a decoration. This is specified using a URI, which can point to an image over the Internet, a local file, a resource, or a content provider.</p>
+
+<p>This is a property of the controller, not the hierarchy. It therefore is not set by any of the methods used by the other Drawee components.</p>
+
+<p>Instead, use the <code>setImageURI</code> method or <a href="using-controllerbuilder.html">set a controller</a> programmatically.</p>
+
+<p>In addition to the scale type, the hierarchy exposes other methods only for the actual image. These are:</p>
+
+<ul>
+<li>the focus point (used for the <a href="scaling.html#FocusCrop">focusCrop</a> scale type only)</li>
+<li>a color filter</li>
+</ul>
+
+<p>Default scale type: <code>centerCrop</code></p>
+
+<h2>Placeholder</h2>
+
+<p>The <em>placeholder</em> is shown in the Drawee when it first appears on screen. After you have called <code>setController</code> or <code>setImageURI</code> to load an image, the placeholder continues to be shown until the image has loaded. </p>
+
+<p>In the case of a progressive JPEG, the placeholder only stays until your image has reached the quality threshold, whether the default, or one set by your app.</p>
+
+<p>XML attribute: <code>placeholderImage</code><br>
+Hierarchy builder method: <code>setPlaceholderImage</code><br>
+Hierarchy method: <code>setPlaceholderImage</code><br>
+Default value: a transparent <a href="http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html">ColorDrawable</a><br>
+Default scale type: <code>centerInside</code>  </p>
+
+<h2>Failure</h2>
+
+<p>The <em>failure</em> image appears if there is an error loading your image. The most common cause of this is an invalid URI, or lack of connection to the network.</p>
+
+<p>XML attribute: <code>failureImage</code><br>
+Hierarchy builder method: <code>setFailureImage</code><br>
+Default value: The placeholder image<br>
+Default scale type: <code>centerInside</code></p>
+
+<h2>Retry</h2>
+
+<p>The <em>retry</em> image appears instead of the failure image if you have set your controller to enable the tap-to-retry feature. </p>
+
+<p>You must <a href="using-controllerbuilder.html">build your own Controller</a> to do this. Then add the following line</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">setTapToRetryEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+</code></pre></div>
+<p>The image pipeline will then attempt to retry an image if the user taps on it. Up to four attempts are allowed before the failure image is shown instead.</p>
+
+<p>XML attribute: <code>retryImage</code><br>
+Hierarchy builder method: <code>setRetryImage</code><br>
+Default value: The placeholder image<br>
+Default scale type: <code>centerInside</code></p>
+
+<h2><a name="ProgressBar"></a>Progress Bar</h2>
+
+<p>If specified, the <em>progress bar</em> image is shown as an overlay over the Drawee until the final image is set.</p>
+
+<p>Currently the progress bar remains the same throughout the image load; actually changing in response to progress is not yet supported.</p>
+
+<p>XML attribute: <code>progressBarImage</code><br>
+Hierarchy builder method: <code>setProgressBarImage</code><br>
+Default value: None<br>
+Default scale type: <code>centerInside</code></p>
+
+<h2>Backgrounds</h2>
+
+<p><em>Background</em> drawables are drawn first, &quot;under&quot; the rest of the hierarchy. </p>
+
+<p>Only one can be specified in XML, but in code more than one can be set. In that case, the first one in the list is drawn first, at the bottom.</p>
+
+<p>Background images don&#39;t support scale-types and are scaled to the Drawee size. </p>
+
+<p>XML attribute: <code>backgroundImage</code><br>
+Hierarchy builder method: <code>setBackground,</code> <code>setBackgrounds</code><br>
+Default value: None<br>
+Default scale type: N/A</p>
+
+<h2>Overlays</h2>
+
+<p><em>Overlay</em> drawables are drawn last, &quot;over&quot; the rest of the hierarchy. </p>
+
+<p>Only one can be specified in XML, but in code more than one can be set. In that case, the first one in the list is drawn first, at the bottom.</p>
+
+<p>Overlay images don&#39;t support scale-types and are scaled to the Drawee size. </p>
+
+<p>XML attribute: <code>overlayImage</code><br>
+Hierarchy builder method: <code>setOverlay,</code> <code>setOverlays</code><br>
+Default value: None<br>
+Default scale type: N/A</p>
+
+<h2><a name="PressedStateOverlay"></a>Pressed State Overlay</h2>
+
+<p>The <em>pressed state overlay</em> is a special overlay shown only when the user presses the screen area of the Drawee. For example, if the Drawee is showing a button, this overlay could have the button change color when pressed.</p>
+
+<p>The pressed state overlay doesn&#39;t support scale-types.</p>
+
+<p>XML attribute: <code>pressedStateOverlayImage</code><br>
+Hierarchy builder method: <code>setPressedStateOverlay</code><br>
+Default value: None<br>
+Default scale type: N/A</p>
+
+
+    <div class="docs-prevnext">
+      
+        <a href="/docs/using-drawees-code.html#_">&larr; 上一页</a>
+      
+      
+        <a class="right" href="/docs/scaling.html#_">下一页 &rarr;</a>
+      
+    </div>
+
+    <a id="_"></a>
+</article>
+
+</div></section>
+<footer><div class='width'>
+    &copy; Copyright 2015, Facebook Inc.
+</div></footer>
+
+<script src="/static/linkify.js"></script>
+<!-- Google Analytics -->
+</body>
+</html>
+

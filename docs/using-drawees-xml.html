@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset='utf-8'>
+    <title>Fresco | 在XML中使用Drawees</title>
+    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
+    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
+    <link rel='shortcut icon' href='/static/favicon.png'>
+    <meta name='viewport' content='width=480'>
+    <meta property="og:title" content="在XML中使用Drawees" />
+    <meta property="og:site_name" content="fresco">
+    <meta property='og:description' content='Fresco is an image management library.'>
+    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/using-drawees-xml.html">
+    
+    <meta property='og:type' content='website'>
+    
+    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
+    <!-- Google Analytics -->
+</head>
+<body>
+
+<header class='topbar'><nav class='width'>
+<a href='/'>
+  <img src="/static/fresco-logo.png" class="logo">
+</a>
+    <ul>
+      <li><a href="/docs/index.html#_"
+          
+          class="active" >
+          文档
+      </a></li>
+      <li><a href="/"
+          >
+          关于
+      </a></li>
+      <li><a href="/support.html"
+          >
+          支持
+      </a></li>
+      <li><a href="/javadoc">
+          API
+      </a></li>
+      <li><a href="http://github.com/facebook/fresco">GitHub</a>
+    </ul>
+</nav></header>
+
+
+<section class='content'><div class='width'>
+
+<nav class='toc'>
+  
+    <section>
+      <h3>快速起步</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/download-fresco.html#_">
+              下载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/index.html#_">
+              配置和开始使用
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/concepts.html#_">
+              关键概念
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/supported-uris.html#_">
+              支持的 URIs
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Drawee 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-drawees-xml.html#_" class="active">
+              在XML中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-drawees-code.html#_">
+              在Java代码中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/drawee-components.html#_">
+              Drawee 模块的组成
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/scaling.html#_">
+              缩放
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/rounded-corners-and-circles.html#_">
+              圆角/圆圈
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-controllerbuilder.html#_">
+              使用ControllerBuilder
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/progressive-jpegs.html#_">
+              Progressive JPEGs
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/animations.html#_">
+              Animated Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/requesting-multiple-images.html#_">
+              Requesting Multiple Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/listening-download-events.html#_">
+              监听下载事件
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/resizing-rotating.html#_">
+              缩放和旋转
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/modifying-image.html#_">
+              图片的修改
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/image-requests.html#_">
+              Image Requests
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/writing-custom-views.html#_">
+              Writing Custom Views
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/gotchas.html#_">
+              Gotchas
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Image Pipeline 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/intro-image-pipeline.html#_">
+              什么是Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/configure-image-pipeline.html#_">
+              Image Pipeline的配置
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/caching.html#_">
+              缓存的行为控制
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-image-pipeline.html#_">
+              直接使用Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/datasources-datasubscribers.html#_">
+              数据源/订阅数据源
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/closeable-references.html#_">
+              Closeable References
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>第三方类库</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-other-network-layers.html#_">
+              自定义网络加载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-other-image-loaders.html#_">
+              使用其他的Image Loader
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+</nav>
+
+
+<article class='withtoc'>
+    <h1>
+      在XML中使用Drawees
+      <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-using-drawees-xml.md" target="_blank">Edit on GitHub</a>
+    </h1>
+    <p></p>
+
+    <p>Drawees 具有极大的可定制性。</p>
+
+<p>下面的例子给出了可以配置的各种选项：</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;com.facebook.drawee.view.SimpleDraweeView</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/my_image_view&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;20dp&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;20dp&quot;</span>
+    <span class="na">fresco:fadeDuration=</span><span class="s">&quot;300&quot;</span>
+    <span class="na">fresco:actualImageScaleType=</span><span class="s">&quot;focusCrop&quot;</span>
+    <span class="na">fresco:placeholderImage=</span><span class="s">&quot;@color/wait_color&quot;</span>
+    <span class="na">fresco:placeholderImageScaleType=</span><span class="s">&quot;fitCenter&quot;</span>
+    <span class="na">fresco:failureImage=</span><span class="s">&quot;@drawable/error&quot;</span>
+    <span class="na">fresco:failureImageScaleType=</span><span class="s">&quot;centerInside&quot;</span>
+    <span class="na">fresco:retryImage=</span><span class="s">&quot;@drawable/retrying&quot;</span>
+    <span class="na">fresco:retryImageScaleType=</span><span class="s">&quot;centerCrop&quot;</span>
+    <span class="na">fresco:progressBarImage=</span><span class="s">&quot;@drawable/progress_bar&quot;</span>
+    <span class="na">fresco:progressBarImageScaleType=</span><span class="s">&quot;centerInside&quot;</span>
+    <span class="na">fresco:progressBarAutoRotateInterval=</span><span class="s">&quot;1000&quot;</span>
+    <span class="na">fresco:backgroundImage=</span><span class="s">&quot;@color/blue&quot;</span>
+    <span class="na">fresco:overlayImage=</span><span class="s">&quot;@drawable/watermark&quot;</span>
+    <span class="na">fresco:pressedStateOverlayImage=</span><span class="s">&quot;@color/red&quot;</span>
+    <span class="na">fresco:roundAsCircle=</span><span class="s">&quot;false&quot;</span>
+    <span class="na">fresco:roundedCornerRadius=</span><span class="s">&quot;1dp&quot;</span>
+    <span class="na">fresco:roundTopLeft=</span><span class="s">&quot;true&quot;</span>
+    <span class="na">fresco:roundTopRight=</span><span class="s">&quot;false&quot;</span>
+    <span class="na">fresco:roundBottomLeft=</span><span class="s">&quot;false&quot;</span>
+    <span class="na">fresco:roundBottomRight=</span><span class="s">&quot;true&quot;</span>
+    <span class="na">fresco:roundWithOverlayColor=</span><span class="s">&quot;@color/corner_color&quot;</span>
+    <span class="na">fresco:roundingBorderWidth=</span><span class="s">&quot;2dp&quot;</span>
+    <span class="na">fresco:roundingBorderColor=</span><span class="s">&quot;@color/border_color&quot;</span>
+  <span class="nt">/&gt;</span>
+</code></pre></div>
+<h4>必须设置layout<em>width和layout</em>height</h4>
+
+<p>如果没有在XML中声明这两个属性，将无法正确加载图像。</p>
+
+<h4>wrap_content</h4>
+
+<p><em>Drawees 不支持 <code>wrap_content</code> 属性。</em></p>
+
+<p>所下载的图像可能和占位图尺寸不一致，如果设置出错图或者重试图的话，这些图的尺寸也可能和所下载的图尺寸不一致。</p>
+
+<p>如果大小不一致，图像下载完之后，假设如果是<code>wrap_content</code>，View将会重新layout，改变大小和位置。这将会导致界面跳跃。</p>
+
+<h4>固定宽高比</h4>
+
+<p>只有希望显示的固定宽高比时，可以使用<code>wrap_content</code>。</p>
+
+<p>如果希望显示的图片保持一定宽高比例，如果 4:3，则在XML中:</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;com.facebook.drawee.view.SimpleDraweeView</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/my_image_view&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;20dp&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="err">&lt;!--</span> <span class="err">other</span> <span class="err">attributes</span> <span class="err">--</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>然后在代码中指定显示比例：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setAspectRatio</span><span class="o">(</span><span class="mf">1.33f</span><span class="o">);</span>
+</code></pre></div>
+
+    <div class="docs-prevnext">
+      
+        <a href="/docs/concepts.html#_">&larr; 上一页</a>
+      
+      
+        <a class="right" href="/docs/using-drawees-code.html#_">下一页 &rarr;</a>
+      
+    </div>
+
+    <a id="_"></a>
+</article>
+
+</div></section>
+<footer><div class='width'>
+    &copy; Copyright 2015, Facebook Inc.
+</div></footer>
+
+<script src="/static/linkify.js"></script>
+<!-- Google Analytics -->
+</body>
+</html>
+

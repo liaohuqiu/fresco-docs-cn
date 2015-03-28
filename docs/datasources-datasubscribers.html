@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset='utf-8'>
+    <title>Fresco | DataSources and DataSubscribers</title>
+    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
+    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
+    <link rel='shortcut icon' href='/static/favicon.png'>
+    <meta name='viewport' content='width=480'>
+    <meta property="og:title" content="DataSources and DataSubscribers" />
+    <meta property="og:site_name" content="fresco">
+    <meta property='og:description' content='Fresco is an image management library.'>
+    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/datasources-datasubscribers.html">
+    
+    <meta property='og:type' content='website'>
+    
+    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
+    <!-- Google Analytics -->
+</head>
+<body>
+
+<header class='topbar'><nav class='width'>
+<a href='/'>
+  <img src="/static/fresco-logo.png" class="logo">
+</a>
+    <ul>
+      <li><a href="/docs/index.html#_"
+          
+          class="active" >
+          文档
+      </a></li>
+      <li><a href="/"
+          >
+          关于
+      </a></li>
+      <li><a href="/support.html"
+          >
+          支持
+      </a></li>
+      <li><a href="/javadoc">
+          API
+      </a></li>
+      <li><a href="http://github.com/facebook/fresco">GitHub</a>
+    </ul>
+</nav></header>
+
+
+<section class='content'><div class='width'>
+
+<nav class='toc'>
+  
+    <section>
+      <h3>快速起步</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/download-fresco.html#_">
+              下载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/index.html#_">
+              配置和开始使用
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/concepts.html#_">
+              关键概念
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/supported-uris.html#_">
+              支持的 URIs
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Drawee 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-drawees-xml.html#_">
+              在XML中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-drawees-code.html#_">
+              在Java代码中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/drawee-components.html#_">
+              Drawee 模块的组成
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/scaling.html#_">
+              缩放
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/rounded-corners-and-circles.html#_">
+              圆角/圆圈
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-controllerbuilder.html#_">
+              使用ControllerBuilder
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/progressive-jpegs.html#_">
+              Progressive JPEGs
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/animations.html#_">
+              Animated Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/requesting-multiple-images.html#_">
+              Requesting Multiple Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/listening-download-events.html#_">
+              监听下载事件
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/resizing-rotating.html#_">
+              缩放和旋转
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/modifying-image.html#_">
+              图片的修改
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/image-requests.html#_">
+              Image Requests
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/writing-custom-views.html#_">
+              Writing Custom Views
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/gotchas.html#_">
+              Gotchas
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Image Pipeline 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/intro-image-pipeline.html#_">
+              什么是Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/configure-image-pipeline.html#_">
+              Image Pipeline的配置
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/caching.html#_">
+              缓存的行为控制
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-image-pipeline.html#_">
+              直接使用Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/datasources-datasubscribers.html#_" class="active">
+              数据源/订阅数据源
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/closeable-references.html#_">
+              Closeable References
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>第三方类库</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-other-network-layers.html#_">
+              自定义网络加载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-other-image-loaders.html#_">
+              使用其他的Image Loader
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+</nav>
+
+
+<article class='withtoc'>
+    <h1>
+      DataSources and DataSubscribers
+      <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-datasources-datasubscribers.md" target="_blank">Edit on GitHub</a>
+    </h1>
+    <p></p>
+
+    <p>A <a href="../javadoc/reference/com/facebook/datasource/DataSource.html">DataSource</a> is, like a Java <a href="http://developer.android.com/reference/java/util/concurrent/Future.html">Future</a>, the result of an asynchronous computation. The different is that, unlike a Future, a DataSource can return you a whole series of results from a single command, not just one.</p>
+
+<p>After submitting an image request, the image pipeline returns a data source. To get a result out if it, you need to use a <a href="../javadoc/reference/com/facebook/datasource/DataSubscriber.html">DataSubscriber</a>.</p>
+
+<h3>I just want a bitmap...</h3>
+
+<p>If your request to the pipeline is for a decoded image - an Android <a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a>, you can take advantage of our easier-to-use <a href="../javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber">BaseBitmapDataSubscriber</a>:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nf">BaseBitmapDataSubscriber</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// You can use the bitmap in only limited ways</span>
+      <span class="c1">// No need to do any cleanup.</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// No cleanup required here.</span>
+    <span class="o">}</span>
+  <span class="o">});</span>
+</code></pre></div>
+<p>A snap to use, right? There is a caveat. </p>
+
+<p>You can <strong>not</strong> assign the bitmap to any variable not in the scope of the <code>onNewResultImpl</code> method. The reason is that, after the subscriber has finished executing, the image pipeline will recycle the bitmap and free its memory. If you try to draw the bitmap after that, your app will crash with an <code>IllegalStateException.</code></p>
+
+<h3>General-purpose solution</h3>
+
+<p>If you want to keep the bitmap around, you can&#39;t use raw Bitmaps at all. You must make use of <a href="closeable-references.html">closeable references</a> and the <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSubscriber</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span>
+      <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(!</span><span class="n">dataSource</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">FLog</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;Not yet finished - this is just another progressive scan.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>  
+
+    <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;</span> <span class="n">imageReference</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">imageReference</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">CloseableImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imageReference</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="c1">// do something with the image</span>
+      <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">imageReference</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Throwable</span> <span class="n">throwable</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getFailureCause</span><span class="o">();</span>
+    <span class="c1">// handle failure</span>
+  <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">dataSubscriber</span><span class="o">,</span> <span class="n">executor</span><span class="o">);</span>
+</code></pre></div>
+<p>If you want to deviate from the example above and assign the <code>CloseableReference</code> to another variable somewhere else, you can. Just be sure to <a href="closeable-references.html">follow the rules</a>.</p>
+
+
+    <div class="docs-prevnext">
+      
+        <a href="/docs/using-image-pipeline.html#_">&larr; 上一页</a>
+      
+      
+        <a class="right" href="/docs/closeable-references.html#_">下一页 &rarr;</a>
+      
+    </div>
+
+    <a id="_"></a>
+</article>
+
+</div></section>
+<footer><div class='width'>
+    &copy; Copyright 2015, Facebook Inc.
+</div></footer>
+
+<script src="/static/linkify.js"></script>
+<!-- Google Analytics -->
+</body>
+</html>
+

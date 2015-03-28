@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset='utf-8'>
+    <title>Fresco | Requesting Multiple Images</title>
+    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
+    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
+    <link rel='shortcut icon' href='/static/favicon.png'>
+    <meta name='viewport' content='width=480'>
+    <meta property="og:title" content="Requesting Multiple Images" />
+    <meta property="og:site_name" content="fresco">
+    <meta property='og:description' content='Fresco is an image management library.'>
+    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/requesting-multiple-images.html">
+    
+    <meta property='og:type' content='website'>
+    
+    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
+    <!-- Google Analytics -->
+</head>
+<body>
+
+<header class='topbar'><nav class='width'>
+<a href='/'>
+  <img src="/static/fresco-logo.png" class="logo">
+</a>
+    <ul>
+      <li><a href="/docs/index.html#_"
+          
+          class="active" >
+          文档
+      </a></li>
+      <li><a href="/"
+          >
+          关于
+      </a></li>
+      <li><a href="/support.html"
+          >
+          支持
+      </a></li>
+      <li><a href="/javadoc">
+          API
+      </a></li>
+      <li><a href="http://github.com/facebook/fresco">GitHub</a>
+    </ul>
+</nav></header>
+
+
+<section class='content'><div class='width'>
+
+<nav class='toc'>
+  
+    <section>
+      <h3>快速起步</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/download-fresco.html#_">
+              下载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/index.html#_">
+              配置和开始使用
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/concepts.html#_">
+              关键概念
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/supported-uris.html#_">
+              支持的 URIs
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Drawee 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-drawees-xml.html#_">
+              在XML中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-drawees-code.html#_">
+              在Java代码中使用 Drawees
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/drawee-components.html#_">
+              Drawee 模块的组成
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/scaling.html#_">
+              缩放
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/rounded-corners-and-circles.html#_">
+              圆角/圆圈
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-controllerbuilder.html#_">
+              使用ControllerBuilder
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/progressive-jpegs.html#_">
+              Progressive JPEGs
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/animations.html#_">
+              Animated Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/requesting-multiple-images.html#_" class="active">
+              Requesting Multiple Images
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/listening-download-events.html#_">
+              监听下载事件
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/resizing-rotating.html#_">
+              缩放和旋转
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/modifying-image.html#_">
+              图片的修改
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/image-requests.html#_">
+              Image Requests
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/writing-custom-views.html#_">
+              Writing Custom Views
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/gotchas.html#_">
+              Gotchas
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Image Pipeline 指南</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/intro-image-pipeline.html#_">
+              什么是Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/configure-image-pipeline.html#_">
+              Image Pipeline的配置
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/caching.html#_">
+              缓存的行为控制
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-image-pipeline.html#_">
+              直接使用Image Pipeline
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/datasources-datasubscribers.html#_">
+              数据源/订阅数据源
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/closeable-references.html#_">
+              Closeable References
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+    <section>
+      <h3>第三方类库</h3>
+      <ul>
+        
+          <li>
+            <a href="/docs/using-other-network-layers.html#_">
+              自定义网络加载
+            </a>
+            
+          </li>
+        
+          <li>
+            <a href="/docs/using-other-image-loaders.html#_">
+              使用其他的Image Loader
+            </a>
+            
+          </li>
+        
+      </ul>
+    </section>
+  
+</nav>
+
+
+<article class='withtoc'>
+    <h1>
+      Requesting Multiple Images
+      <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-requesting-multiple-images.md" target="_blank">Edit on GitHub</a>
+    </h1>
+    <p></p>
+
+    <p>The methods on this page require <a href="using-controllerbuilder.html">setting your own image request</a>.</p>
+
+<h3>Going from low to high resolution</h3>
+
+<p>Suppose you want to show users a high-resolution, slow-to-download image. Rather than let them stare a placeholder for a while, you might want to quickly download a smaller thumbnail first.</p>
+
+<p>You can set two URIs, one for the low-res image, one for the high one:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">lowResUri</span><span class="o">,</span> <span class="n">highResUri</span><span class="o">;</span>
+<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setLowResImageRequest</span><span class="o">(</span><span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">lowResUri</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">highResUri</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</code></pre></div>
+<h3>Using thumbnail previews</h3>
+
+<p><em>This option is supported only for local URIs, and only for images in the JPEG format.</em></p>
+
+<p>If your JPEG has a thumbnail stored in its EXIF metadata, the image pipeline can return that as an intermediate result. Your Drawee will first show the thumbnail preview, then the full image when it has finished loading and decoding.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
+<span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setLocalThumbnailPreviewsEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</code></pre></div>
+<h3>Loading the first available image</h3>
+
+<p>Most of the time, an image has no more than one URI. Load it, and you&#39;re done.</p>
+
+<p>But suppose you have multiple URIs for the same image. For instance, you might have uploaded an image taken from the camera. Original image would be too big to upload, so the image is downscaled first. In such case, it would be beneficial to first try to get the local-downscaled-uri, then if that fails, try to get the local-original-uri, and if even that fails, try to get the network-uploaded-uri. It would be a shame to download the image that we may have already locally. </p>
+
+<p>The image pipeline normally searches for images in the memory cache first, then the disk cache, and only then goes out to the network or other source. Rather than doing this one by one for each image, we can have the pipeline check for <em>all</em> the images in the memory cache. Only if none were found would disk cache be searched in. Only if none were found there either would an external request be made.</p>
+
+<p>Just create an array of image requests, and pass it to the builder.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri1</span><span class="o">,</span> <span class="n">uri2</span><span class="o">;</span>
+<span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">uri1</span><span class="o">);</span>
+<span class="n">ImageRequest</span> <span class="n">request2</span> <span class="o">=</span> <span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">uri2</span><span class="o">);</span>
+<span class="n">ImageRequest</span><span class="o">[]</span> <span class="n">requests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">request1</span><span class="o">,</span> <span class="n">request2</span> <span class="o">};</span>
+
+<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setFirstAvailableImageRequests</span><span class="o">(</span><span class="n">requests</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</code></pre></div>
+<p>Only one of the requests will be displayed. The first one found, whether at memory, disk, or network level, will be the one returned. The pipeline will assume the order of requests in the array is the preference order. </p>
+
+
+    <div class="docs-prevnext">
+      
+        <a href="/docs/animations.html#_">&larr; 上一页</a>
+      
+      
+        <a class="right" href="/docs/listening-download-events.html#_">下一页 &rarr;</a>
+      
+    </div>
+
+    <a id="_"></a>
+</article>
+
+</div></section>
+<footer><div class='width'>
+    &copy; Copyright 2015, Facebook Inc.
+</div></footer>
+
+<script src="/static/linkify.js"></script>
+<!-- Google Analytics -->
+</body>
+</html>
+
