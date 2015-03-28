@@ -23,26 +23,24 @@ Drawees 负责图片的呈现，包含几个组件，有点像MVC模式。
 
 继承于 [Drawable](http://developer.android.com/reference/android/widget/Drawable.html), 包含用于绘制的图像数据。MVC中的M。
 
-If you need to [customize your image's appearance in Java](using-drawees-code.html), this is the class you will deal with.
+如果你想在Java代码中自定义图片的展示，可以通过这类实现，具体的请参考这里: [在Java代码中自定义显示效果](using-drawees-code.html)
 
 ### DraweeController
 
-The `DraweeController` is the class responsible for actually dealing with the underlying image loader - whether Fresco's own image pipeline, or another.
-
-If you need something more than a single URI to specify the image you want to display, you will need an instance of this class.
+`DraweeController` 负责和 image loader 交互（默认是Fresco中 image pipeline），可以创建一个这个类的实例，来实现对所要显示的图片做更多的控制。
 
 ### DraweeControllerBuilder
 
-`DraweeControllers` are immutable once constructed. They are [built](using-controllerbuilder.html) using the Builder pattern.
+`DraweeControllers` 由 `DraweeControllerBuilder` 采用 Builder 模式创建，创建之后，不可修改。具体参见:  [使用ControllerBuilder](using-controllerbuilder.html)。
 
 ### Listeners
 
-One use of a builder is to specify a [Listener](listening-download-events.html) to execute code upon the arrival, full or partial, of image data from the server.
+使用 ControllerListener 的一个场景就是设置一个 [Listener](listening-download-events.html)监听图片的下载。
 
 ## Image Pipeline
 
-Behind the scenes, Fresco's image pipeline deals with the work done in getting an image. It fetches from the network, a local file, a content provider, or a local resource. It keeps a cache of compressed images on local storage, and a second cache of decompressed images in memory.
+Fresco 的 Image Pipeline 负责图片的获取和管理。图片可以来自远程服务器，本地文件，或者Content Provider，本地资源。压缩后的文件缓存在本地存储中，Bitmap数据缓存在内存中。
 
-The image pipeline uses a special technique called *pinned purgeables* to keep images off the Java heap. This requires callers to `close` images when they are done with them.  
+在5.0系统之后，Image Pipeline 使用`pinned purgeables*将Bitmap数据存在native 内存中。这要求图片不使用时，要显示地释放内存。
 
-`SimpleDraweeView` does this for you automatically, so should be your first choice. Very few apps need to use the image pipeline directly.
+`SimpleDraweeView` 自动处理了这个释放过程，所以没有特殊情况，尽量使用`SimpleDraweeView`，在特殊的场合，如果有需要，也可以直接控制Image Pipeline。

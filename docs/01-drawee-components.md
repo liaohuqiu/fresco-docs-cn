@@ -1,52 +1,58 @@
 ---
 id: drawee-components
-title: Drawee Image Branches
+title: 使用Drawee呈现不同的效果
 layout: docs
 permalink: /docs/drawee-components.html
 prev: using-drawees-code.html
 next: scaling.html
 ---
 
-## Contents
+## 内容导航
 
-* [Definitions](#Definitions)
-* [Actual](#Actual)
-* [Placeholder](#Placeholder)
-* [Failure](#Failure)
-* [Retry](#Retry)
-* [Progress Bar](#ProgressBar)
+* [定义](#Definitions)
+* [设置要加载的图片](#Actual)
+* [占位图](#Placeholder)
+* [加载失败时的占位图](#Failure)
+* [点击重新加载](#点击重新加载(Retry))
+* [进度条(ProgressBar)](#进度条(ProgressBar))
 * [Backgrounds](#Backgrounds)
 * [Overlays](#Overlays)
 * [Pressed State Overlay](#PressedStateOverlay)
 
-## Definitions
+## <a name='Definitions'></a>定义
 
-This page outlines the different image branches that can be displayed in a Drawee, and how they are set.
+本页说明如何设置实现不同的图片呈现效果。
 
-Except for the actual image, all of them can be set by an XML attribute. The value in XML must be either an Android drawable or color resource.
+除了要加载的图片，其他各个设置都可以在xml中指定。在xml中指定的时候，可以是drawable/下的资源，也可以颜色。
 
- They can also be set by a method in the [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) class, if [setting programmatically](using-drawees-code.html). In code, the value can either be from resources or be a custom subclass of [Drawable](http://developer.android.com/reference/android/graphics/drawable/Drawable.html).
+在Java 代码中也可以指定。如果需要 [通过程序设定](using-drawees-code.html) 的话会接触到这个类: [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) 
+ 
+通过代码设置是，设置的值可以是资源id，也可以是Drawable的子类。
 
-Some of the items can even be changed on the fly after the hierarchy has been built. These have a method in the [GenericDraweeHierarchy](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html) class.
+创建完[GenericDraweeHierarchy](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html)之后，也可以通过该类的相关方法，重新设置一些效果。
 
-Several of the drawables can be [scaled](scaling.html).
+大多数的用户呈现不同效果的drawables都是可以[缩放的](scaling.html).
 
-## Actual
+## <a name='Actual'></a>设置要加载的图
 
-The _actual_ image is the target; everything else is either an alternative or a decoration. This is specified using a URI, which can point to an image over the Internet, a local file, a resource, or a content provider.
+除了需要下载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。
+
+所需下载的图片实际是DraweeController的一个属性，而不是DraweeHierarchy的属性。
+
+可使用`setImageURI`方法或者[通过设置DraweeController](using-controllerbuilder.html) 来进行设置。
 
 This is a property of the controller, not the hierarchy. It therefore is not set by any of the methods used by the other Drawee components.
 
-Instead, use the `setImageURI` method or [set a controller](using-controllerbuilder.html) programmatically.
+对于可缩放的类型，DraweeHierarchy 仅对所需下载的图片属性
 
 In addition to the scale type, the hierarchy exposes other methods only for the actual image. These are:
 
-* the focus point (used for the [focusCrop](scaling.html#FocusCrop) scale type only)
-* a color filter
+* focus point (used for the [focusCrop](scaling.html#FocusCrop) scale type only)
+* color filter
 
-Default scale type: `centerCrop`
+默认的缩放类型是: `centerCrop`
 
-## Placeholder
+## <a name="Placeholder"></a>占位图(Placeholder)
 
 The _placeholder_ is shown in the Drawee when it first appears on screen. After you have called `setController` or `setImageURI` to load an image, the placeholder continues to be shown until the image has loaded. 
 
@@ -58,7 +64,7 @@ Hierarchy method: `setPlaceholderImage`
 Default value: a transparent [ColorDrawable](http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html)  
 Default scale type: `centerInside`  
 
-## Failure
+## 设置加载失败占位图
 
 The _failure_ image appears if there is an error loading your image. The most common cause of this is an invalid URI, or lack of connection to the network.
 
@@ -67,7 +73,7 @@ Hierarchy builder method: `setFailureImage`
 Default value: The placeholder image  
 Default scale type: `centerInside`
 
-## Retry
+## 设置：点击重新加载图
 
 The _retry_ image appears instead of the failure image if you have set your controller to enable the tap-to-retry feature. 
 

@@ -42,8 +42,8 @@ Fresco 的 Drawees 设计，带来一些有用的特性：
 * Scale the image to a custom focus point, instead of the centre
 * 圆角图，当然圆圈也行。
 * 下载失败之后，点击重现下载
-* 自定义占位图，自定义叠加图, 或者进度条
-* 指定用户按压时的叠加图
+* 自定义占位图，自定义overlay, 或者进度条
+* 指定用户按压时的overlay
 
 ## 图像的加载
 
