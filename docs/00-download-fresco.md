@@ -1,14 +1,14 @@
 ---
 id: download-fresco
-title: Download Fresco
+title: 下载Fresco
 layout: docs
 permalink: /docs/download-fresco.html
 next: index.html
 ---
 
-You can download Fresco from Maven Central.
+你可以从Maven库下载:
 
-Via Gradle:
+## Gradle:
 
 ```groovy
 dependencies {
@@ -16,7 +16,7 @@ dependencies {
 }
 ```
 
-Via Maven:
+## Maven:
 
 ```xml
 <dependency>
@@ -26,3 +26,8 @@ Via Maven:
 </dependency>
 ```
 
+## Eclipse
+
+```
+呵呵
+```

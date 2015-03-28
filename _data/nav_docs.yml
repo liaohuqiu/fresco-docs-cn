@@ -1,27 +1,27 @@
-- title: Quick Start
+- title: 快速起步
   items:
   - id: download-fresco
-    title: Download Fresco
+    title: 下载
   - id: index
-    title: Getting started with Fresco
+    title: 配置和开始使用 
   - id: concepts
-    title: Concepts
+    title: 关键概念
   - id: supported-uris
-    title: Supported URIs
-- title: Drawee Guide
+    title: 支持的 URIs
+- title: Drawee 指南
   items:
   - id: using-drawees-xml
-    title: Using Drawees in XML
+    title: 在XML中使用 Drawees
   - id: using-drawees-code
-    title: Using Drawees in Code
+    title: 在Java代码中使用 Drawees
   - id: drawee-components
-    title: Drawee Components
+    title: Drawee 模块的组成
   - id: scaling
-    title: Scaling
+    title: 缩放
   - id: rounded-corners-and-circles
-    title: Rounded Corners and Circles
+    title: 圆角/圆圈
   - id: using-controllerbuilder
-    title: Using the ControllerBuilder
+    title: 使用ControllerBuilder
   - id: progressive-jpegs
     title: Progressive JPEGs
   - id: animations
@@ -29,34 +29,34 @@
   - id: requesting-multiple-images
     title: Requesting Multiple Images
   - id: listening-download-events
-    title: Listening to Download Events
+    title: 监听下载事件
   - id: resizing-rotating
-    title: Resizing and Rotating
+    title: 缩放和旋转
   - id: modifying-image
-    title: Modifying the Image
+    title: 图片的修改
   - id: image-requests
     title: Image Requests
   - id: writing-custom-views    
     title: Writing Custom Views
   - id: gotchas
     title: Gotchas
-- title: Image Pipeline Guide
+- title: Image Pipeline 指南
   items:
   - id: intro-image-pipeline
-    title: Introduction to the Image Pipeline
+    title: 什么是Image Pipeline
   - id: configure-image-pipeline
-    title: Configuring the Image Pipeline
+    title: Image Pipeline的配置
   - id: caching
-    title: Cache Behavior
+    title: 缓存的行为控制
   - id: using-image-pipeline
-    title: Using the Image Pipeline Directly
+    title: 直接使用Image Pipeline
   - id: datasources-datasubscribers
-    title: DataSources and DataSubscribers
+    title: 数据源/订阅数据源
   - id: closeable-references
     title: Closeable References
-- title: Third Party Libraries
+- title: 第三方类库
   items:
   - id: using-other-network-layers
-    title: Using Other Network Layers
+    title: 自定义网络加载
   - id: using-other-image-loaders
-    title: Using Other Image Loaders
+    title: 使用其他的Image Loader

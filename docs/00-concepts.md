@@ -1,6 +1,6 @@
 ---
 id: concepts
-title: Concepts
+title: 关键概念
 layout: docs
 permalink: /docs/concepts.html
 prev: index.html
@@ -9,19 +9,19 @@ next: supported-uris.html
 
 ## Drawees
 
-Drawees are spaces in which images are rendered. These are made up of three components, like an Model-View-Controller framework.
+Drawees 负责图片的呈现，包含几个组件，有点像MVC模式。
 
 ### DraweeView
 
-Descended from the Android [View](http://developer.android.com/reference/android/view/View.html) class. 
+继承于 [View](http://developer.android.com/reference/android/view/View.html), 负责图片的显示。
 
-Most apps should use the `SimpleDraweeView` class. Place these in your application using XML or Java code. Set the URI to load with the `setImageURI` method, as explained in the [Getting Started](index.html) page.
+一般情况下，使用`SimpleDraweeView` 即可. 简单的用法，在这个页面：[开始使用](index.html) 。
 
-You can [customize its appearance in XML](using-drawees-xml.html).
+它支持很多自定义效果，参见这里: [自定义显示效果](using-drawees-xml.html).
 
 ### DraweeHierarchy
 
-This is the hierarchy of Android [Drawable](http://developer.android.com/reference/android/widget/Drawable.html) objects that will actually render your content. Think of it as the Model in an MVC.
+继承于 [Drawable](http://developer.android.com/reference/android/widget/Drawable.html), 包含用于绘制的图像数据。MVC中的M。
 
 If you need to [customize your image's appearance in Java](using-drawees-code.html), this is the class you will deal with.
 
@@ -39,7 +39,7 @@ If you need something more than a single URI to specify the image you want to di
 
 One use of a builder is to specify a [Listener](listening-download-events.html) to execute code upon the arrival, full or partial, of image data from the server.
 
-## The Image Pipeline
+## Image Pipeline
 
 Behind the scenes, Fresco's image pipeline deals with the work done in getting an image. It fetches from the network, a local file, a content provider, or a local resource. It keeps a cache of compressed images on local storage, and a second cache of decompressed images in memory.
 

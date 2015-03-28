@@ -1,30 +1,30 @@
 ---
 id: getting-started
-title: Getting started with Fresco
+title: 开始使用 Fresco
 layout: docs
 permalink: /docs/index.html
 prev: download-fresco.html
 next: concepts.html
 ---
 
-If you just want to download an image and display it, showing a placeholder until it comes, use a [SimpleDraweeView](../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html). 
+如果你仅仅是想简单下载一张网络图片，在下载完成之前，显示一张占位图，那么简单使用 [SimpleDraweeView](../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html) 即可。
 
-Near your application startup, initialize the classes:
+在Application 初始化时:
 
 ```java
 Fresco.initialize(context);
 ```
     
-In your XML, add a custom namespace to the top-level element:
+在xml布局文件中, 加入命名空间:
 
 ```xml
-<!-- Any valid element will do here -->
+<!-- 其他元素 -->
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
 ```
 
-Then add the view itself:
+加入`SimpleDraweeView`:
 
 ```xml
 <com.facebook.drawee.view.SimpleDraweeView
@@ -35,14 +35,16 @@ Then add the view itself:
   />
 ```
 
-To show an image, you need only do this:
+开始加载图片
 
 ```java
 draweeView.setImageURI("http://site.com/uri");
 ```
-    
-and Fresco does the rest. 
 
-The placeholder is shown until the image is ready. The image will be downloaded, cached, displayed, and cleared from memory when your view goes off-screen.
+剩下的，Fresco会替你完成: 
+* 显示占位图直到现在完成；
+* 下载图片；
+* 缓存图片；
+* 图片不再显示时，从内存中移除；
 
-
+等等等等。

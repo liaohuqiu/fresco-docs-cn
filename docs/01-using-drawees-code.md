@@ -1,6 +1,6 @@
 ---
 id: using-drawees-code
-title: Using Drawees in Code
+title: 在JAVA代码中使用Drawees
 layout: docs
 permalink: /docs/using-drawees-code.html
 prev: using-drawees-xml.html

@@ -397,6 +397,7 @@ nav.toc ul {
 
 nav.toc ul li {
     line-height: 20px;
+    margin-bottom: 3px;
 }
 
 footer {

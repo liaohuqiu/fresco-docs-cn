@@ -1,16 +1,15 @@
 ---
 id: using-drawees-xml
-title: Using Drawees in XML
+title: 在XML中使用Drawees
 layout: docs
 permalink: /docs/using-drawees-xml.html
 prev: concepts.html
 next: using-drawees-code.html
 ---
 
-Drawees have very extensive customization facilities. 
-The best way to customize your Drawee is to do so in the XML. 
+Drawees 具有极大的可定制性。
 
-Here is an example that sets nearly all possible options:
+下面的例子给出了可以配置的各种选项：
 
 ```xml
 <com.facebook.drawee.view.SimpleDraweeView
@@ -43,23 +42,23 @@ Here is an example that sets nearly all possible options:
   />
 ```
 
-#### Height and width mandatory
+#### 必须设置layout_width和layout_height
 
-You **must** declare both `android:layout_width` and `android:layout_height`. Without both of these two, the view will not be able to lay the image out correctly.
+如果没有在XML中声明这两个属性，将无法正确加载图像。
 
 #### wrap_content
 
-Drawees do not support the `wrap_content` value for the `layout_width` and `layout_height` attributes.
+*Drawees 不支持 `wrap_content` 属性。*
 
-The reason for this is that the content's size changes. The size of your downloaded image can be different from your placeholder - and the failure and retry images, if any, can be still different. 
+所下载的图像可能和占位图尺寸不一致，如果设置出错图或者重试图的话，这些图的尺寸也可能和所下载的图尺寸不一致。
 
-Use of `wrap_content` would force Android to do another layout pass when your image comes in - and for the layout to change before users' eyes, creating a jarring effect.
+如果大小不一致，图像下载完之后，假设如果是`wrap_content`，View将会重新layout，改变大小和位置。这将会导致界面跳跃。
 
-#### Fixing the aspect ratio
+#### 固定宽高比
 
-This is the one time you should use `wrap_content.`
+只有希望显示的固定宽高比时，可以使用`wrap_content`。
 
-You can force a DraweeView to be laid out in a particular aspect ratio. If you want a width:height ratio of 4:3, for instance, do this:
+如果希望显示的图片保持一定宽高比例，如果 4:3，则在XML中:
 
 ```xml
 <com.facebook.drawee.view.SimpleDraweeView
@@ -69,7 +68,8 @@ You can force a DraweeView to be laid out in a particular aspect ratio. If you w
     <!-- other attributes -->
 ```
 
-Then specify your aspect ratio in Java:
+然后在代码中指定显示比例：
+
 
 ```java
 mSimpleDraweeView.setAspectRatio(1.33f);

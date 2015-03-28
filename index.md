@@ -1,65 +1,65 @@
 ---
 layout: default
-title: Fresco | An image management library.
+title: Fresco
 id: home
 hero: true
 ---
 
-# About Fresco
+# 关于 Fresco
 
-Fresco is a powerful system for displaying images in Android applications. It takes care of image loading and display so you don't have to. 
+Fresco 是一个强大的图片加载组件。
 
-Fresco's *image pipeline* will load images from the network, local storage, or local resources. To save data and CPU, it has three levels of cache; two in memory and another in internal storage.
+Fresco 中设计有一个叫做 *image pipeline* 的模块。它负责从网络，从本地文件系统，本地资源加载图片。为了最大限度节省空间和CPU时间，它含有3级缓存设计（2级内存，1级文件）。
 
-Fresco's *Drawees* show a placeholder for you until the image has loaded and automatically show to the image when it arrives. When the image goes off-screen, it automatically releases its memory.
+Fresco 中设计有一个叫做 *Drawees* 模块，方便地显示loading图，当图片不再显示在屏幕上时，及时地释放内存和空间占用。
 
-Fresco supports Android 2.3 (Gingerbread) and later.
+Fresco 支持 Android2.3(API level 9) 及其以上系统。
 
-# Features
+# 特性
 
-### Memory
+## 内存管理
 
-A decompressed image - an Android `Bitmap` - takes up a lot of memory. This leads to more frequent runs of the Java garbage collector. This slows apps down. The problem is especially bad without the improvements to the garbage collector made in Android 5.0.
+一个没有未压缩的图片，即Android中的`Bitmap`，占用大量的内存。大的内存占用势必引发更加频繁的GC。在5.0以下，GC将会显著地引发界面卡顿。
 
-On Android 4.x and lower, Fresco puts images in a special region of Android memory. It also makes sure that images are automatically released from memory when they're no longer shown on screen. This lets your application run faster - and suffer fewer crashes.
+在5.0以下系统，Fresco将图片放到一个特别的内存区域。当然，在图片不显示的时候，占用的内存会自动被释放。这会使得APP更加流畅，减少因图片内存占用而引发的OOM。
 
-Apps using Fresco can run even on low-end devices without having to constantly struggle to keep their image memory footprint under control.
+Fresco 在低端机器上表现一样出色，你再也不用因图片内存占用而思前想后。
 
-### Streaming
+## 图片的渐进式呈现
 
-Progressive JPEG images have been on the Web for years. These let a low-resolution scan of the image download first, then gradually improve the quality as more of the image downloads. This is a lifesaver for users on slow networks.
+渐进式的JPEG图片格式已经流行数年了，渐进式图片格式先呈现大致的图片轮廓，然后随着图片下载的继续，呈现逐渐清晰的图片，这对于移动设备，尤其是慢网络有极大的利好，可带来更好的用户体验。
 
-Android's own imaging libraries don't support streaming. Fresco does. Just specify a URI, and your app will automatically update its display as more data arrives.
+Android 本身的图片库不支持此格式，但是Fresco支持。使用时，和往常一样，仅仅需要提供一个图片的URI即可，剩下的事情，Fresco会处理。
 
-### Animations
+## Gif图和WebP格式
 
-Animated GIFs and WebPs can be challenging for apps. Each frame is a large Bitmap, and each animation is a series of frames. Fresco takes care of loading and disposing of frames and managing their memory.
+是的，支持加载Gif图，支持WebP格式。
 
-### Drawing
+### 图像的呈现
 
-Fresco uses `Drawees` for display. These offer a number of useful features:
+Fresco 的 Drawees 设计，带来一些有用的特性：
     
 * Scale the image to a custom focus point, instead of the centre
-* Show the image with rounded corners, or a circle
-* Let users tap the placeholder to retry load of the image, if the network load failed
-* Show custom backgrounds, overlays, or progress bars on the image
-* Show a custom overlay when the user presses the image
+* 圆角图，当然圆圈也行。
+* 下载失败之后，点击重现下载
+* 自定义占位图，自定义叠加图, 或者进度条
+* 指定用户按压时的叠加图
 
-### Loading 
+## 图像的加载
 
-Fresco's image pipeline lets you customize the load in a variety of ways:
-   
-* Specify several different uris for an image, and choose the one already in cache for display
-* Show a low-resolution image first and swap to a higher-res one when it arrives
-* Send events back into your app when the image arrives
-* If the image has an EXIF thumbnail, show it first until the full image loads (local images only)
-* Resize or rotate the image 
-* Modify the downloaded image in-place
-* Decode WebP images, even on older versions of Android that don't fully support them
+Fresco 的 image pipeline 设计，允许用户在多方面控制图片的加载：
+
+* 为同一个图片指定不同的远程路径，或者使用已经存在本地缓存中的图片
+* 先显示一个低解析度的图片，等高清图下载完之后再显示高清图
+* 加载完成回调通知
+* 对于本地图，如有EXIF缩略图，在大图加载完成之前，可先显示缩略图
+* 缩放或者旋转图片
+* 处理已下载的图片
+* WebP 支持
         
-# More information
+# 了解更多
 
-* Our [blog post](https://code.facebook.com/posts/366199913563917) announcing Fresco
-* [Download](docs/download-fresco.html) Fresco
-* Our [documentation](docs/index.html)
-* Our source code on [GitHub](https://github.com/facebook/fresco)
+* [相关博客](https://code.facebook.com/posts/366199913563917): Fresco的发布
+* [下载](docs/download-fresco.html) Fresco
+* [文档](docs/index.html)
+* [GitHub](https://github.com/facebook/fresco)的源码
