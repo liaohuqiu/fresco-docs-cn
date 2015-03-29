@@ -15,7 +15,7 @@
   - id: using-drawees-code
     title: 在Java代码中使用 Drawees
   - id: drawee-components
-    title: Drawee 模块的组成
+    title: Drawee的各种效果配置
   - id: scaling
     title: 缩放
   - id: rounded-corners-and-circles

@@ -42,6 +42,7 @@ draweeView.setImageURI("http://site.com/uri");
 ```
 
 剩下的，Fresco会替你完成: 
+
 * 显示占位图直到现在完成；
 * 下载图片；
 * 缓存图片；

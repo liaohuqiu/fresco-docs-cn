@@ -1,6 +1,6 @@
 ---
 id: rounded-corners-and-circles
-title: Rounded Corners and Circles
+title: 圆角和圆圈
 layout: docs
 permalink: /docs/rounded-corners-and-circles.html
 prev: scaling.html

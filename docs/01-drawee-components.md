@@ -1,6 +1,6 @@
 ---
 id: drawee-components
-title: 使用Drawee呈现不同的效果
+title: Drawee的各种效果配置
 layout: docs
 permalink: /docs/drawee-components.html
 prev: using-drawees-code.html
@@ -13,8 +13,8 @@ next: scaling.html
 * [设置要加载的图片](#Actual)
 * [占位图](#Placeholder)
 * [加载失败时的占位图](#Failure)
-* [点击重新加载](#点击重新加载(Retry))
-* [进度条(ProgressBar)](#进度条(ProgressBar))
+* [点击重新加载](#Retry)
+* [显示一个进度条](#ProgressBar)
 * [Backgrounds](#Backgrounds)
 * [Overlays](#Overlays)
 * [Pressed State Overlay](#PressedStateOverlay)
@@ -35,108 +35,99 @@ next: scaling.html
 
 ## <a name='Actual'></a>设置要加载的图
 
-除了需要下载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。
+除了需要加载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。
 
-所需下载的图片实际是DraweeController的一个属性，而不是DraweeHierarchy的属性。
+所需加载的图片实际是DraweeController的一个属性，而不是DraweeHierarchy的属性。
 
 可使用`setImageURI`方法或者[通过设置DraweeController](using-controllerbuilder.html) 来进行设置。
 
-This is a property of the controller, not the hierarchy. It therefore is not set by any of the methods used by the other Drawee components.
+对于要加载的图片，除了可以设置缩放类型外，DraweeHierarchy 还公开出一些其他方法用来控制显示效果:
 
-对于可缩放的类型，DraweeHierarchy 仅对所需下载的图片属性
-
-In addition to the scale type, the hierarchy exposes other methods only for the actual image. These are:
-
-* focus point (used for the [focusCrop](scaling.html#FocusCrop) scale type only)
+* focus point (居中焦点, 用于[focusCrop缩放模式](scaling.html#FocusCrop))
 * color filter
 
 默认的缩放类型是: `centerCrop`
 
 ## <a name="Placeholder"></a>占位图(Placeholder)
 
-The _placeholder_ is shown in the Drawee when it first appears on screen. After you have called `setController` or `setImageURI` to load an image, the placeholder continues to be shown until the image has loaded. 
+在调用`setController` 或者 `setImageURI` 之后，占位图开始现实，直到图片加载完成。
 
-In the case of a progressive JPEG, the placeholder only stays until your image has reached the quality threshold, whether the default, or one set by your app.
+对于渐进式格式的JPEG图片，占位图会显示直到满足已加载的图片解析度到达设定值。
 
-XML attribute: `placeholderImage`  
-Hierarchy builder method: `setPlaceholderImage`  
+XML 中属性值: `placeholderImage`  
+Hierarchy builder中的方法: `setPlaceholderImage`  
 Hierarchy method: `setPlaceholderImage`  
-Default value: a transparent [ColorDrawable](http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html)  
-Default scale type: `centerInside`  
+默认值: a transparent [ColorDrawable](http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html)  
+默认缩放类型: `centerInside`  
 
-## 设置加载失败占位图
+## <a name='Failure' ></a>设置加载失败占位图
 
-The _failure_ image appears if there is an error loading your image. The most common cause of this is an invalid URI, or lack of connection to the network.
+如果URI是无效的，或者下载过程中网络不可用，将会导致加载失败。当加载图片出错时，你可以设置一个出错提示图片。
 
-XML attribute: `failureImage`  
-Hierarchy builder method: `setFailureImage`  
-Default value: The placeholder image  
-Default scale type: `centerInside`
+XML 中属性值: `failureImage`  
+Hierarchy builder中的方法: `setFailureImage`  
+默认值: The placeholder image  
+默认缩放类型: `centerInside`
 
-## 设置：点击重新加载图
+## <a name='Retry'></a>点击重新加载图
 
-The _retry_ image appears instead of the failure image if you have set your controller to enable the tap-to-retry feature. 
+在加载失败时，可以设置点击重新加载。这时提供一个图片，加载失败时，会显示这个图片（而不是失败提示图片），提示用户点击重试。
 
-You must [build your own Controller](using-controllerbuilder.html) to do this. Then add the following line
+在[ControllerBuilder](using-controllerbuilder.html) 中如下设置:
 
 ```java
 .setTapToRetryEnabled(true)
 ```
 
-The image pipeline will then attempt to retry an image if the user taps on it. Up to four attempts are allowed before the failure image is shown instead.
+加载失败时，image pipeline 会重试四次；如果还是加载失败，则显示加载失败提示图片。
 
-XML attribute: `retryImage`  
-Hierarchy builder method: `setRetryImage`  
-Default value: The placeholder image   
-Default scale type: `centerInside`
+XML 中属性值: `retryImage`  
+Hierarchy builder中的方法: `setRetryImage`  
+默认值: The placeholder image   
+默认缩放类型: `centerInside`
 
-## <a name="ProgressBar"></a>Progress Bar
+## <a name="ProgressBar"></a>显示一个进度条
 
-If specified, the _progress bar_ image is shown as an overlay over the Drawee until the final image is set.
+设置一个进度条图片，提示用户正在加载。目前，进度条仅仅是提示正在loading，和加载进度无关。
 
-Currently the progress bar remains the same throughout the image load; actually changing in response to progress is not yet supported.
+XML 中属性值: `progressBarImage`  
+Hierarchy builder中的方法: `setProgressBarImage`  
+默认值: None   
+默认缩放类型: `centerInside`
 
-XML attribute: `progressBarImage`  
-Hierarchy builder method: `setProgressBarImage`  
-Default value: None   
-Default scale type: `centerInside`
+## <a name='Backgrounds'></a>背景
 
-## Backgrounds
+背景图会最先绘制，在XML中只可以指定一个背景图，但是在JAVA代码中，可以指定多个背景图。
 
-_Background_ drawables are drawn first, "under" the rest of the hierarchy. 
+当指定一个背景图列表的时候，列表中的第一项会被首先绘制，绘制在最下层，然后依次往上绘制。
 
-Only one can be specified in XML, but in code more than one can be set. In that case, the first one in the list is drawn first, at the bottom.
+背景图片不支持缩放类型，会被强制到`Drawee`尺寸大小。
 
-Background images don't support scale-types and are scaled to the Drawee size. 
+XML 中属性值: `backgroundImage`  
+Hierarchy builder中的方法: `setBackground,` `setBackgrounds`    
+默认值: None   
+默认缩放类型: N/A
 
-XML attribute: `backgroundImage`  
-Hierarchy builder method: `setBackground,` `setBackgrounds`    
-Default value: None   
-Default scale type: N/A
+## <a name='Overlays'></a>设置叠加图(Overlay)
 
-## Overlays
+叠加图会最后被绘制。
 
-_Overlay_ drawables are drawn last, "over" the rest of the hierarchy. 
+和背景图一样，XML中只可以指定一个，如果想指定多个，可以通过JAVA代码实现。
 
-Only one can be specified in XML, but in code more than one can be set. In that case, the first one in the list is drawn first, at the bottom.
+当指定的叠加图是一个列表的时候，列表第一个元素会被先绘制，最后一个元素最后被绘制到最上层。
 
-Overlay images don't support scale-types and are scaled to the Drawee size. 
+同样的，不支持各种缩放类型。
 
-XML attribute: `overlayImage`  
-Hierarchy builder method: `setOverlay,` `setOverlays`    
-Default value: None   
-Default scale type: N/A
+XML 中属性值: `overlayImage`  
+Hierarchy builder中的方法: `setOverlay,` `setOverlays`    
+默认值: None   
+默认缩放类型: N/A
 
-## <a name="PressedStateOverlay"></a>Pressed State Overlay
+## <a name="PressedStateOverlay"></a>设置按压状态下的叠加图
 
-The _pressed state overlay_ is a special overlay shown only when the user presses the screen area of the Drawee. For example, if the Drawee is showing a button, this overlay could have the button change color when pressed.
+同样不支持缩放，用户按压DraweeView时呈现。
 
-The pressed state overlay doesn't support scale-types.
-
-XML attribute: `pressedStateOverlayImage`  
-Hierarchy builder method: `setPressedStateOverlay`    
-Default value: None   
-Default scale type: N/A
-
-
-
+XML 中属性值: `pressedStateOverlayImage`  
+Hierarchy builder中的方法: `setPressedStateOverlay`    
+默认值: None   
+默认缩放类型: N/A
