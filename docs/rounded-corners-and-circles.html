@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Rounded Corners and Circles</title>
+    <title>Fresco | 圆角和圆圈</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Rounded Corners and Circles" />
+    <meta property="og:title" content="圆角和圆圈" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -273,36 +273,37 @@
 
 <article class='withtoc'>
     <h1>
-      Rounded Corners and Circles
+      圆角和圆圈
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-rounded-corners-and-circles.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>Not every image is a rectangle. Apps frequently need images that appear with softer, rounded corners, or as circles. Drawee supports a variety of scenarios, all without the memory overhead of copying bitmaps.</p>
+    <p>Drawee 轻松支持圆角显示，并且显示圆角时，并不复制和修改Bitmap对象，那样太耗费内存。</p>
 
-<h3>What</h3>
+<h3>圆角</h3>
 
-<p>Images can be rounded in two shapes:</p>
-
-<ol>
-<li>As a circle - set <code>roundAsCircle</code> to true.</li>
-<li>As a rectangle, but with rounded corners. Set <code>roundedCornerRadius</code> to some value.</li>
-</ol>
-
-<p>Rectangles support having each of the four corners have a different radius, but this must be specified in Java code rather than XML.</p>
-
-<h3>How</h3>
-
-<p>Images can be rounded with two different methods:</p>
+<p>圆角实际有2中呈现方式:</p>
 
 <ol>
-<li>Uses a shader to actually draw the rounded corners. This works only on the actual image and the <a href="drawee-components.html"> placeholder</a>. Other components, like failure and retry images, are not rounded. This is the default.</li>
-<li>Draws rounded corners by overlaying a solid color, specified by the caller. The Drawee&#39;s background should be static and of the same solid color. Use <code>roundWithOverlayColor</code> in XML, or <code>setOverlayColor</code> in code, for this effect.</li>
+<li>圆圈 - 设置<code>roundAsCircle</code>为true</li>
+<li>圆角 - 设置<code>roundedCornerRadius</code></li>
 </ol>
 
-<h3>In XML</h3>
+<p>设置圆角时，支持4个角不同的半径。XML中无法配置，但可在Java代码中配置。</p>
 
-<p>The <code>SimpleDraweeView</code> class will forward several attributes over to <code>RoundingParams</code>:</p>
+<h3>设置圆角</h3>
+
+<p>可使用以下两种方式:</p>
+
+<ol>
+<li>默认使用一个shader绘制圆角，但是仅仅占位图所要显示的图有圆角效果。失败示意图和重下载示意图无圆角效果。</li>
+<li>叠加一个<code>solid color</code>来绘制圆角。但是背景需要固定成指定的颜色。
+在XML中指定 <code>roundWithOverlayColor</code>, 或者通过调用<code>setOverlayColor</code>来完成此设定。</li>
+</ol>
+
+<h3>XML中配置</h3>
+
+<p><code>SimpleDraweeView</code> 支持如下几种圆角配置:</p>
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;com.facebook.drawee.view.SimpleDraweeView</span>
    <span class="err">...</span>
    <span class="na">fresco:roundedCornerRadius=</span><span class="s">&quot;5dp&quot;</span>
@@ -312,23 +313,25 @@
    <span class="na">fresco:roundingBorderWidth=</span><span class="s">&quot;1dp&quot;</span>
    <span class="na">fresco:roundingBorderColor=</span><span class="s">&quot;@color/red&quot;</span>
 </code></pre></div>
-<h3>In code</h3>
+<h3>代码中配置</h3>
 
-<p>When <a href="using-drawees-code.html">constructing a hierarchy</a>, you can pass an instance of <a href="../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html">RoundingParams</a> to your <code>GenericDraweeHierarchyBuilder:</code></p>
+<p>在创建 <a href="using-drawees-code.html">DraweeHierarchy</a> 时，可以给<code>GenericDraweeHierarchyBuilder</code>指定一个<a href="../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html">RoundingParams</a> 用来绘制圆角效果。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RoundingParams</span> <span class="n">roundingParams</span> <span class="o">=</span> <span class="n">RoundingParams</span><span class="o">.</span><span class="na">fromCornersRadius</span><span class="o">(</span><span class="mi">7</span><span class="n">f</span><span class="o">);</span>
 <span class="n">roundingParams</span><span class="o">.</span><span class="na">setOverlayColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">green</span><span class="o">);</span>
-<span class="c1">// alternatively use fromCornersRadii or asCircle</span>
+<span class="c1">// 或用 fromCornersRadii 以及 asCircle 方法</span>
 <span class="n">genericDraweeHierarchyBuilder</span>
     <span class="o">.</span><span class="na">setRoundingParams</span><span class="o">(</span><span class="n">roundingParams</span><span class="o">);</span>
 </code></pre></div>
-<p>You can also change most of the rounding parameters on the fly:</p>
+<p>你也可以在运行时，改变圆角效果</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RoundingParams</span> <span class="n">roundingParams</span> <span class="o">=</span> 
     <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">().</span><span class="na">getRoundingParams</span><span class="o">();</span>
 <span class="n">roundingParams</span><span class="o">.</span><span class="na">setBorder</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">red</span><span class="o">,</span> <span class="mf">1.0</span><span class="o">);</span>
 <span class="n">roundingParams</span><span class="o">.</span><span class="na">setRoundAsCircle</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">().</span><span class="na">setRoundingParams</span><span class="o">(</span><span class="n">roundingParams</span><span class="o">);</span>
 </code></pre></div>
-<p>The one exception to this is that the <code>RoundingMethod</code> cannot be changed when changing dynamically. Attempting to do so will throw an <code>IllegalStateException.</code></p>
+<blockquote>
+<p>在运行时，不能改变呈现方式: 原本是圆角，不能改为圆圈。</p>
+</blockquote>
 
 
     <div class="docs-prevnext">

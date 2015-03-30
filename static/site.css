@@ -31,8 +31,13 @@ h1, h2, h3, h4 {
     position: relative;
 }
 
+td:first-child {
+    padding-right: 8px;
+}
+
 td {
     vertical-align: top;
+    padding-bottom: 4px;
 }
 
 h1:first-child, h2:first-child, h3:first-child, h4:first-child {

@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Progressive JPEGs</title>
+    <title>Fresco | 渐进式JPEG图</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Progressive JPEGs" />
+    <meta property="og:title" content="渐进式JPEG图" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_" class="active">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -273,29 +273,42 @@
 
 <article class='withtoc'>
     <h1>
-      Progressive JPEGs
+      渐进式JPEG图
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-progressive-jpegs.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p><em>Note: the API in this page is still preliminary and subject to change.</em></p>
+    <p><em>注意: 本页提及的API仅是初步设计，后续可能变动</em></p>
 
-<p>Fresco supports the streaming of progressive JPEG images over the network.</p>
+<p>Fresco 支持渐进式的网络JPEG图。在开始加载之后，图会从模糊到清晰渐渐呈现。</p>
 
-<p>Scans of the image will be shown in the view as you download them. Users will see the quality of the image start out low and gradually become clearer.</p>
+<p>你可以设置一个清晰度标准，在未达到这个清晰度之前，会一直显示占位图。</p>
 
-<p>This is only supported for URIs found over the network.</p>
+<p>渐进式JPEG图仅仅支持网络图。</p>
 
-<p>The placeholder is shown until enough scans have arrived to meet the <em>good enough</em> threshold. This is configurable.</p>
+<h4>初始化</h4>
 
-<h4>Initialization</h4>
+<p><a href="configure-image-pipeline.html">配置Image pipeline时</a> 需要传递一个 <a href="../javadoc/reference/com/facebook/imagepipeline/decoder/ProgressiveJpegConfig.html">ProgressiveJpegConfig</a>. 的实例。</p>
 
-<p>When you <a href="configure-image-pipeline.html">configure</a> the image pipeline, you must pass in an instance of <a href="../javadoc/reference/com/facebook/imagepipeline/decoder/ProgressiveJpegConfig.html">ProgressiveJpegConfig</a>.</p>
+<p>这个实例需要完成两个事情:
+1.  返回下一个需要解码的扫描次数
+2.  确定多少个扫描次数之后的图片才能开始显示。</p>
 
-<p>This does two things. You should define one method that, given a scan number, returns the number of the next one to decode. The other decides what scan number is &#39;good enough&#39; to display on screen.</p>
+<p>下面的实例中，为了实现节省CPU，并不是每个扫描都进行解码。</p>
 
-<p>This example will decode no more than every other scan of the image, using less CPU than decoding every scan.
-Note: scan with the bigger number than nextScanNumberToDecode might be decoded. In this eample, if the <code>getNextScanNumberToDecode</code> method gets called after the following scans were fetched: <code>1</code>, <code>4</code>, <code>5</code>, <code>10</code>, only scans <code>4</code> and <code>10</code> are going to be decoded. Since no scans were decoded at the beginning, the first scan that is allowed to be decoded is <code>0 + 2 = 2</code>. Scan number <code>1</code> doesn&#39;t meet the criteria and only when the next scan greater than or equal to <code>2</code> arrives (in this case <code>4</code>), the first decode will happen. Similarly, the scan number 5 gets ignored, and the first scan greater than or equal to <code>4 + 2 = 6</code> is going to be decoded next (in this case <code>10</code>).</p>
+<p>注意:</p>
+
+<ul>
+<li>每次解码完之后，调用<code>getNextScanNumberToDecode</code>, 等待扫描值大于返回值，才有可能进行解码。</li>
+</ul>
+
+<p>假设，随着下载的进行，下载完的扫描序列如下: <code>1, 4, 5, 10</code>。那么：</p>
+
+<ol>
+<li> 首次调用<code>getNextScanNumberToDecode</code>返回为2， 因为初始时，解码的扫描数为0。</li>
+<li> 那么1将不会解码，下载完成4个扫描时，解码一次。下个解码为扫描数为6</li>
+<li> 5不会解码，10才会解码</li>
+</ol>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ProgressiveJpegConfig</span> <span class="n">pjpegConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">ProgressiveJpegConfig</span><span class="o">()</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNextScanNumberToDecode</span><span class="o">(</span><span class="kt">int</span> <span class="n">scanNumber</span><span class="o">)</span> <span class="o">{</span>
@@ -312,11 +325,11 @@ Note: scan with the bigger number than nextScanNumberToDecode might be decoded. 
     <span class="o">.</span><span class="na">setProgressiveJpegConfig</span><span class="o">(</span><span class="n">pjpeg</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div>
-<p>Instead of implementing this interface yourself, you can also instantiate the <a href="../javadoc/reference/com/facebook/imagepipeline/decoder/SimpleProgressiveJpegConfig.html">SimpleProgressiveJpegConfig</a> class.</p>
+<p>除了自己实现ProgressiveJpegConfig， 也可以直接使用<a href="../javadoc/reference/com/facebook/imagepipeline/decoder/SimpleProgressiveJpegConfig.html">SimpleProgressiveJpegConfig</a>.</p>
 
 <h4>At Request Time</h4>
 
-<p>Currently, you must explicitly request progressive rendering for each image:</p>
+<p>目前，我们必须显式地在加载时，允许渐进式JPEG图片加载。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span>
     <span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
@@ -329,7 +342,7 @@ Note: scan with the bigger number than nextScanNumberToDecode might be decoded. 
 
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<p>We hope to add support for using progressive images with <code>setImageURI</code> in a future release.</p>
+<p>我们希望在后续的版本中，在<code>setImageURI</code>方法中可以直接支持渐进式图片加载。</p>
 
 
     <div class="docs-prevnext">

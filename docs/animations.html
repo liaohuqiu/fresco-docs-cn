@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Animated Images</title>
+    <title>Fresco | 动画图支持</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Animated Images" />
+    <meta property="og:title" content="动画图支持" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_" class="active">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -273,18 +273,16 @@
 
 <article class='withtoc'>
     <h1>
-      Animated Images
+      动画图支持
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-animations.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>Fresco supports animated GIF and WebP images.</p>
+    <p>Fresco 支持GIF和WebP 格式图片；支持WebP 格式的动画图也支持(包括扩展WebP 格式)，支持2.3及其以后那些没有原生WebP支持的系统。</p>
 
-<p>We support WebP animations, even in the extended WebP format, on versions of Android going back to 2.3, even those that don&#39;t have built-in native support.</p>
+<h3>设置动画图自动播放</h3>
 
-<h3>Playing animations automatically</h3>
-
-<p>If you want your animated image to start playing automatically when it comes on-screen, and stop when it goes off, just say so in your <a href="image-requests.html">image request</a>:</p>
+<p>如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在<a href="image-requests.html">image request</a> 中简单设置，如下:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setAutoPlayAnimation</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
@@ -297,9 +295,9 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<h3>Playing animations manually</h3>
+<h3>手动控制动画图播放</h3>
 
-<p>You may prefer to directly control the animation in your own code. In that case you&#39;ll need to listen for when the image has loaded, so it&#39;s even possible to do that. </p>
+<p>也许，你希望在图片加载完之后，手动控制动画的播放，那么这样做：</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ControllerListener</span> <span class="n">controllerListener</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BaseControllerListener</span><span class="o">()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinalImageSet</span><span class="o">(</span>
@@ -307,7 +305,7 @@
         <span class="nd">@Nullable</span> <span class="n">ImageInfo</span> <span class="n">imageInfo</span><span class="o">,</span>
         <span class="nd">@Nullable</span> <span class="n">Animatable</span> <span class="n">anim</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">anim</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="c1">// app-specific logic to enable animation starting</span>
+      <span class="c1">// 根据业务逻辑，在合适的时机播放动画。</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
@@ -319,11 +317,14 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<p>The controller exposes an instance of the <a href="http://developer.android.com/reference/android/graphics/drawable/Animatable.html">Animatable</a> interface. If non-null, you can drive your animation with it:</p>
+<p>另外，controller提供对<a href="http://developer.android.com/reference/android/graphics/drawable/Animatable.html">Animatable</a> 的访问。</p>
+
+<p>如果有可用动画的话，可对动画进行灵活的控制:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Animatable</span> <span class="n">animation</span> <span class="o">=</span> <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">().</span><span class="na">getAnimatable</span><span class="o">();</span>
 <span class="k">if</span> <span class="o">(</span><span class="n">animation</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// 开始播放</span>
   <span class="n">animation</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-  <span class="c1">// later</span>
+  <span class="c1">// 一段时间之后，根据业务逻辑，停止播放</span>
   <span class="n">animation</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div>

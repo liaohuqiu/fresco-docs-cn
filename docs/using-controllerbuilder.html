@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Using the ControllerBuilder</title>
+    <title>Fresco | ControllerBuilder</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Using the ControllerBuilder" />
+    <meta property="og:title" content="ControllerBuilder" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -273,18 +273,20 @@
 
 <article class='withtoc'>
     <h1>
-      Using the ControllerBuilder
+      ControllerBuilder
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-using-controllerbuilder.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p><code>SimpleDraweeView</code> has two methods for specifying an image. The easy way is to just call <code>setImageURI.</code> </p>
+    <p><code>SimpleDraweeView</code> 有两个方法可以设置所要加载显示图片，简单的方法就是<code>setImageURI</code>。</p>
 
-<p>If you want more control over how the Drawee displays your image, you can use a <a href="concepts.html">DraweeController</a>. This page explains how to build and use one.</p>
+<p>如果你需要对加载显示的图片做更多的控制和定制，那就需要用到<a href="concepts.html#DraweeController">DraweeController</a>，本页说明如何使用。</p>
 
-<h3>Building a DraweeController</h3>
+<h3>DraweeController</h3>
 
-<p>Then pass the image request to a <a href="../javadoc/reference/com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilder.html">PipelineDraweeControllerBuilder</a>. You then specify additional options for the controller:</p>
+<p>首先，创建一个DraweeController, 然后传递图片加载请求给<a href="../javadoc/reference/com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilder.html">PipelineDraweeControllerBuilder</a>. </p>
+
+<p>随后，你可以控制controller的其他选项了:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ControllerListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BaseControllerListener</span><span class="o">()</span> <span class="o">{...}</span>
 
 <span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
@@ -296,17 +298,17 @@
 
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<p>You should always call <code>setOldController</code> when building a new controller. This prevents an unneeded memory allocation.</p>
+<p>在指定一个新的controller的时候，使用<code>setOldController</code>，这可节省不必要的内存分配。</p>
 
-<p>More details:</p>
+<p>更多细节:</p>
 
 <ul>
 <li><a href="listening-download-events.html">Controller Listeners</a></li>
 </ul>
 
-<h3><a name="ImageRequest"></a>Customizing the ImageRequest</h3>
+<h3><a name="ImageRequest"></a>自定义图片加载请求</h3>
 
-<p>For still more advanced usage, you might need to send an <a href="../javadoc/reference/com/facebook/imagepipeline/request/ImageRequest.html">ImageRequest</a> to the pipeline, instead of merely a URI. An example of this is using a <a href="modifying-image.html">postprocessor</a>.</p>
+<p>在更进一步的用法中，你需要给Image pipeline 发送一个ImageRequest。下面是一个图片加载后，<a href="modifying-image.html">使用后处理器(postprocessor)</a> 进行图片后处理的例子.</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">Postprocessor</span> <span class="n">myPostprocessor</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Postprocessor</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
@@ -316,15 +318,15 @@
 <span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
-    <span class="c1">// other setters as you need</span>
+    <span class="c1">// 其他设置</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div>
-<p>More details:</p>
+<p>更多细节:</p>
 
 <ul>
-<li><a href="modifying-image.html">Postprocessors</a></li>
-<li><a href="requesting-multiple-images.html">Requesting Multiple Images</a></li>
-<li><a href="resizing-rotating.html">Resizing and Rotating</a></li>
+<li><a href="modifying-image.html">后处理器(Postprocessors)</a></li>
+<li><a href="requesting-multiple-images.html">加载多个图片</a></li>
+<li><a href="resizing-rotating.html">缩放和旋转图片</a></li>
 </ul>
 
 

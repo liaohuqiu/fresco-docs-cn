@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Scaling</title>
+    <title>Fresco | 缩放</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Scaling" />
+    <meta property="og:title" content="缩放" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -273,79 +273,79 @@
 
 <article class='withtoc'>
     <h1>
-      Scaling
+      缩放
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-scaling.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>You can specify a different scale type for each of the <a href="drawee-components.html">different drawables</a> in your Drawee. The </p>
+    <p>对于 Drawee 的<a href="drawee-components.html">各种效果配置</a>，其中一些是支持缩放类型的。</p>
 
-<h3>Available scale types</h3>
+<h3>可用的缩放类型</h3>
 
 <table><thead>
 <tr>
-<th>Scale Type</th>
-<th>Explanation</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>center</td>
-<td>Center the image in the view, but perform no scaling.</td>
+<td>居中，无缩放</td>
 </tr>
 <tr>
 <td>centerCrop</td>
-<td>Scales the image so that both dimensions will be greater than or equal to the corresponding dimension of the parent. <br>One of width or height will fit exactly. <br>The image is centered within parent&#39;s bounds.</td>
+<td>保持宽高比缩小或放大，使得两边都大于或等于显示边界。居中显示。</td>
 </tr>
 <tr>
 <td><a href="#focusCrop">focusCrop</a></td>
-<td>Same as centerCrop, but based around a caller-specified focus point instead of the center.</td>
+<td>同centerCrop, 但居中点不是中点，而是指定的某个点</td>
 </tr>
 <tr>
 <td>centerInside</td>
-<td>Downscales the image so that it fits entirely inside the parent. <br>Unlike <code>fitCenter,</code> no upscaling will be performed. <br>Aspect ratio is preserved. <br>The image is centered within parent&#39;s bounds.</td>
+<td>使两边都在显示边界内，居中显示。<br/>如果图尺寸大于显示边界，则保持长宽比缩小图片。</td>
 </tr>
 <tr>
 <td>fitCenter</td>
-<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is centered within the parent&#39;s bounds.</td>
+<td>保持宽高比，缩小或者放大，使得图片完全显示在显示边界内。居中显示</td>
 </tr>
 <tr>
 <td>fitStart</td>
-<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the top-left corner of the parent.</td>
+<td>同上。但不居中，和显示边界左上对齐</td>
 </tr>
 <tr>
 <td>fitEnd</td>
-<td>Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the bottom-right corner of the parent.</td>
+<td>同fitCenter， 但不居中，和显示边界右下对齐</td>
 </tr>
 <tr>
 <td>fitXY</td>
-<td>Scales width and height independently, so that the image matches the parent exactly. <br>Aspect ratio is not preserved.</td>
+<td>不保存宽高比，填充满显示边界</td>
 </tr>
 <tr>
 <td><a href="#none">none</a></td>
-<td>Used for Android&#39;s tile mode.</td>
+<td>如要使用tile mode显示, 需要设置为none</td>
 </tr>
 </tbody></table>
 
-<p>These are mostly the same as those supported by the Android <a href="http://developer.android.com/reference/android/widget/ImageView.ScaleType.html">ImageView</a> class.</p>
+<p>这些缩放类型和Android <a href="http://developer.android.com/reference/android/widget/ImageView.ScaleType.html">ImageView</a> 支持的缩放类型几乎一样.</p>
 
-<p>The one unsupported type is <code>matrix.</code> In its place, Fresco offers <code>focusCrop,</code> which will usually work better.</p>
+<p>唯一不支持的缩放类型是<code>matrix.</code> Fresco 提供了<code>focusCrop</code> 作为补充。通常这个缩放效果更佳。</p>
 
 <h3>focusCrop</h3>
 
-<p>Android, and Fresco, offer a <code>centerCrop</code> scale type, which will fill the entire viewing area while preserving the aspect ratio of the image, cropping as necessary.</p>
+<p><code>centerCrop</code>缩放模式会保持长宽比，缩放图片，填充满显示边界，居中显示。这个缩放模式在通常情况下很有用。</p>
 
-<p>This is very useful, but the trouble is the cropping doesn&#39;t always happen where you need it. If, for instance, you want to crop to someone&#39;s face in the bottom right corner of the image, <code>centerCrop</code> will do the wrong thing.</p>
+<p>但是对于人脸等图片时，一味地居中显示，这个模式可能会裁剪掉一些有用的信息。</p>
 
-<p>By specifying a focus point, you can say which part of the image should be centered in the view. If you specify the focus point to be at the top of the image, such as (0.5f, 0f), we guarantee that, no matter what, this point will be visible and centered in the view as much as possible.</p>
+<p>以人脸图片为例，借助一些类库，我们可以识别出人脸所在位置。如果可以设置以人脸位置居中裁剪显示，那么效果会好很多。</p>
 
-<p>Focus points are specified in a relative coordinate system. That is, (0f, 0f) is the top-left corner, and (1f, 1f) is the bottom-right corner. Relative coordinates allow focus points to be scale-invariant, which is highly useful.</p>
+<p>Fresco的focusCrop缩放模式正是为此而设计。只要提供一个居中聚焦点，显示时就会<strong>尽量</strong>以此点为中心。</p>
 
-<p>A focus point of (0.5f, 0.5f) is equivalent to a scale type of <code>centerCrop.</code></p>
+<p>居中点是以相对方式给出的，比如(0.5f, 0.5f)就是居中显示，(0f, 0f)就是左上对齐显示。</p>
 
-<p>To use focus points, you must first set the right scale type in your XML:</p>
+<p>如果要使用此缩放模式，首先指定缩放模式。在XML:</p>
 <div class="highlight"><pre><code class="language-xml" data-lang="xml">  fresco:actualImageScaleType=&quot;focusCrop&quot;
 </code></pre></div>
-<p>In your Java code, you must programmatically set the correct focus point for your image:</p>
+<p>在Java代码中</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">PointF</span> <span class="n">focusPoint</span><span class="o">;</span>
 <span class="c1">// your app populates the focus point</span>
 <span class="n">mSimpleDraweeView</span>
@@ -354,7 +354,7 @@
 </code></pre></div>
 <h3>none</h3>
 
-<p>If you are using Drawables that make use of Android&#39;s tile mode, you need to use the <code>none</code> scale type for this to work correctly.</p>
+<p>如果你要使用tile mode进行显示，那么需要将scale type 设置为none.</p>
 
 
     <div class="docs-prevnext">

@@ -106,7 +106,7 @@
         
           <li>
             <a href="/docs/drawee-components.html#_">
-              Drawee 模块的组成
+              Drawee的各种效果配置
             </a>
             
           </li>
@@ -134,21 +134,21 @@
         
           <li>
             <a href="/docs/progressive-jpegs.html#_">
-              Progressive JPEGs
+              渐进式JPEG图
             </a>
             
           </li>
         
           <li>
             <a href="/docs/animations.html#_">
-              Animated Images
+              动画图(gif)
             </a>
             
           </li>
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              Requesting Multiple Images
+              批量图片请求
             </a>
             
           </li>
@@ -176,21 +176,21 @@
         
           <li>
             <a href="/docs/image-requests.html#_">
-              Image Requests
+              图片请求
             </a>
             
           </li>
         
           <li>
             <a href="/docs/writing-custom-views.html#_">
-              Writing Custom Views
+              自定义View
             </a>
             
           </li>
         
           <li>
             <a href="/docs/gotchas.html#_">
-              Gotchas
+              一些陷进
             </a>
             
           </li>
@@ -278,18 +278,16 @@
     </h1>
     <p></p>
 
-    <h3>Change the image</h3>
-
-<p>The easy to way is to call </p>
+    <h3>设置或更改要显示的图片</h3>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setImageURI</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
 </code></pre></div>
-<p>For more advanced requirements, use a <a href="using-controllerbuilder.html">controller builder</a>.</p>
+<p>如果要更加复杂的配置，可使用<a href="using-controllerbuilder.html">ControllerBuilder</a>;</p>
 
-<h3>Customizing the hierarchy</h3>
+<h3>自定义显示图</h3>
 
-<p>For most apps, specify the parameters of their hierarchy in <a href="using-drawees-xml">XML</a> provides all the customization they need. In some cases, though, you may need to go further.</p>
+<p>一般情况下，在<a href="using-drawees-xml.html">XML设置显示效果即可</a>, 如果想更多定制化，可以这样:</p>
 
-<p>We create an instance of the builder and then set it to the view:</p>
+<p>创建一个 builder 然后设置给 DraweeView:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Drawable</span><span class="o">&gt;</span> <span class="n">backgroundsList</span><span class="o">;</span>
 <span class="n">List</span><span class="o">&lt;</span><span class="n">Drawable</span><span class="o">&gt;</span> <span class="n">overlaysList</span><span class="o">;</span>
 <span class="n">GenericDraweeHierarchyBuilder</span> <span class="n">builder</span> <span class="o">=</span>
@@ -302,41 +300,47 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setHierarchy</span><span class="o">(</span><span class="n">hierarchy</span><span class="o">);</span>
 </code></pre></div>
-<p>Do <strong>not</strong> call <code>setHierarchy</code> more than once on the same view, even if the view is recycled. The hierarchy is expensive to create and is intended to be used more than once. Use <code>setController</code> or <code>setImageURI</code> to change the image shown in it.</p>
+<p>对于同一个View，请不要多次调用<code>setHierarchy</code>，即使这个View是可回收的。创建 DraweeHierarchy 的较为耗时的一个过程，应该多次利用。</p>
 
-<h3>Modifying the hierarchy in-place</h3>
+<p>如果要改变所要显示的图片可使用<code>setController</code> 或者 <code>setImageURI</code>。</p>
 
-<p>Some attributes of the hierarchy can be changed while the application is running. </p>
+<h3>修改 DraweeHierarchy</h3>
 
-<p>You would first need to get it from the View:</p>
+<p>DraweeHierarchy 的一些属性可以在运行时改变。</p>
+
+<p>要改变这些属性，首先获取一个引用:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">();</span>
 </code></pre></div>
-<h4>Change the placeholder</h4>
+<h4>修改占位图</h4>
 
-<p>Then you could modify the placeholder, either with a resource id:</p>
+<p>修改占位图为资源id:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">placeholderId</span><span class="o">);</span>
 </code></pre></div>
-<p>or a full-fledged <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a>:</p>
+<p>或者修改为一个 <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Drawable</span> <span class="n">drawable</span><span class="o">;</span> 
-<span class="c1">// create your drawable</span>
+<span class="c1">// 创建一个drawable</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">drawable</span><span class="o">);</span>
 </code></pre></div>
-<h4>Change the image display</h4>
+<h4>修改显示的图像</h4>
 
-<p>You can change the <a href="scaling.html">scale type</a>:</p>
+<p>修改<a href="scaling.html">缩放类型</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageScaleType</span><span class="o">(</span><span class="n">ScalingUtils</span><span class="o">.</span><span class="na">ScaleType</span><span class="o">.</span><span class="na">CENTER_INSIDE</span><span class="o">);</span>
 </code></pre></div>
-<p>If you have chosen scale type <code>focusCrop,</code> you&#39;ll need to set a focus point:</p>
+<p>当然，如果修改为 <code>focusCrop,</code> 需要指定一个居中点:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageFocusPoint</span><span class="o">(</span><span class="n">point</span><span class="o">);</span>
 </code></pre></div>
-<p>You can add a color filter to the image:</p>
+<p>或者设置一个color filter:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ColorFilter</span> <span class="n">filter</span><span class="o">;</span>
-<span class="c1">// create your filter</span>
+<span class="c1">// 创建filter</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageColorFilter</span><span class="o">(</span><span class="n">filter</span><span class="o">);</span>
 </code></pre></div>
-<h4>Rounding</h4>
+<h4>圆角</h4>
 
 <p>All of the <a href="rounded-corners-and-circles.html">rounding related params</a>, except the rounding method, can be modified. You get a <code>RoundingParams</code> object from the hierarchy, modify it, and set it back again:</p>
+
+<p>除了圆角显示方式（原来为圆角的不能修改为圆圈，反之亦然），其他圆角相关的呈现参数, <a href="rounded-corners-and-circles.html">具体参见这里</a> 是可以动态修改的。</p>
+
+<p>如下: 获取DraweeHierarchy的圆角显示参数，修改圆角半径为10。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RoundingParams</span> <span class="n">roundingParams</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="na">getRoundingParams</span><span class="o">();</span>
 <span class="n">roundingParams</span><span class="o">.</span><span class="na">setCornersRadius</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setRoundingParams</span><span class="o">(</span><span class="n">roundingParams</span><span class="o">);</span>
