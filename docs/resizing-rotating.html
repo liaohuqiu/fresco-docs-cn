@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Resizing and Rotating</title>
+    <title>Fresco | 缩放和旋转图片</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Resizing and Rotating" />
+    <meta property="og:title" content="缩放和旋转图片" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -148,7 +148,7 @@
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              批量图片请求
+              多图请求级图片复用
             </a>
             
           </li>
@@ -190,7 +190,7 @@
         
           <li>
             <a href="/docs/gotchas.html#_">
-              一些陷进
+              一些陷阱
             </a>
             
           </li>
@@ -273,40 +273,42 @@
 
 <article class='withtoc'>
     <h1>
-      Resizing and Rotating
+      缩放和旋转图片
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-resizing-rotating.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>These features require you to <a href="using-controllerbuilder.html#ImageRequest">construct an image request</a> directly.</p>
+    <p>使用这个功能需要直接<a href="using-controllerbuilder.html#ImageRequest">创建 image request</a>。</p>
 
-<h2>Resizing Images</h2>
+<h2>缩放图片</h2>
 
-<h3>Should you resize?</h3>
+<h3>什么时候该修改图片尺寸</h3>
 
-<p>In general, the order of preference in a URI / display area size difference is:</p>
+<p>一般地，当所要显示的图片和显示区域大小不一致时，会按以下方式进行处理。</p>
 
 <ol>
-<li>Request a smaller image from your server</li>
-<li>Scale the image</li>
-<li>Resize the image.</li>
+<li>从服务器下载小一些的图片</li>
+<li>显示时缩放图片</li>
+<li>调整图片尺寸大小</li>
 </ol>
 
-<p>If your server has a different URI with a smaller version of the image, this is nearly always the best thing to fetch. This avoid wasting your users&#39; data, and saves memory and CPU time in your app.</p>
+<p>对于一个图片，如果服务器支持不同尺寸的缩略图，那么每次下载都选择尺寸最匹配的图片，这个不仅节省数据流量也节约本地储存和CPU。</p>
 
-<p>If your server does not have an alternate URI, or if you are dealing with a local file, the second-best choice is <a href="scaling.html">scaling</a>. Scaling uses Android&#39;s own built-in facilities to match the image to the view size. On Android 4.0 and later, this is hardware-accelerated on devices with a GPU. Most of the time, it is the fastest and most effective way to display the image in the size you want. Simply specify the <code>layout_width</code> and <code>layout_height</code> of your <code>SimpleDraweeView</code>, as you would for any Android view. Then specify a <a href="scaling.html">scale type</a>.</p>
+<p>如果服务器不支持，或者处理本地图片的话，第二个选择是<a href="scaling.html">使用缩放类型</a>。缩放是用Androi内置的功能使图像和显示边界相符。在4.0之后，支持硬件加速。这在大部分情况下是最快，同时也是最高效的显示一张和显示边界大小相符的图片的方式。首先指定<code>layout_width</code>和<code>layout_width</code>为指定值，然后指定<a href="scaling.html">缩放类型</a></p>
 
-<p>However, scaling may be inadvisable when the image is much larger than the area you will display it in, since decoding a large image may result in too large a memory cost. In those cases you can resize.</p>
+<p>但当所要显示的图片比显示区域大许多的时候，不推荐这样做，缩放过程会导致大量的内存消耗。</p>
 
-<h3>What resizing does</h3>
+<p>这时，需要改变图片尺寸。</p>
 
-<p>Resizing does not modify the original file. Resizing just resizes an encoded image in memory, prior to being decoded.</p>
+<h3>修改图片尺寸</h3>
 
-<p>This can carry out a much greater range of resizing than is possible with Android&#39;s facilities. Images taken with the device&#39;s camera, in particular, are often much too large to scale and need to be resized before display on the device.</p>
+<p>调整大小并不是修改原来的文件，而是在解码之前，在native内存中修改。</p>
 
-<p>We currently only support resizing for images in the JPEG format. Most Android devices with cameras store files in JPEG.</p>
+<p>这个缩放方法，比Android内置的缩放范围更大。Android相机生成的照片一般尺寸都很大，需要调整大小之后才能被显示。</p>
 
-<p>To resize pass a <a href="../javadoc/reference/com/facebook/imagepipeline/common/ResizeOptions.html">ResizeOptions</a> object when constructing an <code>ImageRequest</code>:</p>
+<p>目前，仅仅支持JPEG格式的图片，同时，大部分的Android系统相机图片都是JPEG的。</p>
+
+<p>如果要修改图片尺寸，创建<code>ImageRequest</code>时，提供一个 <a href="../javadoc/reference/com/facebook/imagepipeline/common/ResizeOptions.html">ResizeOptions</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="s">&quot;file:///mnt/sdcard/MyApp/myfile.jpg&quot;</span><span class="o">;</span>
 <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">50</span><span class="o">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">50</span><span class="o">;</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
@@ -318,9 +320,9 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<h2><a name="rotate"></a>Auto-rotation</h2>
+<h2><a name="rotate"></a>自动旋转</h2>
 
-<p>It&#39;s very annoying to users to see their images show up sideways! Many devices store the orientation of the image in metadata in the JPEG file. If you want images to be automatically rotated to match the device&#39;s orientation, you can say so in the image request:</p>
+<p>如果看到的图片是侧着的，用户是难受的。许多设备会在JPEG文件的metadata中记录下照片的方向。如果你想图片呈现的方向和设备屏幕的方向一致，你可以简单地这样做到:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setAutoRotateEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>

@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Listening to Download Events</title>
+    <title>Fresco | 监听下载事件</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Listening to Download Events" />
+    <meta property="og:title" content="监听下载事件" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -148,7 +148,7 @@
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              批量图片请求
+              多图请求级图片复用
             </a>
             
           </li>
@@ -190,7 +190,7 @@
         
           <li>
             <a href="/docs/gotchas.html#_">
-              一些陷进
+              一些陷阱
             </a>
             
           </li>
@@ -273,22 +273,20 @@
 
 <article class='withtoc'>
     <h1>
-      Listening to Download Events
+      监听下载事件
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-listening-download-events.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <h4>Motivation</h4>
+    <p>你也许想在图片下载完成或者下载失败之后，做一些其他事情。</p>
 
-<p>Your app may want to execute actions of its own when an image arrives - perhaps make another view visible, or show a caption. You may also want to do something in case of a network failure, like showing an error message to the user. </p>
+<p>图片是后台线程异步加载的，我们可以使用一个<code>ControllerListener</code>实现事件的监听。</p>
 
-<p>Loading images is, of course, asynchronous. So you need some way of listening to events posted by the DraweeController. The mechanism for doing this is a controller listener.</p>
+<p><em>在监听事件回调时，无法修改图片，如果需要修改图片，可使用<a href="modifying-image.html">后处理器(Postprocessor)</a></em></p>
 
-<p><em>Note: this does not allow you to modify the image itself. To do that, use a <a href="modifying-image.html">Postprocessor</a>.</em></p>
+<h4>使用方法</h4>
 
-<h4>Usage</h4>
-
-<p>To use it, you merely define an instance of the <code>ControllerListener</code> interface. We recommend subclassing <code>BaseControllerListener:</code></p>
+<p>简单定义一个<code>ControllerListener</code>即可，推荐使用<code>BaseControllerListener</code>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ControllerListener</span> <span class="n">controllerListener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaseControllerListener</span><span class="o">&lt;</span><span class="n">ImageInfo</span><span class="o">&gt;()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinalImageSet</span><span class="o">(</span>
@@ -328,9 +326,9 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<p><code>onFinalImageSet</code> or <code>onFailure</code> is called for all image loads. </p>
+<p>对所有的图片加载，<code>onFinalImageSet</code> 或者 <code>onFailure</code> 都会被触发。前者在成功时，后者在失败时。</p>
 
-<p>If <a href="progressive-jpegs.html">progressive decoding</a> is enabled, and the image supports it, <code>onIntermediateImageSet</code> is called in response to each scan that gets decoded. Which scans get decoded is determined by your <a href="progressive-jpegs.html">configuration</a>.</p>
+<p>如果允许呈现<a href="progressive-jpegs.html">渐进式JPEG</a>，同时图片也是渐进式图片，<code>onIntermediateImageSet</code>会在每个扫描被解码后回调。具体图片的那个扫描会被解码，参见<a href="progressive-jpegs.html">渐进式JPEG图</a></p>
 
 
     <div class="docs-prevnext">
