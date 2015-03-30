@@ -23,11 +23,11 @@
   - id: using-controllerbuilder
     title: 使用ControllerBuilder
   - id: progressive-jpegs
-    title: Progressive JPEGs
+    title: 渐进式JPEG图
   - id: animations
-    title: Animated Images
+    title: 动画图(gif)
   - id: requesting-multiple-images
-    title: Requesting Multiple Images
+    title: 批量图片请求
   - id: listening-download-events
     title: 监听下载事件
   - id: resizing-rotating
@@ -35,11 +35,11 @@
   - id: modifying-image
     title: 图片的修改
   - id: image-requests
-    title: Image Requests
+    title: 图片请求
   - id: writing-custom-views    
-    title: Writing Custom Views
+    title: 自定义View
   - id: gotchas
-    title: Gotchas
+    title: 一些陷进
 - title: Image Pipeline 指南
   items:
   - id: intro-image-pipeline

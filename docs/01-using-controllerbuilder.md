@@ -7,13 +7,15 @@ prev: rounded-corners-and-circles.html
 next: progressive-jpegs.html
 ---
 
-`SimpleDraweeView` has two methods for specifying an image. The easy way is to just call `setImageURI.` 
+`SimpleDraweeView` 有两个方法可以设置所要加载显示图片，简单的方法就是`setImageURI`。
 
-If you want more control over how the Drawee displays your image, you can use a [DraweeController](concepts.html). This page explains how to build and use one.
+如果你需要对加载显示的图片做更多的控制和定制，那就需要用到[DraweeController](concepts.html#DraweeController)，本页说明如何使用。
 
-### Building a DraweeController
+### DraweeController
 
-Then pass the image request to a [PipelineDraweeControllerBuilder](../javadoc/reference/com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilder.html). You then specify additional options for the controller:
+首先，创建一个DraweeController, 然后传递图片加载请求给[PipelineDraweeControllerBuilder](../javadoc/reference/com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilder.html). 
+
+随后，你可以控制controller的其他选项了:
 
 ```java
 ControllerListener listener = new BaseControllerListener() {...}
@@ -28,15 +30,16 @@ DraweeController controller = Fresco.newDraweeControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
-You should always call `setOldController` when building a new controller. This prevents an unneeded memory allocation.
+在指定一个新的controller的时候，使用`setOldController`，这可节省不必要的内存分配。
 
-More details:
+更多细节:
 
 * [Controller Listeners](listening-download-events.html)
 
-### <a name="ImageRequest"></a>Customizing the ImageRequest
+### <a name="ImageRequest"></a>自定义图片加载请求
 
-For still more advanced usage, you might need to send an [ImageRequest](../javadoc/reference/com/facebook/imagepipeline/request/ImageRequest.html) to the pipeline, instead of merely a URI. An example of this is using a [postprocessor](modifying-image.html).
+在更进一步的用法中，你需要给Image pipeline 发送一个ImageRequest。下面是一个图片加载后，[使用后处理器(postprocessor)](modifying-image.html) 进行图片后处理的例子.
+
 
 ```java
 Uri uri;
@@ -48,12 +51,12 @@ ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
 DraweeController controller = Fresco.newDraweeControllerBuilder()
     .setImageRequest(request)
     .setOldController(mSimpleDraweeView.getController())
-    // other setters as you need
+    // 其他设置
     .build();
 ```
 
-More details:
+更多细节:
 
-* [Postprocessors](modifying-image.html)
-* [Requesting Multiple Images](requesting-multiple-images.html)
-* [Resizing and Rotating](resizing-rotating.html)
+* [后处理器(Postprocessors)](modifying-image.html)
+* [加载多个图片](requesting-multiple-images.html)
+* [缩放和旋转图片](resizing-rotating.html)

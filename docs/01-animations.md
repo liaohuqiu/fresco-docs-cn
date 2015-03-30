@@ -1,19 +1,18 @@
 ---
 id: animations
-title: Animated Images
+title: 动画图支持
 layout: docs
 permalink: /docs/animations.html
 prev: progressive-jpegs.html
 next: requesting-multiple-images.html
 ---
 
-Fresco supports animated GIF and WebP images.
+Fresco 支持GIF和WebP 格式图片；支持WebP 格式的动画图也支持(包括扩展WebP 格式)，支持2.3及其以后那些没有原生WebP支持的系统。
 
-We support WebP animations, even in the extended WebP format, on versions of Android going back to 2.3, even those that don't have built-in native support.
+### 设置动画图自动播放
 
-### Playing animations automatically
+如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在[image request](image-requests.html) 中简单设置，如下:
 
-If you want your animated image to start playing automatically when it comes on-screen, and stop when it goes off, just say so in your [image request](image-requests.html):
 
 ```java
 Uri uri;
@@ -29,9 +28,9 @@ DraweeController controller = Fresco.newDraweeControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
-### Playing animations manually
+### 手动控制动画图播放
 
-You may prefer to directly control the animation in your own code. In that case you'll need to listen for when the image has loaded, so it's even possible to do that. 
+也许，你希望在图片加载完之后，手动控制动画的播放，那么这样做：
 
 ```java
 ControllerListener controllerListener = new BaseControllerListener() {
@@ -41,7 +40,7 @@ ControllerListener controllerListener = new BaseControllerListener() {
         @Nullable ImageInfo imageInfo,
         @Nullable Animatable anim) {
     if (anim != null) {
-      // app-specific logic to enable animation starting
+      // 根据业务逻辑，在合适的时机播放动画。
     }
 };
 
@@ -54,13 +53,16 @@ PipelineDraweeController controller = Fresco.newControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
-The controller exposes an instance of the [Animatable](http://developer.android.com/reference/android/graphics/drawable/Animatable.html) interface. If non-null, you can drive your animation with it:
+另外，controller提供对[Animatable](http://developer.android.com/reference/android/graphics/drawable/Animatable.html) 的访问。
+
+如果有可用动画的话，可对动画进行灵活的控制:
 
 ```java
 Animatable animation = mSimpleDraweeView.getController().getAnimatable();
 if (animation != null) {
+  // 开始播放
   animation.start();
-  // later
+  // 一段时间之后，根据业务逻辑，停止播放
   animation.stop();
 }
 ```
