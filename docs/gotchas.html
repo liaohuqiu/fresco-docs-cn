@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Gotchas</title>
+    <title>Fresco | 一些陷阱</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Gotchas" />
+    <meta property="og:title" content="一些陷阱" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -148,7 +148,7 @@
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              多图请求级图片复用
+              多图请求及图片复用
             </a>
             
           </li>
@@ -273,40 +273,40 @@
 
 <article class='withtoc'>
     <h1>
-      Gotchas
+      一些陷阱
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-gotchas.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <h4>Don&#39;t downcast</h4>
+    <h4>不要向下转换</h4>
 
-<p>It is tempting to downcast objects returns by Fresco classes into actual objects that appear to give you greater control. At best, this will result in fragile code that gets broken next release; at worst, it will lead to very subtle bugs.</p>
+<p>不要试图把Fresco返回的一些对象进行向下转化，这也许会带来一些对象操作上的便利，但是也许在后续的版本中，你会遇到一些因为向下转换特性丢失导致的难以处理的问题。</p>
 
-<h4>Don&#39;t use getTopLevelDrawable</h4>
+<h4>不要使用getTopLevelDrawable</h4>
 
-<p><code>DraweeHierarchy.getTopLevelDrawable()</code> should <strong>only</strong> be used by DraweeViews. Client code should almost never interact with it. </p>
+<p><code>DraweeHierarchy.getTopLevelDrawable()</code> <strong>仅仅</strong> 应该在DraweeViews中用，除了定义View中，其他应用代码建议连碰都不要碰这个。</p>
 
-<p>The sole exception is <a href="writing-custom-views.html">custom views</a>. Even there, the top-level drawable should never be downcast. We may change the actual type of the drawable in future releases.</p>
+<p>在自定义View中，也千万不要将返回值向下转换，也许下个版本，我们会更改这个返回值类型。</p>
 
-<h4>Don&#39;t re-use DraweeHierarchies</h4>
+<h4>不要复用 DraweeHierarchies</h4>
 
-<p>Never call <code>DraweeView.setHierarchy</code> with the same argument on two different views. Hierarchies are made up of Drawables, and Drawables on Android cannot be shared among multiple views.</p>
+<p>永远不要吧<code>DraweeHierarchy</code> 通过 <code>DraweeView.setHierarchy</code> 设置给不同的View。DraweeHierarchy是由一系列Drawable组成的。在Android中, Drawable不能被多个View共享。</p>
 
-<h4>Don&#39;t use Drawables in more than one DraweeHierarchy</h4>
+<h4>不要在多个DraweeHierarchy中使用同一个Drawable</h4>
 
-<p>This is for the same reason as the above. Drawables cannot be shared in multiple views.</p>
+<p>原因同上。当时可以使用不同的资源ID。Android实际会创建不同的Drawable。</p>
 
-<p>You are completely free, of course, to use the same resourceID in multiple hierarchies and views. Android will create a separate instance of each Drawable for each view.</p>
+<h4>不要直接给 <code>DraweeView</code> 设置图片。</h4>
 
-<h4>Don&#39;t set images directly on a DraweeView</h4>
+<p>目前 <code>DraweeView</code> 直接继承于ImageView，因此它有 <code>setImageBitmap</code>,
+<code>setImageDrawable</code>  等方法。</p>
 
-<p>Currently <code>DraweeView</code> is a subclass of Android&#39;s ImageView. This has various methods to set an image (such as setImageBitmap, setImageDrawable)</p>
+<p>如果利用这些方法，直接设置一个图片。内部的<code>DraweeHierarchy</code>就会丢失，也就无法取到image
+pipeline 的任何图像了。</p>
 
-<p>If you set an image directly, you will completely lose your <code>DraweeHierarchy</code>, and will not get any results from the image pipeline.</p>
+<h4>使用DraweeView时，请不要使用任何ImageView的属性</h4>
 
-<h4>Don&#39;t use ImageView attributes with DraweeView</h4>
-
-<p>Any XML attribute of ImageView not found in <a href="http://developer.android.com/reference/android/view/View.html">View</a> will not work on a DraweeView. We plan to remove them entirely in a future release.</p>
+<p>在后续的版本中，DraweeView会直接从View派生。任何属于ImageView但是不属于View的方法都会被移除。</p>
 
 
     <div class="docs-prevnext">

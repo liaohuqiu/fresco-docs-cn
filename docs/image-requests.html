@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Image Requests</title>
+    <title>Fresco | (图片请求)Image Requests</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Image Requests" />
+    <meta property="og:title" content="(图片请求)Image Requests" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -148,7 +148,7 @@
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              多图请求级图片复用
+              多图请求及图片复用
             </a>
             
           </li>
@@ -273,14 +273,14 @@
 
 <article class='withtoc'>
     <h1>
-      Image Requests
+      (图片请求)Image Requests
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-image-requests.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>If you need an <code>ImageRequest</code> that consists only of a URI, you can use the helper method <code>ImageRequest.fromURI</code>. Loading <a href="requesting-multiple-images.html">multiple-images</a> is a common case of this.</p>
+    <p>如果你需要的<code>ImageRequest</code>仅仅是一个URI，那么<code>ImageRequest.fromURI</code>就足够了，在<a href="requesting-multiple-images.html">多图请求及图片复用</a>中，有这样的用法。</p>
 
-<p>If you need to tell the image pipeline anything more than a simple URI, you need to use <code>ImageRequestBuilder</code>:</p>
+<p>否则，你需要<code>ImageRequestBuilder</code>来做更多的事情。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 
 <span class="n">ImageDecodeOptions</span> <span class="n">decodeOptions</span> <span class="o">=</span> <span class="n">ImageDecodeOptions</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
@@ -296,28 +296,28 @@
     <span class="o">.</span><span class="na">setResizeOptions</span><span class="o">(</span><span class="k">new</span> <span class="nf">ResizeOptions</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">))</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div>
-<h4>Fields in ImageRequest</h4>
+<h4>ImageRequest 的属性和成员</h4>
 
 <ul>
-<li><code>uri</code> - the only mandatory field. See <a href="supported-uris.html">Supported URIs</a></li>
-<li><code>autoRotateEnabled</code> - whether to enable <a href="resizing--rotating.html#rotate">auto-rotation</a>.</li>
-<li><code>progressiveEnabled</code> - whether to enable <a href="progressive-jpegs.html">progressive loading</a>.</li>
-<li><code>postprocessor</code> - component to <a href="modifying-image.html">postprocess</a> the decoded image.</li>
-<li><code>resizeOptions</code> - desired width and height. Use with caution. See <a href="resizing-rotating.html">Resizing</a>.</li>
+<li><code>uri</code> - 唯一的必选的成员. 参考 <a href="supported-uris.html">支持的URIs</a></li>
+<li><code>autoRotateEnabled</code> - 是否支持<a href="resizing--rotating.html#rotate">自动旋转</a>.</li>
+<li><code>progressiveEnabled</code> - 是否支持<a href="progressive-jpegs.html">渐进式加载</a>.</li>
+<li><code>postprocessor</code> - <a href="modifying-image.html">后处理器(postprocess)</a>.</li>
+<li><code>resizeOptions</code> - 图片缩放选项，用前请先阅读<a href="resizing-rotating.html">缩放和旋转</a>.</li>
 </ul>
 
-<h4>Lowest Permitted Request Level</h4>
+<h4>最低请求级别</h4>
 
-<p>The image pipeline follows a <a href="intro-image-pipeline.html">definite sequence</a> in where it looks for the image. </p>
+<p>Image pipeline 加载图片时有一套明确的<a href="intro-image-pipeline.html">请求流程</a></p>
 
 <ol>
-<li>Check the bitmap cache. This is nearly instant. If found, return.</li>
-<li>Check the encoded memory cache. If found, decode the image and return.</li>
-<li>Check the &quot;disk&quot; (local storage) cache. If found, load from disk, decode, and return.</li>
-<li>Go to the original file on network or local file. Download, resize and/or rotate if requested, decode, and return. For network images in particular, this will be the slowest by a long shot.</li>
+<li>检查内存缓存，有如，立刻返回。这个操作是实时的。</li>
+<li>检查未解码的图片缓存，如有，解码并返回。</li>
+<li>检查磁盘缓存，如果有加载，解码，返回。</li>
+<li>下载或者加载本地文件。调整大小和旋转（如有），解码并返回。对于网络图来说，这一套流程下来是最耗时的。</li>
 </ol>
 
-<p>The <code>setLowestPermittedRequestLevel</code> field lets you control how far down this list the pipeline will go. Possible values are:</p>
+<p><code>setLowestPermittedRequestLevel</code>允许设置一个最低请求级别，请求级别和上面对应地有以下几个取值:</p>
 
 <ul>
 <li><code>BITMAP_MEMORY_CACHE</code></li>
@@ -326,7 +326,7 @@
 <li><code>FULL_FETCH</code></li>
 </ul>
 
-<p>This is useful in situations where you need an instant, or at least relatively fast, image or none at all.</p>
+<p>如果你需要立即取到一个图片，或者在相对比较短时间内取到图片，否则就不显示的情况下，这非常有用。</p>
 
 
     <div class="docs-prevnext">

@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Modifying the Image</title>
+    <title>Fresco | 修改图片</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Modifying the Image" />
+    <meta property="og:title" content="修改图片" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -148,7 +148,7 @@
         
           <li>
             <a href="/docs/requesting-multiple-images.html#_">
-              多图请求级图片复用
+              多图请求及图片复用
             </a>
             
           </li>
@@ -273,18 +273,16 @@
 
 <article class='withtoc'>
     <h1>
-      Modifying the Image
+      修改图片
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/01-modifying-image.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <h4>Motivation</h4>
+    <p>有时，我们想对从服务器下载，或者本地的图片做些修改，比如在某个坐标统一加个网格什么的。这时使用<a href="../javadoc/reference/com/facebook/imagepipeline/request/Postprocessor.html">后处理器(Postprocessor)</a>便可达到目的。</p>
 
-<p>Sometimes the image downloaded from the server, or fetched from local storage, is not exactly what you want to display on the screen. If you want to apply custom code to the image in-place, use a <a href="../javadoc/reference/com/facebook/imagepipeline/request/Postprocessor.html">Postprocessor</a>.</p>
+<h4>例子:</h4>
 
-<h4>Example</h4>
-
-<p>The following example applies a red mesh to the image:</p>
+<p>给图片加个网格:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">Postprocessor</span> <span class="n">redMeshPostprocessor</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Postprocessor</span><span class="o">()</span> <span class="o">{</span> 
   <span class="nd">@Override</span>
@@ -313,17 +311,19 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
-<h4>Things to Know</h4>
+<h4>注意点</h4>
 
-<p>The image is copied before it enters your postprocessor. The copy of the image in cache is <em>not</em> affected by any changes you make in your postprocessor. On Android 4.x and lower, the copy is stored outside the Java heap, just as the original image was.</p>
+<p>图片在进入后处理器(postprocessor)的图片是原图的一个完整拷贝，原来的图片不受修改的影响。在5.0以前的机器上，拷贝后的图片也在native内存中。</p>
 
-<p>If you show the same image repeatedly, you must specify the postprocessor each time it is requested. You are free to use different postprocessors on different requests for the same image.</p>
+<p>在开始一个图片显示时，即使是反复显示同一个图片，在每次进行显示时，都需要指定后处理器。</p>
+
+<p>对于同一个图片，每次显示，可以使用不同的后处理器。</p>
 
 <h4>Repeated Postprocessors</h4>
 
-<p>What if you want to post-process the same image more than once? No problem at all. Just subclass <a href="../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html">BaseRepeatedPostprocessor</a>. This class has a method <code>update</code> which can be invoked at any time to run the postprocessor again.</p>
+<p>如果想对同一个图片进行多次后处理，那么继承[BaseRepeatedPostprocessor])(../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html)即可。该类有一个<code>update</code>方法，需要执行后处理时，调用该方法即可。</p>
 
-<p>The example below allows you to change the color of the mesh at any time.</p>
+<p>下面的例子展示了在运行时，后处理改变图片网格的颜色:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MeshPostprocessor</span> <span class="kd">extends</span> <span class="n">BaseRepeatedPostprocessor</span> <span class="o">{</span> 
   <span class="kd">private</span> <span class="kt">int</span> <span class="n">mColor</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">TRANSPARENT</span><span class="o">;</span>
 
@@ -348,12 +348,13 @@
 <span class="o">}</span>
 <span class="n">MeshPostprocessor</span> <span class="n">meshPostprocessor</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">MeshPostprocessor</span><span class="o">();</span>
 
-<span class="c1">/// setPostprocessor as in above example</span>
+<span class="c1">// setPostprocessor as in above example</span>
 
+<span class="c1">// 改变颜色</span>
 <span class="n">meshPostprocessor</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
 <span class="n">meshPostprocessor</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
 </code></pre></div>
-<p>You should have still have one <code>Postprocessor</code> instance per image request, as internally the class is stateful.</p>
+<p>每个image request, 仍旧只有一个<code>Postprocessor</code>，但是这个后处理器是状态相关了。</p>
 
 
     <div class="docs-prevnext">
