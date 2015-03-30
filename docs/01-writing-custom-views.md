@@ -1,6 +1,6 @@
 ---
 id: writing-custom-views
-title: Writing Custom Views
+title: 自定义View
 layout: docs
 permalink: /docs/writing-custom-views.html
 prev: image-requests.html
@@ -9,24 +9,25 @@ next: gotchas.html
 
 ### DraweeHolders
 
-There will always be times when `DraweeViews` won't fit your needs. You may need to show additional content inside the same view as your image. You might to show multiple images inside a single view.
+总有一些时候，`DraweeViews`是满足不了需求的，在展示图片的时候，我们还需要展示一些其他的内容，或者支持一些其他的操作。在同一个View里，我们可能会想显示一张或者多张图。
 
-We provide two alternate classes you can use to host your Drawee:
+在自定义View中，Fresco 提供了两个类来负责图片的展现:
 
-* `DraweeHolder` for a single image
-* `MultiDraweeHolder` for multiple images
+* `DraweeHolder` 单图情况下用。
+* `MultiDraweeHolder` 多图情况下用。
 
-### Responsibilities of custom views
+### 自定义View需要完成的事情
 
-Android lays out View objects, and only they get told of system events. `DraweeViews` handle these events and use them to manage memory effectively. When using the holders, you must implement some of this functionality yourself.
+Android 呈现View对象，只有View对象才能得到一些系统事件的通知。`DraweeViews`
+处理这些事件通知，高效地管理内存。使用`DraweeHolder`时，你需要自己实现这几个方法。
 
-#### Handling attach/detach events
+#### 处理 attach/detach 事件
 
-**Your app may leak memory if this steps are not followed.**
+**如果没按照以下步骤实现的话，很可能会引起内存泄露**
 
-There is no point in images staying in memory when Android is no longer displaying the view - it may have scrolled off-screen, or otherwise not be drawing. Drawees listen for detaches and release memory when they occur. They will automatically restore the image when it comes back on-screen.
+当图片不再在View上显示时，比如滑动时View滑动到屏幕外，或者不再绘制，图片就不应该再存在在内存中。Drawees 监听这些事情，并负责释放内存。当图片又需要显示时，重新加载。
 
-All this is automatic in a `DraweeView,` but won't happen in a custom view unless you handle four system events. These must be passed to the `DraweeHolder`. Here's how:
+这些在`DraweeView`中是自动的，但是在自定义View中，需要我们自己去操作，如下:
 
 ```java
 DraweeHolder mDraweeHolder;
@@ -56,9 +57,9 @@ public void onFinishTemporaryDetach() {
 }
 ```
 
-#### Handling touch events 
+#### 处理触摸事件
 
-If you have enabled [tap to retry](drawee-components.html#Retry) in your Drawee, it will not work unless you tell it that the user has touched the screen. Like this:
+如果你启用了[点击重新加载](drawee-components.html#Retry)，在自定义View中，需要这样:
 
 ```java
 @Override
@@ -67,22 +68,21 @@ public boolean onTouchEvent(MotionEvent event) {
 }
 ```
 
-#### Your custom onDraw
-
-You must call 
+#### 自定义onDraw
 
 ```java
 Drawable drawable = mDraweeHolder.getHierarchy().getTopLevelDrawable();
 drawable.setBounds(...);
 ```
-or the Drawee won't appear at all.
 
-* Do not downcast this Drawable.
-* Do not translate it.
+否则图片将不会出现
 
-#### Other responsibilities
+* 不要向下转换这个Drawable
+* 不要变换这个Drawable
 
-* Override `verifyDrawable:`
+#### 其他应该做的
+
+* 重写 `verifyDrawable:`
 
 ```java
 @Override
@@ -90,32 +90,31 @@ protected boolean verifyDrawable(Drawable who) {
   if (who == mDraweeHolder.getHierarchy().getTopLevelDrawable()) {
     return true;
   }
-  // other logic for other Drawables in your view, if any
+  // 对其他Drawable的验证逻辑
 }
 ```
 
-* Make sure `invalidateDrawable` invalidates the region occupied by your Drawee.
+* 确保`invalidateDrawable` 处理了图片占用的那块区域。
 
+### 创建 DraweeHolder
 
-### Constructing a DraweeHolder
+这同样需要非常小心和细致
 
-This should be done carefully.
+#### 构造函数
 
-#### Arranging your Constructors
+我们推荐如下实现构造函数:
+
+* 重写3个构造函数
+* 在每个构造函数中调用同等签名的父类构造函数，和一个私有的`init`方法。
+* 在`init`方法中执行初始化操作。
  
-We recommend the following pattern for constructors:
+即，不要在构造函数中用`this`来调用另外一个构造。
 
-* Override all three of the three View constructors.
-* Each constructor calls its superclass counterpart and then a private `init` method.
-* All of your initialization happens in `init.`
- 
-That is, do not use the `this` operator to call one constructor from another. 
+这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。然后在`init`方法中创建holder。
 
-This approach guarantees that the correct initialization is called no matter what constructor is used. It is in the `init` method that your holder is created.
+#### 创建 Holder
 
-#### Creating the Holder
-
-If possible, always create Drawees when your view gets created. Creating a hierarchy is not cheap so it's best to do it only once.
+如果有可能，只在View创建时，创建Drawees。创建DraweeHierarchy开销较大，最好只做一次。
 
 ```java
 class CustomView extends View {
@@ -133,9 +132,9 @@ class CustomView extends View {
 }
 ```
 
-#### Setting an image
+#### 设置要显示的图片
 
-Use a [controller builder](using-controllerbuilder.html), but call `setController` on the holder instead of a View:
+使用[controller builder](using-controllerbuilder.html)创建DraweeController，然后调用holder的`setController`方法，而不是设置给自定义View。
 
 ```java
 DraweeController controller = Fresco.newControllerBuilder()
@@ -147,7 +146,8 @@ mDraweeHolder.setController(controller);
 
 ### MultiDraweeHolder
 
-Instead of using a `DraweeHolder`, use a `MultiDraweeHolder`. There are `add`, `remove`, and `clear` methods for dealing with Drawees:
+和`DraweeHolder`相比，`MultiDraweeHolder`有 `add`, `remove`, `clear`
+等方法可以操作Drawees。如下:
 
 ```java
 MultiDraweeHolder<GenericDraweeHierarchy> mMultiDraweeHolder;
@@ -162,6 +162,4 @@ private void init() {
 }
 ```
 
-You must override system events, set bounds, and do all the same responsibilities as for a single `DraweeHolder.`
-
-
+同样，也需要处理系统事件，设置声音等等，就想处理单个`DraweeHolder`那样。

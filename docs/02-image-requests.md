@@ -1,15 +1,15 @@
 ---
 id: image-requests
-title: Image Requests
+title: (图片请求)Image Requests
 layout: docs
 permalink: /docs/image-requests.html
 prev: modifying-image.html
 next: writing-custom-views.html
 ---
 
-If you need an `ImageRequest` that consists only of a URI, you can use the helper method `ImageRequest.fromURI`. Loading [multiple-images](requesting-multiple-images.html) is a common case of this.
+如果你需要的`ImageRequest`仅仅是一个URI，那么`ImageRequest.fromURI`就足够了，在[多图请求及图片复用](requesting-multiple-images.html)中，有这样的用法。
 
-If you need to tell the image pipeline anything more than a simple URI, you need to use `ImageRequestBuilder`:
+否则，你需要`ImageRequestBuilder`来做更多的事情。
 
 ```java
 Uri uri;
@@ -28,30 +28,28 @@ ImageRequest request = ImageRequestBuilder
     .build();
 ```
 
-#### Fields in ImageRequest
+#### ImageRequest 的属性和成员
 
-- `uri` - the only mandatory field. See [Supported URIs](supported-uris.html)
-- `autoRotateEnabled` - whether to enable [auto-rotation](resizing--rotating.html#rotate).
-- `progressiveEnabled` - whether to enable [progressive loading](progressive-jpegs.html).
-- `postprocessor` - component to [postprocess](modifying-image.html) the decoded image.
-- `resizeOptions` - desired width and height. Use with caution. See [Resizing](resizing-rotating.html).
+- `uri` - 唯一的必选的成员. 参考 [支持的URIs](supported-uris.html)
+- `autoRotateEnabled` - 是否支持[自动旋转](resizing--rotating.html#rotate).
+- `progressiveEnabled` - 是否支持[渐进式加载](progressive-jpegs.html).
+- `postprocessor` - [后处理器(postprocess)](modifying-image.html).
+- `resizeOptions` - 图片缩放选项，用前请先阅读[缩放和旋转](resizing-rotating.html).
  
-#### Lowest Permitted Request Level
+#### 最低请求级别
 
-The image pipeline follows a [definite sequence](intro-image-pipeline.html) in where it looks for the image. 
+Image pipeline 加载图片时有一套明确的[请求流程](intro-image-pipeline.html)
 
-1. Check the bitmap cache. This is nearly instant. If found, return.
-2. Check the encoded memory cache. If found, decode the image and return.
-3. Check the "disk" (local storage) cache. If found, load from disk, decode, and return.
-4. Go to the original file on network or local file. Download, resize and/or rotate if requested, decode, and return. For network images in particular, this will be the slowest by a long shot.
+1. 检查内存缓存，有如，立刻返回。这个操作是实时的。
+2. 检查未解码的图片缓存，如有，解码并返回。
+3. 检查磁盘缓存，如果有加载，解码，返回。
+4. 下载或者加载本地文件。调整大小和旋转（如有），解码并返回。对于网络图来说，这一套流程下来是最耗时的。
 
-The `setLowestPermittedRequestLevel` field lets you control how far down this list the pipeline will go. Possible values are:
+`setLowestPermittedRequestLevel`允许设置一个最低请求级别，请求级别和上面对应地有以下几个取值:
 
 - `BITMAP_MEMORY_CACHE`
 - `ENCODED_MEMORY_CACHE` 
 - `DISK_CACHE` 
 - `FULL_FETCH`
 
-This is useful in situations where you need an instant, or at least relatively fast, image or none at all.
-
-
+如果你需要立即取到一个图片，或者在相对比较短时间内取到图片，否则就不显示的情况下，这非常有用。

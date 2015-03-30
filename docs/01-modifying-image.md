@@ -1,19 +1,17 @@
 ---
 id: modifying-image
-title: Modifying the Image
+title: 修改图片
 layout: docs
 permalink: /docs/modifying-image.html
 prev: resizing-rotating.html
 next: image-requests.html
 ---
 
-#### Motivation
+有时，我们想对从服务器下载，或者本地的图片做些修改，比如在某个坐标统一加个网格什么的。这时使用[后处理器(Postprocessor)](../javadoc/reference/com/facebook/imagepipeline/request/Postprocessor.html)便可达到目的。
 
-Sometimes the image downloaded from the server, or fetched from local storage, is not exactly what you want to display on the screen. If you want to apply custom code to the image in-place, use a [Postprocessor](../javadoc/reference/com/facebook/imagepipeline/request/Postprocessor.html).
+#### 例子:
 
-#### Example
-
-The following example applies a red mesh to the image:
+给图片加个网格:
 
 ```java
 Uri uri;
@@ -45,17 +43,19 @@ PipelineDraweeController controller = Fresco.newDraweeControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
-#### Things to Know
+#### 注意点
 
-The image is copied before it enters your postprocessor. The copy of the image in cache is *not* affected by any changes you make in your postprocessor. On Android 4.x and lower, the copy is stored outside the Java heap, just as the original image was.
+图片在进入后处理器(postprocessor)的图片是原图的一个完整拷贝，原来的图片不受修改的影响。在5.0以前的机器上，拷贝后的图片也在native内存中。
 
-If you show the same image repeatedly, you must specify the postprocessor each time it is requested. You are free to use different postprocessors on different requests for the same image.
+在开始一个图片显示时，即使是反复显示同一个图片，在每次进行显示时，都需要指定后处理器。
+
+对于同一个图片，每次显示，可以使用不同的后处理器。
 
 #### Repeated Postprocessors
 
-What if you want to post-process the same image more than once? No problem at all. Just subclass [BaseRepeatedPostprocessor](../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html). This class has a method `update` which can be invoked at any time to run the postprocessor again.
+如果想对同一个图片进行多次后处理，那么继承[BaseRepeatedPostprocessor])(../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html)即可。该类有一个`update`方法，需要执行后处理时，调用该方法即可。
 
-The example below allows you to change the color of the mesh at any time.
+下面的例子展示了在运行时，后处理改变图片网格的颜色:
 
 ```java
 public class MeshPostprocessor extends BaseRepeatedPostprocessor { 
@@ -82,10 +82,11 @@ public class MeshPostprocessor extends BaseRepeatedPostprocessor {
 }
 MeshPostprocessor meshPostprocessor = new MeshPostprocessor();
 
-/// setPostprocessor as in above example
+// setPostprocessor as in above example
 
+// 改变颜色
 meshPostprocessor.setColor(Color.RED);
 meshPostprocessor.setColor(Color.BLUE);
 ```
 
-You should have still have one `Postprocessor` instance per image request, as internally the class is stateful.
+每个image request, 仍旧只有一个`Postprocessor`，但是这个后处理器是状态相关了。

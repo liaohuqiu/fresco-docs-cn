@@ -27,7 +27,7 @@
   - id: animations
     title: 动画图(gif)
   - id: requesting-multiple-images
-    title: 多图请求级图片复用
+    title: 多图请求及图片复用
   - id: listening-download-events
     title: 监听下载事件
   - id: resizing-rotating
