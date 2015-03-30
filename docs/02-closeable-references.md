@@ -1,27 +1,29 @@
 ---
 id: closeable-references
-title: Closeable References
+title: 可关闭的引用
 layout: docs
 permalink: /docs/closeable-references.html
 prev: datasources-datasubscribers.html
 next: using-other-network-layers.html
 ---
 
-**This page is intended for advanced usage only.** 
+**本页内容仅为高级使用作参考** 
 
-Most apps should use [Drawees](using-drawees-xml.html) and not worry about closing.
+大部分的应用，直接使用[Drawees](using-drawees-xml.html)就好了，不用考虑关闭的事情了。
 
-The Java language is garbage-collected and most developers are used to creating objects willy-nilly and taking it for granted they will eventually disappear from memory.
+Java带有垃圾收集功能，许多开发者习惯于不自觉地创建一大堆乱七八糟的对象，并且想当然地认为他们会从内存中想当然地消失。
 
-Until Android 5.0's improvements, this was not at all a good idea for Bitmaps. They take up a large share of the memory of a mobile device. Their existence in memory would make the garbage collector run more frequently, making image-heavy apps slow and janky.
+在5.0系统之前，这样的做法对于操作Bitmap是极其糟糕的。Bitmap占用了大量的内存，大量的内存申请和释放引发频繁的GC，使得界面卡顿不已。
 
-Bitmaps were the one thing that makes Java developers miss C++ and its many smart pointer libraries, such as [Boost](http://www.boost.org/doc/libs/1_57_0/libs/smart_ptr/smart_ptr.htm). 
+Bitmap 是Java中为数不多的能让Java开发者想念或者羡慕C++以及C++众多的指针库，比如[Boost](http://www.boost.org/doc/libs/1_57_0/libs/smart_ptr/smart_ptr.htm) 的东西。
 
-Fresco's solution is found in the [CloseableReference](../javadoc/reference/com/facebook/common/references/CloseableReference.html) class. In order to use it correctly, you must follow the rules below:
+Fresco的解决方案是: [可关闭的引用(CloseableReference)](../javadoc/reference/com/facebook/common/references/CloseableReference.html) 
 
-#### 1. The caller owns the reference.
+为了正确地使用它，请按以下步骤进行操作:
 
-Here, we create a reference, but since we're passing it to a caller, the caller takes it:
+#### 1. 调用者拥有这个引用
+
+我们创建一个引用，但我们传递给了一个调用者，调用者将持有这个引用。
 
 ```java
 CloseableReference<Val> foo() {
@@ -30,9 +32,9 @@ CloseableReference<Val> foo() {
 }
 ```
 
-#### 2. The owner must close the reference before leaving scope.
+#### 2. 持有者在离开作用域之前，需要关闭引用
 
-Here we create a reference, but are not passing it to a caller. So we must close it:
+创建了一个引用，但是没有传递给其他调用者，在结束时，需要关闭。
 
 ```java
 void gee() {
@@ -45,11 +47,11 @@ void gee() {
 }
 ```
 
-The `finally` block is almost always the best way to do this.
+`finally` 中最适合做此类事情了。
 
-#### 3. Something other than the owner should *not* close the reference.
+#### 3. 除了引用的持有者，闲杂人等**不得**关闭引用
 
-Here, we are receiving the reference via argument. The caller is still the owner, so we are not supposed to close it.
+作为一个参数传递，调用者持有这个引用，在下面的函数体中，不能关闭引用。
 
 ```java
 void haa(CloseableReference<?> ref) {
@@ -57,13 +59,11 @@ void haa(CloseableReference<?> ref) {
 }
 ```
 
-If we called `.close()` here by mistake, then if the caller tried to call `.get()`, an `IllegalStateException` would be thrown.
+如果调用了 `.close()`, 调用者尝试调用 `.get()`时，会抛出`IllegalStateException`
 
-#### 4. Always clone the reference before assigning.
+#### 4. 在赋值给变量前，先进行clone
 
-If we need to hold onto the reference, we need to clone it. 
-
-If using it in a class:
+在类中使用:
 
 ```java
 class MyClass {
@@ -78,10 +78,10 @@ class MyClass {
     CloseableReference.closeSafely(myValRef);
   }
 }
-// Now the caller of MyClass must close it!
+// MyClass的调用者需要关闭myValRef
 ```
 
-If using it in an inner class:
+在内部中使用:
 
 ```java
 void haa(CloseableReference<?> ref) {
@@ -95,5 +95,5 @@ void haa(CloseableReference<?> ref) {
       }
     }
   });
-  // caller can now safely close its copy as we made our own clone.
+  // 当前函数域内可安全关闭，闭包内为已经clone过的引用。
 }

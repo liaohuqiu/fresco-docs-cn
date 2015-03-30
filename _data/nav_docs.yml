@@ -45,7 +45,7 @@
   - id: intro-image-pipeline
     title: 什么是Image Pipeline
   - id: configure-image-pipeline
-    title: Image Pipeline的配置
+    title: 配置Image Pipeline
   - id: caching
     title: 缓存的行为控制
   - id: using-image-pipeline
@@ -53,7 +53,7 @@
   - id: datasources-datasubscribers
     title: 数据源/订阅数据源
   - id: closeable-references
-    title: Closeable References
+    title: 可关闭的引用
 - title: 第三方类库
   items:
   - id: using-other-network-layers

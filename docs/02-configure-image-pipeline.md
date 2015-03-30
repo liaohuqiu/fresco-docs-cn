@@ -1,21 +1,21 @@
 ---
 id: configure-image-pipeline
-title: Configuring the Image Pipeline
+title: 配置Image Pipeline
 layout: docs
 permalink: /docs/configure-image-pipeline.html
 prev: intro-image-pipeline.html
 next: caching.html
 ---
 
-Most apps can initialize Fresco completely by the simple command:
+对于大多数的应用，Fresco的初始化，只需要以下一句代码:
 
 ```java
 Fresco.initialize(context);
 ```
 
-For those apps that need more advanced customization, we offer it using the [ImagePipelineConfig](../javadoc/reference/com/facebook/imagepipeline/core/ImagePipelineConfig.html) class.
+对于那些需要更多进一步配置的应用，我们提供了[ImagePipelineConfig](../javadoc/reference/com/facebook/imagepipeline/core/ImagePipelineConfig.html)。
 
-Here is a maximal example. Rare is the app that actually needs all of these settings, but here they are for reference.
+以下是一个示例配置，列出了所有可配置的选项。几乎没有应用是需要以下这所有的配置的，列出来仅仅是为了作为参考。
 
 
 ```java
@@ -36,13 +36,15 @@ ImagePipelineConfig config = ImagePipelineConfig.newBuilder()
 Fresco.initialize(context, config);
 ```
 
-Be sure to pass your `ImagePipelineConfig` object to `Fresco.initialize!` Otherwise, Fresco will use a default configuration instead of the one you built.
+请记得将配置好的`ImagePipelineConfig` 传递给 `Fresco.initialize!` 否则仍旧是默认配置。
 
-### Understanding Suppliers
+### 关于Supplier
 
-Several of the configuration builder's methods take arguments of a [Supplier](../javadoc/reference/com/facebook/common/internal/Supplier.html) of an instance rather than an instance itself. This is a little more complex to create, but allows you to change behaviors while your app is running. Memory caches, for one, check their Supplier every five minutes.
+许多配置的Builder都接受一个[Supplier](../javadoc/reference/com/facebook/common/internal/Supplier.html) 类型的参数而不是一个配置的实例。
 
-If you don't need to dynamically change the params, use a Supplier that returns the same object each time:
+创建时也许有一些麻烦，但这带来更多的利好：这允许在运行时改变创建行为。以内存缓存为例，每隔5分钟就可检查一下Supplier，根据实际情况返回不同类型。
+
+如果你需要动态改变参数，那就是用Supplier每次都返回同一个对象。
 
 ```java
 Supplier<X> xSupplier = new Supplier<X>() {
@@ -54,25 +56,25 @@ Supplier<X> xSupplier = new Supplier<X>() {
 .setXSupplier(xSupplier);
 ```
 
-### Thread pools 
+### 线程池
 
-By default, the image pipeline uses three thread pools:
+Image pipeline 默认有3个线程池:
 
-1. Three threads for network downloads
-2. Two threads for all disk operations - local file reads, and the disk cache
-3. Two threads for all CPU-bound operations - decodes, transforms, and background operations, such as postprocessing.
+1. 3个线程用于网络下载
+2. 两个线程用于磁盘操作: 本地文件的读取，磁盘缓存操作。
+3. 两个线程用于CPU相关的操作: 解码，转换，以及后处理等后台操作。
 
-You can customize networking behavior by [setting your own network layer](using-other-network-layers.html).
+对于网络下载，你可以定制网络层的操作，具体参考:[自定义网络层加载](using-other-network-layers.html).
 
-To change the behavior for all other operations, pass in an instance of [ExecutorSupplier](../javadoc/reference/com/facebook/imagepipeline/core/ExecutorSupplier.html).
+对于其他操作，如果要改变他们的行为，传入一个[ExecutorSupplier](../javadoc/reference/com/facebook/imagepipeline/core/ExecutorSupplier.html)即可。
 
-### Configuring the memory caches
+### 内存缓存的配置
 
-The bitmap cache and the encoded memory cache are configured by a Supplier of a [MemoryCacheParams](../javadoc/reference/com/facebook/imagepipeline/cache/MemoryCacheParams.html#MemoryCacheParams\(int, int, int, int, int\)) object.
+内存缓存和未解码的内存缓存的配置由一个Supplier控制，这个Supplier返回一个[MemoryCacheParams](../javadoc/reference/com/facebook/imagepipeline/cache/MemoryCacheParams.html#MemoryCacheParams\(int, int, int, int, int\)) 对象用于内存状态控制。
 
-### Configuring the disk cache
+### 配置磁盘缓存
 
-You use the builder pattern to create a [DiskCacheConfig](../javadoc/reference/com/facebook/cache/disk/DiskCacheConfig.Builder.html) object:
+你可使用Builder模式创建一个 [DiskCacheConfig](../javadoc/reference/com/facebook/cache/disk/DiskCacheConfig.Builder.html):
 
 ```java
 DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder()
@@ -84,6 +86,6 @@ DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder()
 .setMainDiskCacheConfig(diskCacheConfig)
 ```
 
-### Keeping cache stats
+### 缓存统计
 
-If you want to keep track of metrics like the cache hit rate, you can implement the [ImageCacheStatsTracker](../javadoc/reference/com/facebook/imagepipeline/cache/ImageCacheStatsTracker.html) class. This provides callbacks for every cache event that you can use to keep your own statistics.
+如果你想统计缓存的命中率，你可以实现[ImageCacheStatsTracker](../javadoc/reference/com/facebook/imagepipeline/cache/ImageCacheStatsTracker.html), 在这个类中，每个缓存时间都有回调通知，基于这些事件，可以实现缓存的计数和统计。

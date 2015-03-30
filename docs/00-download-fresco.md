@@ -6,7 +6,7 @@ permalink: /docs/download-fresco.html
 next: index.html
 ---
 
-你可以从Maven库下载:
+类库发布到了Maven中央库:
 
 ## Gradle:
 

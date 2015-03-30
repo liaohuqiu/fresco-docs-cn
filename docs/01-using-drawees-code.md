@@ -48,7 +48,7 @@ DraweeHierarchy 的一些属性可以在运行时改变。
 GenericDraweeHierarchy hierarchy = mSimpleDraweeView.getHierarchy();
 ```
 
-#### 修改占位图
+#### <a name='change_placeholder'></a>修改占位图
 
 修改占位图为资源id:
 
