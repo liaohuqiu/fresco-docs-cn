@@ -1,6 +1,6 @@
 ---
 id: using-controllerbuilder
-title: Using the ControllerBuilder
+title: ControllerBuilder
 layout: docs
 permalink: /docs/using-controllerbuilder.html
 prev: rounded-corners-and-circles.html

@@ -7,27 +7,28 @@ prev: scaling.html
 next: using-controllerbuilder.html
 ---
 
-Not every image is a rectangle. Apps frequently need images that appear with softer, rounded corners, or as circles. Drawee supports a variety of scenarios, all without the memory overhead of copying bitmaps.
+Drawee 轻松支持圆角显示，并且显示圆角时，并不复制和修改Bitmap对象，那样太耗费内存。
 
-### What
+### 圆角
 
-Images can be rounded in two shapes:
+圆角实际有2中呈现方式:
 
-1. As a circle - set `roundAsCircle` to true.
-2. As a rectangle, but with rounded corners. Set `roundedCornerRadius` to some value.
+1. 圆圈 - 设置`roundAsCircle`为true
+2. 圆角 - 设置`roundedCornerRadius`
 
-Rectangles support having each of the four corners have a different radius, but this must be specified in Java code rather than XML.
+设置圆角时，支持4个角不同的半径。XML中无法配置，但可在Java代码中配置。
 
-### How
+### 设置圆角
 
-Images can be rounded with two different methods:
+可使用以下两种方式:
 
-1. Uses a shader to actually draw the rounded corners. This works only on the actual image and the [ placeholder](drawee-components.html). Other components, like failure and retry images, are not rounded. This is the default.
-2. Draws rounded corners by overlaying a solid color, specified by the caller. The Drawee's background should be static and of the same solid color. Use `roundWithOverlayColor` in XML, or `setOverlayColor` in code, for this effect.
+1. 默认使用一个shader绘制圆角，但是仅仅占位图所要显示的图有圆角效果。失败示意图和重下载示意图无圆角效果。
+2. 叠加一个`solid color`来绘制圆角。但是背景需要固定成指定的颜色。
+    在XML中指定 `roundWithOverlayColor`, 或者通过调用`setOverlayColor`来完成此设定。
 
-### In XML
+### XML中配置
 
-The `SimpleDraweeView` class will forward several attributes over to `RoundingParams`:
+`SimpleDraweeView` 支持如下几种圆角配置:
 
 ```xml
 <com.facebook.drawee.view.SimpleDraweeView
@@ -40,19 +41,20 @@ The `SimpleDraweeView` class will forward several attributes over to `RoundingPa
    fresco:roundingBorderColor="@color/red"
 ```
 
-### In code
+### 代码中配置
 
-When [constructing a hierarchy](using-drawees-code.html), you can pass an instance of [RoundingParams](../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html) to your `GenericDraweeHierarchyBuilder:`
+在创建 [DraweeHierarchy](using-drawees-code.html) 时，可以给`GenericDraweeHierarchyBuilder`指定一个[RoundingParams](../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html) 用来绘制圆角效果。
+
 
 ```java
 RoundingParams roundingParams = RoundingParams.fromCornersRadius(7f);
 roundingParams.setOverlayColor(R.color.green);
-// alternatively use fromCornersRadii or asCircle
+// 或用 fromCornersRadii 以及 asCircle 方法
 genericDraweeHierarchyBuilder
     .setRoundingParams(roundingParams);
 ```
 
-You can also change most of the rounding parameters on the fly:
+你也可以在运行时，改变圆角效果
 
 ```java
 RoundingParams roundingParams = 
@@ -62,4 +64,5 @@ roundingParams.setRoundAsCircle(true);
 mSimpleDraweeView.getHierarchy().setRoundingParams(roundingParams);
 ```
 
-The one exception to this is that the `RoundingMethod` cannot be changed when changing dynamically. Attempting to do so will throw an `IllegalStateException.`
+> 在运行时，不能改变呈现方式: 原本是圆角，不能改为圆圈。
+> 

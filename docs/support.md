@@ -5,10 +5,10 @@ layout: default
 permalink: /support.html
 ---
 
-# Need help?
+# 帮助和支持
 
-**Fresco** is worked on by Facebook Android engineers. They're often around and available for questions.
+**Fresco** facebook出品，品质保证。如有问题，欢迎随时反馈
 
 ## GitHub issues
 
-The [GitHub issues](https://github.com/facebook/fresco/issues) page is a good place to ask questions, find answers, and report issues.
+这个是我们的 [GitHub issues](https://github.com/facebook/fresco/issues) 链接，你可以在这里寻找答案，反馈问题。
