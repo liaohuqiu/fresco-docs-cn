@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Using the Image Pipeline Directly</title>
+    <title>Fresco | 直接使用Image Pipeline</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Using the Image Pipeline Directly" />
+    <meta property="og:title" content="直接使用Image Pipeline" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -273,37 +273,38 @@
 
 <article class='withtoc'>
     <h1>
-      Using the Image Pipeline Directly
+      直接使用Image Pipeline
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-using-image-pipeline.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>This page is intended for advanced usage only. Most apps should be using <a href="using-drawees-xml.html">Drawees</a> to interact with Fresco&#39;s image pipeline.</p>
+    <p>本页介绍Image pipeline的高级用法，大部分的应用使用<a href="using-drawees-xml.html">Drawees</a> 和image pipeline打交道就好了。</p>
 
-<p>Using the image pipeline directly is challenging because of the memory usage. Drawees automatically keep track of whether or not your images need to be in memory. They will swap them out and load them back as soon as they need to be displayed. If you are using the image pipeline directly, your app must repeat this logic.</p>
+<p>直接使用Image pipeline是较为有挑战的事情，这意味着要维护图片的内存使用。Drawees
+会根据各种情况确定图片是否需要在内存缓存中，在需要时加载，在不需要时移除。直接使用的话，你需要自己完成这些逻辑。</p>
 
-<p>The image pipeline returns objects wrapped in a <a href="closeable-references.html">CloseableReference</a>. Drawees call the <code>.close()</code> method on these objects when they are finished with them. If your app is not using Drawees, it must do the same.</p>
+<p>Image pipeline返回的是一个<a href="closeable-references.html">CloseableReference</a>对象。在这些对象不需要时，Drawees会调用<code>.close()</code>方法。如果你的应用不使用Drawees，那你需要自己完成这个事情。</p>
 
-<p>The Java garbage collector will free image memory when Bitmap objects go out of scope, but this may be too late. Garbage collection is expensive, and relying on it for large objects leads to performance issues. This is especially true on Android 4.x and lower, when Android did not maintain a separate memory space for Bitmaps.</p>
+<p>Java的GC机制会在Bitmap不使用时，清理掉Bitmap。但要GC时总是太迟了，另外GC是很昂贵的开销。GC大对象也会带来性能问题，尤其是在5.0以下系统。</p>
 
-<h4>Calling the pipeline</h4>
+<h4>调用 pipeline</h4>
 
-<p>You must <a href="image-requests.html">build an image request</a>. Having done that, you can pass it directly to the <code>ImagePipeline:</code></p>
+<p>首先<a href="image-requests.html">创建一个image request</a>. 然后传递给 <code>ImagePipeline:</code></p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipeline</span> <span class="n">imagePipeline</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">getImagePipeline</span><span class="o">();</span>
 <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span> 
     <span class="n">dataSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">fetchDecodedImage</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">);</span>
 </code></pre></div>
-<p>See the page on <a href="datasources-datasubscribers.html">DataSources</a> for information on how to receive data from them.</p>
+<p>关于如果接收数据，请参考<a href="datasources-datasubscribers.html">数据源</a> 章节。</p>
 
-<h4>Skipping the decode</h4>
+<h4>忽略解码</h4>
 
-<p>If you don&#39;t want to decode the image, but want to keep it in its original compressed format, just use <code>fetchEncodedImage</code> instead:</p>
+<p>如果你不保持图片原始格式，不执行解码，使用<code>fetchEncodedImage</code>即可:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">PooledByteBuffer</span><span class="o">&gt;&gt;</span> 
     <span class="n">dataSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">fetchEncodedImage</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">);</span>
 </code></pre></div>
-<h4>Instant results from the bitmap cache</h4>
+<h4>从Bitmap缓存中立刻取到结果</h4>
 
-<p>Lookups to the bitmap cache, unlike the others, are done in the UI thread. If a Bitmap is there, you get it instantly. </p>
+<p>不像其他缓存，如果图片在内存缓存中有的话，可以在UI线程立刻拿到结果。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span> <span class="o">=</span>
     <span class="n">mImagePipeline</span><span class="o">.</span><span class="na">fetchImageFromBitmapCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">);</span>
 <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;</span> <span class="n">imageReference</span><span class="o">;</span>
@@ -318,18 +319,18 @@
   <span class="n">CloseableReference</span><span class="o">.</span><span class="na">closeSafely</span><span class="o">(</span><span class="n">imageReference</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>Do <strong>not</strong> skip this <code>finally</code> block!</p>
+<p>千万 <strong>不要</strong> 省略掉 <code>finally</code> 中的代码!</p>
 
-<h4>Prefetching</h4>
+<h4>预加载图片</h4>
 
-<p>Prefetching images in advance of showing them can sometimes lead to shorter wait times for users. Remember, however, that there are trade-offs. Prefetching takes up your users&#39; data, and uses up its share of CPU and memory. As a rule, prefetching is not recommended for most apps.</p>
+<p>预加载图片可减少用户等待的时间，如果预加载的图片用户没有真正呈现给用户，那么就浪费了用户的流量，电量，内存等资源了。大多数应用，并不需要预加载。</p>
 
-<p>Nonetheless, the image pipeline allows you to prefetch to either disk or bitmap cache. Both will use more data for network URIs, but the disk cache will not do a decode and will therefore use less CPU.</p>
+<p>Image pipeline 提供两种预加载方式。</p>
 
-<p>Prefetch to disk:</p>
+<p>预加载到文件缓存:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToDiskCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">);</span>
 </code></pre></div>
-<p>Prefetch to bitmap cache:</p>
+<p>预加载到内存缓存:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToBitmapCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">);</span>
 </code></pre></div>
 

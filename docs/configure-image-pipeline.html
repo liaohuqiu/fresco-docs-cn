@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Configuring the Image Pipeline</title>
+    <title>Fresco | 配置Image Pipeline</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Configuring the Image Pipeline" />
+    <meta property="og:title" content="配置Image Pipeline" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_" class="active">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -273,17 +273,17 @@
 
 <article class='withtoc'>
     <h1>
-      Configuring the Image Pipeline
+      配置Image Pipeline
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-configure-image-pipeline.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>Most apps can initialize Fresco completely by the simple command:</p>
+    <p>对于大多数的应用，Fresco的初始化，只需要以下一句代码:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
 </code></pre></div>
-<p>For those apps that need more advanced customization, we offer it using the <a href="../javadoc/reference/com/facebook/imagepipeline/core/ImagePipelineConfig.html">ImagePipelineConfig</a> class.</p>
+<p>对于那些需要更多进一步配置的应用，我们提供了<a href="../javadoc/reference/com/facebook/imagepipeline/core/ImagePipelineConfig.html">ImagePipelineConfig</a>。</p>
 
-<p>Here is a maximal example. Rare is the app that actually needs all of these settings, but here they are for reference.</p>
+<p>以下是一个示例配置，列出了所有可配置的选项。几乎没有应用是需要以下这所有的配置的，列出来仅仅是为了作为参考。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipelineConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ImagePipelineConfig</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setBitmapMemoryCacheParamsSupplier</span><span class="o">(</span><span class="n">bitmapCacheParamsSupplier</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setCacheKeyFactory</span><span class="o">(</span><span class="n">cacheKeyFactory</span><span class="o">)</span>
@@ -300,13 +300,15 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">config</span><span class="o">);</span>
 </code></pre></div>
-<p>Be sure to pass your <code>ImagePipelineConfig</code> object to <code>Fresco.initialize!</code> Otherwise, Fresco will use a default configuration instead of the one you built.</p>
+<p>请记得将配置好的<code>ImagePipelineConfig</code> 传递给 <code>Fresco.initialize!</code> 否则仍旧是默认配置。</p>
 
-<h3>Understanding Suppliers</h3>
+<h3>关于Supplier</h3>
 
-<p>Several of the configuration builder&#39;s methods take arguments of a <a href="../javadoc/reference/com/facebook/common/internal/Supplier.html">Supplier</a> of an instance rather than an instance itself. This is a little more complex to create, but allows you to change behaviors while your app is running. Memory caches, for one, check their Supplier every five minutes.</p>
+<p>许多配置的Builder都接受一个<a href="../javadoc/reference/com/facebook/common/internal/Supplier.html">Supplier</a> 类型的参数而不是一个配置的实例。</p>
 
-<p>If you don&#39;t need to dynamically change the params, use a Supplier that returns the same object each time:</p>
+<p>创建时也许有一些麻烦，但这带来更多的利好：这允许在运行时改变创建行为。以内存缓存为例，每隔5分钟就可检查一下Supplier，根据实际情况返回不同类型。</p>
+
+<p>如果你需要动态改变参数，那就是用Supplier每次都返回同一个对象。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="n">xSupplier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;()</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="n">X</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">X</span><span class="o">(</span><span class="n">xparam1</span><span class="o">,</span> <span class="n">xparam2</span><span class="o">...);</span>
@@ -315,27 +317,27 @@
 <span class="c1">// when creating image pipeline</span>
 <span class="o">.</span><span class="na">setXSupplier</span><span class="o">(</span><span class="n">xSupplier</span><span class="o">);</span>
 </code></pre></div>
-<h3>Thread pools</h3>
+<h3>线程池</h3>
 
-<p>By default, the image pipeline uses three thread pools:</p>
+<p>Image pipeline 默认有3个线程池:</p>
 
 <ol>
-<li>Three threads for network downloads</li>
-<li>Two threads for all disk operations - local file reads, and the disk cache</li>
-<li>Two threads for all CPU-bound operations - decodes, transforms, and background operations, such as postprocessing.</li>
+<li>3个线程用于网络下载</li>
+<li>两个线程用于磁盘操作: 本地文件的读取，磁盘缓存操作。</li>
+<li>两个线程用于CPU相关的操作: 解码，转换，以及后处理等后台操作。</li>
 </ol>
 
-<p>You can customize networking behavior by <a href="using-other-network-layers.html">setting your own network layer</a>.</p>
+<p>对于网络下载，你可以定制网络层的操作，具体参考:<a href="using-other-network-layers.html">自定义网络层加载</a>.</p>
 
-<p>To change the behavior for all other operations, pass in an instance of <a href="../javadoc/reference/com/facebook/imagepipeline/core/ExecutorSupplier.html">ExecutorSupplier</a>.</p>
+<p>对于其他操作，如果要改变他们的行为，传入一个<a href="../javadoc/reference/com/facebook/imagepipeline/core/ExecutorSupplier.html">ExecutorSupplier</a>即可。</p>
 
-<h3>Configuring the memory caches</h3>
+<h3>内存缓存的配置</h3>
 
-<p>The bitmap cache and the encoded memory cache are configured by a Supplier of a <a href="../javadoc/reference/com/facebook/imagepipeline/cache/MemoryCacheParams.html#MemoryCacheParams(int,%20int,%20int,%20int,%20int)">MemoryCacheParams</a> object.</p>
+<p>内存缓存和未解码的内存缓存的配置由一个Supplier控制，这个Supplier返回一个<a href="../javadoc/reference/com/facebook/imagepipeline/cache/MemoryCacheParams.html#MemoryCacheParams(int,%20int,%20int,%20int,%20int)">MemoryCacheParams</a> 对象用于内存状态控制。</p>
 
-<h3>Configuring the disk cache</h3>
+<h3>配置磁盘缓存</h3>
 
-<p>You use the builder pattern to create a <a href="../javadoc/reference/com/facebook/cache/disk/DiskCacheConfig.Builder.html">DiskCacheConfig</a> object:</p>
+<p>你可使用Builder模式创建一个 <a href="../javadoc/reference/com/facebook/cache/disk/DiskCacheConfig.Builder.html">DiskCacheConfig</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DiskCacheConfig</span> <span class="n">diskCacheConfig</span> <span class="o">=</span> <span class="n">DiskCacheConfig</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
    <span class="o">.</span><span class="na">set</span><span class="o">....</span>
    <span class="o">.</span><span class="na">set</span><span class="o">....</span>
@@ -344,9 +346,9 @@
 <span class="c1">// when building ImagePipelineConfig</span>
 <span class="o">.</span><span class="na">setMainDiskCacheConfig</span><span class="o">(</span><span class="n">diskCacheConfig</span><span class="o">)</span>
 </code></pre></div>
-<h3>Keeping cache stats</h3>
+<h3>缓存统计</h3>
 
-<p>If you want to keep track of metrics like the cache hit rate, you can implement the <a href="../javadoc/reference/com/facebook/imagepipeline/cache/ImageCacheStatsTracker.html">ImageCacheStatsTracker</a> class. This provides callbacks for every cache event that you can use to keep your own statistics.</p>
+<p>如果你想统计缓存的命中率，你可以实现<a href="../javadoc/reference/com/facebook/imagepipeline/cache/ImageCacheStatsTracker.html">ImageCacheStatsTracker</a>, 在这个类中，每个缓存时间都有回调通知，基于这些事件，可以实现缓存的计数和统计。</p>
 
 
     <div class="docs-prevnext">

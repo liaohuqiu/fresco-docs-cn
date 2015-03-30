@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | DataSources and DataSubscribers</title>
+    <title>Fresco | 数据源和数据订阅者</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="DataSources and DataSubscribers" />
+    <meta property="og:title" content="数据源和数据订阅者" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -273,18 +273,21 @@
 
 <article class='withtoc'>
     <h1>
-      DataSources and DataSubscribers
+      数据源和数据订阅者
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-datasources-datasubscribers.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>A <a href="../javadoc/reference/com/facebook/datasource/DataSource.html">DataSource</a> is, like a Java <a href="http://developer.android.com/reference/java/util/concurrent/Future.html">Future</a>, the result of an asynchronous computation. The different is that, unlike a Future, a DataSource can return you a whole series of results from a single command, not just one.</p>
+    <p><a href="../javadoc/reference/com/facebook/datasource/DataSource.html">数据源</a> 和 <a href="http://developer.android.com/reference/java/util/concurrent/Future.html">Future</a>, 有些相似，都是异步计算的结果。</p>
 
-<p>After submitting an image request, the image pipeline returns a data source. To get a result out if it, you need to use a <a href="../javadoc/reference/com/facebook/datasource/DataSubscriber.html">DataSubscriber</a>.</p>
+<p>不同点在于，数据源对于一个调用会返回一系列结果，Future只返回一个。</p>
 
-<h3>I just want a bitmap...</h3>
+<p>提交一个Image request之后，Image
+pipeline返回一个数据源。从中获取数据需要使用<a href="../javadoc/reference/com/facebook/datasource/DataSubscriber.html">数据订阅者(DataSubscriber)</a>.</p>
 
-<p>If your request to the pipeline is for a decoded image - an Android <a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a>, you can take advantage of our easier-to-use <a href="../javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber">BaseBitmapDataSubscriber</a>:</p>
+<h3>当你仅仅需要Bitmap</h3>
+
+<p>如果你请求Image pipeline仅仅是为了获取一个 <a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a>, 对象。你可以利用简单易用的<a href="../javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber">BaseBitmapDataSubscriber</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nf">BaseBitmapDataSubscriber</span><span class="o">()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
@@ -298,13 +301,16 @@
     <span class="o">}</span>
   <span class="o">});</span>
 </code></pre></div>
-<p>A snap to use, right? There is a caveat. </p>
+<p>看起来很简单，对吧。下面是一些小警告:</p>
 
-<p>You can <strong>not</strong> assign the bitmap to any variable not in the scope of the <code>onNewResultImpl</code> method. The reason is that, after the subscriber has finished executing, the image pipeline will recycle the bitmap and free its memory. If you try to draw the bitmap after that, your app will crash with an <code>IllegalStateException.</code></p>
+<p>千万 <strong>不要</strong> 把bitmap复制给<code>onNewResultImpl</code>函数范围之外的任何变量。订阅者执行完操作之后，image
+pipeline
+会回收这个bitmap，释放内存。在这个函数范围内再次使用这个Bitmap对象进行绘制将会导致<code>IllegalStateException</code>。</p>
 
-<h3>General-purpose solution</h3>
+<h3>通用的解决方案</h3>
 
-<p>If you want to keep the bitmap around, you can&#39;t use raw Bitmaps at all. You must make use of <a href="closeable-references.html">closeable references</a> and the <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
+<p>如果你就是想维持对这个Bitmap对象的引用，你不能维持纯Bitmap对象的引用，可以利用[可关闭的引用(closeable
+references)[closeable-references.html) 和 <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSubscriber</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
     <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
   <span class="nd">@Override</span>
@@ -334,7 +340,7 @@
 
 <span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">dataSubscriber</span><span class="o">,</span> <span class="n">executor</span><span class="o">);</span>
 </code></pre></div>
-<p>If you want to deviate from the example above and assign the <code>CloseableReference</code> to another variable somewhere else, you can. Just be sure to <a href="closeable-references.html">follow the rules</a>.</p>
+<p>这样，只要遵守<a href="closeable-references.html">可关闭的引用使用规则</a>，你就可以把这个<code>CloseableReference</code>复制给其他变量了。</p>
 
 
     <div class="docs-prevnext">

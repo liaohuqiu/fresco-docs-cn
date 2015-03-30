@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -317,6 +317,16 @@
 <td><code>Resources.openRawResource</code></td>
 </tr>
 </tbody></table>
+
+<p><br/></p>
+
+<p>注意，只有图片资源才能使用在Image
+pipeline中，比如(PNG)。其他资源类型，比如字符串，或者XML Drawable在Image
+pipeline中没有意义。所以加载的资源不支持这些类型。</p>
+
+<p>像ShapeDrawable这样声明在XML中的drawable可能引起困惑。注意到这毕竟不是图片，如果想把这样的drawable作为图像显示。</p>
+
+<p>那么把这个drawable设置为占位图，然后把URI设置为null。</p>
 
 
     <div class="docs-prevnext">

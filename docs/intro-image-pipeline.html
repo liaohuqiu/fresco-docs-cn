@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | Introduction to the Image Pipeline</title>
+    <title>Fresco | Image Pipeline介绍</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="Introduction to the Image Pipeline" />
+    <meta property="og:title" content="Image Pipeline介绍" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -273,36 +273,36 @@
 
 <article class='withtoc'>
     <h1>
-      Introduction to the Image Pipeline
+      Image Pipeline介绍
       <a class="edit-page-link" href="https://github.com/facebook/fresco/tree/gh-pages/docs/02-intro-image-pipeline.md" target="_blank">Edit on GitHub</a>
     </h1>
     <p></p>
 
-    <p>The image pipeline does everything necessary to get an image into a form where it can be rendered into an Android device.</p>
+    <p>Image pipeline 负责完成加载图像，变成Android设备可呈现的形式所要做的每个事情。</p>
 
-<p>The pipeline goes through the following steps when given an image to load:</p>
+<p>大致流程如下:</p>
 
 <ol>
-<li>Look in the bitmap cache. If found, return it.</li>
-<li>Hand off to other threads.</li>
-<li>Check in the encoded memory cache. If found, decode, transform, and return it. Store in the bitmap cache.</li>
-<li>Check in the disk cache. If found, decode, transform, and return it. Store in the encoded-memory and bitmap caches.</li>
-<li>Check on the network (or other original source). If found, decode, transform, and return it. Store in all three caches.</li>
+<li>检查内存缓存，如有，返回</li>
+<li>后台线程开始后续工作</li>
+<li>检查是否在未解码内存缓存中。如有，解码，变换，返回，然后缓存到内存缓存中。</li>
+<li>检查是否在文件缓存中，如果有，变换，返回。缓存到未解码缓存和内存缓存中。</li>
+<li>从网络或者本地加载。加载完成后，解码，变换，返回。存到各个缓存中。</li>
 </ol>
 
-<p>This being an image library, an image is worth a thousand words:</p>
+<p>既然本身就是一个图片加载组件，那么一图胜千言。</p>
 
 <p><img src="../static/imagepipeline.png" alt="Image Pipeline Diagram" title="Image Pipeline"></p>
 
-<p>(The &#39;disk&#39; cache as pictured includes the encoded memory cache, to keep the logic path clearer.) See <a href="caching.html">this page</a> for more details on caching.</p>
+<p>上图中，<code>disk cache</code>实际包含了未解码的内存缓存在内，统一在一起只是为了逻辑稍微清楚一些。关于缓存，更多细节可以参考<a href="caching.html">这里</a>。</p>
 
-<p>The pipeline can read from <a href="supported-uris.html">local files</a> as well as network. PNG, GIF, and WebP are supported as well as JPEG.</p>
+<p>Image pipeline
+可以从<a href="supported-uris.html">本地文件</a>加载文件，也可以从网络。支持PNG，GIF，WebP, JPEG。</p>
 
-<h3>WebP on older platforms</h3>
+<h3>各个Android系统的WebP适配</h3>
 
-<p>WebP is often a useful image format, but Android did not support it at all until Android 3.0. Extended WebP format was not supported until Android 4.1.2.</p>
-
-<p>The image pipeline transcodes unsupported WebP images into JPEG for you. This allows you to use WebP in your app all the way back to Android 2.3.</p>
+<p>在3.0系统之前，Android是不支持WebP格式的。在4.1.2之前，扩展WebP格式是不支持的。
+在Image pipeline的支持下，从2.3之后，都可以使用WebP格式。</p>
 
 
     <div class="docs-prevnext">

@@ -211,7 +211,7 @@
         
           <li>
             <a href="/docs/configure-image-pipeline.html#_">
-              Image Pipeline的配置
+              配置Image Pipeline
             </a>
             
           </li>
@@ -239,7 +239,7 @@
         
           <li>
             <a href="/docs/closeable-references.html#_">
-              Closeable References
+              可关闭的引用
             </a>
             
           </li>
@@ -278,20 +278,23 @@
     </h1>
     <p></p>
 
-    <p>By default, the image pipeline uses the <a href="https://developer.android.com/training/basics/network-ops/connecting.html">HttpURLConnection</a> networking library bundled with Android. Apps may have their own network layer they may wish to use instead.</p>
+    <p>Image pipeline 默认使用<a href="https://developer.android.com/training/basics/network-ops/connecting.html">HttpURLConnection</a>。应用可以根据自己需求使用不同的网络库。</p>
 
-<h3>Using OkHttp</h3>
+<h3>OkHttp</h3>
 
-<p><a href="http://square.github.io/okhttp">OkHttp</a> is a popular open-source networking library. The image pipeline has a backend that uses OkHttp instead of the Android default.</p>
+<p><a href="http://square.github.io/okhttp">OkHttp</a> 是一个流行的开源网络请求库。Image
+pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充。</p>
 
-<p>In order to use it, the <code>dependencies</code> section of your <code>build.gradle</code> file needs to be changed. Do <strong>not</strong> use the Gradle dependencies given on the <a href="download-fresco.html">download</a> page. Use these instead:</p>
+<p>如果需要使用OkHttp,
+不要使用这个<a href="download-fresco.html">下载</a>页面的gradle依赖配置，应该使用下面的依赖配置</p>
 <div class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
   <span class="c1">// your project&#39;s other dependencies</span>
   <span class="nl">compile:</span> <span class="s2">&quot;com.facebook.fresco:drawee:0.1.0+&quot;</span>
   <span class="nl">compile:</span> <span class="s2">&quot;com.facebook.fresco:imagepipeline-okhttp:0.1.0+&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>You must also configure the image pipeline a little differently. Instead of using <code>ImagePipelineConfig.newBuilder</code>, use <code>OkHttpImagePipelineConfigFactory</code> instead:</p>
+<p>配置Image
+pipeline这时也有一些不同，不再使用<code>ImagePipelineConfig.newBuilder</code>,而是使用<code>OkHttpImagePipelineConfigFactory</code>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Context</span> <span class="n">context</span><span class="o">;</span>
 <span class="n">OkHttpClient</span> <span class="n">okHttpClient</span><span class="o">;</span> <span class="c1">// build on your own</span>
 <span class="n">ImagePipelineConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">OkHttpImagePipelineConfigFactory</span>
@@ -301,13 +304,16 @@
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">config</span><span class="o">);</span>
 </code></pre></div>
-<h3>Using your own layer</h3>
+<h3>使用自定的网络层</h3>
 
-<p>For complete control on how the networking layer should behave, you can provide one for your app. You must subclass <a href="../javadoc/reference/com/facebook/imagepipeline/producers/NetworkFetchProducer.html">NetworkFetchProducer</a>, which controls communications to the network. You can also optionally subclass <a href="../javadoc/reference/com/facebook/imagepipeline/producers/NfpRequestState.html">NfpRequestState</a>, which is a data structure for request-specific information.</p>
+<p>For complete control on how the networking layer should behave, you can provide one for your app. You must subclass 
+为了完全控制网络层的行为，你可以自定义网络层。继承<a href="../javadoc/reference/com/facebook/imagepipeline/producers/NetworkFetchProducer.html">NetworkFetchProducer</a>, 这个类包含了网络通信。</p>
 
-<p>Our default implementation for <code>HttpURLConnection</code> can be used as an example. See <a href="https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpURLConnectionNetworkFetchProducer.java">its source code</a>.</p>
+<p>你也可以选择性地继承<a href="../javadoc/reference/com/facebook/imagepipeline/producers/NfpRequestState.html">NfpRequestState</a>, 这个类是请求时的数据结构描述。</p>
 
-<p>You must pass your network producer to the image pipeline when <a href="configuring-image-pipeline.html">configuring it</a>:</p>
+<p>默认的 <code>HttpURLConnection</code> 可以作为一个参考. 源码在这 <a href="https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpURLConnectionNetworkFetchProducer.java">its source code</a>.</p>
+
+<p>在<a href="configuring-image-pipeline.html">配置Image pipeline</a>时，把producer传递给Image pipeline。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipelineConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ImagePipelineConfig</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
   <span class="o">.</span><span class="na">setNetworkFetchProducer</span><span class="o">(</span><span class="n">myNetworkFetchProducer</span><span class="o">);</span>
   <span class="o">.</span> <span class="c1">// other setters</span>
