@@ -1,19 +1,19 @@
 ---
 id: requesting-multiple-images
-title: Requesting Multiple Images
+title: 多图请求及图片复用
 layout: docs
 permalink: /docs/requesting-multiple-images.html
 prev: animations.html
 next: listening-download-events.html
 ---
 
-The methods on this page require [setting your own image request](using-controllerbuilder.html).
+多图请求需 [自定义ImageRequest](using-controllerbuilder.html).
 
-### Going from low to high resolution
+### 先显示低分辨率的图，然后是高分辨率的图
 
-Suppose you want to show users a high-resolution, slow-to-download image. Rather than let them stare a placeholder for a while, you might want to quickly download a smaller thumbnail first.
+如果你要显示一张高分辨率的图，但是这张图下载比较耗时。你可以在下载前，先提供一张很快能下载完的小缩略图。这比一直显示占位图，用户体验会好很多。
 
-You can set two URIs, one for the low-res image, one for the high one:
+这时，你可以设置两个图片的URI，一个是低分辨率的缩略图，一个是高分辨率的图。
 
 ```java
 Uri lowResUri, highResUri;
@@ -25,11 +25,11 @@ PipelineDraweeController controller = Fresco.newControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
-### Using thumbnail previews
+### 缩略图预览
 
-*This option is supported only for local URIs, and only for images in the JPEG format.*
+*本功能仅支持本地URI，并且是JPEG图片格式*
 
-If your JPEG has a thumbnail stored in its EXIF metadata, the image pipeline can return that as an intermediate result. Your Drawee will first show the thumbnail preview, then the full image when it has finished loading and decoding.
+如果本地JPEG图，有EXIF的缩略图，image pipeline 会立刻返回一个缩略图。完整的清晰大图，在decode完之后再显示。
 
 ```java
 Uri uri;
@@ -45,15 +45,20 @@ mSimpleDraweeView.setController(controller);
 ```
 
 
-### Loading the first available image
+### 本地图片复用
 
-Most of the time, an image has no more than one URI. Load it, and you're done.
+大部分的时候，一个图片可能会对应有多个URI，比如:
 
-But suppose you have multiple URIs for the same image. For instance, you might have uploaded an image taken from the camera. Original image would be too big to upload, so the image is downscaled first. In such case, it would be beneficial to first try to get the local-downscaled-uri, then if that fails, try to get the local-original-uri, and if even that fails, try to get the network-uploaded-uri. It would be a shame to download the image that we may have already locally. 
+* 拍照上传。本地图片较大，上传的图片较小。上传完成之后的图片，有一个url，如果要加载这个url，可直接加载本地图片。
+* 本地已经有600x600尺寸的大图了，需要显示100x100的小图
 
-The image pipeline normally searches for images in the memory cache first, then the disk cache, and only then goes out to the network or other source. Rather than doing this one by one for each image, we can have the pipeline check for *all* the images in the memory cache. Only if none were found would disk cache be searched in. Only if none were found there either would an external request be made.
+对于一个URI，image pipeline 会依次检查内存，磁盘，如果没有从网络下载。
 
-Just create an array of image requests, and pass it to the builder.
+而对于一个图片的多个URI，image pipeline 会先检查他们是否在内存中。如果没有任何一个是在内存中的，会检查是否在本地存储中。如果也没有，才会执行网络下载。
+
+但凡有任何一个检查发现在内存或者在本地存储中，都会进行复用。列表顺序就是要显示的图片的优先顺序。
+
+使用时，创建一个image request 列表，然后传给ControllerBuilder:
 
 ```java
 Uri uri1, uri2;
@@ -67,5 +72,3 @@ PipelineDraweeController controller = Fresco.newControllerBuilder()
     .build();
 mSimpleDraweeView.setController(controller);
 ```
-
-Only one of the requests will be displayed. The first one found, whether at memory, disk, or network level, will be the one returned. The pipeline will assume the order of requests in the array is the preference order. 

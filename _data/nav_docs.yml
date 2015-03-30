@@ -27,7 +27,7 @@
   - id: animations
     title: 动画图(gif)
   - id: requesting-multiple-images
-    title: 批量图片请求
+    title: 多图请求级图片复用
   - id: listening-download-events
     title: 监听下载事件
   - id: resizing-rotating
@@ -39,7 +39,7 @@
   - id: writing-custom-views    
     title: 自定义View
   - id: gotchas
-    title: 一些陷进
+    title: 一些陷阱
 - title: Image Pipeline 指南
   items:
   - id: intro-image-pipeline
