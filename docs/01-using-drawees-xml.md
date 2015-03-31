@@ -3,7 +3,7 @@ id: using-drawees-xml
 title: 在XML中使用Drawees
 layout: docs
 permalink: /docs/using-drawees-xml.html
-prev: concepts.html
+prev: supported-uris.html
 next: using-drawees-code.html
 ---
 
