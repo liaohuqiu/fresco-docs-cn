@@ -1,5 +1,5 @@
 ---
-id: getting-started
+id: index
 title: 开始使用 Fresco
 layout: docs
 permalink: /docs/index.html
@@ -43,7 +43,7 @@ draweeView.setImageURI("http://site.com/uri");
 
 剩下的，Fresco会替你完成: 
 
-* 显示占位图直到现在完成；
+* 显示占位图直到加载完成；
 * 下载图片；
 * 缓存图片；
 * 图片不再显示时，从内存中移除；
