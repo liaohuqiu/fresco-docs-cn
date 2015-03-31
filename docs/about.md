@@ -1,9 +1,11 @@
 ---
-id: about
+id: reference
 title: 关于本文档
 layout: default
 permalink: /about.html
 ---
+
+## 关于本文档
 
 Fresco的出现，似乎将Android的图片加载做到了极致。
 
@@ -16,3 +18,7 @@ Fresco的出现，似乎将Android的图片加载做到了极致。
 水平有限，如有疏漏还望指正。
 
 项目地址:  [https://github.com/liaohuqiu/fresco-docs-cn](https://github.com/liaohuqiu/fresco-docs-cn) 可直接提交pull request。
+
+## 其他参考资料
+
+* 待补充
