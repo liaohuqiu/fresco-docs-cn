@@ -13,4 +13,6 @@ Fresco的出现，似乎将Android的图片加载做到了极致。
 
 项目发布之后，快马加鞭，两天三夜翻译完文档，呈现在这里，希望也能给你带来一些欣喜。
 
-水平有限，如有疏漏还望指正：https://github.com/liaohuqiu/fresco-docs-cn， 可直接提交pull request。
+水平有限，如有疏漏还望指正。
+
+项目地址:  [https://github.com/liaohuqiu/fresco-docs-cn](https://github.com/liaohuqiu/fresco-docs-cn) 可直接提交pull request。
