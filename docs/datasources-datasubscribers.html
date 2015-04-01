@@ -322,8 +322,8 @@ pipeline
 
 <h3>通用的解决方案</h3>
 
-<p>如果你就是想维持对这个Bitmap对象的引用，你不能维持纯Bitmap对象的引用，可以利用[可关闭的引用(closeable
-references)[closeable-references.html) 和 <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
+<p>如果你就是想维持对这个Bitmap对象的引用，你不能维持纯Bitmap对象的引用，可以利用<a href="closeable-references.html">可关闭的引用(closeable
+references)</a> 和 <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSubscriber</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
     <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
   <span class="nd">@Override</span>
