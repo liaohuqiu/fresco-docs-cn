@@ -50,7 +50,7 @@ next: scaling.html
 
 ## <a name="Placeholder"></a>占位图(Placeholder)
 
-在调用`setController` 或者 `setImageURI` 之后，占位图开始现实，直到图片加载完成。
+在调用`setController` 或者 `setImageURI` 之后，占位图开始显示，直到图片加载完成。
 
 对于渐进式格式的JPEG图片，占位图会显示直到满足已加载的图片解析度到达设定值。
 
