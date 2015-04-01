@@ -42,7 +42,7 @@ pipeline
 ### 通用的解决方案
 
 如果你就是想维持对这个Bitmap对象的引用，你不能维持纯Bitmap对象的引用，可以利用[可关闭的引用(closeable
-references)[closeable-references.html) 和 [BaseDataSubscriber](../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html):
+references)](closeable-references.html) 和 [BaseDataSubscriber](../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html):
 
 ```java
 DataSubscriber dataSubscriber =
