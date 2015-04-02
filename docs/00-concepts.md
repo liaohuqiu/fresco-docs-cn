@@ -21,7 +21,7 @@ Drawees 负责图片的呈现，包含几个组件，有点像MVC模式。
 
 ### DraweeHierarchy
 
-继承于 [Drawable](http://developer.android.com/reference/android/widget/Drawable.html), 包含用于绘制的图像数据。MVC中的M。
+DraweeHierarchy 用于组织和维护最终绘制和呈现的[Drawable](http://developer.android.com/reference/android/graphics/drawable/Drawable.html)对象，相当于MVC中的M。
 
 如果你想在Java代码中自定义图片的展示，可以通过这类实现，具体的请参考这里: [在Java代码中自定义显示效果](using-drawees-code.html)
 
