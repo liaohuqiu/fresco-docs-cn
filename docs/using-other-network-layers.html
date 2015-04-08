@@ -324,7 +324,7 @@ pipeline这时也有一些不同，不再使用<code>ImagePipelineConfig.newBuil
 
 <p>你也可以选择性地继承<a href="../javadoc/reference/com/facebook/imagepipeline/producers/NfpRequestState.html">NfpRequestState</a>, 这个类是请求时的数据结构描述。</p>
 
-<p>默认的 <code>HttpURLConnection</code> 可以作为一个参考. 源码在这 <a href="https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpURLConnectionNetworkFetchProducer.java">its source code</a>.</p>
+<p>默认的 <code>HttpURLConnection</code> 可以作为一个参考. 源码在这 <a href="https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpUrlConnectionNetworkFetcher.java">its source code</a>.</p>
 
 <p>在<a href="configuring-image-pipeline.html">配置Image pipeline</a>时，把producer传递给Image pipeline。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipelineConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ImagePipelineConfig</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
