@@ -46,7 +46,7 @@ For complete control on how the networking layer should behave, you can provide 
 
 你也可以选择性地继承[NfpRequestState](../javadoc/reference/com/facebook/imagepipeline/producers/NfpRequestState.html), 这个类是请求时的数据结构描述。
 
-默认的 `HttpURLConnection` 可以作为一个参考. 源码在这 [its source code](https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpURLConnectionNetworkFetchProducer.java).
+默认的 `HttpURLConnection` 可以作为一个参考. 源码在这 [its source code](https://github.com/facebook/fresco/blob/master/imagepipeline/src/main/java/com/facebook/imagepipeline/producers/HttpUrlConnectionNetworkFetcher.java).
 
 在[配置Image pipeline](configuring-image-pipeline.html)时，把producer传递给Image pipeline。
 
