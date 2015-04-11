@@ -2,16 +2,16 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | 数据源和数据订阅者</title>
+    <title>Fresco | 关于在Android Studio中编译</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="数据源和数据订阅者" />
+    <meta property="og:title" content="关于在Android Studio中编译" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
-    <meta property='og:url' content="http://facebook.github.io/fresco/docs/datasources-datasubscribers.html">
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/compile-in-android-studio.html">
     
     <meta property='og:type' content='website'>
     
@@ -76,7 +76,7 @@
           </li>
         
           <li>
-            <a href="/docs/compile-in-android-studio.html#_">
+            <a href="/docs/compile-in-android-studio.html#_" class="active">
               关于在Android Studio中编译
             </a>
             
@@ -251,7 +251,7 @@
           </li>
         
           <li>
-            <a href="/docs/datasources-datasubscribers.html#_" class="active">
+            <a href="/docs/datasources-datasubscribers.html#_">
               数据源/订阅数据源
             </a>
             
@@ -293,82 +293,30 @@
 
 <article class='withtoc'>
     <h1>
-      数据源和数据订阅者
-      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/02-datasources-datasubscribers.md" target="_blank">编辑和纠错</a>
+      关于在Android Studio中编译
+      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/00-compile-in-android-studio.md" target="_blank">编辑和纠错</a>
     </h1>
     <p></p>
 
-    <p><a href="../javadoc/reference/com/facebook/datasource/DataSource.html">数据源</a> 和 <a href="http://developer.android.com/reference/java/util/concurrent/Future.html">Future</a>, 有些相似，都是异步计算的结果。</p>
+    <p>Fresco 是一个典型的Android Studio 项目。</p>
 
-<p>不同点在于，数据源对于一个调用会返回一系列结果，Future只返回一个。</p>
+<p>如果想编译源码, 看demo项目，可以通过gradle或者Android Studio，Eclipse是真的不行了。</p>
 
-<p>提交一个Image request之后，Image
-pipeline返回一个数据源。从中获取数据需要使用<a href="../javadoc/reference/com/facebook/datasource/DataSubscriber.html">数据订阅者(DataSubscriber)</a>.</p>
+<p>一直以来，在国内更新Android SDK以及使用Android Studio导入项目时，都是一件麻烦的事情。</p>
 
-<h3>当你仅仅需要Bitmap</h3>
+<p>使用gradle 或者 Android Studio会遇到一些网络障碍。这些障碍，使用 <a href="http://www.liaohuqiu.net/cn/posts/about-red-apricot-and-compiling-fresco/">红杏为开发者开放的免费的公益代理</a> 可以解决。</p>
 
-<p>如果你请求Image pipeline仅仅是为了获取一个 <a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a>, 对象。你可以利用简单易用的<a href="../javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber">BaseBitmapDataSubscriber</a>:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nf">BaseBitmapDataSubscriber</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
-       <span class="c1">// You can use the bitmap in only limited ways</span>
-      <span class="c1">// No need to do any cleanup.</span>
-    <span class="o">}</span>
+<p>另外对于NDK，因为Android Studio还支持不够。所以需要在命令行下预编译。</p>
 
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
-      <span class="c1">// No cleanup required here.</span>
-    <span class="o">}</span>
-  <span class="o">});</span>
-</code></pre></div>
-<p>看起来很简单，对吧。下面是一些小警告:</p>
-
-<p>千万 <strong>不要</strong> 把bitmap复制给<code>onNewResultImpl</code>函数范围之外的任何变量。订阅者执行完操作之后，image
-pipeline
-会回收这个bitmap，释放内存。在这个函数范围内再次使用这个Bitmap对象进行绘制将会导致<code>IllegalStateException</code>。</p>
-
-<h3>通用的解决方案</h3>
-
-<p>如果你就是想维持对这个Bitmap对象的引用，你不能维持纯Bitmap对象的引用，可以利用<a href="closeable-references.html">可关闭的引用(closeable
-references)</a> 和 <a href="../javadoc/reference/com/facebook/datasource/BaseDataSubscriber.html">BaseDataSubscriber</a>:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DataSubscriber</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
-    <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span>
-      <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="k">if</span> <span class="o">(!</span><span class="n">dataSource</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
-      <span class="n">FLog</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;Not yet finished - this is just another progressive scan.&quot;</span><span class="o">);</span>
-    <span class="o">}</span>  
-
-    <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;</span> <span class="n">imageReference</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">imageReference</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">try</span> <span class="o">{</span>
-        <span class="n">CloseableImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imageReference</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-        <span class="c1">// do something with the image</span>
-      <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-        <span class="n">imageReference</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Throwable</span> <span class="n">throwable</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getFailureCause</span><span class="o">();</span>
-    <span class="c1">// handle failure</span>
-  <span class="o">}</span>
-<span class="o">};</span>
-
-<span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">dataSubscriber</span><span class="o">,</span> <span class="n">executor</span><span class="o">);</span>
-</code></pre></div>
-<p>这样，只要遵守<a href="closeable-references.html">可关闭的引用使用规则</a>，你就可以把这个<code>CloseableReference</code>复制给其他变量了。</p>
+<p>请参考这里: <a href="http://www.liaohuqiu.net/cn/posts/about-red-apricot-and-compiling-fresco/">关于红杏的公益代理, Android Studio以及freso的编译</a></p>
 
 
     <div class="docs-prevnext">
       
-        <a href="/docs/using-image-pipeline.html#_">&larr; 上一页</a>
+        <a href="/docs/download-fresco.html#_">&larr; 上一页</a>
       
       
-        <a class="right" href="/docs/closeable-references.html#_">下一页 &rarr;</a>
+        <a class="right" href="/docs/index.html#_">下一页 &rarr;</a>
       
     </div>
 
