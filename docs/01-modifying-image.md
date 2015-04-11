@@ -53,7 +53,7 @@ mSimpleDraweeView.setController(controller);
 
 #### Repeated Postprocessors
 
-如果想对同一个图片进行多次后处理，那么继承[BaseRepeatedPostprocessor])(../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html)即可。该类有一个`update`方法，需要执行后处理时，调用该方法即可。
+如果想对同一个图片进行多次后处理，那么继承[BaseRepeatedPostprocessor](../javadoc/reference/com/facebook/imagepipeline/request/BaseRepatedPostprocessor.html)即可。该类有一个`update`方法，需要执行后处理时，调用该方法即可。
 
 下面的例子展示了在运行时，后处理改变图片网格的颜色:
 

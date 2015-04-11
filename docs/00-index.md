@@ -3,7 +3,7 @@ id: index
 title: 开始使用 Fresco
 layout: docs
 permalink: /docs/index.html
-prev: download-fresco.html
+prev: compile-in-android-studio.html
 next: concepts.html
 ---
 
