@@ -20,8 +20,8 @@ pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充�
 ```groovy
 dependencies {
   // your project's other dependencies
-  compile: "com.facebook.fresco:drawee:0.1.0+"
-  compile: "com.facebook.fresco:imagepipeline-okhttp:0.1.0+"
+  compile: 'com.facebook.fresco:drawee:0.1.0+'
+  compile: 'com.facebook.fresco:imagepipeline-okhttp:0.1.0+'
 }
 ```
 
