@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Fresco
+title: Fresco 中文说明
 id: home
 hero: true
 ---

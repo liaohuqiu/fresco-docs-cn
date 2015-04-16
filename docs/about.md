@@ -1,5 +1,5 @@
 ---
-id: reference
+id: about
 title: 关于本文档
 layout: default
 permalink: /about.html
