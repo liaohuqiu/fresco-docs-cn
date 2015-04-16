@@ -12,7 +12,7 @@ next: compile-in-android-studio.html
 
 ```groovy
 dependencies {
-  compile 'com.facebook.fresco:fresco:0.1.0+'
+  compile 'com.facebook.fresco:fresco:0.2.0+'
 }
 ```
 
