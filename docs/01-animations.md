@@ -33,21 +33,22 @@ mSimpleDraweeView.setController(controller);
 也许，你希望在图片加载完之后，手动控制动画的播放，那么这样做：
 
 ```java
-ControllerListener controllerListener = new BaseControllerListener() {
+ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
     @Override
     public void onFinalImageSet(
         String id,
         @Nullable ImageInfo imageInfo,
         @Nullable Animatable anim) {
     if (anim != null) {
-      // 根据业务逻辑，在合适的时机播放动画。
+      // app-specific logic to enable animation starting
+      anim.start();
     }
 };
 
 Uri uri;
-PipelineDraweeController controller = Fresco.newControllerBuilder()
+DraweeController controller = Fresco.newDraweeControllerBuilder()
+    .setUri(uri)
     .setControllerListener(controllerListener)
-    .setUri(uri);
     // other setters
     .build();
 mSimpleDraweeView.setController(controller);
