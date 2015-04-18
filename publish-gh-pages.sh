@@ -8,8 +8,6 @@ branch=$1
 if [ -z "$branch" ] || [ "$branch" != "master" ]; then
     branch='gh-pages'
 fi
-source ~/.rvm/scripts/rvm
-exe_cmd "rvm 1.9.3"
 exe_cmd "jekyll build"
 if [ ! -d '_site' ];then
     echo "not content to be published"
