@@ -319,21 +319,22 @@
 <h3>手动控制动画图播放</h3>
 
 <p>也许，你希望在图片加载完之后，手动控制动画的播放，那么这样做：</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ControllerListener</span> <span class="n">controllerListener</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BaseControllerListener</span><span class="o">()</span> <span class="o">{</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ControllerListener</span> <span class="n">controllerListener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaseControllerListener</span><span class="o">&lt;</span><span class="n">ImageInfo</span><span class="o">&gt;()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinalImageSet</span><span class="o">(</span>
         <span class="n">String</span> <span class="n">id</span><span class="o">,</span>
         <span class="nd">@Nullable</span> <span class="n">ImageInfo</span> <span class="n">imageInfo</span><span class="o">,</span>
         <span class="nd">@Nullable</span> <span class="n">Animatable</span> <span class="n">anim</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">anim</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="c1">// 根据业务逻辑，在合适的时机播放动画。</span>
+      <span class="c1">// app-specific logic to enable animation starting</span>
+      <span class="n">anim</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">};</span>
 
 <span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
-<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+<span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setUri</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setControllerListener</span><span class="o">(</span><span class="n">controllerListener</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setUri</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
     <span class="c1">// other setters</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
