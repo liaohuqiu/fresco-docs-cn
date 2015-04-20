@@ -13,6 +13,8 @@ safe: true
 lsi: false
 highlighter: pygments
 
+exclude:        ['publish-gh-pages-for-pull-request.sh', 'base.sh', 'publish-gh-pages.sh']
+
 defaults:
   -
     scope:
