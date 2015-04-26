@@ -306,12 +306,12 @@
 <p>如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在<a href="image-requests.html">image request</a> 中简单设置，如下:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setAutoPlayAnimation</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span> <span class="c1">// other setters</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
 <span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setAutoPlayAnimation</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span> <span class="c1">// other setters</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
