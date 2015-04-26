@@ -17,12 +17,12 @@ Fresco 支持GIF和WebP 格式图片；支持WebP 格式的动画图也支持(�
 ```java
 Uri uri;
 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-    .setAutoPlayAnimation(true)
     . // other setters
     .build();
     
 DraweeController controller = Fresco.newDraweeControllerBuilder()
     .setImageRequest(request)
+    .setAutoPlayAnimation(true)
     . // other setters
     .build();
 mSimpleDraweeView.setController(controller);
