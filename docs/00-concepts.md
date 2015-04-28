@@ -41,6 +41,6 @@ DraweeHierarchy 用于组织和维护最终绘制和呈现的[Drawable](http://d
 
 Fresco 的 Image Pipeline 负责图片的获取和管理。图片可以来自远程服务器，本地文件，或者Content Provider，本地资源。压缩后的文件缓存在本地存储中，Bitmap数据缓存在内存中。
 
-在5.0系统以下，Image Pipeline 使用`pinned purgeables*将Bitmap数据存在native 内存中。这要求图片不使用时，要显式地释放内存。
+在5.0系统以下，Image Pipeline 使用`pinned purgeables*将Bitmap数据避开Java堆内存，存在ashmem中。这要求图片不使用时，要显式地释放内存。
 
 `SimpleDraweeView` 自动处理了这个释放过程，所以没有特殊情况，尽量使用`SimpleDraweeView`，在特殊的场合，如果有需要，也可以直接控制Image Pipeline。
