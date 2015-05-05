@@ -559,3 +559,14 @@ div.CodeMirror-lines {
     }
 
 }
+
+.notice {
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    margin: 10px 0 30px;
+}
+.notice:hover {
+    background-color: #f7f7f7;
+}
