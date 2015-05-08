@@ -15,7 +15,7 @@ next: image-requests.html
 
 ```java
 Uri uri;
-Postprocessor redMeshPostprocessor = new Postprocessor() { 
+Postprocessor redMeshPostprocessor = new BasePostprocessor() { 
   @Override
   public String getName() {
     return "redMeshPostprocessor";
