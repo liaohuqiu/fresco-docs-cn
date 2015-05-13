@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | 开始使用 Fresco | Fresco 中文文档</title>
+    <title>Fresco | 下载Fresco | Fresco 中文文档</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="开始使用 Fresco" />
+    <meta property="og:title" content="下载Fresco" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -73,8 +73,8 @@
       <ul>
         
           <li>
-            <a href="/docs/download-fresco.html#_">
-              下载
+            <a href="/docs/index.html#_" class="active">
+              引入到项目
             </a>
             
           </li>
@@ -87,7 +87,7 @@
           </li>
         
           <li>
-            <a href="/docs/index.html#_" class="active">
+            <a href="/docs/getting-started.html#_">
               配置和开始使用
             </a>
             
@@ -297,51 +297,52 @@
 
 <article class='withtoc'>
     <h1>
-      开始使用 Fresco
+      下载Fresco
       <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/00-index.md" target="_blank">编辑和纠错</a>
     </h1>
     <p></p>
 
-    <p>如果你仅仅是想简单下载一张网络图片，在下载完成之前，显示一张占位图，那么简单使用 <a href="../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html">SimpleDraweeView</a> 即可。</p>
+    <p>类库发布到了Maven中央库:</p>
 
-<p>在Application 初始化时:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+<h2>Android Studio 或者 Gradle</h2>
+<div class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">compile</span> <span class="s1">&#39;com.facebook.fresco:fresco:0.4.0+&#39;</span>
+<span class="o">}</span>
 </code></pre></div>
-<p>在xml布局文件中, 加入命名空间:</p>
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 其他元素 --&gt;</span>
-<span class="nt">&lt;LinearLayout</span> 
-    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
-    <span class="na">xmlns:fresco=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span><span class="nt">&gt;</span>
+<h2>Maven:</h2>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.facebook.fresco<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>fresco<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>LATEST<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div>
-<p>加入<code>SimpleDraweeView</code>:</p>
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;com.facebook.drawee.view.SimpleDraweeView</span>
-    <span class="na">android:id=</span><span class="s">&quot;@+id/my_image_view&quot;</span>
-    <span class="na">android:layout_width=</span><span class="s">&quot;20dp&quot;</span>
-    <span class="na">android:layout_height=</span><span class="s">&quot;20dp&quot;</span>
-    <span class="na">fresco:placeholderImage=</span><span class="s">&quot;@drawable/my_drawable&quot;</span>
-  <span class="nt">/&gt;</span>
-</code></pre></div>
-<p>开始加载图片</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">draweeView</span><span class="o">.</span><span class="na">setImageURI</span><span class="o">(</span><span class="s">&quot;http://site.com/uri&quot;</span><span class="o">);</span>
-</code></pre></div>
-<p>剩下的，Fresco会替你完成: </p>
+<h2>Eclipse ADT</h2>
 
-<ul>
-<li>显示占位图直到加载完成；</li>
-<li>下载图片；</li>
-<li>缓存图片；</li>
-<li>图片不再显示时，从内存中移除；</li>
-</ul>
+<p>首先，下载<a href="https://github.com/facebook/fresco/releases/download/v0.4.0/frescolib-v0.4.0.zip">这个文件</a>.</p>
 
-<p>等等等等。</p>
+<p>解压后，你会看到一个目录：frescolib，注意这个目录。</p>
 
+<ol>
+<li>从菜单 “文件(File)”，选择导入(Import)</li>
+<li>展开 Android, 选择 &quot;Existing Android Code into Workspace&quot;， 下一步。</li>
+<li>浏览，选中刚才解压的的文件中的 frescolib 目录。</li>
+<li>这5个项目应该都会被添加到工程： drawee， fbcore， fresco， imagepipeline， imagepipeline-okhttp。请确认前4个项目一定是被选中的。点击完成。</li>
+<li>右键，项目，选择属性，然后选择 Android。</li>
+<li>点击右下角的 Add 按钮，选择 fresco，点击 OK，再点击 OK。</li>
+</ol>
+
+<p>现在，fresco 就导入到项目中了，你可以开始编译了。如果编译不通过，可以尝试清理资源，或者重启 Eclipse。</p>
+
+<p>如果你想在网络层使用 OkHttp，请看<a href="using-other-network-layers.html#_">这里</a>.</p>
+
+<p>如果 support-v4 包重复了，删掉 frescolib/imagepipeline/libs 下的即可。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">建议尽早使用 Android Studio。
+</code></pre></div>
 
     <div class="docs-prevnext">
       
-        <a href="/docs/compile-in-android-studio.html#_">&larr; 上一页</a>
       
-      
-        <a class="right" href="/docs/concepts.html#_">下一页 &rarr;</a>
+        <a class="right" href="/docs/compile-in-android-studio.html#_">下一页 &rarr;</a>
       
     </div>
 
