@@ -1,10 +1,10 @@
 - title: 配置和使用
   items:
-  - id: download-fresco
-    title: 下载
+  - id: index
+    title: 引入到项目
   - id: compile-in-android-studio
     title: 关于在Android Studio中编译
-  - id: index
+  - id: getting-started
     title: 配置和开始使用 
   - id: concepts
     title: 关键概念

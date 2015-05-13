@@ -12,6 +12,7 @@ timezone: America/Los_Angeles
 safe: true
 lsi: false
 highlighter: pygments
+current_version: 0.4.0
 
 exclude:        ['publish-gh-pages-for-pull-request.sh', 'base.sh', 'publish-gh-pages.sh']
 

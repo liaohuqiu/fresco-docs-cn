@@ -1,51 +1,50 @@
 ---
 id: index
-title: 开始使用 Fresco
+title: 下载Fresco
 layout: docs
 permalink: /docs/index.html
-prev: compile-in-android-studio.html
-next: concepts.html
+next: compile-in-android-studio.html
 ---
 
-如果你仅仅是想简单下载一张网络图片，在下载完成之前，显示一张占位图，那么简单使用 [SimpleDraweeView](../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html) 即可。
+类库发布到了Maven中央库:
 
-在Application 初始化时:
+## Android Studio 或者 Gradle
 
-```java
-Fresco.initialize(context);
+```groovy
+dependencies {
+  compile 'com.facebook.fresco:fresco:0.4.0+'
+}
 ```
-    
-在xml布局文件中, 加入命名空间:
+
+## Maven:
 
 ```xml
-<!-- 其他元素 -->
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+<dependency>
+  <groupId>com.facebook.fresco</groupId>
+  <artifactId>fresco</artifactId>
+  <version>LATEST</version>
+</dependency>
 ```
 
-加入`SimpleDraweeView`:
+## Eclipse ADT
 
-```xml
-<com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/my_image_view"
-    android:layout_width="20dp"
-    android:layout_height="20dp"
-    fresco:placeholderImage="@drawable/my_drawable"
-  />
+首先，下载[这个文件](https://github.com/facebook/fresco/releases/download/v{{site.current_version}}/frescolib-v{{site.current_version}}.zip).
+
+解压后，你会看到一个目录：frescolib，注意这个目录。
+
+1. 从菜单 “文件(File)”，选择导入(Import)
+2. 展开 Android, 选择 "Existing Android Code into Workspace"， 下一步。
+3. 浏览，选中刚才解压的的文件中的 frescolib 目录。
+4. 这5个项目应该都会被添加到工程： drawee， fbcore， fresco， imagepipeline， imagepipeline-okhttp。请确认前4个项目一定是被选中的。点击完成。
+5. 右键，项目，选择属性，然后选择 Android。
+6. 点击右下角的 Add 按钮，选择 fresco，点击 OK，再点击 OK。
+
+现在，fresco 就导入到项目中了，你可以开始编译了。如果编译不通过，可以尝试清理资源，或者重启 Eclipse。
+
+如果你想在网络层使用 OkHttp，请看[这里](using-other-network-layers.html#_).
+
+如果 support-v4 包重复了，删掉 frescolib/imagepipeline/libs 下的即可。
+
 ```
-
-开始加载图片
-
-```java
-draweeView.setImageURI("http://site.com/uri");
+建议尽早使用 Android Studio。
 ```
-
-剩下的，Fresco会替你完成: 
-
-* 显示占位图直到加载完成；
-* 下载图片；
-* 缓存图片；
-* 图片不再显示时，从内存中移除；
-
-等等等等。

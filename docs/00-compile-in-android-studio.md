@@ -3,13 +3,13 @@ id: compile-in-android-studio
 title: 关于在Android Studio中编译
 layout: docs
 permalink: /docs/compile-in-android-studio.html
-prev: download-fresco.html
+prev: getting-started.html
 next: index.html
 ---
 
 Fresco 是一个典型的Android Studio 项目。
 
-如果想编译源码, 看demo项目，可以通过gradle或者Android Studio，Eclipse是真的不行了。
+如果想编译源码, 看demo项目，可以通过gradle或者Android Studio
 
 一直以来，在国内更新Android SDK以及使用Android Studio导入项目时，都是一件麻烦的事情。
 
