@@ -1,6 +1,6 @@
 ---
 id: index
-title: 下载Fresco
+title: 引入Fresco
 layout: docs
 permalink: /docs/index.html
 next: compile-in-android-studio.html
@@ -8,7 +8,7 @@ next: compile-in-android-studio.html
 
 类库发布到了Maven中央库:
 
-## Android Studio 或者 Gradle
+## 1. Android Studio 或者 Gradle
 
 ```groovy
 dependencies {
@@ -16,7 +16,9 @@ dependencies {
 }
 ```
 
-## Intellij IDEA 或者 Maven:
+## 2. Intellij IDEA 或者 Maven:
+
+这是一个在 Intellij IDEA 的工程简单示例： [https://github.com/liaohuqiu/fresco-demo-for-maven](https://github.com/liaohuqiu/fresco-demo-for-maven) ，可供参考。
 
 在[这个 issue](https://github.com/facebook/fresco/issues/239) 解决之前，pom 中相关依赖缺少 type 字段，通过以下方式无法直接引入：
 
@@ -99,17 +101,16 @@ dependencies {
 
 很丑陋对吧，抱歉目前暂时只能这样，有更好的办法请一定告诉我。
 
-### 拷贝 `.so` 文件
+刷新 Maven 工程，下载引用，下载完成之后，将：
 
-刷新 Maven 工程，将 `gen-external-apklibs/com.facebook.fresco_imagepipeline_{版本号}/jni` 目录下的三个文件夹：`armeabi`，`armeabi-v7a`，`x86` 这三个文件夹拷贝到 `libs` 文件夹下。
+```
+gen-external-apklibs/com.facebook.fresco_imagepipeline_{版本号}/jni
+```
+
+目录下的三个文件夹：`armeabi`，`armeabi-v7a`，`x86` 这三个文件夹拷贝到 `libs` 文件夹下。
 
 
-### Demo 
-
-这是一个在 Intellij IDEA 的工程实例: [https://github.com/liaohuqiu/fresco-demo-for-maven](https://github.com/liaohuqiu/fresco-demo-for-maven)
-
-
-## Eclipse ADT
+## 3. Eclipse ADT
 
 首先，下载[这个文件](https://github.com/facebook/fresco/releases/download/v{{site.current_version}}/frescolib-v{{site.current_version}}.zip).
 
