@@ -322,7 +322,8 @@
   <span class="nt">/&gt;</span>
 </code></pre></div>
 <p>开始加载图片</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">draweeView</span><span class="o">.</span><span class="na">setImageURI</span><span class="o">(</span><span class="s">&quot;http://site.com/uri&quot;</span><span class="o">);</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png&quot;</span><span class="o">);</span>
+<span class="n">draweeView</span><span class="o">.</span><span class="na">setImageURI</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
 </code></pre></div>
 <p>剩下的，Fresco会替你完成: </p>
 

@@ -2,12 +2,12 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | 下载Fresco | Fresco 中文文档</title>
+    <title>Fresco | 引入Fresco | Fresco 中文文档</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="下载Fresco" />
+    <meta property="og:title" content="引入Fresco" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
@@ -297,26 +297,103 @@
 
 <article class='withtoc'>
     <h1>
-      下载Fresco
+      引入Fresco
       <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/00-index.md" target="_blank">编辑和纠错</a>
     </h1>
     <p></p>
 
     <p>类库发布到了Maven中央库:</p>
 
-<h2>Android Studio 或者 Gradle</h2>
+<h2>1. Android Studio 或者 Gradle</h2>
 <div class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
   <span class="n">compile</span> <span class="s1">&#39;com.facebook.fresco:fresco:0.4.0+&#39;</span>
 <span class="o">}</span>
 </code></pre></div>
-<h2>Maven:</h2>
+<h2>2. Intellij IDEA 或者 Maven:</h2>
+
+<p>这是一个在 Intellij IDEA 的工程简单示例： <a href="https://github.com/liaohuqiu/fresco-demo-for-maven">https://github.com/liaohuqiu/fresco-demo-for-maven</a> ，可供参考。</p>
+
+<p>在<a href="https://github.com/facebook/fresco/issues/239">这个 issue</a> 解决之前，pom 中相关依赖缺少 type 字段，通过以下方式无法直接引入：</p>
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>com.facebook.fresco<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>fresco<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;version&gt;</span>LATEST<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div>
-<h2>Eclipse ADT</h2>
+<p>需要这样：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- use this version, exclude all the other version from the other libraries. --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.android.support&lt;/groupId&gt;
+    &lt;artifactId&gt;support-v4&lt;/artifactId&gt;
+    &lt;version&gt;21.0.3&lt;/version&gt;
+    &lt;type&gt;aar&lt;/type&gt;
+&lt;/dependency&gt;
+
+&lt;!-- begin of fresco --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+    &lt;artifactId&gt;fresco&lt;/artifactId&gt;
+    &lt;version&gt;0.4.0&lt;/version&gt;
+    &lt;type&gt;aar&lt;/type&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.android.support&lt;/groupId&gt;
+            &lt;artifactId&gt;support-v4&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+            &lt;artifactId&gt;*&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+    &lt;artifactId&gt;fbcore&lt;/artifactId&gt;
+    &lt;type&gt;aar&lt;/type&gt;
+    &lt;version&gt;0.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+    &lt;artifactId&gt;drawee&lt;/artifactId&gt;
+    &lt;type&gt;aar&lt;/type&gt;
+    &lt;version&gt;0.4.0&lt;/version&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.android.support&lt;/groupId&gt;
+            &lt;artifactId&gt;support-v4&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+            &lt;artifactId&gt;fbcore&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+    &lt;artifactId&gt;imagepipeline&lt;/artifactId&gt;
+    &lt;type&gt;aar&lt;/type&gt;
+    &lt;version&gt;0.4.0&lt;/version&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.android.support&lt;/groupId&gt;
+            &lt;artifactId&gt;support-v4&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;com.facebook.fresco&lt;/groupId&gt;
+            &lt;artifactId&gt;fbcore&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+&lt;!-- end of fresco --&gt;
+</code></pre></div>
+<p>很丑陋对吧，抱歉目前暂时只能这样，有更好的办法请一定告诉我。</p>
+
+<p>刷新 Maven 工程，下载引用，下载完成之后，将：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gen-external-apklibs/com.facebook.fresco_imagepipeline_{版本号}/jni
+</code></pre></div>
+<p>目录下的三个文件夹：<code>armeabi</code>，<code>armeabi-v7a</code>，<code>x86</code> 这三个文件夹拷贝到 <code>libs</code> 文件夹下。</p>
+
+<h2>3. Eclipse ADT</h2>
 
 <p>首先，下载<a href="https://github.com/facebook/fresco/releases/download/v0.4.0/frescolib-v0.4.0.zip">这个文件</a>.</p>
 
