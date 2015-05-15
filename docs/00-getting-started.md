@@ -38,7 +38,8 @@ Fresco.initialize(context);
 开始加载图片
 
 ```java
-draweeView.setImageURI("http://site.com/uri");
+Uri uri = Uri.parse("https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png");
+draweeView.setImageURI(uri);
 ```
 
 剩下的，Fresco会替你完成: 

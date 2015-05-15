@@ -16,7 +16,9 @@ dependencies {
 }
 ```
 
-## Maven:
+## Intellij IDEA 或者 Maven:
+
+在[这个 issue](https://github.com/facebook/fresco/issues/239) 解决之前，pom 中相关依赖缺少 type 字段，通过以下方式无法直接引入：
 
 ```xml
 <dependency>
@@ -25,6 +27,87 @@ dependencies {
   <version>LATEST</version>
 </dependency>
 ```
+
+需要这样：
+
+```
+<!-- use this version, exclude all the other version from the other libraries. -->
+<dependency>
+    <groupId>com.android.support</groupId>
+    <artifactId>support-v4</artifactId>
+    <version>21.0.3</version>
+    <type>aar</type>
+</dependency>
+
+<!-- begin of fresco -->
+<dependency>
+    <groupId>com.facebook.fresco</groupId>
+    <artifactId>fresco</artifactId>
+    <version>0.4.0</version>
+    <type>aar</type>
+    <exclusions>
+        <exclusion>
+            <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>com.facebook.fresco</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>com.facebook.fresco</groupId>
+    <artifactId>fbcore</artifactId>
+    <type>aar</type>
+    <version>0.4.0</version>
+</dependency>
+<dependency>
+    <groupId>com.facebook.fresco</groupId>
+    <artifactId>drawee</artifactId>
+    <type>aar</type>
+    <version>0.4.0</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>com.facebook.fresco</groupId>
+            <artifactId>fbcore</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>com.facebook.fresco</groupId>
+    <artifactId>imagepipeline</artifactId>
+    <type>aar</type>
+    <version>0.4.0</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>com.facebook.fresco</groupId>
+            <artifactId>fbcore</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<!-- end of fresco -->
+```
+
+很丑陋对吧，抱歉目前暂时只能这样，有更好的办法请一定告诉我。
+
+### 拷贝 `.so` 文件
+
+刷新 Maven 工程，将 `gen-external-apklibs/com.facebook.fresco_imagepipeline_{版本号}/jni` 目录下的三个文件夹：`armeabi`，`armeabi-v7a`，`x86` 这三个文件夹拷贝到 `libs` 文件夹下。
+
+
+### Demo 
+
+这是一个在 Intellij IDEA 的工程实例: [https://github.com/liaohuqiu/fresco-demo-for-maven](https://github.com/liaohuqiu/fresco-demo-for-maven)
+
 
 ## Eclipse ADT
 

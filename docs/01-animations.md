@@ -22,7 +22,7 @@ ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
     
 DraweeController controller = Fresco.newDraweeControllerBuilder()
     .setImageRequest(request)
-    .setAutoPlayAnimation(true)
+    .setAutoPlayAnimations(true)
     . // other setters
     .build();
 mSimpleDraweeView.setController(controller);
