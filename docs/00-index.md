@@ -12,7 +12,7 @@ next: compile-in-android-studio.html
 
 ```groovy
 dependencies {
-  compile 'com.facebook.fresco:fresco:0.4.0+'
+  compile 'com.facebook.fresco:fresco:{{site.current_version}}+'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.facebook.fresco</groupId>
     <artifactId>fresco</artifactId>
-    <version>0.4.0</version>
+    <version>{{site.current_version}}</version>
     <type>aar</type>
     <exclusions>
         <exclusion>
@@ -62,13 +62,13 @@ dependencies {
     <groupId>com.facebook.fresco</groupId>
     <artifactId>fbcore</artifactId>
     <type>aar</type>
-    <version>0.4.0</version>
+    <version>{{site.current_version}}</version>
 </dependency>
 <dependency>
     <groupId>com.facebook.fresco</groupId>
     <artifactId>drawee</artifactId>
     <type>aar</type>
-    <version>0.4.0</version>
+    <version>{{site.current_version}}</version>
     <exclusions>
         <exclusion>
             <groupId>com.android.support</groupId>
@@ -84,7 +84,7 @@ dependencies {
     <groupId>com.facebook.fresco</groupId>
     <artifactId>imagepipeline</artifactId>
     <type>aar</type>
-    <version>0.4.0</version>
+    <version>{{site.current_version}}</version>
     <exclusions>
         <exclusion>
             <groupId>com.android.support</groupId>

@@ -23,7 +23,7 @@ pipeline]的特性，使用其他image loader时都有可能不起作用。
 ```groovy
 dependencies {
   // your project's other dependencies
-  compile: "com.facebook.fresco:drawee-volley:0.1.0+"
+  compile: "com.facebook.fresco:drawee-volley:{{site.current_version}}+"
 }
 ```
 

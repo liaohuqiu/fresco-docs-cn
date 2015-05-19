@@ -18,3 +18,9 @@ Fresco 是一个典型的Android Studio 项目。
 另外对于NDK，因为Android Studio还支持不够。所以需要在命令行下预编译。
 
 请参考这里: [关于红杏的公益代理, Android Studio以及freso的编译](http://www.liaohuqiu.net/cn/posts/about-red-apricot-and-compiling-fresco/)
+
+### DEMO
+
+官方的项目，编译起来比较困难，如果你仅仅是想看 DEMO 运行效果，我将 DEMO 抽离出来，你直接直接使用这个项目
+
+[https://github.com/liaohuqiu/fresco-demo-for-gradle](https://github.com/liaohuqiu/fresco-demo-for-gradle)
