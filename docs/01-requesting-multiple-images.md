@@ -72,3 +72,7 @@ DraweeController controller = Fresco.newDraweeControllerBuilder()
     .build();
 mSimpleDraweeView.setController(controller);
 ```
+
+### 自定义 `Datasource Supplier`
+为了更好的灵活性，你可以在创建Drawee controller时自定义DataSource Supplier。你可以以`FirstAvailiableDataSourceSuppier`,`IncreasingQualityDataSourceSupplier`为例自己实现DataSoucrce Supplier或者以`AbstractDraweeControllerBuilder`为例将多个DataSource Supplier根据需求组合在一起。
+
