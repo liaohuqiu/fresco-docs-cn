@@ -35,9 +35,10 @@ ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
     .setPostprocessor(redMeshPostprocessor)
     .build();
     
-PipelineDraweeController controller = Fresco.newDraweeControllerBuilder()
+PipelineDraweeController controller = (PipelineDraweeController) 
+    Fresco.newDraweeControllerBuilder()
     .setImageRequest(request)
-    .setOldController(mSimpleDraweeView.getOldController())
+    .setOldController(mSimpleDraweeView.getController())
     // other setters as you need
     .build();
 mSimpleDraweeView.setController(controller);
