@@ -56,7 +56,8 @@
       <li><a href="/about.html"
           >
       关于本文档</a></li>
-      <li><a href="http://frescolib.org/">English</a>
+  <li><a href="http://frescolib.org/">English</a></li>
+  <li><a href="http://fresco.recrack.com/">한국어</a></li>
     </ul>
 </nav></header>
 
@@ -310,7 +311,7 @@
 
 <p>这时，你可以设置两个图片的URI，一个是低分辨率的缩略图，一个是高分辨率的图。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">lowResUri</span><span class="o">,</span> <span class="n">highResUri</span><span class="o">;</span>
-<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+<span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setLowResImageRequest</span><span class="o">(</span><span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">lowResUri</span><span class="o">))</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">highResUri</span><span class="o">))</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
@@ -327,7 +328,7 @@
     <span class="o">.</span><span class="na">setLocalThumbnailPreviewsEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+<span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
@@ -354,12 +355,16 @@
 <span class="n">ImageRequest</span> <span class="n">request2</span> <span class="o">=</span> <span class="n">ImageRequest</span><span class="o">.</span><span class="na">fromUri</span><span class="o">(</span><span class="n">uri2</span><span class="o">);</span>
 <span class="n">ImageRequest</span><span class="o">[]</span> <span class="n">requests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">request1</span><span class="o">,</span> <span class="n">request2</span> <span class="o">};</span>
 
-<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+<span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setFirstAvailableImageRequests</span><span class="o">(</span><span class="n">requests</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
 </code></pre></div>
+<h3>自定义 <code>DataSource Supplier</code></h3>
+
+<p>为了更好的灵活性，你可以在创建Drawee controller时自定义DataSource Supplier。你可以以<code>FirstAvailiableDataSourceSupplier</code>,<code>IncreasingQualityDataSourceSupplier</code>为例自己实现DataSource Supplier或者以<code>AbstractDraweeControllerBuilder</code>为例将多个DataSource Supplier根据需求组合在一起。</p>
+
 
     <div class="docs-prevnext">
       

@@ -56,7 +56,8 @@
       <li><a href="/about.html"
           >
       关于本文档</a></li>
-      <li><a href="http://frescolib.org/">English</a>
+  <li><a href="http://frescolib.org/">English</a></li>
+  <li><a href="http://fresco.recrack.com/">한국어</a></li>
     </ul>
 </nav></header>
 
@@ -328,9 +329,10 @@
     <span class="o">.</span><span class="na">setPostprocessor</span><span class="o">(</span><span class="n">redMeshPostprocessor</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
+<span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="o">(</span><span class="n">PipelineDraweeController</span><span class="o">)</span> 
+    <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getOldController</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
     <span class="c1">// other setters as you need</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
