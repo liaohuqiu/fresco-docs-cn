@@ -64,7 +64,7 @@
 
 <section class='content'><div class='width'>
         <div class='notice'>
-            <a target='_blank' href='http://www.liaohuqiu.net/cn/posts/follow-me-on-github/'>译者参加公司的开源活跃贡献者评选，如果能得到你的帮助和支持，不胜感激！</a>
+            <a target='_blank' href='http://www.liaohuqiu.net/cn/posts/follow-me-on-github/'>欢迎关注译者 github，新浪微博，facebook，twitter，instagram</a>
         </div>
 
 <nav class='toc'>
@@ -305,10 +305,13 @@
 
     <p>如果你仅仅是想简单下载一张网络图片，在下载完成之前，显示一张占位图，那么简单使用 <a href="../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html">SimpleDraweeView</a> 即可。</p>
 
-<p>在Application 初始化时:</p>
+<p>为了下载网络图片，请确保在 <code>AndroidManifest.xml</code> 中有以下权限：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+</code></pre></div>
+<p>在 Application 初始化时，在应用调用 <code>setContentView()</code> 之前，进行初始化：</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
 </code></pre></div>
-<p>在xml布局文件中, 加入命名空间:</p>
+<p>在xml布局文件中, 加入命名空间：</p>
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 其他元素 --&gt;</span>
 <span class="nt">&lt;LinearLayout</span> 
     <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
