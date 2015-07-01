@@ -4,7 +4,7 @@ title: Drawee的各种效果配置
 layout: docs
 permalink: /docs/drawee-components.html
 prev: using-drawees-code.html
-next: scaling.html
+next: progress-bar.html
 ---
 
 ## 内容导航
@@ -15,9 +15,9 @@ next: scaling.html
 * [加载失败时的占位图](#Failure)
 * [点击重新加载](#Retry)
 * [显示一个进度条](#ProgressBar)
-* [Backgrounds](#Backgrounds)
-* [Overlays](#Overlays)
-* [Pressed State Overlay](#PressedStateOverlay)
+* [背景](#Backgrounds)
+* [叠加图 ](#Overlays)
+* [按压状态下的叠加图](#PressedStateOverlay)
 
 ## <a name='Definitions'></a>定义
 
@@ -88,7 +88,9 @@ Hierarchy builder中的方法: `setRetryImage`
 
 ## <a name="ProgressBar"></a>显示一个进度条
 
-设置一个进度条图片，提示用户正在加载。目前，进度条仅仅是提示正在loading，和加载进度无关。
+如果设置一个进度条图片，提示用户正在加载。该图片会覆盖在 Drawee 上直到图片加载完成。
+
+如果需要自定义，更详细的情况，请参考 [进度条页面](progress-bars.html)
 
 XML 中属性值: `progressBarImage`  
 Hierarchy builder中的方法: `setProgressBarImage`  

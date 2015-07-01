@@ -3,7 +3,7 @@ id: scaling
 title: 缩放
 layout: docs
 permalink: /docs/scaling.html
-prev: drawee-components.html
+prev: progress-bar.html
 next: rounded-corners-and-circles.html
 ---
 对于 Drawee 的[各种效果配置](drawee-components.html)，其中一些是支持缩放类型的。

@@ -18,6 +18,8 @@
     title: 在Java代码中使用 Drawees
   - id: drawee-components
     title: Drawee的各种效果配置
+  - id: progress-bars
+    title: 进度条
   - id: scaling
     title: 缩放
   - id: rounded-corners-and-circles
