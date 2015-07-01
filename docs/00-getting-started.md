@@ -9,13 +9,19 @@ next: concepts.html
 
 如果你仅仅是想简单下载一张网络图片，在下载完成之前，显示一张占位图，那么简单使用 [SimpleDraweeView](../javadoc/reference/com/facebook/drawee/view/SimpleDraweeView.html) 即可。
 
-在Application 初始化时:
+为了下载网络图片，请确保在 `AndroidManifest.xml` 中有以下权限：
+
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
+在 Application 初始化时，在应用调用 `setContentView()` 之前，进行初始化：
 
 ```java
 Fresco.initialize(context);
 ```
     
-在xml布局文件中, 加入命名空间:
+在xml布局文件中, 加入命名空间：
 
 ```xml
 <!-- 其他元素 -->
