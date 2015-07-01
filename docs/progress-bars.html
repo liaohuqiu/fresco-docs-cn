@@ -2,16 +2,16 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Fresco | (图片请求)Image Requests | Fresco 中文文档</title>
+    <title>Fresco | 进度条 | Fresco 中文文档</title>
     <link rel='stylesheet' href='/static/site.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
     <link rel='shortcut icon' href='/static/favicon.png'>
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="(图片请求)Image Requests" />
+    <meta property="og:title" content="进度条" />
     <meta property="og:site_name" content="fresco">
     <meta property='og:description' content='Fresco is an image management library.'>
     <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
-    <meta property='og:url' content="http://facebook.github.io/fresco/docs/image-requests.html">
+    <meta property='og:url' content="http://facebook.github.io/fresco/docs/progress-bars.html">
     
     <meta property='og:type' content='website'>
     
@@ -137,7 +137,7 @@
           </li>
         
           <li>
-            <a href="/docs/progress-bars.html#_">
+            <a href="/docs/progress-bars.html#_" class="active">
               进度条
             </a>
             
@@ -207,7 +207,7 @@
           </li>
         
           <li>
-            <a href="/docs/image-requests.html#_" class="active">
+            <a href="/docs/image-requests.html#_">
               图片请求
             </a>
             
@@ -305,68 +305,39 @@
 
 <article class='withtoc'>
     <h1>
-      (图片请求)Image Requests
-      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/02-image-requests.md" target="_blank">编辑和纠错</a>
+      进度条
+      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/01-progress-bars.md" target="_blank">编辑和纠错</a>
     </h1>
     <p></p>
 
-    <p>如果你需要的<code>ImageRequest</code>仅仅是一个URI，那么<code>ImageRequest.fromURI</code>就足够了，在<a href="requesting-multiple-images.html">多图请求及图片复用</a>中，有这样的用法。</p>
-
-<p>否则，你需要<code>ImageRequestBuilder</code>来做更多的事情。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
-
-<span class="n">ImageDecodeOptions</span> <span class="n">decodeOptions</span> <span class="o">=</span> <span class="n">ImageDecodeOptions</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-<span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span>
-    <span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setAutoRotateEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setLocalThumbnailPreviewsEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setLowestPermittedRequestLevel</span><span class="o">(</span><span class="n">RequestLevel</span><span class="o">.</span><span class="na">FULL_FETCH</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setProgressiveRenderingEnabled</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setResizeOptions</span><span class="o">(</span><span class="k">new</span> <span class="nf">ResizeOptions</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <p>要显示进度，最简单的办法就是在 <a href="using-drawees-code.html">构建 hierarchy</a> 时使用 <a href="../javadoc/reference/com/facebook/drawee/drawable/ProgressBarDrawable.html">ProgressBarDrawable</a>，如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">setProgressBarImage</span><span class="o">(</span><span class="k">new</span> <span class="nf">ProgressBarDrawable</span><span class="o">())</span>
 </code></pre></div>
-<h4>ImageRequest 的属性和成员</h4>
+<p>这样，在 Drawee 的底部就会有一个深蓝色的矩形进度条。</p>
 
-<ul>
-<li><code>uri</code> - 唯一的必选的成员. 参考 <a href="supported-uris.html">支持的URIs</a></li>
-<li><code>autoRotateEnabled</code> - 是否支持<a href="resizing--rotating.html#rotate">自动旋转</a>.</li>
-<li><code>progressiveEnabled</code> - 是否支持<a href="progressive-jpegs.html">渐进式加载</a>.</li>
-<li><code>postprocessor</code> - <a href="modifying-image.html">后处理器(postprocess)</a>.</li>
-<li><code>resizeOptions</code> - 图片缩放选项，用前请先阅读<a href="resizing-rotating.html">缩放和旋转</a>.</li>
-</ul>
+<h3>自定义进度条</h3>
 
-<h4>最低请求级别</h4>
+<p>If you wish to customize your own progress indicator, be aware that in order for it to accurately reflect progress while loading, it needs to override the <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html#onLevelChange(int)">Drawable.onLevelChange</a> method:</p>
 
-<p>Image pipeline 加载图片时有一套明确的<a href="intro-image-pipeline.html">请求流程</a></p>
+<p>如果你想自定义进度条，请注意，如果想精确显示加载进度，需要重写  <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html#onLevelChange(int)">Drawable.onLevelChange</a>：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">CustomProgressBar</span> <span class="kd">extends</span> <span class="n">Drawable</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onLevelChange</span><span class="o">(</span><span class="kt">int</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
+     <span class="c1">// level is on a scale of 0-10,000</span>
+     <span class="c1">// where 10,000 means fully downloaded</span>
 
-<ol>
-<li>检查内存缓存，有如，立刻返回。这个操作是实时的。</li>
-<li>检查未解码的图片缓存，如有，解码并返回。</li>
-<li>检查磁盘缓存，如果有加载，解码，返回。</li>
-<li>下载或者加载本地文件。调整大小和旋转（如有），解码并返回。对于网络图来说，这一套流程下来是最耗时的。</li>
-</ol>
-
-<p><code>setLowestPermittedRequestLevel</code>允许设置一个最低请求级别，请求级别和上面对应地有以下几个取值:</p>
-
-<ul>
-<li><code>BITMAP_MEMORY_CACHE</code></li>
-<li><code>ENCODED_MEMORY_CACHE</code> </li>
-<li><code>DISK_CACHE</code> </li>
-<li><code>FULL_FETCH</code></li>
-</ul>
-
-<p>如果你需要立即取到一个图片，或者在相对比较短时间内取到图片，否则就不显示的情况下，这非常有用。</p>
-
+     <span class="c1">// your app&#39;s logic to change the drawable&#39;s</span>
+     <span class="c1">// appearance here based on progress</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
     <div class="docs-prevnext">
       
-        <a href="/docs/modifying-image.html#_">&larr; 上一页</a>
+        <a href="/docs/drawee-components.html#_">&larr; 上一页</a>
       
       
-        <a class="right" href="/docs/writing-custom-views.html#_">下一页 &rarr;</a>
+        <a class="right" href="/docs/scaling.html#_">下一页 &rarr;</a>
       
     </div>
 

@@ -137,6 +137,13 @@
           </li>
         
           <li>
+            <a href="/docs/progress-bars.html#_">
+              进度条
+            </a>
+            
+          </li>
+        
+          <li>
             <a href="/docs/scaling.html#_">
               缩放
             </a>
@@ -312,9 +319,9 @@
 <li><a href="#Failure">加载失败时的占位图</a></li>
 <li><a href="#Retry">点击重新加载</a></li>
 <li><a href="#ProgressBar">显示一个进度条</a></li>
-<li><a href="#Backgrounds">Backgrounds</a></li>
-<li><a href="#Overlays">Overlays</a></li>
-<li><a href="#PressedStateOverlay">Pressed State Overlay</a></li>
+<li><a href="#Backgrounds">背景</a></li>
+<li><a href="#Overlays">叠加图 </a></li>
+<li><a href="#PressedStateOverlay">按压状态下的叠加图</a></li>
 </ul>
 
 <h2><a name='Definitions'></a>定义</h2>
@@ -385,7 +392,9 @@ Hierarchy builder中的方法: <code>setRetryImage</code><br>
 
 <h2><a name="ProgressBar"></a>显示一个进度条</h2>
 
-<p>设置一个进度条图片，提示用户正在加载。目前，进度条仅仅是提示正在loading，和加载进度无关。</p>
+<p>如果设置一个进度条图片，提示用户正在加载。该图片会覆盖在 Drawee 上直到图片加载完成。</p>
+
+<p>如果需要自定义，更详细的情况，请参考 <a href="progress-bars.html">进度条页面</a></p>
 
 <p>XML 中属性值: <code>progressBarImage</code><br>
 Hierarchy builder中的方法: <code>setProgressBarImage</code><br>
@@ -435,7 +444,7 @@ Hierarchy builder中的方法: <code>setPressedStateOverlay</code><br>
         <a href="/docs/using-drawees-code.html#_">&larr; 上一页</a>
       
       
-        <a class="right" href="/docs/scaling.html#_">下一页 &rarr;</a>
+        <a class="right" href="/docs/progress-bar.html#_">下一页 &rarr;</a>
       
     </div>
 
