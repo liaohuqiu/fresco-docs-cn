@@ -4,7 +4,7 @@ title: Drawee的各种效果配置
 layout: docs
 permalink: /docs/drawee-components.html
 prev: using-drawees-code.html
-next: progress-bar.html
+next: progress-bars.html
 ---
 
 ## 内容导航
