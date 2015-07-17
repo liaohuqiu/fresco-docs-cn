@@ -17,7 +17,6 @@ next: scaling.html
 
 ### 自定义进度条
 
-If you wish to customize your own progress indicator, be aware that in order for it to accurately reflect progress while loading, it needs to override the [Drawable.onLevelChange](http://developer.android.com/reference/android/graphics/drawable/Drawable.html#onLevelChange\(int\)) method:
 
 如果你想自定义进度条，请注意，如果想精确显示加载进度，需要重写  [Drawable.onLevelChange](http://developer.android.com/reference/android/graphics/drawable/Drawable.html#onLevelChange\(int\))：
 
