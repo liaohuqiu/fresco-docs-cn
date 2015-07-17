@@ -11,7 +11,7 @@ Drawee 轻松支持圆角显示，并且显示圆角时，并不复制和修改B
 
 ### 圆角
 
-圆角实际有2中呈现方式:
+圆角实际有2种呈现方式:
 
 1. 圆圈 - 设置`roundAsCircle`为true
 2. 圆角 - 设置`roundedCornerRadius`
@@ -66,3 +66,12 @@ mSimpleDraweeView.getHierarchy().setRoundingParams(roundingParams);
 
 > 在运行时，不能改变呈现方式: 原本是圆角，不能改为圆圈。
 > 
+
+### 说明
+
+当使用`BITMAP_ONLY`（默认）模式时的限制：
+
+- 并非所有的图片分支部分都可以实现圆角，目前只有占位图片和实际图片可以实现圆角，我们正在努力为背景图片实现圆角功能。
+- 只有`BitmapDrawable` 和 `ColorDrawable`类的图片可以实现圆角。我们目前不支持包括`NinePatchDrawable`和 `ShapeDrawable`在内的其他类型图片。（无论他们是在XML或是程序中声明的）
+- 动画不能被圆角。
+- 由于Android的`BitmapShader`的限制，当一个图片不能覆盖全部的View的时候，边缘部分会被重复显示，而非留白。对这种情况可以使用不同的缩放类型（比如centerCrop）来保证图片覆盖了全部的View。
