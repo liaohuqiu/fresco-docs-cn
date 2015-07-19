@@ -44,7 +44,8 @@ Fresco.initialize(context);
 开始加载图片
 
 ```java
-Uri uri = Uri.parse("https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png");
+Uri uri = Uri.parse("https://raw.githubusercontent.com/facebook/fresco/gh-pages/static/fresco-logo.png");
+SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.my_image_view);
 draweeView.setImageURI(uri);
 ```
 
