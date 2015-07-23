@@ -22,6 +22,11 @@ Fresco 支持许多URI格式。
 | asset目录下的资源 | `asset://` | `AssetManager` |
 | res目录下的资源 | `res://` | `Resources.openRawResource` |
 
+res 示例:
+
+```
+Uri uri = Uri.parse("res://包名(实际可以是任何字符串甚至留空)/" + R.drawable.ic_launcher);
+```
 
 <br/>
 
