@@ -75,3 +75,9 @@ mSimpleDraweeView.getHierarchy().setRoundingParams(roundingParams);
 - 只有`BitmapDrawable` 和 `ColorDrawable`类的图片可以实现圆角。我们目前不支持包括`NinePatchDrawable`和 `ShapeDrawable`在内的其他类型图片。（无论他们是在XML或是程序中声明的）
 - 动画不能被圆角。
 - 由于Android的`BitmapShader`的限制，当一个图片不能覆盖全部的View的时候，边缘部分会被重复显示，而非留白。对这种情况可以使用不同的缩放类型（比如centerCrop）来保证图片覆盖了全部的View。
+
+`OVERLAY_COLOR`模式没有上述限制，但由于这个模式使用在图片上覆盖一个纯色图层的方式来模拟圆角效果，因此只有在图标背景是静止的并且与图层同色的情况下才能获得较好的效果。
+
+Drawee 内部实现了一个`CLIPPING`模式。但由于有些`Canvas`的实现并不支持路径剪裁（Path Clipping），这个模式被禁用了且不对外开放。并且由于路径剪裁不支持反锯齿，会导致圆角的边缘呈现像素化的效果。
+
+总之，如果生成临时bitmap的方法，所有的上述问题都可以避免。但是这个方法并不被支持因为这会导致很严重的内存问题。
