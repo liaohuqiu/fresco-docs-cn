@@ -314,7 +314,7 @@
 
 <h3>圆角</h3>
 
-<p>圆角实际有2中呈现方式:</p>
+<p>圆角实际有2种呈现方式:</p>
 
 <ol>
 <li>圆圈 - 设置<code>roundAsCircle</code>为true</li>
@@ -364,6 +364,17 @@
 <blockquote>
 <p>在运行时，不能改变呈现方式: 原本是圆角，不能改为圆圈。</p>
 </blockquote>
+
+<h3>说明</h3>
+
+<p>当使用<code>BITMAP_ONLY</code>（默认）模式时的限制：</p>
+
+<ul>
+<li>并非所有的图片分支部分都可以实现圆角，目前只有占位图片和实际图片可以实现圆角，我们正在努力为背景图片实现圆角功能。</li>
+<li>只有<code>BitmapDrawable</code> 和 <code>ColorDrawable</code>类的图片可以实现圆角。我们目前不支持包括<code>NinePatchDrawable</code>和 <code>ShapeDrawable</code>在内的其他类型图片。（无论他们是在XML或是程序中声明的）</li>
+<li>动画不能被圆角。</li>
+<li>由于Android的<code>BitmapShader</code>的限制，当一个图片不能覆盖全部的View的时候，边缘部分会被重复显示，而非留白。对这种情况可以使用不同的缩放类型（比如centerCrop）来保证图片覆盖了全部的View。</li>
+</ul>
 
 
     <div class="docs-prevnext">
