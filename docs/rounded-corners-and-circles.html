@@ -376,6 +376,12 @@
 <li>由于Android的<code>BitmapShader</code>的限制，当一个图片不能覆盖全部的View的时候，边缘部分会被重复显示，而非留白。对这种情况可以使用不同的缩放类型（比如centerCrop）来保证图片覆盖了全部的View。</li>
 </ul>
 
+<p><code>OVERLAY_COLOR</code>模式没有上述限制，但由于这个模式使用在图片上覆盖一个纯色图层的方式来模拟圆角效果，因此只有在图标背景是静止的并且与图层同色的情况下才能获得较好的效果。</p>
+
+<p>Drawee 内部实现了一个<code>CLIPPING</code>模式。但由于有些<code>Canvas</code>的实现并不支持路径剪裁（Path Clipping），这个模式被禁用了且不对外开放。并且由于路径剪裁不支持反锯齿，会导致圆角的边缘呈现像素化的效果。</p>
+
+<p>总之，如果生成临时bitmap的方法，所有的上述问题都可以避免。但是这个方法并不被支持因为这会导致很严重的内存问题。</p>
+
 
     <div class="docs-prevnext">
       
