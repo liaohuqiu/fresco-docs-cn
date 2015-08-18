@@ -12,23 +12,28 @@ next: rounded-corners-and-circles.html
 
 | 类型 | 描述 |
 | --------- | ----------- |
-| center | 居中，无缩放 |
-| centerCrop | 保持宽高比缩小或放大，使得两边都大于或等于显示边界。居中显示。|
-| [focusCrop](#focusCrop) | 同centerCrop, 但居中点不是中点，而是指定的某个点|
-| centerInside | 使两边都在显示边界内，居中显示。<br/>如果图尺寸大于显示边界，则保持长宽比缩小图片。|
-| fitCenter | 保持宽高比，缩小或者放大，使得图片完全显示在显示边界内。居中显示|
-| fitStart | 同上。但不居中，和显示边界左上对齐|
-| fitEnd | 同fitCenter， 但不居中，和显示边界右下对齐|
-| fitXY | 不保存宽高比，填充满显示边界|
+| center | 居中，无缩放。 |
+| centerCrop | 保持宽高比缩小或放大，使得两边都大于或等于显示边界，且宽或高契合显示边界。居中显示。|
+| [focusCrop](#focusCrop) | 同centerCrop, 但居中点不是中点，而是指定的某个点。|
+| centerInside | 缩放图片使两边都在显示边界内，居中显示。和 `fitCenter` 不同，不会对图片进行放大。<br/>如果图尺寸大于显示边界，则保持长宽比缩小图片。|
+| fitCenter | 保持宽高比，缩小或者放大，使得图片完全显示在显示边界内，且宽或高契合显示边界。居中显示。|
+| fitStart | 同上。但不居中，和显示边界左上对齐。|
+| fitEnd | 同fitCenter， 但不居中，和显示边界右下对齐。|
+| fitXY | 不保存宽高比，填充满显示边界。|
 | [none](#none) | 如要使用tile mode显示, 需要设置为none|
 
 这些缩放类型和Android [ImageView](http://developer.android.com/reference/android/widget/ImageView.ScaleType.html) 支持的缩放类型几乎一样.
 
-唯一不支持的缩放类型是`matrix.` Fresco 提供了`focusCrop` 作为补充。通常这个缩放效果更佳。
+唯一不支持的缩放类型是 `matrix`。Fresco 提供了 `focusCrop` 作为补充，通常这个使用效果更佳。
+
+### 怎样设置
+实际图片，占位图，重试图和失败图都可以在 xml 中进行设置，用 `fresco:actualImageScaleType` 这样的属性。你也可以使用 `GenericDraweeHierarchyBuilder` 类在代码中进行设置。
+即使显示效果已经构建完成，实际图片的缩放类型仍然可以通过 `GenericDraweeHierarchy` 类在运行中进行修改。
+不要使用 `android:scaleType` 属性，也不要使用 `setScaleType()` 方法，它们对 Drawees 无效。
 
 ### focusCrop
 
-`centerCrop`缩放模式会保持长宽比，缩放图片，填充满显示边界，居中显示。这个缩放模式在通常情况下很有用。
+`centerCrop`缩放模式会保持长宽比，放大或缩小图片，填充满显示边界，居中显示。这个缩放模式在通常情况下很有用。
 
 但是对于人脸等图片时，一味地居中显示，这个模式可能会裁剪掉一些有用的信息。
 
@@ -36,15 +41,17 @@ next: rounded-corners-and-circles.html
 
 Fresco的focusCrop缩放模式正是为此而设计。只要提供一个居中聚焦点，显示时就会**尽量**以此点为中心。
 
-居中点是以相对方式给出的，比如(0.5f, 0.5f)就是居中显示，(0f, 0f)就是左上对齐显示。
+居中点是以相对方式给出的，比如 (0f, 0f) 是左上对齐显示，(1f, 1f) 是右下角对齐。相对坐标使得居中点位置和具体尺寸无关，这是非常实用的。
 
-如果要使用此缩放模式，首先指定缩放模式。在XML:
+(0.5f, 0.5f) 的居中点位置和缩放类型 `centerCrop` 是等价的。 
+
+如果要使用此缩放模式，首先在 XML 中指定缩放模式:
 
 ```xml
   fresco:actualImageScaleType="focusCrop"
 ```
   
-在Java代码中
+在Java代码中，给你的图片指定居中点：
   
 ```java
 PointF focusPoint;
