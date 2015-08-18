@@ -23,7 +23,7 @@ next: progress-bars.html
 
 本页说明如何设置实现不同的图片呈现效果。
 
-除了要加载的图片，其他各个设置都可以在xml中指定。在xml中指定的时候，可以是drawable/下的资源，也可以颜色。
+除了要加载的图片，其他各个设置都可以在 xml 中指定。在 xml 中指定的时候，可以是Android drawable ，也可以是颜色。
 
 在Java 代码中也可以指定。如果需要 [通过程序设定](using-drawees-code.html) 的话会接触到这个类: [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) 
  
@@ -37,7 +37,7 @@ next: progress-bars.html
 
 除了需要加载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。
 
-所需加载的图片实际是DraweeController的一个属性，而不是DraweeHierarchy的属性。
+所需加载的图片实际是 DraweeController 的一个属性，而不是 DraweeHierarchy 的属性。
 
 可使用`setImageURI`方法或者[通过设置DraweeController](using-controllerbuilder.html) 来进行设置。
 

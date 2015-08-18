@@ -64,7 +64,7 @@ Drawable drawable;
 hierarchy.setPlaceholderImage(drawable);
 ```
 
-#### 修改显示的图像
+#### 改变图像的显示
 
 修改[缩放类型](scaling.html):
 
@@ -72,13 +72,13 @@ hierarchy.setPlaceholderImage(drawable);
 hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
 ```
 
-当然，如果修改为 `focusCrop,` 需要指定一个居中点:
+如果你选择缩放类型为 `focusCrop`，需要指定一个居中点:
 
 ```java
 hierarchy.setActualImageFocusPoint(point);
 ```
 
-或者设置一个color filter:
+你可以为图像添加一个 color filter:
 
 ```java
 ColorFilter filter;
