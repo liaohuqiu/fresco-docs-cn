@@ -70,17 +70,34 @@ public boolean onTouchEvent(MotionEvent event) {
 
 #### 自定义onDraw
 
+你必须调用
+
 ```java
 Drawable drawable = mDraweeHolder.getHierarchy().getTopLevelDrawable();
 drawable.setBounds(...);
 ```
 
-否则图片将不会出现
+否则图片将不会出现。
 
 * 不要向下转换这个Drawable
 * 不要变换这个Drawable
 
 #### 其他应该做的
+
+* 设置 `Drawable.Callback`
+
+```java
+// When a holder is set to the view for the first time,
+// don't forget to set the callback to its top-level drawable:
+mDraweeHolder = ...
+mDraweeHolder.getTopLevelDrawable().setCallback(this);
+
+// In case the old holder is no longer needed,
+// don't forget to clear the callback from its top-level drawable:
+mDraweeHolder.getTopLevelDrawable().setCallback(null);
+mDraweeHolder = ...
+```
+
 
 * 重写 `verifyDrawable:`
 
@@ -94,7 +111,7 @@ protected boolean verifyDrawable(Drawable who) {
 }
 ```
 
-* 确保`invalidateDrawable` 处理了图片占用的那块区域。
+* 确保 `invalidateDrawable` 处理了图片占用的那块区域。
 
 ### 创建 DraweeHolder
 
@@ -104,17 +121,17 @@ protected boolean verifyDrawable(Drawable who) {
 
 我们推荐如下实现构造函数:
 
-* 重写3个构造函数
-* 在每个构造函数中调用同等签名的父类构造函数，和一个私有的`init`方法。
-* 在`init`方法中执行初始化操作。
+* 重写所有构造函数，共 3 个
+* 在每个构造函数中调用同等签名的父类构造函数，和一个私有的 `init` 方法。
+* 在 `init` 方法中执行初始化操作。
  
-即，不要在构造函数中用`this`来调用另外一个构造。
+即，不要在构造函数中用 `this` 来调用另外一个构造。
 
-这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。然后在`init`方法中创建holder。
+这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。holder 在 `init` 方法中被创建。
 
 #### 创建 Holder
 
-如果有可能，只在View创建时，创建Drawees。创建DraweeHierarchy开销较大，最好只做一次。
+如果有可能，只在 View 创建时，创建 Drawees。创建 DraweeHierarchy 开销较大，最好只做一次。
 
 ```java
 class CustomView extends View {
@@ -134,7 +151,7 @@ class CustomView extends View {
 
 #### 设置要显示的图片
 
-使用[controller builder](using-controllerbuilder.html)创建DraweeController，然后调用holder的`setController`方法，而不是设置给自定义View。
+使用 [controller builder](using-controllerbuilder.html) 创建DraweeController，然后调用holder的 `setController` 方法，而不是设置给自定义 View。
 
 ```java
 DraweeController controller = Fresco.newControllerBuilder()
@@ -146,8 +163,8 @@ mDraweeHolder.setController(controller);
 
 ### MultiDraweeHolder
 
-和`DraweeHolder`相比，`MultiDraweeHolder`有 `add`, `remove`, `clear`
-等方法可以操作Drawees。如下:
+和 `DraweeHolder` 相比，`MultiDraweeHolder` 有 `add`, `remove`, `clear`
+等方法可以操作 Drawees。如下:
 
 ```java
 MultiDraweeHolder<GenericDraweeHierarchy> mMultiDraweeHolder;
@@ -162,4 +179,4 @@ private void init() {
 }
 ```
 
-同样，也需要处理系统事件，设置声音等等，就想处理单个`DraweeHolder`那样。
+同样，也需要处理系统事件，设置声音等等，就像处理单个`DraweeHolder`那样。

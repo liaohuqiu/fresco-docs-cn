@@ -7,21 +7,17 @@ prev: progressive-jpegs.html
 next: requesting-multiple-images.html
 ---
 
-Fresco 支持GIF和WebP 格式图片；支持WebP 格式的动画图也支持(包括扩展WebP 格式)，支持2.3及其以后那些没有原生WebP支持的系统。
+Fresco 支持 GIF 和 WebP 格式的动画图片。对于 WebP 格式的动画图的支持包括扩展的 WebP 格式，即使 Android 2.3及其以后那些没有原生 WebP 支持的系统。
 
 ### 设置动画图自动播放
 
-如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在[image request](image-requests.html) 中简单设置，如下:
+如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在 [image request](image-requests.html) 中简单设置，如下:
 
 
 ```java
 Uri uri;
-ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-    . // other setters
-    .build();
-    
 DraweeController controller = Fresco.newDraweeControllerBuilder()
-    .setImageRequest(request)
+    .setUri(uri)
     .setAutoPlayAnimations(true)
     . // other setters
     .build();
@@ -30,7 +26,7 @@ mSimpleDraweeView.setController(controller);
 
 ### 手动控制动画图播放
 
-也许，你希望在图片加载完之后，手动控制动画的播放，那么这样做：
+也许你希望在代码中直接控制动画的播放。这种情况下，你需要监听图片是否加载完毕，然后才能控制动画的播放：
 
 ```java
 ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
@@ -68,3 +64,6 @@ if (animation != null) {
 }
 ```
 
+### 限制
+
+动画现在还不支持 [postprocessors](modifying-image.html) 。
