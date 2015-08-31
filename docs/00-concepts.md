@@ -47,8 +47,8 @@ Fresco 的 Image Pipeline 负责图片的获取和管理。图片可以来自远
 
 ## ImageRequest
 
-`ImageRequest`存储着Image Pipeline处理被请求图片所需要的有用信息(Uri、是否渐进式图片、是否返回缩略图、缩放、是否自动旋转等。)。
+`ImageRequest`存储着Image Pipeline处理被请求图片所需要的有用信息(Uri、是否渐进式图片、是否返回缩略图、缩放、是否自动旋转等)。
 
-**它仅仅用来装信息，而且一经初始化后就无法改变内容（即Immutable，不过可以获取内容）。** 并且它的初始化只能通过`ImageRequest.fromUri(Uri uri)`或`ImageRequestBuilder.build()`来实现。
+**ImagePipeline仅仅用来装信息，而且一经初始化后就只能获取内容，无法改变内容（即Immutable）。** 初始化ImageRequest只能通过`ImageRequest.fromUri(Uri uri)`或`ImageRequestBuilder.build()`来实现。
 
 `SimpleDraweeView`调用`setUri(Uri)`会产生一个默认的`ImageRequest`含有指定Uri信息，如果需要修改`ImageRequest`其他信息，必须手动创建`ImageRequest`，并在`PipelineDraweeControllerBuilder`调用`.build()`之前使用`.setImageRequest`设置它。
