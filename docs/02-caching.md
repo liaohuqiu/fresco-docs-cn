@@ -43,7 +43,7 @@ Uri uri;
 boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
 ```
 
-查询bitmap是否在文件缓存中的操作时异步的。因为这个操作可以使用另一个线程操作。你可以这样使用。在0.8.0新版本中，这个api会被简化。
+查询bitmap是否在文件缓存中的操作时异步的。因为这个操作可以使用另一个线程操作。你可以这样使用。
 ```java
 DataSource<Boolean> inDiskCacheSource = imagePipeline.isInDiskCache(uri);
 DataSubscriber<Boolean> subscriber = new BaseDataSubscriber<Boolean>() {
