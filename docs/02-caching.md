@@ -33,6 +33,58 @@ APP在后台时，这个缓存同样会被清空。
 
 和内存缓存不一样，APP在后台时，内容是不会被清空的。即使关机也不会。用户可以随时用系统的设置菜单中进行清空缓存操作。
 
+#### 查找一个bitmap是否被缓存？
+你可以使用ImagePipeline(http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html)检查bitmap是否在缓存中。
+
+查询bitmap是否在内存缓存中的操作是同步的。
+```java
+ImagePipeline imagePipeline = Fresco.getImagePipeline();
+Uri uri;
+boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
+```
+
+查询bitmap是否在文件缓存中的操作时异步的。因为这个操作可以使用另一个线程操作。你可以这样使用。
+```java
+DataSource<Boolean> inDiskCacheSource = imagePipeline.isInDiskCache(uri);
+DataSubscriber<Boolean> subscriber = new BaseDataSubscriber<Boolean>() {
+    @Override
+    protected void onNewResultImpl(DataSource<Boolean> dataSource) {
+      if (!dataSource.isFinished()) {
+        return;
+      }
+      boolean isInCache = dataSource.getResult();
+      // your code here
+    }
+  };
+inDiskCacheSource.subscribe(subscriber, executor);
+```
+以上API假设你使用默认的CacheKeyFactory。如果你自定义，你可能需要用把ImageRequest作为参数的方程，即`imagePipeline.isInDiskCache(ImageRequest)`和`imagePipeline.isInBitmapMemoryCache(ImageRequest)`
+
+### 清除缓存中的一条url
+ImagePipeline现有函数可以删除缓存中的一条url。
+
+```java
+ImagePipeline imagePipeline = Fresco.getImagePipeline();
+Uri uri;
+imagePipeline.evictFromMemoryCache(uri);
+imagePipeline.evictFromDiskCache(uri);
+
+// combines above two lines
+imagePipeline.evictFromCache(uri);
+```
+
+如同上面一样，`evictFromDiskCache(Uri)`假定你使用的是默认的CacheKeyFactory。如果你自定义，请使用`evictFromDiskCache(ImageRequest)`。
+
+### 清除缓存
+```java
+ImagePipeline imagePipeline = Fresco.getImagePipeline();
+imagePipeline.clearMemoryCaches();
+imagePipeline.clearDiskCaches();
+
+// combines above two lines
+imagePipeline.clearCaches();
+```
+
 ### 用一个文件还是两个文件缓存?
 
 如果要使用2个缓存，在[配置image pipeline](configure-image-pipeline.html) 时调用 `setMainDiskCacheConfig` 和 `setSmallImageDiskCacheConfig`  方法即可。
