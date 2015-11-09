@@ -23,7 +23,7 @@ next: intro-image-pipeline.html
 
 #### 不要在多个DraweeHierarchy中使用同一个Drawable
 
-原因同上。当时可以使用不同的资源ID。Android实际会创建不同的Drawable。
+原因同上。其实可以使用不同的资源ID。Android实际会创建不同的Drawable。
 
 #### 不要直接给 `DraweeView` 设置图片。
 
