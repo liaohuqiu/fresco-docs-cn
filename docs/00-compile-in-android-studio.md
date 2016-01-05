@@ -3,8 +3,8 @@ id: compile-in-android-studio
 title: 关于在Android Studio中编译
 layout: docs
 permalink: /docs/compile-in-android-studio.html
-prev: getting-started.html
-next: index.html
+prev: index.html
+next: getting-started.html
 ---
 
 Fresco 是一个典型的Android Studio 项目。
