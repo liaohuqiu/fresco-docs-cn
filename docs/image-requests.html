@@ -321,6 +321,7 @@
 
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span>
     <span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setImageDecodeOptions</span><span class="o">(</span><span class="n">decodeOptions</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setAutoRotateEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setLocalThumbnailPreviewsEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setLowestPermittedRequestLevel</span><span class="o">(</span><span class="n">RequestLevel</span><span class="o">.</span><span class="na">FULL_FETCH</span><span class="o">)</span>

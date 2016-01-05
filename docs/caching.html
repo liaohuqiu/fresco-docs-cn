@@ -320,7 +320,7 @@
 
 <p>5.0及其以上系统，相比之下，内存管理有了很大改进，所以Bitmap缓存直接位于Java的heap上。</p>
 
-<p>当应用在后台运行是，该内存会被清空。</p>
+<p>当应用在后台运行时，该内存会被清空。</p>
 
 <h4>2. 未解码图片的内存缓存</h4>
 
@@ -336,6 +336,55 @@
 
 <p>和内存缓存不一样，APP在后台时，内容是不会被清空的。即使关机也不会。用户可以随时用系统的设置菜单中进行清空缓存操作。</p>
 
+<h4>查找一个bitmap是否被缓存？</h4>
+
+<p>你可以使用ImagePipeline(http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html)检查bitmap是否在缓存中。</p>
+
+<p>查询bitmap是否在内存缓存中的操作是同步的。
+<code>java
+ImagePipeline imagePipeline = Fresco.getImagePipeline();
+Uri uri;
+boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
+</code></p>
+
+<p>查询bitmap是否在文件缓存中的操作时异步的。因为这个操作可以使用另一个线程操作。你可以这样使用。
+<code>java
+DataSource&lt;Boolean&gt; inDiskCacheSource = imagePipeline.isInDiskCache(uri);
+DataSubscriber&lt;Boolean&gt; subscriber = new BaseDataSubscriber&lt;Boolean&gt;() {
+    @Override
+    protected void onNewResultImpl(DataSource&lt;Boolean&gt; dataSource) {
+      if (!dataSource.isFinished()) {
+        return;
+      }
+      boolean isInCache = dataSource.getResult();
+      // your code here
+    }
+  };
+inDiskCacheSource.subscribe(subscriber, executor);
+</code>
+以上API假设你使用默认的CacheKeyFactory。如果你自定义，你可能需要用把ImageRequest作为参数的方程，即<code>imagePipeline.isInDiskCache(ImageRequest)</code>和<code>imagePipeline.isInBitmapMemoryCache(ImageRequest)</code></p>
+
+<h3>清除缓存中的一条url</h3>
+
+<p>ImagePipeline现有函数可以删除缓存中的一条url。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipeline</span> <span class="n">imagePipeline</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">getImagePipeline</span><span class="o">();</span>
+<span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">evictFromMemoryCache</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">evictFromDiskCache</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+
+<span class="c1">// combines above two lines</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">evictFromCache</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
+</code></pre></div>
+<p>如同上面一样，<code>evictFromDiskCache(Uri)</code>假定你使用的是默认的CacheKeyFactory。如果你自定义，请使用<code>evictFromDiskCache(ImageRequest)</code>。</p>
+
+<h3>清除缓存</h3>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImagePipeline</span> <span class="n">imagePipeline</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">getImagePipeline</span><span class="o">();</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">clearMemoryCaches</span><span class="o">();</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">clearDiskCaches</span><span class="o">();</span>
+
+<span class="c1">// combines above two lines</span>
+<span class="n">imagePipeline</span><span class="o">.</span><span class="na">clearCaches</span><span class="o">();</span>
+</code></pre></div>
 <h3>用一个文件还是两个文件缓存?</h3>
 
 <p>如果要使用2个缓存，在<a href="configure-image-pipeline.html">配置image pipeline</a> 时调用 <code>setMainDiskCacheConfig</code> 和 <code>setSmallImageDiskCacheConfig</code>  方法即可。</p>

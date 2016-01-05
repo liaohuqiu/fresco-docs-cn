@@ -353,15 +353,15 @@
 <span class="c1">// 创建一个drawable</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">drawable</span><span class="o">);</span>
 </code></pre></div>
-<h4>修改显示的图像</h4>
+<h4>改变图像的显示</h4>
 
 <p>修改<a href="scaling.html">缩放类型</a>:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageScaleType</span><span class="o">(</span><span class="n">ScalingUtils</span><span class="o">.</span><span class="na">ScaleType</span><span class="o">.</span><span class="na">CENTER_INSIDE</span><span class="o">);</span>
 </code></pre></div>
-<p>当然，如果修改为 <code>focusCrop,</code> 需要指定一个居中点:</p>
+<p>如果你选择缩放类型为 <code>focusCrop</code>，需要指定一个居中点:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageFocusPoint</span><span class="o">(</span><span class="n">point</span><span class="o">);</span>
 </code></pre></div>
-<p>或者设置一个color filter:</p>
+<p>你可以为图像添加一个 color filter:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ColorFilter</span> <span class="n">filter</span><span class="o">;</span>
 <span class="c1">// 创建filter</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageColorFilter</span><span class="o">(</span><span class="n">filter</span><span class="o">);</span>

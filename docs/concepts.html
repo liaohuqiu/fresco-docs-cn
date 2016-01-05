@@ -350,9 +350,9 @@
 
 <h2>ImageRequest</h2>
 
-<p><code>ImageRequest</code>存储着Image Pipeline处理被请求图片所需要的有用信息(Uri、是否渐进式图片、是否返回缩略图、缩放、是否自动旋转等。)。</p>
+<p><code>ImageRequest</code>存储着Image Pipeline处理被请求图片所需要的有用信息(Uri、是否渐进式图片、是否返回缩略图、缩放、是否自动旋转等)。</p>
 
-<p><strong>它仅仅用来装信息，而且一经初始化后就无法改变内容（即Immutable，不过可以获取内容）。</strong> 并且它的初始化只能通过<code>ImageRequest.fromUri(Uri uri)</code>或<code>ImageRequestBuilder.build()</code>来实现。</p>
+<p><strong>ImagePipeline仅仅用来装信息，而且一经初始化后就只能获取内容，无法改变内容（即Immutable）。</strong> 初始化ImageRequest只能通过<code>ImageRequest.fromUri(Uri uri)</code>或<code>ImageRequestBuilder.build()</code>来实现。</p>
 
 <p><code>SimpleDraweeView</code>调用<code>setUri(Uri)</code>会产生一个默认的<code>ImageRequest</code>含有指定Uri信息，如果需要修改<code>ImageRequest</code>其他信息，必须手动创建<code>ImageRequest</code>，并在<code>PipelineDraweeControllerBuilder</code>调用<code>.build()</code>之前使用<code>.setImageRequest</code>设置它。</p>
 

@@ -368,10 +368,12 @@
 <span class="o">}</span>
 </code></pre></div>
 <h4>自定义onDraw</h4>
+
+<p>你必须调用</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">().</span><span class="na">getTopLevelDrawable</span><span class="o">();</span>
 <span class="n">drawable</span><span class="o">.</span><span class="na">setBounds</span><span class="o">(...);</span>
 </code></pre></div>
-<p>否则图片将不会出现</p>
+<p>否则图片将不会出现。</p>
 
 <ul>
 <li>不要向下转换这个Drawable</li>
@@ -380,6 +382,19 @@
 
 <h4>其他应该做的</h4>
 
+<ul>
+<li>设置 <code>Drawable.Callback</code></li>
+</ul>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// When a holder is set to the view for the first time,</span>
+<span class="c1">// don&#39;t forget to set the callback to its top-level drawable:</span>
+<span class="n">mDraweeHolder</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">().</span><span class="na">setCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+
+<span class="c1">// In case the old holder is no longer needed,</span>
+<span class="c1">// don&#39;t forget to clear the callback from its top-level drawable:</span>
+<span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">().</span><span class="na">setCallback</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+<span class="n">mDraweeHolder</span> <span class="o">=</span> <span class="o">...</span>
+</code></pre></div>
 <ul>
 <li>重写 <code>verifyDrawable:</code></li>
 </ul>
@@ -392,7 +407,7 @@
 <span class="o">}</span>
 </code></pre></div>
 <ul>
-<li>确保<code>invalidateDrawable</code> 处理了图片占用的那块区域。</li>
+<li>确保 <code>invalidateDrawable</code> 处理了图片占用的那块区域。</li>
 </ul>
 
 <h3>创建 DraweeHolder</h3>
@@ -404,18 +419,18 @@
 <p>我们推荐如下实现构造函数:</p>
 
 <ul>
-<li>重写3个构造函数</li>
-<li>在每个构造函数中调用同等签名的父类构造函数，和一个私有的<code>init</code>方法。</li>
-<li>在<code>init</code>方法中执行初始化操作。</li>
+<li>重写所有构造函数，共 3 个</li>
+<li>在每个构造函数中调用同等签名的父类构造函数，和一个私有的 <code>init</code> 方法。</li>
+<li>在 <code>init</code> 方法中执行初始化操作。</li>
 </ul>
 
-<p>即，不要在构造函数中用<code>this</code>来调用另外一个构造。</p>
+<p>即，不要在构造函数中用 <code>this</code> 来调用另外一个构造。</p>
 
-<p>这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。然后在<code>init</code>方法中创建holder。</p>
+<p>这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。holder 在 <code>init</code> 方法中被创建。</p>
 
 <h4>创建 Holder</h4>
 
-<p>如果有可能，只在View创建时，创建Drawees。创建DraweeHierarchy开销较大，最好只做一次。</p>
+<p>如果有可能，只在 View 创建时，创建 Drawees。创建 DraweeHierarchy 开销较大，最好只做一次。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">CustomView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
   <span class="n">DraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mDraweeHolder</span><span class="o">;</span>
 
@@ -432,7 +447,7 @@
 </code></pre></div>
 <h4>设置要显示的图片</h4>
 
-<p>使用<a href="using-controllerbuilder.html">controller builder</a>创建DraweeController，然后调用holder的<code>setController</code>方法，而不是设置给自定义View。</p>
+<p>使用 <a href="using-controllerbuilder.html">controller builder</a> 创建DraweeController，然后调用holder的 <code>setController</code> 方法，而不是设置给自定义 View。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setUri</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
@@ -441,8 +456,8 @@
 </code></pre></div>
 <h3>MultiDraweeHolder</h3>
 
-<p>和<code>DraweeHolder</code>相比，<code>MultiDraweeHolder</code>有 <code>add</code>, <code>remove</code>, <code>clear</code>
-等方法可以操作Drawees。如下:</p>
+<p>和 <code>DraweeHolder</code> 相比，<code>MultiDraweeHolder</code> 有 <code>add</code>, <code>remove</code>, <code>clear</code>
+等方法可以操作 Drawees。如下:</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">MultiDraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mMultiDraweeHolder</span><span class="o">;</span>
 
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
@@ -454,7 +469,7 @@
   <span class="c1">// repeat for more hierarchies</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>同样，也需要处理系统事件，设置声音等等，就想处理单个<code>DraweeHolder</code>那样。</p>
+<p>同样，也需要处理系统事件，设置声音等等，就像处理单个<code>DraweeHolder</code>那样。</p>
 
 
     <div class="docs-prevnext">

@@ -310,7 +310,13 @@
     </h1>
     <p></p>
 
-    <h4>不要向下转换</h4>
+    <h4>不要使用 ScrollViews</h4>
+
+<p>如果你想要在一个长的图片列表中滑动，你应该使用 <code>RecyclerView</code>，<code>ListView</code>，或 <code>GridView</code>。这三者都会在你滑动时不断重用子视图。Fresco 的 view 会接收系统事件，使它们能正确管理内存。</p>
+
+<p><code>ScrollView</code> 不会这样做。因此，Fresco view 不会被告知它们是否在屏幕上显示，并保持图片内存占用直到你的 Fragment 或 Activity 停止。你的 App 将会面临更大的 OOM 风险。</p>
+
+<h4>不要向下转换</h4>
 
 <p>不要试图把Fresco返回的一些对象进行向下转化，这也许会带来一些对象操作上的便利，但是也许在后续的版本中，你会遇到一些因为向下转换特性丢失导致的难以处理的问题。</p>
 
@@ -322,23 +328,27 @@
 
 <h4>不要复用 DraweeHierarchies</h4>
 
-<p>永远不要吧<code>DraweeHierarchy</code> 通过 <code>DraweeView.setHierarchy</code> 设置给不同的View。DraweeHierarchy是由一系列Drawable组成的。在Android中, Drawable不能被多个View共享。</p>
+<p>永远不要把 <code>DraweeHierarchy</code> 通过 <code>DraweeView.setHierarchy</code> 设置给不同的View。DraweeHierarchy 是由一系列 Drawable 组成的。在 Android 中, Drawable 不能被多个 View 共享。</p>
 
 <h4>不要在多个DraweeHierarchy中使用同一个Drawable</h4>
 
-<p>原因同上。当时可以使用不同的资源ID。Android实际会创建不同的Drawable。</p>
+<p>原因同上。当然可以使用不同的资源ID，Android 实际会创建不同的 Drawable。</p>
+
+<h4>不要直接控制 hierarchy</h4>
+
+<p>不要直接使用 <code>SettableDraweeHierarchy</code> 方法(<code>reset</code>，<code>setImage</code>，...)。它们应该仅由 controller 使用。</p>
 
 <h4>不要直接给 <code>DraweeView</code> 设置图片。</h4>
 
-<p>目前 <code>DraweeView</code> 直接继承于ImageView，因此它有 <code>setImageBitmap</code>,
+<p>目前 <code>DraweeView</code> 直接继承于 ImageView，因此它有 <code>setImageBitmap</code>,
 <code>setImageDrawable</code>  等方法。</p>
 
-<p>如果利用这些方法，直接设置一个图片。内部的<code>DraweeHierarchy</code>就会丢失，也就无法取到image
+<p>如果利用这些方法直接设置一张图片，内部的 <code>DraweeHierarchy</code> 就会丢失，也就无法取到image
 pipeline 的任何图像了。</p>
 
-<h4>使用DraweeView时，请不要使用任何ImageView的属性</h4>
+<h4>使用 DraweeView 时，请不要使用任何 ImageView 的属性</h4>
 
-<p>在后续的版本中，DraweeView会直接从View派生。任何属于ImageView但是不属于View的方法都会被移除。</p>
+<p>在后续的版本中，DraweeView 会直接从 View 派生。任何属于 ImageView 但是不属于 View 的方法都会被移除。</p>
 
 
     <div class="docs-prevnext">
