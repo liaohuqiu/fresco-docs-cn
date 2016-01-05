@@ -42,33 +42,34 @@ Drawees 具有极大的可定制性。
   />
 ```
 
-#### 必须设置layout_width和layout_height
+#### 强制性的宽高
 
-如果没有在XML中声明这两个属性，将无法正确加载图像。
+你必须声明 `android:layout_width` 和 `android:layout_height`。如果没有在XML中声明这两个属性，将无法正确加载图像。
 
 #### wrap_content
 
-*Drawees 不支持 `wrap_content` 属性。*
+Drawees 不支持 `wrap_content` 属性。
 
 所下载的图像可能和占位图尺寸不一致，如果设置出错图或者重试图的话，这些图的尺寸也可能和所下载的图尺寸不一致。
 
-如果大小不一致，图像下载完之后，假设如果是`wrap_content`，View将会重新layout，改变大小和位置。这将会导致界面跳跃。
+如果大小不一致，假设使用的是 `wrap_content`，图像下载完之后，View将会重新layout，改变大小和位置。这将会导致界面跳跃。
 
 #### 固定宽高比
 
-只有希望显示的固定宽高比时，可以使用`wrap_content`。
+只有希望显示固定的宽高比时，可以使用`wrap_content`。
 
-如果希望显示的图片保持一定宽高比例，如果 4:3，则在XML中:
+如果希望图片以特定的宽高比例显示，例如 4:3，可以在XML中指定:
 
 ```xml
 <com.facebook.drawee.view.SimpleDraweeView
     android:id="@+id/my_image_view"
     android:layout_width="20dp"
     android:layout_height="wrap_content"
+    fresco:viewAspectRatio="1.33"
     <!-- other attributes -->
 ```
 
-然后在代码中指定显示比例：
+也可以在代码中指定显示比例：
 
 
 ```java

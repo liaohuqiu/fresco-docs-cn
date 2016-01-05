@@ -6,16 +6,17 @@ permalink: /docs/listening-download-events.html
 prev: requesting-multiple-images.html
 next: resizing-rotating.html
 ---
+### 动机
 
-你也许想在图片下载完成或者下载失败之后，做一些其他事情。
+你也许想在图片下载完成后执行一些动作，比如使某个别的 `View` 可见，或者显示一些文字。你也许还想在下载失败后做一些事，比如向用户显示一条失败信息。
 
-图片是后台线程异步加载的，我们可以使用一个`ControllerListener`实现事件的监听。
+图片是后台线程异步加载的，所以你需要某一方式来监听 `DraweeController` 传递的事件。我们可以使用一个 `ControllerListener` 实现事件的监听。
 
 *在监听事件回调时，无法修改图片，如果需要修改图片，可使用[后处理器(Postprocessor)](modifying-image.html)*
 
 #### 使用方法
 
-简单定义一个`ControllerListener`即可，推荐使用`BaseControllerListener`:
+简单定义一个`ControllerListener`即可，推荐继承`BaseControllerListener`:
 
 ```java
 ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {

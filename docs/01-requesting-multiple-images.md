@@ -11,7 +11,7 @@ next: listening-download-events.html
 
 ### 先显示低分辨率的图，然后是高分辨率的图
 
-如果你要显示一张高分辨率的图，但是这张图下载比较耗时。你可以在下载前，先提供一张很快能下载完的小缩略图。这比一直显示占位图，用户体验会好很多。
+假设你要显示一张高分辨率的图，但是这张图下载比较耗时。与其一直显示占位图，你可能想要先下载一个较小的缩略图。
 
 这时，你可以设置两个图片的URI，一个是低分辨率的缩略图，一个是高分辨率的图。
 
@@ -29,7 +29,7 @@ mSimpleDraweeView.setController(controller);
 
 *本功能仅支持本地URI，并且是JPEG图片格式*
 
-如果本地JPEG图，有EXIF的缩略图，image pipeline 会立刻返回一个缩略图。完整的清晰大图，在decode完之后再显示。
+如果本地JPEG图，有EXIF的缩略图，image pipeline 可以立刻返回它作为一个缩略图。`Drawee` 会先显示缩略图，完整的清晰大图在 decode 完之后再显示。
 
 ```java
 Uri uri;
@@ -45,20 +45,15 @@ mSimpleDraweeView.setController(controller);
 ```
 
 
-### 本地图片复用
+### 加载最先可用的图片
 
-大部分的时候，一个图片可能会对应有多个URI，比如:
+大部分时候，一张图片只有一个 URI。加载它，然后工作完成～
 
-* 拍照上传。本地图片较大，上传的图片较小。上传完成之后的图片，有一个url，如果要加载这个url，可直接加载本地图片。
-* 本地已经有600x600尺寸的大图了，需要显示100x100的小图
+但是假设同一张图片有多个 URI 的情况。比如，你可能上传过一张拍摄的照片。原始图片太大而不能上传，所以图片首先经过了压缩。在这种情况下，首先尝试获取本地压缩后的图片 URI，如果失败的话，尝试获取本地原始图片 URI，如果还是失败的话，尝试获取上传到网络的图片 URI。直接下载我们本地可能已经有了的图片不是一件光彩的事。
 
-对于一个URI，image pipeline 会依次检查内存，磁盘，如果没有从网络下载。
+Image pipeline 会首先从内存中搜寻图片，然后是磁盘缓存，再然后是网络或其他来源。对于多张图片，不是一张一张按上面的过程去做，而是 pipeline 先检查所有图片是否在内存。只有没在内存被搜寻到的才会寻找磁盘缓存。还没有被搜寻到的，才会进行一个外部请求。
 
-而对于一个图片的多个URI，image pipeline 会先检查他们是否在内存中。如果没有任何一个是在内存中的，会检查是否在本地存储中。如果也没有，才会执行网络下载。
-
-但凡有任何一个检查发现在内存或者在本地存储中，都会进行复用。列表顺序就是要显示的图片的优先顺序。
-
-使用时，创建一个image request 列表，然后传给ControllerBuilder:
+使用时，创建一个image request 数组，然后传给 `ControllerBuilder` :
 
 ```java
 Uri uri1, uri2;
@@ -73,6 +68,9 @@ DraweeController controller = Fresco.newDraweeControllerBuilder()
 mSimpleDraweeView.setController(controller);
 ```
 
+这些请求中只有一个会被展示。第一个被发现的，无论是在内存，磁盘或者网络，都会是被返回的那个。pipeline 认为数组中请求的顺序即为优先顺序。
+
 ### 自定义 `DataSource Supplier`
-为了更好的灵活性，你可以在创建Drawee controller时自定义DataSource Supplier。你可以以`FirstAvailiableDataSourceSupplier`,`IncreasingQualityDataSourceSupplier`为例自己实现DataSource Supplier或者以`AbstractDraweeControllerBuilder`为例将多个DataSource Supplier根据需求组合在一起。
+
+为了更好的灵活性，你可以在创建 `Drawee controller` 时自定义 `DataSource Supplier`。你可以以 `FirstAvailiableDataSourceSupplier`,`IncreasingQualityDataSourceSupplier`为例自己实现 `DataSource Supplier`，或者以`AbstractDraweeControllerBuilder`为例将多个 `DataSource Supplier` 根据需求组合在一起。
 

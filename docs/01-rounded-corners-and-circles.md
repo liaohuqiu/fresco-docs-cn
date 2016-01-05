@@ -22,7 +22,7 @@ Drawee 轻松支持圆角显示，并且显示圆角时，并不复制和修改B
 
 可使用以下两种方式:
 
-1. 默认使用一个shader绘制圆角，但是仅仅占位图所要显示的图有圆角效果。失败示意图和重下载示意图无圆角效果。
+1. 默认使用一个 shader 绘制圆角，但是仅仅占位图和所要显示的图有圆角效果。失败示意图和重下载示意图无圆角效果，且这种圆角方式不支持动画。
 2. 叠加一个`solid color`来绘制圆角。但是背景需要固定成指定的颜色。
     在XML中指定 `roundWithOverlayColor`, 或者通过调用`setOverlayColor`来完成此设定。
 
@@ -43,7 +43,7 @@ Drawee 轻松支持圆角显示，并且显示圆角时，并不复制和修改B
 
 ### 代码中配置
 
-在创建 [DraweeHierarchy](using-drawees-code.html) 时，可以给`GenericDraweeHierarchyBuilder`指定一个[RoundingParams](../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html) 用来绘制圆角效果。
+在创建 [DraweeHierarchy](using-drawees-code.html) 时，可以给 `GenericDraweeHierarchyBuilder` 指定一个[RoundingParams](../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html) 用来绘制圆角效果。
 
 
 ```java
@@ -81,3 +81,5 @@ mSimpleDraweeView.getHierarchy().setRoundingParams(roundingParams);
 Drawee 内部实现了一个`CLIPPING`模式。但由于有些`Canvas`的实现并不支持路径剪裁（Path Clipping），这个模式被禁用了且不对外开放。并且由于路径剪裁不支持反锯齿，会导致圆角的边缘呈现像素化的效果。
 
 总之，如果生成临时bitmap的方法，所有的上述问题都可以避免。但是这个方法并不被支持因为这会导致很严重的内存问题。
+
+综上所述，在 Android 中实现圆角效果，没有一个绝对好的方案，你必须在上述的方案中进行选择。
