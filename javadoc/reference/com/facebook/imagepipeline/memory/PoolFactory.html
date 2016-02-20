@@ -145,6 +145,8 @@
               <ul>
                 
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/binaryresource/package-summary.html">com.facebook.binaryresource</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/common/package-summary.html">com.facebook.cache.common</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/disk/package-summary.html">com.facebook.cache.disk</a></li>
@@ -177,7 +179,15 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/base/package-summary.html">com.facebook.imagepipeline.animated.base</a></li>
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/factory/package-summary.html">com.facebook.imagepipeline.animated.factory</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/impl/package-summary.html">com.facebook.imagepipeline.animated.impl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/cache/package-summary.html">com.facebook.imagepipeline.cache</a></li>
     <li class="api apilevel-">
@@ -208,7 +218,6 @@
       <ul>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a></li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a></li>
-          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/SingleByteArrayPoolStatsTracker.html">SingleByteArrayPoolStatsTracker</a></li>
       </ul>
     </li>
               
@@ -482,16 +491,32 @@ Summary:
             
             
             
-            ByteArrayPool
+            FlexByteArrayPool
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getCommonByteArrayPool()">getCommonByteArrayPool</a></span>()
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getFlexByteArrayPool()">getFlexByteArrayPool</a></span>()
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            int
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getFlexByteArrayPoolMaxNumThreads()">getFlexByteArrayPoolMaxNumThreads</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -507,7 +532,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -523,7 +548,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -539,6 +564,22 @@ Summary:
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            SharedByteArray
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getSharedByteArray()">getSharedByteArray</a></span>()
+        
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
@@ -546,10 +587,10 @@ Summary:
             
             
             
-            SingleByteArrayPool
+            ByteArrayPool
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getSingleByteArrayPool()">getSingleByteArrayPool</a></span>()
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html#getSmallByteArrayPool()">getSmallByteArrayPool</a></span>()
         
   </td></tr>
 
@@ -881,7 +922,7 @@ From class
 </div>
 
 
-<a id="getCommonByteArrayPool()"></a>
+<a id="getFlexByteArrayPool()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -891,9 +932,40 @@ From class
          
          
          
-        ByteArrayPool
+        FlexByteArrayPool
       </span>
-      <span class="sympad">getCommonByteArrayPool</span>
+      <span class="sympad">getFlexByteArrayPool</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="getFlexByteArrayPoolMaxNumThreads()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        int
+      </span>
+      <span class="sympad">getFlexByteArrayPoolMaxNumThreads</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1005,7 +1077,7 @@ From class
 </div>
 
 
-<a id="getSingleByteArrayPool()"></a>
+<a id="getSharedByteArray()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1015,9 +1087,40 @@ From class
          
          
          
-        SingleByteArrayPool
+        SharedByteArray
       </span>
-      <span class="sympad">getSingleByteArrayPool</span>
+      <span class="sympad">getSharedByteArray</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="getSmallByteArrayPool()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ByteArrayPool
+      </span>
+      <span class="sympad">getSmallByteArrayPool</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">

@@ -145,6 +145,8 @@
               <ul>
                 
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/binaryresource/package-summary.html">com.facebook.binaryresource</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/common/package-summary.html">com.facebook.cache.common</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/disk/package-summary.html">com.facebook.cache.disk</a></li>
@@ -177,7 +179,15 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/base/package-summary.html">com.facebook.imagepipeline.animated.base</a></li>
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/factory/package-summary.html">com.facebook.imagepipeline.animated.factory</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/impl/package-summary.html">com.facebook.imagepipeline.animated.impl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/cache/package-summary.html">com.facebook.imagepipeline.cache</a></li>
     <li class="api apilevel-">
@@ -208,8 +218,8 @@
       <ul>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/CacheKeyFactory.html">CacheKeyFactory</a></li>
           <li class="selected api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.CacheTrimStrategy.html">CountingMemoryCache.CacheTrimStrategy</a></li>
-          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.ValueInfoCallback.html">CountingMemoryCache.ValueInfoCallback</a>&lt;V&gt;</li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/ImageCacheStatsTracker.html">ImageCacheStatsTracker</a></li>
+          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/MemoryCache.html">MemoryCache</a>&lt;K,&nbsp;V&gt;</li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/MemoryCacheTracker.html">MemoryCacheTracker</a></li>
       </ul>
     </li>
@@ -217,7 +227,8 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/BitmapMemoryCacheKey.html">BitmapMemoryCacheKey</a></li>
-          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;K,&nbsp;V,&nbsp;S&gt;</li>
+          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;K,&nbsp;V&gt;</li>
+          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/DefaultCacheKeyFactory.html">DefaultCacheKeyFactory</a></li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/cache/MemoryCacheParams.html">MemoryCacheParams</a></li>
       </ul>
     </li>
@@ -321,7 +332,7 @@
 
 
 <h2>Class Overview</h2>
-<p>Interface used to specify cache trim behavior.
+<p>Interface used to specify the trimming strategy for the cache.
 </p>
 
 
@@ -389,10 +400,10 @@
             
             
             
-            void
+            double
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.CacheTrimStrategy.html#trimCache(com.facebook.imagepipeline.cache.CountingMemoryCache<?, ?, ?>, com.facebook.common.memory.MemoryTrimType)">trimCache</a></span>(<a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;?,&nbsp;?,&nbsp;?&gt; cache, <a href="../../../../com/facebook/common/memory/MemoryTrimType.html">MemoryTrimType</a> trimType)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.CacheTrimStrategy.html#getTrimRatio(com.facebook.common.memory.MemoryTrimType)">getTrimRatio</a></span>(<a href="../../../../com/facebook/common/memory/MemoryTrimType.html">MemoryTrimType</a> trimType)
         
   </td></tr>
 
@@ -445,7 +456,7 @@
 
 
 
-<a id="trimCache(com.facebook.imagepipeline.cache.CountingMemoryCache<?, ?, ?>, com.facebook.common.memory.MemoryTrimType)"></a>
+<a id="getTrimRatio(com.facebook.common.memory.MemoryTrimType)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -455,10 +466,10 @@
          
         abstract 
          
-        void
+        double
       </span>
-      <span class="sympad">trimCache</span>
-      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;?,&nbsp;?,&nbsp;?&gt; cache, <a href="../../../../com/facebook/common/memory/MemoryTrimType.html">MemoryTrimType</a> trimType)</span>
+      <span class="sympad">getTrimRatio</span>
+      <span class="normal">(<a href="../../../../com/facebook/common/memory/MemoryTrimType.html">MemoryTrimType</a> trimType)</span>
     </h4>
       <div class="api-level">
         <div>

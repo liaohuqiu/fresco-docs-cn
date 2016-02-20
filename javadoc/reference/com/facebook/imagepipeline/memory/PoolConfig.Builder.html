@@ -145,6 +145,8 @@
               <ul>
                 
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/binaryresource/package-summary.html">com.facebook.binaryresource</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/common/package-summary.html">com.facebook.cache.common</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/disk/package-summary.html">com.facebook.cache.disk</a></li>
@@ -177,7 +179,15 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/base/package-summary.html">com.facebook.imagepipeline.animated.base</a></li>
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/factory/package-summary.html">com.facebook.imagepipeline.animated.factory</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/impl/package-summary.html">com.facebook.imagepipeline.animated.impl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/cache/package-summary.html">com.facebook.imagepipeline.cache</a></li>
     <li class="api apilevel-">
@@ -208,7 +218,6 @@
       <ul>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a></li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a></li>
-          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/memory/SingleByteArrayPoolStatsTracker.html">SingleByteArrayPoolStatsTracker</a></li>
       </ul>
     </li>
               
@@ -485,29 +494,13 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setCommonByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)">setCommonByteArrayPoolParams</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> commonByteArrayPoolParams)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setFlexByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)">setFlexByteArrayPoolParams</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> flexByteArrayPoolParams)
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setCommonByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.PoolStatsTracker)">setCommonByteArrayPoolStatsTracker</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a> commonByteArrayPoolStatsTracker)
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -523,7 +516,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -539,7 +532,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -555,22 +548,6 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setSingleByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)">setSingleByteArrayPoolParams</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> singleByteArrayPoolParams)
-        
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
@@ -581,7 +558,23 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setSingleByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.SingleByteArrayPoolStatsTracker)">setSingleByteArrayPoolStatsTracker</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/SingleByteArrayPoolStatsTracker.html">SingleByteArrayPoolStatsTracker</a> nativeMemoryChunkPoolStatsTracker)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setSmallByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)">setSmallByteArrayPoolParams</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> commonByteArrayPoolParams)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html#setSmallByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.PoolStatsTracker)">setSmallByteArrayPoolStatsTracker</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a> smallByteArrayPoolStatsTracker)
         
   </td></tr>
 
@@ -937,7 +930,7 @@ From class
 </div>
 
 
-<a id="setCommonByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)"></a>
+<a id="setFlexByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -949,39 +942,8 @@ From class
          
         <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
       </span>
-      <span class="sympad">setCommonByteArrayPoolParams</span>
-      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> commonByteArrayPoolParams)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<a id="setCommonByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.PoolStatsTracker)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
-      </span>
-      <span class="sympad">setCommonByteArrayPoolStatsTracker</span>
-      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a> commonByteArrayPoolStatsTracker)</span>
+      <span class="sympad">setFlexByteArrayPoolParams</span>
+      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> flexByteArrayPoolParams)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1092,7 +1054,7 @@ From class
 </div>
 
 
-<a id="setSingleByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)"></a>
+<a id="setSmallByteArrayPoolParams(com.facebook.imagepipeline.memory.PoolParams)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1104,8 +1066,8 @@ From class
          
         <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
       </span>
-      <span class="sympad">setSingleByteArrayPoolParams</span>
-      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> singleByteArrayPoolParams)</span>
+      <span class="sympad">setSmallByteArrayPoolParams</span>
+      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolParams.html">PoolParams</a> commonByteArrayPoolParams)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1123,7 +1085,7 @@ From class
 </div>
 
 
-<a id="setSingleByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.SingleByteArrayPoolStatsTracker)"></a>
+<a id="setSmallByteArrayPoolStatsTracker(com.facebook.imagepipeline.memory.PoolStatsTracker)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1135,8 +1097,8 @@ From class
          
         <a href="../../../../com/facebook/imagepipeline/memory/PoolConfig.Builder.html">PoolConfig.Builder</a>
       </span>
-      <span class="sympad">setSingleByteArrayPoolStatsTracker</span>
-      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/SingleByteArrayPoolStatsTracker.html">SingleByteArrayPoolStatsTracker</a> nativeMemoryChunkPoolStatsTracker)</span>
+      <span class="sympad">setSmallByteArrayPoolStatsTracker</span>
+      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolStatsTracker.html">PoolStatsTracker</a> smallByteArrayPoolStatsTracker)</span>
     </h4>
       <div class="api-level">
         <div>
