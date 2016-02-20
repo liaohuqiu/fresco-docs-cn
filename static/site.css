@@ -31,13 +31,8 @@ h1, h2, h3, h4 {
     position: relative;
 }
 
-td:first-child {
-    padding-right: 8px;
-}
-
 td {
     vertical-align: top;
-    padding-bottom: 4px;
 }
 
 h1:first-child, h2:first-child, h3:first-child, h4:first-child {
@@ -91,7 +86,7 @@ code {
     border-radius: 3px;
 }
 
-.highlight pre {
+.highlighter-rouge pre {
     font-size: 13px;
     line-height: 20px;
     padding: 0 0 20px 20px;
@@ -117,7 +112,7 @@ code {
     color: hsl(39, 100%, 42%);
 }
 
-.highlight pre code, .highlighttable {
+.highlighter-rouge pre code, .highlighttable {
     overflow-x: scroll;
     display: block;
     padding: 0;
@@ -129,7 +124,7 @@ code {
     background-color: rgba(226, 141, 49, 0.1);
 }
 
-.highlight pre code {
+.highlighter-rouge pre code {
     width: 100%;
     white-space: pre;
 }
@@ -145,12 +140,12 @@ code {
 }
 
 
-.highlight pre code.language-bash {
+.highlighter-rouge pre code.language-bash {
     border-left: 4px solid hsl(19, 0%, 42%);
     background-color: hsla(8, 0%, 54%, 0.1);
 }
 
-.highlight pre code.language-bbcode {
+.highlighter-rouge pre code.language-bbcode {
     border-left: 4px solid hsl(19, 100%, 42%);
     background-color: hsla(8, 75%, 54%, 0.1);
 }
@@ -402,7 +397,6 @@ nav.toc ul {
 
 nav.toc ul li {
     line-height: 20px;
-    margin-bottom: 3px;
 }
 
 footer {
@@ -560,13 +554,36 @@ div.CodeMirror-lines {
 
 }
 
-.notice {
-    text-align: center;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #e5e5e5;
-    margin: 10px 0 30px;
+/* Google CSE */
+
+.cse {
+    margin-top: 10px;
 }
-.notice:hover {
-    background-color: #f7f7f7;
+
+/* Fix search icon not appearing */
+.gsc-control-cse .gsc-table-result {
+    font-family : inherit;
+}
+
+.gsc-control-cse .gsc-input-box {
+    height : inherit;
+}
+
+input.gsc-input,
+.gsc-input-box,
+.gsc-input-box-hover,
+.gsc-input-box-focus,
+.gsc-search-button, input.gsc-search-button-v2 {
+    box-sizing  : content-box;
+    line-height : normal;
+    margin-top  : 0px;
+}
+
+.wechat-mp-qrcode {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.wechat-mp-qrcode img {
+  width: 150px;
 }

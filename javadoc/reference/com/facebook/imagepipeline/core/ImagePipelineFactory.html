@@ -145,6 +145,8 @@
               <ul>
                 
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/binaryresource/package-summary.html">com.facebook.binaryresource</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/common/package-summary.html">com.facebook.cache.common</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/cache/disk/package-summary.html">com.facebook.cache.disk</a></li>
@@ -177,7 +179,15 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/base/package-summary.html">com.facebook.imagepipeline.animated.base</a></li>
     <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/factory/package-summary.html">com.facebook.imagepipeline.animated.factory</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/impl/package-summary.html">com.facebook.imagepipeline.animated.impl</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
+    <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/cache/package-summary.html">com.facebook.imagepipeline.cache</a></li>
     <li class="api apilevel-">
@@ -460,9 +470,41 @@ Summary:
             
             
             
+            static
+            
+            AnimatedImageFactory
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#buildAnimatedImageFactory(com.facebook.imagepipeline.animated.util.AnimatedDrawableUtil, com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory)">buildAnimatedImageFactory</a></span>(<a href="../../../../com/facebook/imagepipeline/animated/util/AnimatedDrawableUtil.html">AnimatedDrawableUtil</a> animatedDrawableUtil, <a href="../../../../com/facebook/imagepipeline/bitmaps/PlatformBitmapFactory.html">PlatformBitmapFactory</a> platformBitmapFactory)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
             
             
-            AnimatedDrawableFactory
+            
+            static
+            
+            <a href="../../../../com/facebook/imagepipeline/bitmaps/PlatformBitmapFactory.html">PlatformBitmapFactory</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#buildPlatformBitmapFactory(com.facebook.imagepipeline.memory.PoolFactory)">buildPlatformBitmapFactory</a></span>(<a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html">PoolFactory</a> poolFactory)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/animated/factory/AnimatedDrawableFactory.html">AnimatedDrawableFactory</a>
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getAnimatedDrawableFactory()">getAnimatedDrawableFactory</a></span>()
@@ -478,7 +520,7 @@ Summary:
             
             
             
-            <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/imagepipeline/cache/BitmapMemoryCacheKey.html">BitmapMemoryCacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>,&nbsp;Void&gt;
+            <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getBitmapCountingMemoryCache()">getBitmapCountingMemoryCache</a></span>()
@@ -494,7 +536,7 @@ Summary:
             
             
             
-            MemoryCache&lt;<a href="../../../../com/facebook/imagepipeline/cache/BitmapMemoryCacheKey.html">BitmapMemoryCacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>,&nbsp;Void&gt;
+            <a href="../../../../com/facebook/imagepipeline/cache/MemoryCache.html">MemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getBitmapMemoryCache()">getBitmapMemoryCache</a></span>()
@@ -510,23 +552,7 @@ Summary:
             
             
             
-            <a href="../../../../com/facebook/imagepipeline/decoder/CloseableImageCopier.html">CloseableImageCopier</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getCloseableImageCopier()">getCloseableImageCopier</a></span>()
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>,&nbsp;Void&gt;
+            <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getEncodedCountingMemoryCache()">getEncodedCountingMemoryCache</a></span>()
@@ -535,14 +561,14 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
             
             
             
-            MemoryCache&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>,&nbsp;Void&gt;
+            <a href="../../../../com/facebook/imagepipeline/cache/MemoryCache.html">MemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getEncodedMemoryCache()">getEncodedMemoryCache</a></span>()
@@ -551,7 +577,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -567,7 +593,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -585,14 +611,14 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
             
             
             
-            DiskStorageCache
+            <a href="../../../../com/facebook/cache/disk/DiskStorageCache.html">DiskStorageCache</a>
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getMainDiskStorageCache()">getMainDiskStorageCache</a></span>()
@@ -601,14 +627,14 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
             
             
             
-            DiskStorageCache
+            <a href="../../../../com/facebook/cache/disk/DiskStorageCache.html">DiskStorageCache</a>
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineFactory.html#getSmallImageDiskStorageCache()">getSmallImageDiskStorageCache</a></span>()
@@ -617,7 +643,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -635,7 +661,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -653,7 +679,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -966,6 +992,68 @@ From class
 
 
 
+<a id="buildAnimatedImageFactory(com.facebook.imagepipeline.animated.util.AnimatedDrawableUtil, com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        AnimatedImageFactory
+      </span>
+      <span class="sympad">buildAnimatedImageFactory</span>
+      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/animated/util/AnimatedDrawableUtil.html">AnimatedDrawableUtil</a> animatedDrawableUtil, <a href="../../../../com/facebook/imagepipeline/bitmaps/PlatformBitmapFactory.html">PlatformBitmapFactory</a> platformBitmapFactory)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="buildPlatformBitmapFactory(com.facebook.imagepipeline.memory.PoolFactory)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../../com/facebook/imagepipeline/bitmaps/PlatformBitmapFactory.html">PlatformBitmapFactory</a>
+      </span>
+      <span class="sympad">buildPlatformBitmapFactory</span>
+      <span class="normal">(<a href="../../../../com/facebook/imagepipeline/memory/PoolFactory.html">PoolFactory</a> poolFactory)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 <a id="getAnimatedDrawableFactory()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -976,7 +1064,7 @@ From class
          
          
          
-        AnimatedDrawableFactory
+        <a href="../../../../com/facebook/imagepipeline/animated/factory/AnimatedDrawableFactory.html">AnimatedDrawableFactory</a>
       </span>
       <span class="sympad">getAnimatedDrawableFactory</span>
       <span class="normal">()</span>
@@ -1007,7 +1095,7 @@ From class
          
          
          
-        <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/imagepipeline/cache/BitmapMemoryCacheKey.html">BitmapMemoryCacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>,&nbsp;Void&gt;
+        <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>&gt;
       </span>
       <span class="sympad">getBitmapCountingMemoryCache</span>
       <span class="normal">()</span>
@@ -1038,40 +1126,9 @@ From class
          
          
          
-        MemoryCache&lt;<a href="../../../../com/facebook/imagepipeline/cache/BitmapMemoryCacheKey.html">BitmapMemoryCacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>,&nbsp;Void&gt;
+        <a href="../../../../com/facebook/imagepipeline/cache/MemoryCache.html">MemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/image/CloseableImage.html">CloseableImage</a>&gt;
       </span>
       <span class="sympad">getBitmapMemoryCache</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<a id="getCloseableImageCopier()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../com/facebook/imagepipeline/decoder/CloseableImageCopier.html">CloseableImageCopier</a>
-      </span>
-      <span class="sympad">getCloseableImageCopier</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1100,7 +1157,7 @@ From class
          
          
          
-        <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>,&nbsp;Void&gt;
+        <a href="../../../../com/facebook/imagepipeline/cache/CountingMemoryCache.html">CountingMemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>&gt;
       </span>
       <span class="sympad">getEncodedCountingMemoryCache</span>
       <span class="normal">()</span>
@@ -1131,7 +1188,7 @@ From class
          
          
          
-        MemoryCache&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>,&nbsp;Void&gt;
+        <a href="../../../../com/facebook/imagepipeline/cache/MemoryCache.html">MemoryCache</a>&lt;<a href="../../../../com/facebook/cache/common/CacheKey.html">CacheKey</a>,&nbsp;<a href="../../../../com/facebook/imagepipeline/memory/PooledByteBuffer.html">PooledByteBuffer</a>&gt;
       </span>
       <span class="sympad">getEncodedMemoryCache</span>
       <span class="normal">()</span>
@@ -1224,7 +1281,7 @@ From class
          
          
          
-        DiskStorageCache
+        <a href="../../../../com/facebook/cache/disk/DiskStorageCache.html">DiskStorageCache</a>
       </span>
       <span class="sympad">getMainDiskStorageCache</span>
       <span class="normal">()</span>
@@ -1255,7 +1312,7 @@ From class
          
          
          
-        DiskStorageCache
+        <a href="../../../../com/facebook/cache/disk/DiskStorageCache.html">DiskStorageCache</a>
       </span>
       <span class="sympad">getSmallImageDiskStorageCache</span>
       <span class="normal">()</span>
