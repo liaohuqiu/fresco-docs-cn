@@ -21,6 +21,6 @@ Fresco 是一个典型的Android Studio 项目。
 
 ### DEMO
 
-官方的项目，编译起来比较困难，如果你仅仅是想看 DEMO 运行效果，我将 DEMO 抽离出来，你直接直接使用这个项目
+官方的项目，编译起来比较困难，如果你仅仅是想看 DEMO 运行效果，我将 DEMO 抽离出来，你直接使用这个项目
 
 [https://github.com/liaohuqiu/fresco-demo-for-gradle](https://github.com/liaohuqiu/fresco-demo-for-gradle)
