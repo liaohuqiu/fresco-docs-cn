@@ -1,26 +1,47 @@
 ---
 permalink: /blog/:categories/:year/:month/:day/:title.html
-url: http://facebook.github.io/fresco
-name: Fresco
+url: "http://frescolib.org"
+baseurl: ""
+title: Fresco
+tagline: 专为ANDROID加载图片
+fbappid: "1615782811974223"
+gacode: "UA-44373548-3"
 relative_permalinks: false
-markdown: redcarpet
-redcarpet:
-  extensions: ["tables"]
-description: An image management library.
+description: >
+  Fresco 是一个强大的图片加载组件。使用它之后，你不需要再去关心图片的加载和显示这些繁琐的事情！ 支持 Android 2.3 及以后的版本。
 timezone: America/Los_Angeles
+ghrepo: "facebook/fresco"
 
-safe: true
-lsi: false
-highlighter: pygments
-current_version: 0.9.0
+current_version: 0.12.0
 
-exclude:        ['publish-gh-pages-for-pull-request.sh', 'base.sh', 'publish-gh-pages.sh']
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: post
-      is_post: true
+  syntax_highlighter_opts:
+    css_class: 'rougeHighlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+sass:
+  style: :compressed
+
+collections:
+  docs:
+    output: true
+    permalink: /docs/:name/
+  support:
+    output: true
+    permalink: /support/
+
+color:
+  primary: "#db6130"
+  secondary: "#f9f9f9"
+  # Use the following to specify whether the previous two colours are 'light'
+  # or 'dark'
+  primary-overlay: "dark"
+  secondary-overlay: "light"
