@@ -1,140 +1,116 @@
 ---
 docid: closeable-references
-title: Closeable References
+title: 可关闭的引用
 layout: docs
 permalink: /docs/closeable-references.html
 prev: datasources-datasubscribers.html
 next: webp-support.html
 ---
 
-**This page is intended for advanced usage only.**
+**本页内容仅为高级使用作参考** 
 
-Most apps should use [Drawees](using-drawees-xml.html) and not worry about closing.
+大部分的应用，直接使用[Drawees](using-drawees-xml.html)就好了，不用考虑关闭的事情了。
 
-The Java language is garbage-collected and most developers are used to creating objects willy-nilly and taking it for granted they will eventually disappear from memory.
+Java带有垃圾收集功能，许多开发者习惯于不自觉地创建一大堆乱七八糟的对象，并且想当然地认为他们会从内存中想当然地消失。
 
-Until Android 5.0's improvements, this was not at all a good idea for Bitmaps. They take up a large share of the memory of a mobile device. Their existence in memory would make the garbage collector run more frequently, making image-heavy apps slow and janky.
+在5.0系统之前，这样的做法对于操作Bitmap是极其糟糕的。Bitmap占用了大量的内存，大量的内存申请和释放引发频繁的GC，使得界面卡顿不已。
 
-Bitmaps were the one thing that makes Java developers miss C++ and its many smart pointer libraries, such as [Boost](http://www.boost.org/doc/libs/1_57_0/libs/smart_ptr/smart_ptr.htm).
+Bitmap 是Java中为数不多的能让Java开发者想念或者羡慕C++以及C++众多的指针库，比如[Boost](http://www.boost.org/doc/libs/1_57_0/libs/smart_ptr/smart_ptr.htm) 的东西。
 
-Fresco's solution is found in the [CloseableReference](../javadoc/reference/com/facebook/common/references/CloseableReference.html) class. In order to use it correctly, you must follow the rules below:
+Fresco的解决方案是: [可关闭的引用(CloseableReference)](../javadoc/reference/com/facebook/common/references/CloseableReference.html)
 
-#### 1. The caller owns the reference.
+为了正确地使用它，请按以下步骤进行操作: 
 
-Here, we create a reference, but since we're passing it to the caller, the caller takes the ownership:
+#### 1. 调用者拥有这个引用
+
+我们创建一个引用，但我们传递给了一个调用者，调用者将持有这个引用。
 
 ```java
 CloseableReference<Val> foo() {
   Val val;
-  // We are returning the reference from this method,
-  // so whoever is calling this method is the owner
-  // of the reference and is in charge of closing it.
   return CloseableReference.of(val);
 }
 ```
 
-#### 2. The owner must close the reference before leaving scope.
+#### 2. 持有者在离开作用域之前，需要关闭引用
 
-Here we create a reference, but are not passing it to a caller. So we must close it:
+创建了一个引用，但是没有传递给其他调用者，在结束时，需要关闭：
 
 ```java
 void gee() {
-  // We are the caller of `foo` and so
-  // we own the returned reference.
   CloseableReference<Val> ref = foo();
   try {
-    // `haa` is a callee and not a caller, and so
-    // it is NOT the owner of this reference, and
-    // it must NOT close it.
     haa(ref);
   } finally {
-    // We are not returning the reference to the
-    // caller of this method, so we are still the owner,
-    // and must close it before leaving the scope.
     ref.close();
   }
 }
 ```
 
-The `finally` block is almost always the best way to do this.
+`finally` 中最适合做此类事情了。
 
-#### 3. **Never** close the value.
+#### 3. 不要自己释放资源！
 
-`CloseableReference` wraps a shared resource which gets released when there are no more active references pointing to it. Tracking of active references is done automatically by an internal reference counter. When the reference count drops to 0, `CloseableReference` will release the underlying resource. The very purpose of `CloseableReference` is to manage the underlying resource so that you don't have to. That said, you are responsible for closing the `CloseableReference` if you own it, but **not** the value it points to! If you explicitly close the underlying value, you will erroneously invalidate all the other active references pointing to that same resource.
+`CloseableReference` 会在没有活跃引用时释放资源，它通过一个内部的计数器来追踪活跃引用数。当它降为0时，`CloseableReference`就会释放持有的资源。你使用`CloseableReference`时的职责就是使用它来释放资源，而不是自己去手动释放资源！如果你这么做了，所有指向对应资源的`CloseableReference`在刷新时都会抛出异常。
 
 ```java
   CloseableReference<Val> ref = foo();
 
   Val val = ref.get();
-  // do something with val
-  // ...
+  // 处理val
   
-  // Do NOT close the value!
+  // 绝对不要close val
   //// val.close();
 
-  // DO close the reference instead.
+  // 使用CloseableReference来释放val
   ref.close();
 ```
 
-#### 4. Something other than the owner should *not* close the reference.
+#### 4. 除了引用的持有者，闲杂人等**不得**关闭引用
 
-Here, we are receiving the reference via argument. The caller is still the owner, so we are not supposed to close it.
+作为一个参数传递，调用者持有这个引用，在下面的函数体中，不能关闭引用。
 
 ```java
 void haa(CloseableReference<?> ref) {
-  // We are callee, and not a caller, and so
-  // we must NOT close the reference.
-  // We are guaranteed that the reference won't
-  // become invalid for the duration of this call.
   Log.println("Haa: " + ref.get());
 }
 ```
 
-If we called `.close()` here by mistake, then if the caller tried to call `.get()`, an `IllegalStateException` would be thrown.
+如果调用了 `.close()`, 调用者尝试调用 `.get()`时，会抛出`IllegalStateException`
 
-#### 5. Callee should always clone the reference before assigning.
+#### 5. 在赋值给变量前，先进行clone
 
-If we need to hold onto the reference, we need to clone it.
-
-If using it in a class:
+在类中使用:
 
 ```java
 class MyClass {
   CloseableReference<Val> myValRef;
 
   void mmm(CloseableReference<Val> ref) {
-    // Some caller called this method. Caller owns the original
-    // reference and if we want to have our own copy, we must clone it.
     myValRef = ref.clone();
   };
-  // caller can now safely close its copy as we made our own clone.
 
   void close() {
-    // We are in charge of closing our copy, of course.
+    // MyClass的调用者需要关闭myValRef
     CloseableReference.closeSafely(myValRef);
   }
 }
-// Now the caller of MyClass must close it!
 ```
 
-If using it in an inner class:
+在内部中使用:
 
 ```java
 void haa(CloseableReference<?> ref) {
-  // Here we make our own copy of the original reference,
-  // so that we can guarantee its validity when the executor
-  // executes our runnable in the future.
   final CloseableReference<?> refClone = ref.clone();
   executor.submit(new Runnable() {
     public void run() {
       try {
         Log.println("Haa Async: " + refClone.get());
       } finally {
-        // We need to close our copy once we are done with it.
         refClone.close();
       }
     }
   });
-  // caller can now safely close its copy as we made our own clone.
+  // 当前函数域内可安全关闭，闭包内为已经clone过的引用。
 }
 ```

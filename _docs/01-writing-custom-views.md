@@ -1,6 +1,6 @@
 ---
 docid: writing-custom-views
-title: Writing Custom Views
+title: 自定义View
 layout: docs
 permalink: /docs/writing-custom-views.html
 prev: image-requests.html
@@ -9,27 +9,29 @@ next: intro-image-pipeline.html
 
 ### DraweeHolders
 
-There will always be times when `DraweeViews` won't fit your needs. You may need to show additional content inside the same view as your image. You might need to show multiple images inside a single view.
+总有一些时候，`DraweeViews`是满足不了需求的，在展示图片的时候，我们还需要展示一些其他的内容，或者支持一些其他的操作。在同一个View里，我们可能会想显示一张或者多张图。
 
-We provide two alternative classes you can use to host your Drawee:
+在自定义View中，Fresco 提供了两个类来负责图片的展现:
 
-* `DraweeHolder` for a single image
-* `MultiDraweeHolder` for multiple images
+* `DraweeHolder` 单图情况下用。
+* `MultiDraweeHolder` 多图情况下用。
 
-`DraweeHolder` is a class that holds one DraweeHierarchy and the associated DraweeController. It allows you to make use of all the functionality Drawee provides in your custom views and other places where you need a drawable instead of a view. To get the drawable, you just do `mDraweeHolder.getTopLevelDrawable()`. Keep in mind that Android drawables require a bit of housekeeping which we covered below.
-`MultiDraweeHolder` is basically just an array of `DraweeHolder`s with some syntactic sugar added on top of it.
+`DraweeHolder` 是持有 DraweeHierarchy 的一个类，它和 DraweeController 紧密相关。它允许你在自定义View中也能够使用所有Drawee的特性！ 你只需要通过 `mDraweeHolder.getTopLevelDrawable()` 就能够获取Drawable。你需要知道 Android Drawable 需要一些特殊照顾，所以请仔细阅读下面的内容。
 
-### Responsibilities of custom views
+`MultiDraweeHolder` 仅仅是 `DraweeHolder` 的一个列表，它其实是一个语法糖：）
 
-Android lays out View objects, and only they get notified of system events. `DraweeViews` handle these events and use them to manage memory effectively. When using the holders, you must implement some of this functionality yourself.
+### 自定义View需要完成的事情
 
-#### Handling attach/detach events
+Android 呈现View对象，只有View对象才能得到一些系统事件的通知。`DraweeViews`
+处理这些事件通知，高效地管理内存。使用`DraweeHolder`时，你需要自己实现这几个方法。
 
-**Your app may leak memory, or the image may not be displayed at all, if these steps are not followed.**
+#### 处理 attach/detach 事件
 
-There is no point in images staying in memory when Android is no longer displaying the view - it may have scrolled off-screen, or otherwise not be drawing. Drawees listen for detaches and release memory when they occur. They will automatically restore the image when it comes back on-screen.
+**如果没按照以下步骤实现的话，很可能会引起内存泄露**
 
-All this is automatic in a `DraweeView,` but won't happen in a custom view unless you handle four system events. These must be passed to the `DraweeHolder`. Here's how:
+当图片不再在View上显示时，比如滑动时View滑动到屏幕外，或者不再绘制，图片就不应该再存在在内存中。Drawees 监听这些事情，并负责释放内存。当图片又需要显示时，重新加载。
+
+这些在`DraweeView`中是自动的，但是在自定义View中，需要我们自己去操作，如下:
 
 ```java
 DraweeHolder mDraweeHolder;
@@ -59,11 +61,11 @@ public void onFinishTemporaryDetach() {
 }
 ```
 
-It is important that `Holder` receives all the attach/detach events that the view itself receives. If the holder misses an attach event the image may not be displayed because Drawee will think that the view is not visible. Likewise, if the holder misses an detach event, the image may still remain in memory because Drawee will think that the view is still visible. Best way to ensure that is to create the holder from your view's constructor.
+在View获取到 attach/detach 时间时通知 `Holder` 是一件非常重要的事情！如果 Holder 错过了一个attach事件，那么图片很可能不会被正常加载，因为它认为此时不是加载图片的时机。同理如果 Holder 错过了一个detach事件，那么不需要显示的图片依然会被保留在内存中，因为它认为此时图片仍然显示。
 
-#### Handling touch events
+#### 处理触摸事件
 
-If you have enabled [tap to retry](drawee-components.html#Retry) in your Drawee, it will not work unless you tell it that the user has touched the screen. Like this:
+如果你启用了[点击重新加载](drawee-branch.html#Retry)，在自定义View中，需要这样:
 
 ```java
 @Override
@@ -72,9 +74,9 @@ public boolean onTouchEvent(MotionEvent event) {
 }
 ```
 
-#### Your custom onDraw
+#### 自定义onDraw
 
-You must call
+你必须调用
 
 ```java
 Drawable drawable = mDraweeHolder.getTopLevelDrawable();
@@ -82,29 +84,28 @@ drawable.setBounds(...);
 ...
 drawable.draw(canvas);
 ```
-or the Drawee won't appear at all.
 
-* Do not downcast this Drawable. The underlying implementation may change without any notice.
-* Do not translate it. Just set the proper bounds.
-* If you need to apply some canvas transformations, then make sure that you properly invalidate the area that the drawable occupies in the view. See below on how to do that.
+否则图片将不会出现。
 
-#### Other responsibilities
+* 不要向下转换这个Drawable
+* 不要变换这个Drawable
+* 如果你需要对Canvas做变换，请确认你在 invalidate 的时候正确刷新了图片所在区域。
 
-* Set [Drawable.Callback] (http://developer.android.com/reference/android/graphics/drawable/Drawable.Callback.html)
+#### 其他应该做的
+
+* 设置[Drawable.Callback](http://developer.android.com/reference/android/graphics/drawable/Drawable.Callback.html)
 
 ```java
-// When a holder is set to the view for the first time,
-// don't forget to set the callback to its top-level drawable:
+// 当设置Holder时，不要忘记将顶层Drawable的Callback设置为它。
 mDraweeHolder = ...
 mDraweeHolder.getTopLevelDrawable().setCallback(this);
 
-// In case the old holder is no longer needed,
-// don't forget to clear the callback from its top-level drawable:
+// 当不使用Holder时，不要忘记将顶层Drawable的Callback设置为null。
 mDraweeHolder.getTopLevelDrawable().setCallback(null);
 mDraweeHolder = ...
 ```
 
-* Override `verifyDrawable:`
+* 重写 `verifyDrawable:`
 
 ```java
 @Override
@@ -112,32 +113,31 @@ protected boolean verifyDrawable(Drawable who) {
   if (who == mDraweeHolder.getTopLevelDrawable()) {
     return true;
   }
-  // other logic for other Drawables in your view, if any
+  // 对其他Drawable的验证逻辑
 }
 ```
 
-* Make sure `invalidateDrawable` invalidates the region occupied by your Drawee. If you apply some canvas transformations on the drawable before it gets drawn, then those transformations needs to be taken into account in invalidation. The simplest thing to do is what Android ImageView does in its [invalidateDrawable] (http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4.4_r1/android/widget/ImageView.java#192) method. That is, to just invalidate the whole view when the drawable gets invalidated.
+> 确保 `invalidateDrawable` 处理了图片占用的那块区域。如果你在图片显示前对Canvas应用了一些变换逻辑，那么invalidate 的时候需要考虑到这些变换。最简单的就是参考 Android ImageView 的[做法](http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4.4_r1/android/widget/ImageView.java#192)
 
+### 初始化 View 和 DraweeHolder
 
-### Constructing the View and DraweeHolder
+这同样需要非常小心和细致
 
-This should be done carefully. Se below.
+#### 构造函数
 
-#### Arranging your Constructors
+我们推荐如下实现构造函数:
 
-We recommend the following pattern for constructors:
+* 重写所有构造函数，共 3 个
+* 在每个构造函数中调用同等签名的父类构造函数，和一个私有的 `init` 方法。
+* 在 `init` 方法中执行初始化操作。
 
-* Override all three of the three View constructors.
-* Each constructor calls its superclass counterpart and then a private `init` method.
-* All of your initialization happens in `init.`
+即，不要在构造函数中用 `this` 来调用另外一个构造。
 
-That is, do not use the `this` to call one constructor from another. This is because Android View already calls one constructor from another, and it does so in an unintuitive way.
+这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。holder 在 `init` 方法中被创建。
 
-This approach guarantees that the correct initialization is called no matter what constructor is used. It is in the `init` method that your holder is created.
+#### 创建 Holder
 
-#### Creating the Holder
-
-If possible, always create Drawees when your view gets created. Creating a hierarchy is not cheap so it's best to do it only once. More importantly, holder's lifecycle should be bound to the view's lifecycle for the reasons explained in the attach/detach section. Best way to ensure that is to create the holder when the view gets constructed as explained above.
+如果有可能，只在 View 创建时，创建 Drawees。创建 DraweeHierarchy 开销较大，最好只做一次。
 
 ```java
 class CustomView extends View {
@@ -155,9 +155,9 @@ class CustomView extends View {
 }
 ```
 
-#### Setting an image
+#### 设置要显示的图片
 
-Use a [controller builder](using-controllerbuilder.html), but call `setController` on the holder instead of a View:
+使用 [controller builder](using-controllerbuilder.html) 创建DraweeController，然后调用holder的 `setController` 方法，而不是设置给自定义 View。
 
 ```java
 DraweeController controller = Fresco.newControllerBuilder()
@@ -169,7 +169,8 @@ mDraweeHolder.setController(controller);
 
 ### MultiDraweeHolder
 
-If you are dealing with multiple drawees in your custom view, `MultiDraweeHolder` might come handy. There are `add`, `remove`, and `clear` methods for dealing with DraweeHalders:
+和 `DraweeHolder` 相比，`MultiDraweeHolder` 有 `add`, `remove`, `clear`
+等方法可以操作 Drawees。如下:
 
 ```java
 MultiDraweeHolder<GenericDraweeHierarchy> mMultiDraweeHolder;
@@ -184,6 +185,6 @@ private void init() {
 }
 ```
 
-You must override system events, set bounds, and do all the same responsibilities as for a single `DraweeHolder.`
+同样，也需要处理系统事件，设置声音等等，就像处理单个`DraweeHolder`那样。
 
 

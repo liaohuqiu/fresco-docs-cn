@@ -1,41 +1,39 @@
 ---
 docid: caching
-title: Caching
+title: 缓存
 layout: docs
 permalink: /docs/caching.html
 prev: configure-image-pipeline.html
 next: using-image-pipeline.html
 ---
 
-###  The three caches
+###  三级缓存
 
-#### 1. Bitmap cache
+#### 1. Bitmap缓存
 
-The bitmap cache stores Android `Bitmap` objects. These are fully decoded images ready for display or [postprocessing](modifying-image.html).
+Bitmap缓存存储`Bitmap`对象，这些Bitmap对象可以立刻用来显示或者用于[后处理](modifying-images.html)
 
-On Android 4.x and lower, the bitmap cache's data lives in the *ashmem* heap, not in the Java heap. This means that images don't force extra runs of the garbage collector, slowing down your app.
+在5.0以下系统，Bitmap缓存位于ashmem，这样Bitmap对象的创建和释放将不会引发GC，更少的GC会使你的APP运行得更加流畅。
 
-Android 5.0 has much improved memory management than earlier versions, so it is safer to leave the bitmap cache on the Java heap.
+5.0及其以上系统，相比之下，内存管理有了很大改进，所以Bitmap缓存直接位于Java的heap上。
 
-Your app should [clear this cache](#clearing-the-cache) when it is backgrounded.
+当应用在后台运行时，该内存会被[清空](#clearing-the-cache)。
 
-#### 2. Encoded memory cache
+#### 2. 未解码图片的内存缓存
 
-This cache stores images in their original compressed form. Images retrieved from this cache must be decoded before display.
+这个缓存存储的是原始压缩格式的图片。从该缓存取到的图片在使用之前，需要先进行解码。
 
-If other transformations, such as [resizing, rotating](resizing-rotating.html) or [transcoding](#webp) were requested, that happens before decode.
+如果有[调整大小，旋转](resizing-rotating.html)，或者[WebP编码转换](#webp)工作需要完成，这些工作会在解码之前进行。
 
-#### 3. Disk cache
+#### 3. 磁盘缓存
 
-(Yes, we know phones don't have disks, but it's too tedious to keep saying *local storage cache*...)
+和未解码的内存缓存相似，磁盘缓存存储的是未解码的原始压缩格式的图片，在使用之前同样需要经过解码等处理。
 
-Like the encoded memory cache, this cache stores compressed image, which must be decoded and sometimes transformed before display.
+和磁盘缓存不一样，APP在后台时，内容是不会被清空的。即使关机也不会。用户可以随时用系统的设置菜单中进行清空缓存操作。
 
-Unlike the others, this cache is not cleared when your app exits, or even if the device is turned off. The user can, of course, always clear it from Android's Settings menu.
+#### 查找一个bitmap是否被缓存？
 
-### Checking to see if an item is in cache
-
-You can use the methods in [ImagePipeline](../javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html) to see if an item is in cache. The check for the memory cache is synchronous:
+你可以使用[ImagePipeline](http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html)检查bitmap是否在缓存中。
 
 ```java
 ImagePipeline imagePipeline = Fresco.getImagePipeline();
@@ -43,7 +41,7 @@ Uri uri;
 boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
 ```
 
-The check for the disk cache is asynchronous, since the disk check must be done on another thread. You can call it like this:
+查询内存缓存的操作是同步的， 不过查询缓存的操作是异步的。因为这个操作可以使用另一个线程操作。你可以这样使用：
 
 ```java
 DataSource<Boolean> inDiskCacheSource = imagePipeline.isInDiskCache(uri);
@@ -60,11 +58,11 @@ DataSubscriber<Boolean> subscriber = new BaseDataSubscriber<Boolean>() {
 inDiskCacheSource.subscribe(subscriber, executor);
 ```
 
-This assumes you are using the default cache key factory. If you have configured a custom one, you may need to use the methods that take an `ImageRequest` argument instead.
+以上API假设你使用默认的CacheKeyFactory。如果你自定义`CacheKeyFactory`，你可能需要用把ImageRequest作为它的参数。
 
-### Evicting from cache
+### 清除缓存中的一条url
 
-[ImagePipeline](../javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html) also has methods to evict individual entries from cache:
+ImagePipeline现有函数可以根据Uri删除缓存。
 
 ```java
 ImagePipeline imagePipeline = Fresco.getImagePipeline();
@@ -76,9 +74,9 @@ imagePipeline.evictFromDiskCache(uri);
 imagePipeline.evictFromCache(uri);
 ```
 
-As above, `evictFromDiskCache(Uri)` assumes you are using the default cache key factory. Users with a custom factory should use `evictFromDiskCache(ImageRequest)` instead.
+如同上面一样，`evictFromDiskCache(Uri)`假定你使用的是默认的CacheKeyFactory。如果你自定义，请使用`evictFromDiskCache(ImageRequest)`。
 
-### Clearing the cache
+### 清除缓存
 
 ```java
 ImagePipeline imagePipeline = Fresco.getImagePipeline();
@@ -89,27 +87,28 @@ imagePipeline.clearDiskCaches();
 imagePipeline.clearCaches();
 ```
 
-### Using one disk cache or two?
+### 用一个还是两个磁盘缓存?
 
-Most apps need only a single disk cache. But in some circumstances you may want to keep smaller images in a separate cache, to prevent them from getting evicted too soon by larger images.
+如果要使用2个缓存，在[配置image pipeline](configure-image-pipeline.html) 时调用 `setMainDiskCacheConfig` 和 `setSmallImageDiskCacheConfig`  方法即可。
 
-To do this, just call both `setMainDiskCacheConfig` and `setSmallImageDiskCacheConfig` methods when [configuring the image pipeline](configure-image-pipeline.html).
+大部分的应用有一个磁盘缓存就够了，但是在一些情况下，你可能需要两个缓存。比如你也许想把小文件放在一个缓存中，大文件放在另外一个文件中，这样小文件就不会因大文件的频繁变动而被从缓存中移除。
 
-What defines *small?* Your app does. When [making an image request](image-requests.html), you set its [ImageType](../javadoc/reference/com/facebook/imagepipeline/request/ImageRequest.ImageType.html):
+至于什么是小文件，这个由应用来区分，在[创建image request](image-requests.html), 设置 [ImageType](../javadoc/reference/com/facebook/imagepipeline/request/ImageRequest.ImageType.html) 即可:
 
 ```java
 ImageRequest request = ImageRequest.newBuilderWithSourceUri(uri)
     .setImageType(ImageType.SMALL)
 ```
 
-If you need only one cache, you can simply avoid calling `setSmallImageDiskCacheConfig`. The pipeline will default to using the same cache for both and `ImageType` will be ignored.
+如果你仅仅需要一个缓存，那么不调用`setSmallImageDiskCacheConfig`即可。Image pipeline 默认会使用同一个缓存，同时`ImageType`也会被忽略。
 
-### Trimming the caches
+### 内存用量的缩减
 
-When [configuring](configure-image-pipeline.html) the image pipeline, you can set the maximum size of each of the caches. But there are times when you might want to go lower than that. For instance, your application might have caches for other kinds of data that might need more space and crowd out Fresco's. Or you might be checking to see if the device as a whole is running out of storage space.
+在 [配置Image pipeline](configure-image-pipeline.html) 时，我们可以指定每个缓存最大的内存用量。但是有时我们可能会想缩小内存用量。比如应用中有其他数据需要占用内存，不得不把图片缓存清除或者减小
+或者我们想检查看看手机是否已经内存不够了。
 
-Fresco's caches implement the [DiskTrimmable](../javadoc/reference/com/facebook/common/disk/DiskTrimmable.html) or [MemoryTrimmable](../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html) interfaces. These are hooks into which your app can tell them to do emergency evictions.
+Fresco的缓存实现了[DiskTrimmable](http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html) 或者 [MemoryTrimmable](../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html) 接口。这两个接口负责从各自的缓存中移除内容。
 
-Your application can then configure the pipeline with objects implementing the [DiskTrimmableRegistry](../javadoc/reference/com/facebook/common/disk/DiskTrimmableRegistry.html) and [MemoryTrimmableRegistry](../javadoc/reference/com/facebook/common/memory/MemoryTrimmableRegistry.html) interfaces.
+在应用中，可以给Image pipeline配置上实现了[DiskTrimmableRegistry](http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmableRegistry.html) 和 [MemoryTrimmableRegistry](http://frescolib.org/javadoc/reference/com/facebook/common/memory/MemoryTrimmableRegistry.html) 接口的对象。
 
-These objects must keep a list of trimmables. They must use app-specific logic to determine when memory or disk space must be preserved. They then notify the trimmable  objects to carry out their trims.
+实现了这两个接口的对象保持着一个列表，列表中的各个元素在内存不够时，缩减各自的内存用量。

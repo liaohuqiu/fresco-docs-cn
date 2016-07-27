@@ -6,5 +6,8 @@
   - type: button
     href: docs/index.html
     text: Download
+  - type: button
+    href: https://github.com/liaohuqiu/fresco-docs-cn
+    text: 本文档源码
 
 - type: github_star

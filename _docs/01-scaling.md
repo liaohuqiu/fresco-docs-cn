@@ -7,53 +7,52 @@ prev: progress-bars.html
 next: rounded-corners-and-circles.html
 ---
 
-You can specify a different scale type for each of the [different drawables](drawee-components.html) in your Drawee. The
+对于 Drawee 的[各种效果配置](drawee-branches.html)，其中一些是支持缩放类型的。
 
-### Available scale types
+### 可用的缩放类型
 
-| Scale Type | Explanation |
+| 类型 | 描述 |
 | --------- | ----------- |
-| center | Center the image in the view, but perform no scaling. |
-| centerCrop | Scales the image so that both dimensions will be greater than or equal to the corresponding dimension of the parent. <br>One of width or height will fit exactly. <br>The image is centered within parent's bounds. |
-| [focusCrop](#focusCrop) | Same as centerCrop, but based around a caller-specified focus point instead of the center.
-| centerInside | Downscales the image so that it fits entirely inside the parent. <br>Unlike `fitCenter,` no upscaling will be performed. <br>Aspect ratio is preserved. <br>The image is centered within parent's bounds. |
-| fitCenter | Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is centered within the parent's bounds. |
-| fitStart | Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the top-left corner of the parent.
-| fitEnd | Scales the image so that it fits entirely inside the parent. <br>One of width or height will fit exactly. <br>Aspect ratio is preserved. <br>The image is aligned to the bottom-right corner of the parent.
-| fitXY | Scales width and height independently, so that the image matches the parent exactly. <br>Aspect ratio is not preserved.
-| [none](#none) | Used for Android's tile mode. |
+| center | 居中，无缩放。 |
+| centerCrop | 保持宽高比缩小或放大，使得两边都大于或等于显示边界，且宽或高契合显示边界。居中显示。|
+| [focusCrop](#focusCrop) | 同centerCrop, 但居中点不是中点，而是指定的某个点。|
+| centerInside | 缩放图片使两边都在显示边界内，居中显示。和 `fitCenter` 不同，不会对图片进行放大。<br/>如果图尺寸大于显示边界，则保持长宽比缩小图片。|
+| fitCenter | 保持宽高比，缩小或者放大，使得图片完全显示在显示边界内，且宽或高契合显示边界。居中显示。|
+| fitStart | 同上。但不居中，和显示边界左上对齐。|
+| fitEnd | 同fitCenter， 但不居中，和显示边界右下对齐。|
+| fitXY | 不保存宽高比，填充满显示边界。|
+| [none](#none) | 如要使用tile mode显示, 需要设置为none|
 
-These are mostly the same as those supported by the Android [ImageView](http://developer.android.com/reference/android/widget/ImageView.ScaleType.html) class.
+这些缩放类型和Android [ImageView](http://developer.android.com/reference/android/widget/ImageView.ScaleType.html) 支持的缩放类型几乎一样.
 
-The one unsupported type is `matrix.` In its place, Fresco offers `focusCrop,` which will usually work better.
+唯一不支持的缩放类型是 `matrix`。Fresco 提供了 `focusCrop` 作为补充，通常这个使用效果更佳。
 
-### How to set
-
-Actual, placeholder, retry, and failure images can all be [set in XML](using-drawees-xml.html), using attributes like `fresco:actualImageScaleType`. You can also set them [in code](using-drawees-code.html) using the [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) class.
-
-Even after your hierarchy is built, the actual image scale type can be modified on the fly using  [GenericDraweeHierarchy](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html).
-
-However, do **not** use the `android:scaleType` attribute, nor the `.setScaleType` method. These have no effect on Drawees.
+### 怎样设置
+实际图片，占位图，重试图和失败图都可以在 xml 中进行设置，用 `fresco:actualImageScaleType` 这样的属性。你也可以使用 `GenericDraweeHierarchyBuilder` 类在代码中进行设置。
+即使显示效果已经构建完成，实际图片的缩放类型仍然可以通过 `GenericDraweeHierarchy` 类在运行中进行修改。
+不要使用 `android:scaleType` 属性，也不要使用 `setScaleType()` 方法，它们对 Drawees 无效。
 
 ### focusCrop
 
-Android, and Fresco, offer a `centerCrop` scale type, which will fill the entire viewing area while preserving the aspect ratio of the image, cropping as necessary.
+`centerCrop`缩放模式会保持长宽比，放大或缩小图片，填充满显示边界，居中显示。这个缩放模式在通常情况下很有用。
 
-This is very useful, but the trouble is the cropping doesn't always happen where you need it. If, for instance, you want to crop to someone's face in the bottom right corner of the image, `centerCrop` will do the wrong thing.
+但是对于人脸等图片时，一味地居中显示，这个模式可能会裁剪掉一些有用的信息。
 
-By specifying a focus point, you can say which part of the image should be centered in the view. If you specify the focus point to be at the top of the image, such as (0.5f, 0f), we guarantee that, no matter what, this point will be visible and centered in the view as much as possible.
+以人脸图片为例，借助一些类库，我们可以识别出人脸所在位置。如果可以设置以人脸位置居中裁剪显示，那么效果会好很多。
 
-Focus points are specified in a relative coordinate system. That is, (0f, 0f) is the top-left corner, and (1f, 1f) is the bottom-right corner. Relative coordinates allow focus points to be scale-invariant, which is highly useful.
+Fresco的focusCrop缩放模式正是为此而设计。只要提供一个居中聚焦点，显示时就会**尽量**以此点为中心。
 
-A focus point of (0.5f, 0.5f) is equivalent to a scale type of `centerCrop.`
+居中点是以相对方式给出的，比如 (0f, 0f) 是左上对齐显示，(1f, 1f) 是右下角对齐。相对坐标使得居中点位置和具体尺寸无关，这是非常实用的。
 
-To use focus points, you must first set the right scale type in your XML:
+(0.5f, 0.5f) 的居中点位置和缩放类型 `centerCrop` 是等价的。 
+
+如果要使用此缩放模式，首先在 XML 中指定缩放模式:
 
 ```xml
   fresco:actualImageScaleType="focusCrop"
 ```
 
-In your Java code, you must programmatically set the correct focus point for your image:
+在Java代码中，给你的图片指定居中点：
 
 ```java
 PointF focusPoint;
@@ -63,42 +62,38 @@ mSimpleDraweeView
     .setActualImageFocusPoint(focusPoint);
 ```
 
-### A custom ScaleType
+### 自定义 SacleType
 
-Sometimes you need to scale the image in a way that none of the existing scale types does. Drawee allows you to do that easily by implementing your own `ScalingUtils.ScaleType`. There is only one method in that interface, `getTransform`, which is supposed to compute the transformation matrix based on:
+有时候现有的 ScaleType 不符合你的需求，我们允许你通过实现 `ScalingUtils.ScaleType` 来拓展它，这个接口里面只有一个方法：`getTransform`，它会基于以下参数来计算转换矩阵：
 
-* parent bounds (rectangle where the image should be placed in the view's coordinate system)
-* child size (width and height of the actual bitmap)
-* focus point (relative coordinates in the child's coordinate system)
+* parent bounds (View 坐标系中对图片的限制区域)
+* child size （要放置的图片高宽）
+* focus point （图片坐标系中的聚焦点位置）
 
-Of course, your class can contain any additional data you might need to compute the transformation.
+当然，你的类里面应该包含了你需要额外信息。
 
-Let's look at an example. Assume the `parentBounds` are `(100, 150, 500, 450)`, and the child dimensions are `(420,210)`. Observe that the parent width is `500 - 100 = 400`, and the height is `450 - 150 = 300`. If we don't do any transformation (i.e. we set the transformation to be the identity matrix), the image will be drawn in `(0, 0, 420, 210)`. But `ScaleTypeDrawable` has to respect the bounds imposed by the parent and will so clip the canvas to `(100, 150, 500, 450)`. That means that only the bottom-right part of the image will actually be visible: `(100, 150, 420, 210)`.
+我们来看一个例子，假设 View 应用了一些 padding， `parentBounds` 为 `(100, 150, 500, 450)`， 图片大小为`(420,210)`。那么我们知道 View 的宽度度为 `500 - 100 = 400`， 高度为 `450 - 150 = 300`。那么如果我们不做任何处理，图片在 View 坐标系中就会被画在`(0, 0, 420, 210)`。但是 `ScaleTypeDrawable` 会使用 `parentBounds` 来进行限制，那么画布就会被 `(100, 150, 500, 450)` 这块矩阵裁切，那么最后图片显示区域就是 `(100, 150, 420, 210)`。
 
-We can fix that by doing a translation by `(parentBounds.left, parentBounds.top)`, which is in this case `(100, 150)`. But now the right part of the image got clipped as the image is actually wider than the parent bounds! Image is now placed at `(100, 150, 500, 360)` in the view coordinates, or equivalently `(0, 0, 400, 210)` in the child coordinates. We lost `20` pixels on the right.
+为了避免这种情况，我们可以变换 `(parentBounds.left, parentBounds.top)` （在这个例子中是`(100, 150)`）。现在图片比 View 还宽，现在无论是将图片放置在 `(100, 150, 500, 360)` 还是 `(0, 0, 400, 210)`，我们都会损失右侧20像素的宽度。
 
-To avoid image to be clipped we can downscale it. Here we can scale by `400/420` which will make the image be of the size `(400,200)`.
-The image now fits exactly in the view horizontally, but it is not centered in it vertically.
+那么我们可以将它缩小一点（`400/420`的缩放比例），让它能够放置在 View 给它分配的区域中(缩放后变成了`400, 200`)。那么现在宽度刚刚好，但是高度却不是了。
 
-In order to center the image we need to translate it a bit more. We can see that the amount of empty space in the parent bounds is `400 - 400 = 0` horizontally, and `300 - 200 = 100` vertically. If we translate by half of this empty space, we will leave equal amount of empty space on each side, effectively making the image centered in the parent bounds.
-
-Congratulations! You just implemented the `FIT_CENTER` scale type:
+我们需要进一步处理，我们可以算一下高度还剩余的空间 `300 - 200 = 100`。我们可以将他们平均分配在上下两侧，这样图片就被居中了，真棒！你可以通过实现 `FIT_CENTER` 来让它做到这点。那么来看代码吧：
 
 ```java
   public static abstract class AbstractScaleType implements ScaleType {
     @Override
     public Matrix getTransform(Matrix outTransform, Rect parentRect, int childWidth, int childHeight, float focusX, float focusY) {
-      // calculate scale; we take the smaller of the horizontal and vertical scale factor so that the image always fits
+      // 取宽度和高度需要缩放的倍数中最大的一个
       final float sX = (float) parentRect.width() / (float) childWidth;
       final float sY = (float) parentRect.height() / (float) childHeight;
       float scale = Math.min(scaleX, scaleY);
       
-      // calculate translation; we offset by parent bounds, and by half of the empty space
-      // note that the child dimensions need to be adjusted by the scale factor
+      // 计算为了均分空白区域，需要偏移的x、y方向的距离
       float dx = parentRect.left + (parentRect.width() - childWidth * scale) * 0.5f;
       float dy = parentRect.top + (parentRect.height() - childHeight * scale) * 0.5f;
       
-      // finally, set and return the transform
+      // 最后我们应用它
       outTransform.setScale(scale, scale);
       outTransform.postTranslate((int) (dx + 0.5f), (int) (dy + 0.5f));
       return outTransform;
@@ -106,8 +101,7 @@ Congratulations! You just implemented the `FIT_CENTER` scale type:
   }
 ```
 
-
 ### none
 
-If you are using Drawables that make use of Android's tile mode, you need to use the `none` scale type for this to work correctly.
+如果你要使用tile mode进行显示，那么需要将scale type 设置为none.
 

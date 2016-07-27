@@ -1,27 +1,27 @@
 ---
 docid: using-drawees-code
-title: Using Drawees in Code
+title: 在JAVA代码中使用Drawees
 layout: docs
 permalink: /docs/using-drawees-code.html
 prev: using-drawees-xml.html
 next: drawee-branches.html
 ---
 
-### Setting the actual image
+### 设置或更改要显示的图片
 
-The easy way is to call
+最简单的方法就是：
 
 ```
 mSimpleDraweeView.setImageURI(uri);
 ```
 
-For more advanced requirements, use a [controller builder](using-controllerbuilder.html).
+如果要更加复杂的配置，可使用[ControllerBuilder](using-controllerbuilder.html);
 
-### Customizing the hierarchy
+### 自定义DraweeHierarchy
 
-For most apps, specify the parameters of their hierarchy in [XML](using-drawees-xml.html) provides all the customization they need. In some cases, though, you may need to go further.
+一般情况下，在[XML设置显示效果即可](using-drawees-xml.html), 如果想更多定制化，可以这样:
 
-We create an instance of the builder and then set it to the view:
+创建一个 builder 然后设置给 DraweeView:
 
 ```java
 List<Drawable> backgroundsList;
@@ -37,68 +37,71 @@ GenericDraweeHierarchy hierarchy = builder
 mSimpleDraweeView.setHierarchy(hierarchy);
 ```
 
-Calling `setHierarchy` more than once on the same view is usually unnecessary, even if the view is recycled. The hierarchy is expensive to create and in most cases you can just modify the existing hierarchy instead of creating a new one. Keep in mind that each instance of a `DraweeView` needs its own instance of a `DraweeHierarchy`. Same instance of a `DraweeHierarchy` is **not** to be used by multiple views.
-To change the actual image displayed by the view, use `setController` or `setImageURI`.
+对于同一个View，请不要多次调用`setHierarchy`，即使这个View是可回收的。创建 DraweeHierarchy 的较为耗时的一个过程，应该多次利用。
 
-### Modifying the hierarchy in-place
+> **注意**：一个`DraweeHierarchy` 是不可以被多个 View 共用的！
 
-Some attributes of the hierarchy can be changed without having to build a new hierarchy.
+如果要改变所要显示的图片可使用`setController` 或者 `setImageURI`。
 
-You would first need to get it from the View:
+### 运行时修改 DraweeHierarchy
+
+DraweeHierarchy 的一些属性可以在运行时改变。
+
+要改变这些属性，首先获取一个引用:
 
 ```java
 GenericDraweeHierarchy hierarchy = mSimpleDraweeView.getHierarchy();
 ```
 
-<a name="change_placeholder"></a>
+#### <a name='change_placeholder'></a>修改占位图
 
-#### Changing the placeholder
-
-Then you could modify the placeholder, either with a resource id:
+修改占位图为资源id:
 
 ```java
 hierarchy.setPlaceholderImage(R.drawable.placeholderId);
 ```
 
- or a full-fledged [Drawable](http://developer.android.com/reference/android/graphics/drawable/Drawable.html):
+你也可以将它修改为一个 [Drawable](http://developer.android.com/reference/android/graphics/drawable/Drawable.html):
 
 ```java
 Drawable placeholderImage = ...;
 hierarchy.setPlaceholderImage(placeholderImage);
 ```
 
-The other image branches (failure image, retry image and progress bar) can be modified in a similar way too.
+其他图层也可以修改：
 
 ```java
 Drawable failureImage = ...;
 hierarchy.setFailureImage(failureImage, ScaleType.CENTER);
 ```
 
-#### Changing the actual image display
+#### 改变图像的显示
 
-You can change the [scale type](scaling.html):
+修改[缩放类型](scaling.html):
 
 ```java
 hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
 ```
 
-If you have chosen scale type `focusCrop,` you'll need to set a focus point:
+如果你选择缩放类型为 `focusCrop`，需要指定一个居中点:
 
 ```java
 hierarchy.setActualImageFocusPoint(point);
 ```
 
-You can add a color filter to the image:
+你可以为图像添加一个 color filter:
 
 ```java
 ColorFilter filter;
-// create your filter
+// 创建filter
 hierarchy.setActualImageColorFilter(filter);
 ```
 
-#### Rounding
+#### 圆角
 
-All of the [rounding related params](rounded-corners-and-circles.html) can be modified dynamically. You get a `RoundingParams` object from the hierarchy, modify it, and set it back again:
+除了圆角显示方式（原来为圆角的不能修改为圆圈，反之亦然），其他圆角相关的呈现参数, [具体参见这里](rounded-corners-and-circles.html) 是可以动态修改的。
+
+如下: 获取DraweeHierarchy的圆角显示参数，修改圆角半径为10。
 
 ```java
 RoundingParams roundingParams = hierarchy.getRoundingParams();

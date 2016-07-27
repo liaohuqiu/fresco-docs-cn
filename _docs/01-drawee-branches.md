@@ -21,17 +21,15 @@ next: progress-bars.html
 
 ## <a name='what-are-branches'></a>定义
 
-Drawees are made up of different image "branches", one or more of which may be actually displayed at a time.
+Drawee 是由很多图片层组成的，每个阶段会有不同的显示状态。我们将在这里介绍其中每一层的作用与如何显示。
 
-This page outlines the different branches that can be displayed in a Drawee, and how they are set.
+除了最终要显示的目标图片，所有的图片层都可以在 XML 里面设置，他们的值可以是一个 `@drawable/` 图片资源 或者 `@color` 颜色资源。
 
-Except for the actual image, all of them can be set by an XML attribute. The value in XML must be either an Android drawable or color resource.
+ 他们同样可以通过 [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) 来设置，请参考 [在JAVA代码中使用Drawees](using-drawees-code.html) 。此时他们可以是任何`Drawable`的子类或者资源。
 
- They can also be set by a method in the [GenericDraweeHierarchyBuilder](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html) class, if [setting programmatically](using-drawees-code.html). In code, the value can either be from resources or be a custom subclass of [Drawable](http://developer.android.com/reference/android/graphics/drawable/Drawable.html).
+它们中有一些可以在运行时动态修改，也是通过 [GenericDraweeHierarchy](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html) 来实现。
 
-Some of the items can even be changed on the fly after the hierarchy has been built. These have a method in the [GenericDraweeHierarchy](../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html) class.
-
-Several of the drawables can be [scaled](scaling.html).
+其中有部分层可以被 [缩放](scaling.html).
 
 ## <a name='Actual'></a>设置要加载的图
 

@@ -72,3 +72,10 @@ Android 本身的图片库不支持此格式，但是Fresco支持。使用时，
 加载Gif图和WebP动图在任何一个Android开发者眼里看来都是一件非常头疼的事情。每一帧都是一张很大的`Bitmap`，每一个动画都有很多帧。Fresco让你没有这些烦恼，它处理好每一帧并管理好你的内存。
 </div>
 </div>
+
+<div class="featureBlock twoByGridBlock" markdown="1">
+## DEMO
+
+官方的项目，编译起来比较困难，如果你仅仅是想看 DEMO 运行效果，我将 DEMO 抽离出来，你直接使用这个[github项目](https://github.com/liaohuqiu/fresco-demo-for-gradle)
+
+

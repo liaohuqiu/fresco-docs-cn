@@ -1,15 +1,19 @@
 ---
 docid: datasources-datasubscribers
-title: DataSources and DataSubscribers
+title: 数据源和数据订阅者
 layout: docs
 permalink: /docs/datasources-datasubscribers.html
 prev: using-image-pipeline.html
 next: closeable-references.html
 ---
 
-A [DataSource](../javadoc/reference/com/facebook/datasource/DataSource.html) is, like a Java [Future](http://developer.android.com/reference/java/util/concurrent/Future.html), the result of an asynchronous computation. The different is that, unlike a Future, a DataSource can return you a whole series of results from a single command, not just one.
+[数据源](http://frescolib.org/javadoc/reference/com/facebook/datasource/DataSource.html) 和 [Future](http://developer.android.com/reference/java/util/concurrent/Future.html), 有些相似，都是异步计算的结果。
 
-After submitting an image request, the image pipeline returns a data source. To get a result out if it, you need to use a [DataSubscriber](../javadoc/reference/com/facebook/datasource/DataSubscriber.html).
+不同点在于，数据源对于一个调用会返回一系列结果，Future只返回一个。
+
+
+提交一个Image request之后，Image
+pipeline返回一个数据源。从中获取数据需要使用[数据订阅者(DataSubscriber)](http://frescolib.org/javadoc/reference/com/facebook/datasource/DataSubscriber.html)。
 
 ### Executors
 
