@@ -1,7 +1,7 @@
 ---
 permalink: /blog/:categories/:year/:month/:day/:title.html
-# url: "http://desmond1121.github.io/fresco-docs-cn"
-url: "http://localhost:4000"
+url: "http://desmond1121.github.io/fresco-docs-cn"
+# url: "http://localhost:4000"
 baseurl: ""
 origin_url: "http://frescolib.org"
 title: Fresco

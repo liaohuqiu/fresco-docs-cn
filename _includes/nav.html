@@ -2,7 +2,7 @@
   <div class="headerWrapper wrapper">
     <header>
       <a href="{{ site.url }}{{ site.baseurl }}/">
-        <img src="{{ site.origin_url }}{{ site.baseurl }}/static/logo.png">
+        <img src="{{ site.url }}{{ site.baseurl }}/static/logo.png">
         <h2>{{ site.title }}</h2>
       </a>
 
@@ -11,7 +11,7 @@
           <ul>
             {% for item in site.data.nav %}
             <li class="navItem{% if page.collection == item.category or page.category == item.category %} navItemActive{% endif %}">
-              <a href="{{ item.href }}">{{ item.title }}</a>
+              <a href="{{site.url}}/{{ item.href }}">{{ item.title }}</a>
             </li>
             {% endfor %}
             {% include nav_search.html %}

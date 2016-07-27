@@ -1,5 +1,4 @@
 ---
-docid: support
 title: Need help?
 layout: basic
 permalink: /support.html
