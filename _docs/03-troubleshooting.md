@@ -1,53 +1,49 @@
 ---
 docid: troubleshooting
-title: Troubleshooting
+title: 问题处理
 layout: docs
 permalink: /docs/troubleshooting.html
 prev: closeable-references.html
 next: gotchas.html
 ---
 
-##  Troubleshooting
+### 重复的边界
 
-### Image is displayed with repeated edges
+这是使用圆角的一个缺陷。 参考[圆角和圆圈](rounded-corners-and-circles.html) 来获取更多信息。
 
-This is a known limitation when rounding is used. See [Rounding](http://frescolib.org/docs/rounded-corners-and-circles.html#_) for more information and how to workaround.
+### 图片没有加载
 
+你可以从 image pipeline 打出的[日志](#logcat)来查看原因。 这里提供一些通常会导致问题的原因:
 
-### Image doesn't load
+#### 文件不可用
 
-You can get more information from the image pipeline by examining the verbose logcat as explained later in this section. Here are some common reasons why image loads might fail:
+无效的路径、链接会导致这种情况。
 
-#### File not available
+判断网络链接是否有效，你可以尝试在浏览器中打开它，看看是否图片会被加载。若图片依然加载不出来，那么这不是Fresco的问题。
 
-For example, an incorrect path for local files or an unavailable network URI is given.
-
-Try opening a network URI in a mobile browser. If it doesn't work, the issue is likely neither in Fresco nor your app.
-
-For a local file, try opening a file input stream directly from your app:
+判断本地文件是否有效，你可以通过下面这段代码来校验：
 
 ```
 FileInputStream fis = new FileInputStream(new File(localUri.getPath()));
 ```
 
-If that throws an exception, the issue is likely not in Fresco, **but** it may be in your app. One possibility is a permission issue, such as trying to access the SD card without requiring the necessary permission in your application manifest. Another possibility is that the pathy is not correct - perhaps you forgot to properly escape it. Finally, the file may simply not exist.
+如果这里抛出了异常，那么这不是Fresco的问题，可能是你的其他代码导致的。有可能是没有获取到SD卡读取权限、路径不合法、文件不存在等。
 
-#### OOMs and failing to allocate a bitmap
+#### OOM - 无法分配图片空间
 
-The most common reason for this happening is loading too big images. If the image to be loaded is of considerably bigger size than the view hosting it, it should be [resized] (http://frescolib.org/docs/resizing-rotating.html#_).
+加载特别特别大的图片时最容易导致这种情况。如果你加载的图片比承载的View明显大出太多，那你应该考虑将它[Resize](resizing-rotating.html#_)一下。
 
-#### Bitmap too large to be uploaded to a texture
+#### Bitmap太大导致无法绘制
 
-Android cannot display images more than 2048 pixels long in either dimension. This is beyond the capability of the OpenGL rendering system. Fresco will resize your image if it exceeds this limit.
+Android 无法绘制长或宽大于2048像素的图片。这是由OpenGL渲染系统限制的，如果它超过了这个界限，Fresco会对它进行[Resize](resizing-rotating.html#_)。
 
+### <a name='logcat'></a> 通过Logcat来判断原因
 
-### Investigating issues with logcat
+在加载图片时会出现各种各样的原因导致加载失败。 在使用Fresco的时候，最直接的方式就是查看 image pipeline 打出的`VERBOSE`级别日志。
 
-There are various issues one might encounter when it comes to image handling. With Fresco, most of them can be diagnosed by simply looking at the `VERBOSE` logcat. This should be your starting point when investigating an issue with Fresco.
+#### 启动日志
 
-#### Setting up logcat
-
-By default, Fresco does not write out all its logs. You need to [configure the image pipeline](configure-image-pipeline.html#_) to do so.
+默认情况下Fresco是关闭日志输出的，你可以[配置image pipeline](configure-image-pipeline.html#_)让它启动.
 
 ```java
 Set<RequestListener> requestListeners = new HashSet<>();
@@ -60,15 +56,15 @@ Fresco.initialize(context, config);
 FLog.setMinimumLoggingLevel(FLog.VERBOSE);
 ```
 
-#### Examining logcat
+#### 查看日志
 
-All of Fresco's logs can be examined by this command:
+你可以通过下面这条shell命令来查看Fresco日志：
 
 ```
 adb logcat -v threadtime | grep -iE 'LoggingListener|AbstractDraweeController|BufferedDiskCache'
 ```
 
-The output shows what is happening with the image requests within the image pipeline. It looks something like this:
+它的输出为如下格式：
 
 ```
 08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 0 -> 1: initialize
@@ -102,4 +98,4 @@ The output shows what is happening with the image requests within the image pipe
 08-12 09:11:15.184 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: set_final_result @ onNewResult: image: CloseableReference 2fd41bb0
 ```
 
-In this case, we see that the controller `28ebe0eb` associated with a DraweeView started datasource `36e95857` which issued image request `1`. We can now see that the image was not found in the bitmap cache, nor in the encoded memory cache, nor in the disk cache, and so the network fetch had to be performed. The fetch was successful, the image was decoded and the request finished successfully. Finally, the datasource notified the controller which then set the resulting image to the hierarchy (`set_final_result`).
+在这个示例中，我们发现名为`28ebe0eb`的 DraweeView 向名为`36e95857`的 DataSource 进行了图像请求。首先，图片没有在内存缓存中找到，也没有在磁盘缓存中找到，最后去网络上下载图片。下载成功后，图片被解码，之后请求结束。最后数据源通知 controller 图片就绪，显示图片(`set_final_result`）。

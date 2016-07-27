@@ -1,44 +1,45 @@
 ---
 docid: building-from-source
-title: Building from Source
+title: 构建源码
 layout: docs
 permalink: /docs/building-from-source.html
 prev: multiple-apks.html
 next: sample-code.html
 ---
 
-You should only build from source if you need to modify Fresco code itself. Most applications should simply [include](index.html#_) Fresco in their project.
+你只应该在你需要修改Fresco源码时去构建它。大部分App只需要在项目中[导入依赖](index.html#_)就够了。
 
-### Prerequisites
+### 前置条件
 
-The following tools must be installed on your system in order to build Fresco:
+你需要在系统中安装这些工具：
 
-1. The Android [SDK](https://developer.android.com/sdk/index.html#Other)
-2. From the Android SDK Manager, install/upgrade the latest Support Library **and** Support Repository. Both are found in the Extras section.
-2. The Android [NDK](https://developer.android.com/tools/sdk/ndk/index.html). Version 10c or later is required.
-3. The [git](http://git-scm.com/) version control system.
+1. 下载 Android [SDK](https://developer.android.com/sdk/index.html#Other)；
+2. 通过Android SDK Manager, 安装/升级 Support Library **和** Support Repository至最新；
+2. 下载 Android [NDK](https://developer.android.com/tools/sdk/ndk/index.html)。版本不低于10c；
+3. 下载[git](http://git-scm.com/)；
 
-You don't need to download Gradle itself; the build scripts or Android Studio will do that for you.
+你不需要下载Gradle，Android Studio内置了它。
 
-Fresco does not support source builds with Eclipse, Ant, or Maven. We do not plan to ever add such support. Eclipse users can [include](index.html#eclipse-adt) Fresco in their projects instead.
+Fresco不支持在Eclipse, Ant, 或 Maven 环境下构建，以后也不准备添加这方面的支持。
 
-### Configuring Gradle
+### 配置 Gradle
 
-Both command-line and Android Studio users need to edit the `gradle.properties` file. This is normally located in your home directory, in a subdirectory called `.gradle`. If it is not already there, create it.
+编辑`gradle.properties`文件。它通常在你的`~/.gradle/`目录下。如果没找到，那么创建它。
 
-On Unix-like systems, including Mac OS X, add this line:
+1. 添加NDK路径
+Unix系统下，添加：
 
 ```groovy
 ndk.path=/path/to/android_ndk/r10e
 ```
 
-On Windows systems, add this line:
+Windows系统下，添加：
 
 ```groovy
 ndk.path=C\:\\path\\to\\android_ndk\\r10e
 ```
 
-On *both* platforms, add these lines:
+2. 添加一些基础gradle配置
 
 ```groovy
 org.gradle.daemon=true
@@ -46,53 +47,46 @@ org.gradle.parallel=true
 org.gradle.configureondemand=true
 ```
 
-Windows' backslashes and colons need to be escaped in order for Gradle to read them correctly.
-
-### Getting the source
+### 获取源码
 
 ```sh
 git clone https://github.com/facebook/fresco.git
 ```
 
-This will create a directory `fresco` where the code will live.
+### 由命令行构建源码
 
-### Building from the Command Line
-
-On Unix-like systems, `cd` to the directory containing Fresco. Run the following command:
+在Unix系统下，`cd` 至 Fresco 代码目录下，输入下面的命令:
 
 ```sh
 ./gradlew build
 ```
 
-On Windows, open a Command Prompt, `cd` to the directory containing Fresco, and type in this command:
+在Windows系统下，打开命令行，`cd` 至 Fresco 代码目录下，输入下面的命令:
 
 ```bat
 gradlew.bat build
 ```
 
-### Building from Android Studio
+### 由Android Studio构建 Fresco
 
-From Android Studio's Quick Start dialog, click Import Project. Navigate to the directory containing Fresco and click on the `build.gradle` file.
-
-Android Studio should build Fresco automatically.
+在Android Studio中import Fresco项目，它会自动构建。
 
 ### Offline builds
 
-The first time you build Fresco, your computer must be connected to the Internet. Incremental builds can use Gradle's `--offline` option.
+第一次构建Fresco时, 你的电脑必须连接至 Internet。 其他情况下可以使用Gradle的`--offline`选项。
 
-### Troubleshooting
+### 问题解决
 
 > Could not find com.android.support:...:x.x.x.
 
-Make sure your Support Repository is up to date (see Prerequisites above).
+请确认你的 Support 库是最新的。
 
-### Windows support
+### Windows支持
 
-We try our best to support building on Windows but we can't commit to it. We do not have a Windows build set up on our CI servers and none of us is using a Windows computer so the builds can break without us noticing it.
+我们没有人使用Windows电脑进行开发，所以我们无法对Windows上构建Fresco源码有完美的支持（比如CI服务器就无法支持Windows构建）。
 
-Please raise github issues if the Windows build is broken or submit a pull request with the fix. We do our best but we'd like the community's help to keep this up to date.
+如果你在Windows上构建代码碰见了任何问题，请提交一个Issue给我们，我们会尽力解决它：）
 
+### 贡献代码
 
-### Contributing code upstream
-
-Please see our [CONTRIBUTING](https://github.com/facebook/fresco/blob/master/CONTRIBUTING.md) page.
+请参考[CONTRIBUTING](https://github.com/facebook/fresco/blob/master/CONTRIBUTING.md)。

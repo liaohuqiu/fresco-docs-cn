@@ -5,11 +5,13 @@ layout: basic
 permalink: /support.html
 ---
 
-## Fresco Support
+# 帮助和支持
 
-**Fresco** is worked on by Facebook Android engineers. They're often around and available for questions.
+**Fresco** facebook出品，品质保证。如有问题，欢迎随时反馈
 
-The [GitHub issues](https://github.com/facebook/fresco/issues) page is the best place to ask questions, find answers, and report issues.
+## GitHub issues
+
+这个是我们的 [GitHub issues](https://github.com/facebook/fresco/issues) 链接，你可以在这里寻找答案，反馈问题。
 
 ## How to get help
 
@@ -21,6 +23,3 @@ When you report an issue on GitHub, the more information the better. Here are so
 - The format of the affected images (JPEG, PNG, GIF, or WebP)
 - Whether the image is an animation
 - Where the images are coming from - network, local file, content provider, asset, or resource.
-
-
-

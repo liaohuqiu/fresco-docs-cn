@@ -15,18 +15,17 @@ next: closeable-references.html
 提交一个Image request之后，Image
 pipeline返回一个数据源。从中获取数据需要使用[数据订阅者(DataSubscriber)](http://frescolib.org/javadoc/reference/com/facebook/datasource/DataSubscriber.html)。
 
-### Executors
+### 执行器（Executor）
 
-When subscribing to a data source, an executor must be provided. The purpose of executors is to execute runnables (in our case the subscriber callback methods) on a specific thread and with specific policy.
-Fresco provides several [executors] (https://github.com/facebook/fresco/tree/0f3d52318631f2125e080d2a19f6fa13a31efb31/fbcore/src/main/java/com/facebook/common/executors) and one should carefully choose which one to be used:
+当你订阅一个数据源时，必须制定一个Executor去执行。它主要是为了让你在制定的线程调度机制上执行 Runnable。Fresco提供了一些[Executors](https://github.com/facebook/fresco/tree/0f3d52318631f2125e080d2a19f6fa13a31efb31/fbcore/src/main/java/com/facebook/common/executors)，你在使用它们的时候需要注意：
 
-* If you need to do any UI stuff from your callback (accessing views, drawables, etc.), you must use `UiThreadImmediateExecutorService.getInstance()`. Android view system is not thread safe and is only to be accessed from the main thread (the UI thread).
-* If the callback is lightweight, and does not do any UI related stuff, you can simply use `CallerThreadExecutor.getInstance()`. This executor executes runnables on the caller's thread. Depending on what is the calling thread, callback may be executed either on the UI or a background thread. There are no guarantees which thread it is going to be and because of that this executor should be used with great caution. And again, only for lightweight non-UI related stuff.
-* If you need to do some expensive non-UI related work (database access, disk read/write, or any other slow operation), this should NOT be done either with `CallerThreadExecutor` nor with the `UiThreadExecutorService`, but with one of the background thread executors. See [DefaultExecutorSupplier.forBackgroundTasks] (https://github.com/facebook/fresco/blob/0f3d52318631f2125e080d2a19f6fa13a31efb31/imagepipeline/src/main/java/com/facebook/imagepipeline/core/DefaultExecutorSupplier.java) for an example implementation.
+* 如果你想要在回调中进行任何UI操作，你需要使用`UiThreadImmediateExecutorService.getInstance()`。因为Android系统仅允许在UI线程中做一些UI操作。
+* 如果回调里面做的事情比较少，并且不涉及UI，你可以使用`CallerThreadExecutor.getInstance()`。这个 Executor 会在调用者线程中执行回调。这个回调的执行线程是得不到保证的，所以需要谨慎使用这个Executor。重申一遍，只有少量工作、没有UI操作的回调才适合在这个Executor中操作。
+* 你需要做一些比较复杂、耗时的操作，并且不涉及UI（如数据库读写、文件IO），你就**不能用上面两个Executor**。你需要开启一个后台Executor，可以参考[DefaultExecutorSupplier.forBackgroundTasks](https://github.com/facebook/fresco/blob/0f3d52318631f2125e080d2a19f6fa13a31efb31/imagepipeline/src/main/java/com/facebook/imagepipeline/core/DefaultExecutorSupplier.java)。
 
-### Getting result from a data source
+### 从数据源中获取结果
 
-This is a generic example of how to get a result from a data source of `CloseableReference<T>` for arbitrary type `T`. The result is valid only in the scope of the `onNewResultImpl` callback. As soon as the callback gets executed, the result is no longer valid. See the next example if the result needs to be kept around.
+这里展示了从数据源中获取目标类型为`T`的`CloseableReference<T>`的例子，注意此时获取结果对象仅仅在`onNewResultImpl`有使用意义。当回调结束之后，这个对象就不能被使用了！（如果你希望保持这个对象并在外部使用，请继续往下看）
 
 ```java
     DataSource<CloseableReference<T>> dataSource = ...;
@@ -37,14 +36,11 @@ This is a generic example of how to get a result from a data source of `Closeabl
           protected void onNewResultImpl(
               DataSource<CloseableReference<T>> dataSource) {
             if (!dataSource.isFinished()) {
-              // if we are not interested in the intermediate images,
-              // we can just return here.
               return;
             }
             CloseableReference<T> ref = dataSource.getResult();
             if (ref != null) {
               try {
-                // do somethign with the result
                 T result = ref.get();
                 ...
               } finally {
@@ -63,9 +59,9 @@ This is a generic example of how to get a result from a data source of `Closeabl
     dataSource.subscribe(dataSubscriber, executor);
 ```
 
-### Keeping result from a data source
+### 保持数据源结果的引用
 
-The above example closes the reference as soon as the callback gets executed. If the result needs to be kept around, you must keep the corresponding `CloseableReference` for as long as the result is needed. This can be done as follows:
+上面的例子中我们在回调执行完就将对象释放了。如果你需要保持这个对象有效，那么你可以不在这里`close`它，参照如下例子：
 
 ```java
     DataSource<CloseableReference<T>> dataSource = ...;
@@ -76,13 +72,9 @@ The above example closes the reference as soon as the callback gets executed. If
           protected void onNewResultImpl(
               DataSource<CloseableReference<T>> dataSource) {
             if (!dataSource.isFinished()) {
-              // if we are not interested in the intermediate images,
-              // we can just return here.
               return;
             }
-            // keep the closeable reference
             mRef = dataSource.getResult();
-            // do something with the result
             T result = mRef.get();
             ...
           }
@@ -97,29 +89,28 @@ The above example closes the reference as soon as the callback gets executed. If
     dataSource.subscribe(dataSubscriber, executor);
 ```
 
-IMPORTANT: once you don't need the result anymore, you must close the reference. Not doing so may cause memory leaks.
-See [closeable references](closeable-references.html) for more details.
+**你必须要在使用完它之后对它回收，否则会造成内存泄漏！**
+
+参考[可关闭的引用](closeable-references.html) 来获取更多信息。
 
 ```java
     CloseableReference.closeSafely(mRef);
     mRef = null;
 ```
 
-### To get encoded image...
+### 获取未解码的图片
 
 ```java
     DataSource<CloseableReference<PooledByteBuffer>> dataSource =
         mImagePipeline.fetchEncodedImage(imageRequest, CALLER_CONTEXT);
 ```
 
-Image pipeline uses `PooledByteBuffer` for encoded images. This is our `T` in the above examples. Here is an example of creating an `InputStream` out of `PooledByteBuffer` so that we can read the image bytes:
+Image pipeline 使用 `PooledByteBuffer` 来存储未解码的图片。 此处我们继续使用上面的目标类型 `T`来举个例子， 通过创建`InputStream` 来读取图片字节流:
 
 ```java
       InputStream is = new PooledByteBufferInputStream(result);
       try {
-        // Example: get the image format
         ImageFormat imageFormat = ImageFormatChecker.getImageFormat(is);
-        // Example: write input stream to a file
         Files.copy(is, path);
       } catch (...) {
         ...
@@ -128,14 +119,14 @@ Image pipeline uses `PooledByteBuffer` for encoded images. This is our `T` in th
       }
 ```
 
-### To get decoded image...
+### 获取已解码的图片
 
 ```java
 DataSource<CloseableReference<CloseableImage>>
     dataSource = imagePipeline.fetchDecodedImage(imageRequest, callerContext);
 ```
 
-Image pipeline uses `CloseableImage` for decoded images. This is our `T` in the above examples. Here is an example of getting a `Bitmap` out of `CloseableImage`:
+Image pipeline `CloseableImage` 来承载已解码的图片。下面例子描述如何从`CloseableImage`拿出一个`Bitmap`对象:
 
 ```java
 	CloseableImage image = ref.get();
@@ -147,32 +138,28 @@ Image pipeline uses `CloseableImage` for decoded images. This is our `T` in the 
 ```
 
 
-### I just want a bitmap...
+### 只想要Bitmap不想要别的...
 
-If your request to the pipeline is for a single [Bitmap](http://developer.android.com/reference/android/graphics/Bitmap.html), you can take advantage of our easier-to-use [BaseBitmapDataSubscriber](../javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber):
+如果你向ImagePipeline请求一个[Bitmap](http://developer.android.com/reference/android/graphics/Bitmap.html), 你可以使用我们的 [BaseBitmapDataSubscriber](http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber):
 
 ```java
 dataSource.subscribe(new BaseBitmapDataSubscriber() {
     @Override
     public void onNewResultImpl(@Nullable Bitmap bitmap) {
-      // You can use the bitmap here, but in limited ways.
-      // No need to do any cleanup.
+      // 你可以直接在这里使用Bitmap，没有别的限制要求，也不需要回收
     }
 
     @Override
     public void onFailureImpl(DataSource dataSource) {
-      // No cleanup required here.
     }
   },
   executor);
 ```
 
-A snap to use, right? There are caveats.
+**注意，这里有一些要求！**
 
-This subscriber doesn't work for animated images as those can not be represented as a single bitmap.
+* 这个数据源无法用来获取动图。
+* 你无法在`onNewResultImpl`之外的地方使用这个`Bitmap`。原因是`BaseBitmapDataSubscriber`数据源的获取结束之后，image pipeline就会回收这个Bitmap。如果你此时再用它来显示，会报`IllegalStateException`！
+* 当然你可以将它传给Android的[通知栏](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#setLargeIcon\(android.graphics.Bitmap\))或者[RemoveView][remote view](http://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewBitmap\(int, android.graphics.Bitmap\))。Android系统会在共享内存区域保存一份Bitmap的拷贝，Fresco的回收不会影响它。
 
-You can **not** assign the bitmap to any variable not in the scope of the `onNewResultImpl` method. The reason is, as already explained in the above examples that, after the subscriber has finished executing, the image pipeline will recycle the bitmap and free its memory. If you try to draw the bitmap after that, your app will crash with an `IllegalStateException.`
-
-You can still safely pass the Bitmap to an Android [notification](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#setLargeIcon\(android.graphics.Bitmap\)) or [remote view](http://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewBitmap\(int, android.graphics.Bitmap\)). If Android needs your Bitmap in order to pass it to a system process, it makes a copy of the Bitmap data in ashmem - the same heap used by Fresco. So Fresco's automatic cleanup will work without issue.
-
-If those requirements prevent you from using `BaseBitmapDataSubscriber`, you can go with a more generic approach as explained above.
+如果这些要求导致你不能使用`BaseBitmapDataSubscriber`，你可以使用上述的其他数据源。

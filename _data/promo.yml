@@ -2,10 +2,10 @@
   children:
   - type: button
     href: docs/getting-started.html
-    text: Get Started
+    text: 开始使用
   - type: button
     href: docs/index.html
-    text: Download
+    text: 下载源码
   - type: button
     href: https://github.com/liaohuqiu/fresco-docs-cn
     text: 本文档源码

@@ -1,41 +1,45 @@
 ---
 docid: sample-code
-title: Sample code
+title: 示例代码
 layout: docs
 permalink: /docs/sample-code.html
 prev: building-from-source.html
 ---
 
-*Note: the samples are licensed for non-commercial or evaluation purposes only, not the BSD license used for Fresco itself.*
+## 译者DEMO
 
-Fresco's GitHub repository contains several samples to demonstrate how to use Fresco in your apps.
+官方的项目，编译起来比较困难，如果你仅仅是想看 DEMO 运行效果，我将 DEMO 抽离出来，你直接使用这个[github项目](https://github.com/liaohuqiu/fresco-demo-for-gradle)
 
-The samples are available in source form only. Follow the [build instructions](building-from-source.html) to set up your dev environment to build and run them.
+*以下原文*
 
-### The zoomable library
+*Note: 示例代码在“非商业使用” License 下，而不是Fresco的BSD License。
 
-The [zoomable library](https://github.com/facebook/fresco/blob/master/samples/zoomable) features a `ZoomableDraweeView` class that supports gestures such as pinch-to-zoom and panning of a Drawee image.
+你可以在Fresco的Github页面找到一些示例代码，他们只能配合源码一起运行。你需要参考[构建源码](building-from-source.html)。 
 
-### The comparison app
+### 缩放库
 
-The comparison app lets the user do a proper, apples-to-apples comparison of Fresco with [Picasso](http://square.github.io/picasso), [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader), [Volley](https://developer.android.com/training/volley/index.html)'s image loader, and [Glide](https://github.com/bumptech/glide).
+[zoomable library](https://github.com/facebook/fresco/blob/master/samples/zoomable) 实现了一个`ZoomableDraweeView`支持手势缩放。
 
-Fresco allows you to also compare its performance with OkHttp as its network layer. You can also see the performance of Drawee running over Volley instead of Fresco's image pipeline.
+### 图片库比较App
 
-The app offers you a choice of images from your local camera or from the Internet. The network images come from [Imgur](http://imgur.com).
+在这个App中我们比较了[Picasso](http://square.github.io/picasso), [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader), [Volley](https://developer.android.com/training/volley/index.html), [Glide](https://github.com/bumptech/glide)。
 
-You can build, install, and run a controlled test of any combination of loaders using the [run_comparison.py](https://github.com/facebook/fresco/blob/master/run_comparison.py) script. The following command will run them all on a connected ARM v7 device:
+你也可以比较Fresco中使用 OkHttp 和 Volley 的性能差异。
+
+你可以设置图片源于网络或者本地相册，网络图片来源于[Imgur](http://imgur.com).
+
+你可以运行自动化对比测试脚本[run_comparison.py](https://github.com/facebook/fresco/blob/master/run_comparison.py)。 下面这个指令会在一个 ARM-v7 设备上运行脚本:
 
 ```./run_comparison.py -c armeabi-v7a```
 
-### The demo app
+### 示例App
 
-The demo app shows the wide variety of images Fresco supports - baseline and progressive JPEG, both simple, extended, and animated WebP, PNG, and animated GIF. We also show an image from a data URI.
+它显示了 Fresco 的各种用法 - JPEG的渐进加载，动态、加强、简单的WebP，PNG，GIF。我们还示例了Uri中带图片数据的传输用法。
 
-### The round app
+### 圆角示例 
 
-The round app shows the same image scaled in several different ways, with and without a circle applied.
+示例了各类圆角、圆形图的用法
 
-### The uri app
+### Uri示例
 
-The uri app loads an image from an uri provided via TextView. It's handy to test whether Fresco is able to display a particular image.
+你可以在其中的`TextView`中输入Uri并在`DraweeView`中展示。

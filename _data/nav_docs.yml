@@ -1,10 +1,10 @@
-- title: Quick Start
+- title: 快速开始
   items:
   - id: index
   - id: getting-started
   - id: concepts
   - id: supported-uris
-- title: Drawee Guide
+- title: Drawee 指南
   items:
   - id: using-drawees-xml
   - id: using-drawees-code
@@ -21,7 +21,7 @@
   - id: modifying-image
   - id: image-requests
   - id: writing-custom-views
-- title: Image Pipeline Guide
+- title: Image Pipeline 指南
   items:
   - id: intro-image-pipeline
   - id: configure-image-pipeline
@@ -30,21 +30,21 @@
   - id: datasources-datasubscribers
   - id: closeable-references
   - id: webp-support
-- title: Solving Problems
+- title: 问题处理
   items:
   - id: troubleshooting
   - id: gotchas
   - id: wrap-content
   - id: shared-transitions
-- title: Third Party Libraries
+- title: 第三方类库
   items:
   - id: using-other-network-layers
   - id: using-other-image-loaders
-- title: Shipping your App
+- title: 发布App
   items:
   - id: proguard
   - id: multiple-apks
-- title: Contributors' Guide
+- title: 如何贡献代码？
   items:
   - id: building-from-source
   - id: sample-code

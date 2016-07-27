@@ -1,19 +1,19 @@
 ---
 docid: proguard
-title: Using ProGuard with Fresco
+title: 混淆(Proguard)
 layout: docs
 permalink: /docs/proguard.html
 prev: using-other-image-loaders.html
 next: multiple-apks.html
 ---
 
-Fresco's large download may seem intimidating, but it need not leave you with a large application. We strongly recommend use of the ProGuard tool.
+Fresco的体积可能有点庞大，所以我们强烈推荐你在发布App时进行混淆(Proguard)。
 
-You can download Fresco's ProGuard file, [proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/proguard-fresco.pro), and add it to your project.
+你可以下载 Fresco 的 ProGuard 文件：[proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/proguard-fresco.pro), 并将它添加到你的项目中。
 
-### Android Studio / Gradle
+### Android Studio / Gradle 示例
 
-Place a stanza like this in your `build.gradle` file.
+编辑你的`build.gradle`，配置proguard文件：
 
 ```groovy
 android {
@@ -29,4 +29,4 @@ android {
 
 ### Eclipse
 
-Edit your [proguard.cfg](http://developer.android.com/tools/help/proguard.html#enabling) file to include the contents of [proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/proguard-fresco.pro).
+编辑你的[proguard.cfg](http://developer.android.com/tools/help/proguard.html#enabling) 文件，将[proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/proguard-fresco.pro) 添加进去。

@@ -1,16 +1,16 @@
 ---
 docid: shared-transitions
-title: Shared Transitions
+title: 共享元素动画
 layout: docs
 permalink: /docs/shared-transitions.html
 prev: wrap-content.html
 next: using-other-network-layers.html
 ---
 
-## Use ChangeBounds, not ChangeImageTransform
+## 使用 ChangeBounds，而不是ChangeImageTransform
 
-Android 5.0 (Lollipop) introduced [shared element transitions](http://developer.android.com/training/material/animations.html#Transitions), allowing apps to share a View between multiple Activities and define a transition between them.
+Android 5.0 (Lollipop) 引入了 [共享元素动画](http://developer.android.com/training/material/animations.html#Transitions)，允许在多个Activity切换时共享相同的View！
 
-You can define your transitions in XML. There is a transform called ChangeImageTransform which captures an ImageView's matrix and animates it during the transition. This will not work in Fresco, which has its own set of matrices to scale with.
+你可以在XML中定义这个变换。有个`ChangeImageTransform`变换可以在共享元素切换时对`ImageView`进行变换，可惜Fresco暂时不支持它，因为Drawee维护着自己的转换Matrix。
 
-Fortunately there is an easy workaround. Just use the [ChangeBounds](http://developer.android.com/reference/android/transition/ChangeBounds.html) transition instead. This animates the changes in the layout *bounds*. Fresco will automatically adjust the scaling matrix as you update the bounds, so your animation will appear exactly as you want it.
+幸运的是你可以有另一种做法：使用[ChangeBounds](http://developer.android.com/reference/android/transition/ChangeBounds.html)。你可以改变layout的边界，这样Fresco会根据它进行自适应，也能够达到你想要的功能。

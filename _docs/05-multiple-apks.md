@@ -1,27 +1,27 @@
 ---
 docid: multiple-apks
-title: Shipping Multiple APKs
+title: 按需打包
 layout: docs
 permalink: /docs/multiple-apks.html
 prev: proguard.html
 next: building-from-source.html
 ---
 
-Fresco is written mostly in Java, but there is some C++ as well. C++ code has to be compiled for each of the CPU types (called "ABIs") Android can run on. Currently, Fresco supports five ABIs.
+Fresco 大部分的代码是由Java写的，但是里面也有很多C++的代码。C++代码必须根据Android 设备的CPU类型(通常称为"ABIs")进行编译。目前Fresco支持五种 ABI:
 
-1. `armeabiv-v7a`: Version 7 or higher of the ARM processor. Most Android phones released from 2011-15 are using this.
-2. `arm64-v8a`: 64-bit ARM processors. Found on new devices, like the Samsung Galaxy S6.
-1. `armeabi`: Older phones using v5 or v6 of the ARM processor.
-1. `x86`: Mostly used by tablets, and by emulators.
-2. `x86_64`: Used by 64-bit tablets.
+1. `armeabiv-v7a`: 第7代及以上的 ARM 处理器。2011年15月以后的生产的大部分Android设备都使用它。
+2. `arm64-v8a`: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。 
+1. `armeabi`: 第5代、第6代的ARM处理器，早期的手机用的比较多。
+1. `x86`: 平板、模拟器用得比较多。
+2. `x86_64`: 64位的平板。
 
-Fresco's binary download has copies of native `.so` files for all five platforms. You can reduce the size of your app considerably by creating separate APKs for each processor type.
+Fresco 下载下来之后已经包含了在这五种`.so`文件，你可以根据不同平台打出不同的App，由此来缩减包体积。
 
-If your application is not used by devices running Android 2.3 (Gingerbread), you will not need the `armeabi` flavor.
+如果你的应用不支持 Android 2.3 (Gingerbread)，你可以不需要 `armeabi` 类的ABI.
 
 ### Android Studio / Gradle
 
-Edit your `build.gradle` file as follows:
+编辑 `build.gradle` 文件:
 
 ```groovy
 android {
@@ -37,18 +37,18 @@ android {
 }
 ```
 
-See the [Android Gradle documentation](http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits) for more details on how splits work.
+参考[Android Gradle 文档](http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits)来获取更多信息。
 
 ### Eclipse
 
-By default, Eclipse produces a single APK for all CPU flavors. To separate them requires more complexity and effort than in Gradle.
+默认情况下，Eclipse会产生一个含有所有ABI的app。将他们拆分比较困难（相比于Gradle）。
 
-Instead of Fresco's standard zip file for eclipse, download the [multi-APK zip file](https://github.com/facebook/fresco/releases/download/v{{site.current_version}}/frescolib-v{{site.current_version}}-multi.zip). However, it is not enough to download it - you must alter your project too.
+你需要下载[multi-APK zip file](https://github.com/facebook/fresco/releases/download/v{{site.current_version}}/frescolib-v{{site.current_version}}-multi.zip)而不是我们之前提供的标准ZIP包，而且你需要替换你的项目！
 
-1. Follow [Android's instructions](http://developer.android.com/training/multiple-apks/api.html) for converting your code into a multi-APK project. You can use the same `AndroidManifest.xml` file for each one.
-2. Each flavored project should depend on the corresponding `fresco-<flavor>` project. (If you are using OkHttp, also depend on the `imagepipeline-okhttp-<flavor>` project.)
+1. 根据[Android官方指示](http://developer.android.com/training/multiple-apks/api.html)，你可以将项目拆分成多个项目。你可以使用相同的`AndroidManifest.xml`。
+2. 不同ABI需求(flavor)的项目，需要依赖于不同的`fresco-<flavor>`. (如果你使用OkHttp，你需要对应地引入`imagepipeline-okhttp-<flavor>`)
 
 
-### Uploading to the Play Store
+### 上传至Play Store
 
-You can either upload a single APK that all users can download, or separate, smaller APKs for each CPU. The [Play Store documentation](http://developer.android.com/google/play/publishing/multiple-apks.html) provides instructions on how to do this.
+你可以上传单个Apk，也可以拆分上传。详情可以参考[Play Store文档](http://developer.android.com/google/play/publishing/multiple-apks.html)。

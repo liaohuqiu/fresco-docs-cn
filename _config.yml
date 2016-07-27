@@ -1,6 +1,7 @@
 ---
 permalink: /blog/:categories/:year/:month/:day/:title.html
-url: "http://desmond1121.github.io/fresco-docs-cn"
+# url: "http://desmond1121.github.io/fresco-docs-cn"
+url: "http://localhost:4000"
 baseurl: ""
 origin_url: "http://frescolib.org"
 title: Fresco
@@ -10,8 +11,8 @@ gacode: "UA-44373548-3"
 relative_permalinks: false
 description: >
   Fresco 是一个强大的图片加载组件。使用它之后，你不需要再去关心图片的加载和显示这些繁琐的事情！ 支持 Android 2.3 及以后的版本。
-timezone: America/Los_Angeles
-ghrepo: "facebook/fresco"
+timezone: Asia/Shanghai
+ghrepo: "desmond1121/fresco-docs-cn"
 
 current_version: 0.12.0
 

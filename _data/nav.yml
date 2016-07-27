@@ -1,4 +1,4 @@
-- title: Docs
+- title: 文档
   href: docs/
   category: docs
 
@@ -6,12 +6,14 @@
   href: http://frescolib.org/javadoc/
   category: apidocs
 
-- title: GitHub
-  href: https://github.com/facebook/fresco
-  category: github
-
 - title: 官网
   href: http://frescolib.org/
   category: github
 
+- title: 支持
+  href: support.html
+  category: support
 
+- title: 关于本文档
+  href: about.html
+  category: about

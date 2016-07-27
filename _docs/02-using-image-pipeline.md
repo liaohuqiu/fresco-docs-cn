@@ -1,25 +1,24 @@
 ---
 docid: using-image-pipeline
-title: Using the Image Pipeline Directly
+title: 直接使用Image Pipeline
 layout: docs
 permalink: /docs/using-image-pipeline.html
 prev: caching.html
 next: datasources-datasubscribers.html
 ---
 
-This page is intended for advanced usage only. Most apps should be using [Drawees](using-drawees-xml.html) to interact with Fresco's image pipeline.
+本页介绍Image pipeline的高级用法，大部分的应用使用[Drawees](using-drawees-xml.html) 和image pipeline打交道就好了。
 
-Using the image pipeline directly is challenging because of the memory usage. Drawees automatically keep track of whether or not your images need to be in memory. They will swap them out and load them back as soon as they need to be displayed. If you are using the image pipeline directly, your app must repeat this logic.
+直接使用Image pipeline是较为有挑战的事情，这意味着要维护图片的内存使用。Drawees
+会根据各种情况确定图片是否需要在内存缓存中，在需要时加载，在不需要时移除。直接使用的话，你需要自己完成这些逻辑。
 
-The image pipeline returns objects wrapped in a [CloseableReference](closeable-references.html). Drawees keep these references alive for as long as they need their image, and then call the `.close()` method on these references when they are finished with them. If your app is not using Drawees, it **must** do the same.
+Image pipeline返回的是一个[CloseableReference](closeable-references.html)对象。在这些对象不需要时，Drawees会调用`.close()`方法。如果你的应用不使用Drawees，那你需要自己完成这个事情。
 
-If you do not keep a Java reference to a `CloseableReference` returned by the pipleine, the `CloseableReference` will get garbage collected and the underlying `Bitmap` may get recycled while still being used. If you do not close the `CloseableReference` once you are done with it, you risk memory leaks and OOMs.
+Java的GC机制会在Bitmap不使用时，清理掉Bitmap。但要GC时总是太迟了，另外GC是很昂贵的开销。GC大对象也会带来性能问题，尤其是在5.0以下系统。
 
-To be precise, the Java garbage collector will free image memory when Bitmap objects go out of scope, but this may be too late. Garbage collection is expensive, and relying on it for large objects leads to performance issues. This is especially true on Android 4.x and lower, when Android did not maintain a separate memory space for Bitmaps.
+#### 调用 pipeline
 
-#### Calling the pipeline
-
-You must [build an image request](image-requests.html). Having done that, you can pass it directly to the `ImagePipeline:`
+首先[创建一个image request](image-requests.html). 然后传递给 `ImagePipeline:`
 
 ```java
 ImagePipeline imagePipeline = Fresco.getImagePipeline();
@@ -27,20 +26,20 @@ DataSource<CloseableReference<CloseableImage>>
     dataSource = imagePipeline.fetchDecodedImage(imageRequest, callerContext);
 ```
 
-See the page on [DataSources](datasources-datasubscribers.html) for information on how to receive data from them.
+关于如果接收数据，请参考[数据源](datasources-datasubscribers.html) 章节。
 
-#### Skipping the decode
+#### 忽略解码
 
-If you don't want to decode the image, but want to get the image bytes in their original compressed format, just use `fetchEncodedImage` instead:
+如果你不保持图片原始格式，不执行解码，使用`fetchEncodedImage`即可:
 
 ```java
 DataSource<CloseableReference<PooledByteBuffer>>
     dataSource = imagePipeline.fetchEncodedImage(imageRequest, callerContext);
 ```
 
-#### Instant results from the bitmap cache
+#### 从Bitmap缓存中立刻取到结果
 
-Lookups to the bitmap cache, unlike the others, are done in the UI thread. If a Bitmap is there, you get it instantly.
+不像其他缓存，如果图片在内存缓存中有的话，可以在UI线程立刻拿到结果。
 
 ```java
 DataSource<CloseableReference<CloseableImage>> dataSource =
@@ -64,40 +63,37 @@ try {
 }
 ```
 
-Do **not** skip these `finally` blocks!
+千万 **不要** 省略掉 `finally` 中的代码!
 
-#### Prefetching
+#### 预加载图片
 
-Prefetching images in advance of showing them can sometimes lead to shorter wait times for users. Remember, however, that there are trade-offs. Prefetching takes up your users' data, and uses up its share of CPU and memory. As a rule, prefetching is not recommended for most apps.
+预加载图片可减少用户等待的时间，如果预加载的图片用户没有真正呈现给用户，那么就浪费了用户的流量，电量，内存等资源了。大多数应用，并不需要预加载。
 
-Nonetheless, the image pipeline allows you to prefetch to either disk or bitmap cache. Both will use more data for network URIs, but the disk cache will not do a decode and will therefore use less CPU.
+需要注意的是，你可以预加载图片到磁盘、内存缓存中，但是它们在并不会被立即解码（除非马上要显示），这样会节省一部分CPU操作。
 
-Prefetch to disk:
+预加载到磁盘缓存:
 
 ```java
 imagePipeline.prefetchToDiskCache(imageRequest, callerContext);
 ```
 
-Prefetch to bitmap cache:
+预加载到内存缓存:
 
 ```java
 imagePipeline.prefetchToBitmapCache(imageRequest, callerContext);
 ```
 
-Cancelling prefetch:
+取消预加载:
 
 ```java
-// keep the reference to the returned data source.
 DataSource<Void> prefetchDataSource = imagePipeline.prefetchTo...;
-
-// later on, if/when you need to cancel the prefetch:
 prefetchDataSource.close();
 ```
 
-Closing a prefetch data source after the prefetch has already completed is a no-op and completely safe to do.
+取消一个预加载已经完成的数据源是无效的，不过如果你一定要这么做，也不会发生问题。
 
-#### The caller Context
+#### callerContext
 
-As we can see, most of the `ImagePipeline` fetch methods contains a second parameter named `callerContext` of type `Object`. We can see it as an implementation of the [Context Object Design Pattern](https://www.dre.vanderbilt.edu/~schmidt/PDF/Context-Object-Pattern.pdf). It's basically an object we bind to a specific `ImageRequest` that can be used for different purposes (e.g. Log). The same object can also be accessed by all the `Producer` implementations into the `ImagePipeline`.
+你会发现所有的`ImagePipeline`获取时都会加上一个`callerContext`，它的类型是`Object`。你可以把他堪称一个[上下文设计模式](https://www.dre.vanderbilt.edu/~schmidt/PDF/Context-Object-Pattern.pdf)。它主要的目的是为了让`ImageRequest`能够有更多扩展用途（比如打Log）。这个对象可以被所有`ImagePipeline`中实现的`Producer`获取到。
 
 

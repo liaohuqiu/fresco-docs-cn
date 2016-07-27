@@ -1,23 +1,24 @@
 ---
 docid: using-other-image-loaders
-title: Using Other Image Loaders
+title: 使用其他的Image Loader
 layout: docs
 permalink: /docs/using-other-image-loaders.html
 prev: using-other-network-layers.html
 next: proguard.html
 ---
 
-Drawee is not tied to a particular image loading mechanism and can be used with other image loaders.
+Drawee 并不是吊死在特定的一种图片加载机制上，它同样适用于其他image loader。
 
-However, some of its features are only available on the Fresco image pipeline. Any feature in the preceding pages that required using an [ImageRequest](image-requests.html) or [configuration](configure-image-pipeline.html) may not work with a different loader.
+不过有一些特性，只有Fresco image pipeline才有。前面的提到的需要使用[ImageRequest](image-requests.html)和[配置image
+pipeline](configure-image-pipeline.html)的特性，使用其他image loader时都有可能不起作用。
 
-### Using Drawee with Volley ImageLoader
+### Drawee 和 Volley ImageLoader配合使用
 
-We have an backend for Drawee that allows Volley's [ImageLoader](https://developer.android.com/training/volley/request.html) to be used instead of Fresco's image pipeline.
+我们有一个Drawee使用Volley的 [ImageLoader](https://developer.android.com/training/volley/request.html)的补充实现。 
 
-We only recommend this for apps that already have a significant investment in Volley ImageLoader.
+我们仅仅对那些已经深度使用Volley ImageLoader的应用推荐这个组合。
 
-In order to use it, the `dependencies` section of your `build.gradle` file needs to be changed. Do **not** use the Gradle dependencies given on the [download](download-fresco.html) page. Use this instead:
+同样地，如要使用，使用下面的依赖，而不是[下载](download-fresco.html)页面给出的依赖:
 
 ```groovy
 dependencies {
@@ -26,9 +27,9 @@ dependencies {
 }
 ```
 
-#### Initializing with Volley ImageLoader
+#### 初始化Volley ImageLoader
 
-Do not call `Fresco.initialize`. You must do yourself for Volley what it does with the image pipeline:
+这时，不需要再调用`Fresco.initialize`了，需要的是初始化Volley。
 
 ```java
 Context context;
@@ -38,11 +39,11 @@ VolleyDraweeControllerBuilderSupplier mControllerBuilderSupplier
 SimpleDraweeView.initialize(mControllerBuilderSupplier);
 ```
 
-Do not let the `VolleyDraweeControllerBuilderSupplier` out of scope; you need it to build controllers, unless you always use `SimpleDraweeView.setImageURI.`
+不要让 `VolleyDraweeControllerBuilderSupplier`离开作用域，你需要它来创建DraweeController，除非你只使用`SimpleDraweeView.setImageURI`。
 
-#### Using DraweeControllers with Volley ImageLoader
+#### DraweeControllers 和 Volley ImageLoader 配合使用
 
-Instead of calling `Fresco.newControllerBuilder`, call
+不是调用`Fresco.newControllerBuilder`, 而是:
 
 ```java
 VolleyController controller = mControllerBuilderSupplier
@@ -52,6 +53,6 @@ VolleyController controller = mControllerBuilderSupplier
 mSimpleDraweeView.setController(controller);
 ```
 
-### Using Drawee with other image loaders
+### Drawee 和其他Image Loader 配合使用
 
-No other Drawee backends have been built yet, though it is possible to do so using the [Volley example](https://github.com/facebook/fresco/tree/master/drawee-backends/drawee-volley/src/main/java/com/facebook/drawee/backends/volley) as a model.
+依照[源码](https://github.com/facebook/fresco/tree/master/drawee-backends/drawee-volley/src/main/java/com/facebook/drawee/backends/volley) 作为例子，其他Image Loader也是可以和Drawee配合使用的，但是没有我们还没有Drawee和其他Image loader的配合使用的补充实现。

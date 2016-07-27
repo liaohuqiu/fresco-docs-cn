@@ -1,48 +1,49 @@
 ---
 docid: gotchas
-title: Gotchas
+title: 一些陷阱
 layout: docs
 permalink: /docs/gotchas.html
 prev: troubleshooting.html
 next: wrap-content.html
 ---
 
-#### Don't use ScrollViews
+### 不要使用 ScrollViews
 
-If you want to scroll through a long list of images, you should use a [RecyclerView](http://developer.android.com/reference/android/support/v7/widget/RecyclerView.html), [ListView](https://developer.android.com/reference/android/widget/ListView.html), or [GridView](https://developer.android.com/reference/android/widget/GridView.html). All of these re-use their child views continually as you scroll through them. Fresco descendant views receive the system events that let them manage memory correctly.
+如果你想要在一个长的图片列表中滑动，你应该使用 `RecyclerView`，`ListView`，或 `GridView`。这三者都会在你滑动时不断重用子视图。Fresco 的 view 会接收系统事件，使它们能正确管理内存。
 
-`ScrollView` does not do this. Thus, Fresco views aren't told when they have gone off-screen, and hold onto their image memory until your Fragment or Activity is stopped. Your app will be at a much greater risk of OOMs.
+`ScrollView` 不会这样做。因此，Fresco view 不会被告知它们是否在屏幕上显示，并保持图片内存占用直到你的 Fragment 或 Activity 停止。你的 App 将会面临更大的 OOM 风险。
 
-#### Don't downcast
+### 不要向下转换
 
-It is tempting to downcast objects returned by Fresco classes into actual objects that appear to give you greater control. At best, this will result in fragile code that gets broken in next release; at worst, it will lead to very subtle bugs.
+不要试图把Fresco返回的一些对象进行向下转化，这也许会带来一些对象操作上的便利，但是也许在后续的版本中，你会遇到一些因为向下转换特性丢失导致的难以处理的问题。
 
-#### Don't use getTopLevelDrawable
+### 不要使用getTopLevelDrawable
 
-`DraweeHierarchy.getTopLevelDrawable()` should **only** be used by DraweeViews. Client code should almost never interact with it.
+`DraweeHierarchy.getTopLevelDrawable()` **仅仅** 应该在DraweeViews中用，除了定义View中，其他应用代码建议连碰都不要碰这个。
 
-The sole exception is [custom views](writing-custom-views.html). Even there, the top-level drawable should never be downcast. We may change the actual type of the drawable in future releases.
+在[自定义view](writing-custom-views.html)中，也千万不要将返回值向下转换，也许下个版本，我们会更改这个返回值类型。
 
-#### Don't re-use DraweeHierarchies
+### 不要复用 DraweeHierarchies
 
-Never call ```DraweeView.setHierarchy``` with the same argument on two different views. Hierarchies are made up of Drawables, and Drawables on Android cannot be shared among multiple views.
+永远不要把 `DraweeHierarchy` 通过 `DraweeView.setHierarchy` 设置给不同的View。DraweeHierarchy 是由一系列 Drawable 组成的。在 Android 中, Drawable 不能被多个 View 共享。
 
-#### Re-use Drawable resource IDs, not Java Drawable objects
+### 不要在多个DraweeHierarchy中使用同一个Drawable
 
-This is for the same reason as the above. Drawables cannot be shared in multiple views.
+原因同上。不过你可以在占位图、重试图、错误图中使用相同的资源ID，Android 实际会创建不同的 Drawable。 如果你使用`GenericDraweeHierarchyBuilder`，那么需要调用[Resources.getDrawable](http://developer.android.com/reference/android/content/res/Resources.html#getDrawable(int))来通过资源获取图片。不过请不要只调用一次然后将结果传给不同的`Hierarchy`！
 
-You can freely use the same `@drawable` resource ID as a placeholder, error, or retry in multiple `SimpleDraweeViews` in XML. If you are using `GenericDraweeHierarchyBuilder`, you must call [Resources.getDrawable](http://developer.android.com/reference/android/content/res/Resources.html#getDrawable(int)) separate for *each* hierarchy. Do not call it just once and pass it to multiple hierarchies!
+### 不要直接控制 hierarchy
 
-#### Do not control hierarchy directly
+不要直接使用 `SettableDraweeHierarchy` 方法(`reset`，`setImage`，...)。它们应该仅由 controller 使用。不要使用`setControllerOverlay`来设置一个覆盖图，这个方法只能给 controller 调用。如果你需要显示覆盖图，可以参考[Drawee的各种效果配置](drawee-branches.html#Overlays)
 
-Do not interact with `SettableDraweeHierarchy` methods (`reset`, `setImage`, ...). Those are to be used by controller only. Do NOT be tempted to use `setControllerOverlay` in order to set an overlay. This method is to be called by controller only, and it refers to a very special controller overaly. If you just need to display an overlay see [Drawee branches] (http://frescolib.org/docs/drawee-branches.html#Overlays).
+### 不要直接给 `DraweeView` 设置图片。
 
-#### Don't set images directly on a DraweeView
+目前 `DraweeView` 直接继承于 ImageView，因此它有 `setImageBitmap`,
+`setImageDrawable`  等方法。
 
-Currently ```DraweeView``` is a subclass of Android's ImageView. This has various methods to set an image (such as setImageBitmap, setImageDrawable)
+如果利用这些方法直接设置一张图片，内部的 `DraweeHierarchy` 就会丢失，也就无法取到image
+pipeline 的任何图像了。
 
-If you set an image directly, you will completely lose your ```DraweeHierarchy```, and will not get any results from the image pipeline.
+### 使用 DraweeView 时，请不要使用任何 ImageView 的属性
 
-#### Don't use ImageView attributes or methods with DraweeView
+在后续的版本中，DraweeView 会直接从 View 派生。任何属于 ImageView 但是不属于 View 的方法都会被移除。
 
-Any XML attribute or method of ImageView not found in [View](http://developer.android.com/reference/android/view/View.html) will not work on a DraweeView. Typical cases are `src`, `scaleType`, `adjustViewBounds`, etc. Don't use those. DraweeView has its own counterparts as explained in the other sections of this documentation. Any ImageView attrribute or method will be removed in the upcoming release, so please don't use those.

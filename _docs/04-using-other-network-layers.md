@@ -1,21 +1,21 @@
 ---
 docid: using-other-network-layers
-title: Using Other Network Layers
+title: 自定义网络加载
 layout: docs
 permalink: /docs/using-other-network-layers.html
 prev: shared-transitions.html
 next: using-other-image-loaders.html
 ---
 
-By default, the image pipeline uses the [HttpURLConnection](https://developer.android.com/training/basics/network-ops/connecting.html) networking library bundled with Android. Apps may have their own network layer they may wish to use instead.
+Image pipeline 默认使用[HttpURLConnection](https://developer.android.com/training/basics/network-ops/connecting.html)。应用可以根据自己需求使用不同的网络库。
 
-### Using OkHttp
+### OkHttp
 
-[OkHttp](http://square.github.io/okhttp) is a popular open-source networking library. The image pipeline has a backend that uses OkHttp instead of the Android default.
+[OkHttp](http://square.github.io/okhttp) 是一个流行的开源网络请求库。Image
+pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充。
 
-####  OkHttp in Gradle
-
-In order to use it, the `dependencies` section of your `build.gradle` file needs to be changed. Along with the Gradle dependencies given on the [download](index.html) page, add **just one** of these:
+如果需要使用OkHttp,
+不要使用这个[下载](download-fresco.html)页面的gradle依赖配置，应该使用下面的依赖配置
 
 For OkHttp2:
 
@@ -35,13 +35,14 @@ dependencies {
 }
 ```
 
-#### OkHttp in Eclipse
+#### Eclipse 中使用 OkHttp
 
-Eclipse users should depend on **either** the `imagepipeline-okhttp` and `imagepipeline-okhttp3` directories in the `frescolib` tree as described in the [Eclipse instructions](index.html#eclipse-adt).
+Eclipse 用户需要依赖`frescolib`目录下的`imagepipeline-okhttp` 或 `imagepipeline-okhttp3`。 参考[在Eclipse中使用Fresco](index.html#eclipse-adt).
 
-#### Configuring the image pipeline with OkHttp
+#### 配置 image pipeline
 
-You must also configure the image pipeline a little differently. Instead of using `ImagePipelineConfig.newBuilder`, use `OkHttpImagePipelineConfigFactory` instead:
+配置Image
+pipeline这时也有一些不同，不再使用`ImagePipelineConfig.newBuilder`,而是使用`OkHttpImagePipelineConfigFactory`:
 
 ```java
 Context context;
@@ -54,17 +55,19 @@ ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
 Fresco.initialize(context, config);
 ```
 
-### Handling sessions and cookies correctly
+### 处理 Session 和 Cookie
 
-The `OkHttpClient` you pass to Fresco in the above step should be set up with interceptors needed to handle authentications to your servers. See [this bug](https://github.com/facebook/fresco/issues/385) and the solutions outlined there for some problems that have occurred with cookies.
+你传给`OkHttpClient`需要处理服务器的安全校验工作（可以通过Interceptor处理）。参考[这个bug](https://github.com/facebook/fresco/issues/385) 来处理自定义网络库可能发生的 Cookie 相关的问题。
 
-### Using your own network fetcher (optional)
+### 使用自定的网络层
 
-For complete control on how the networking layer should behave, you can provide one for your app. You must subclass [NetworkFetcher](../javadoc/reference/com/facebook/imagepipeline/producers/NetworkFetcher.html), which controls communications to the network. You can also optionally subclass [FetchState](../javadoc/reference/com/facebook/imagepipeline/producers/FetchState.html), which is a data structure for request-specific information.
+为了完全控制网络层的行为，你可以自定义网络层。继承[NetworkFetchProducer](http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/producers/NetworkFetchProducer.html), 这个类包含了网络通信。
 
-Our implementation for `OkHttp 3` can be used as an example. See [its source code](https://github.com/facebook/fresco/blob/master/imagepipeline-backends/imagepipeline-okhttp3/src/main/java/com/facebook/imagepipeline/backends/okhttp3/OkHttpNetworkFetcher.java).
+你也可以选择性地继承[FetchState](http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/producers/FetchState.html), 这个类是请求时的数据结构描述。
 
-You must pass your network producer to the image pipeline when [configuring it](configuring-image-pipeline.html):
+默认的 `OkHttp 3` 可以作为一个参考. 源码在这 [its source code](https://github.com/facebook/fresco/blob/master/imagepipeline-backends/imagepipeline-okhttp3/src/main/java/com/facebook/imagepipeline/backends/okhttp3/OkHttpNetworkFetcher.java)..
+
+在[配置Image pipeline](configuring-image-pipeline.html)时，把producer传递给Image pipeline。
 
 ```java
 ImagePipelineConfig config = ImagePipelineConfig.newBuilder()
