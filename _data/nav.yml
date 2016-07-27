@@ -2,18 +2,26 @@
   href: docs/
   category: docs
 
+- title: 支持
+  href: http://fresco-cn.org/support.html
+  category: support
+
 - title: API
   href: http://frescolib.org/javadoc/
   category: apidocs
 
-- title: 官网
-  href: http://frescolib.org/
+- title: GITHUB
+  href: http://github.com/facebook/fresco
   category: github
 
-- title: 支持
-  href: support.html
-  category: support
-
 - title: 关于本文档
-  href: about.html
+  href: http://fresco-cn.org/about.html
   category: about
+
+- title: ENGLISH
+  href: http://frescolib.org/
+  category: link
+
+- title: 한국어
+  href: http://fresco.recrack.com/
+  category: link
