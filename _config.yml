@@ -12,7 +12,8 @@ relative_permalinks: false
 description: >
   Fresco 是一个强大的图片加载组件。使用它之后，你不需要再去关心图片的加载和显示这些繁琐的事情！ 支持 Android 2.3 及以后的版本。
 timezone: Asia/Shanghai
-ghrepo: "desmond1121/fresco-docs-cn"
+ghrepo: "facebook/fresco"
+ghrepo_doc: "desmond1121/fresco-docs-cn"
 
 current_version: 0.12.0
 
