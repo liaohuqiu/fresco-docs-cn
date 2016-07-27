@@ -8,7 +8,7 @@ id: home
 <div class="featureBlock twoByGridBlock" markdown="1">
 ### Image Pipeline
 
-Fresco 中设计有一个叫做 **Image Pipeline** 的模块。它负责从网络，从本地文件系统，本地资源加载图片。为了最大限度节省空间和CPU时间，它含有3级缓存设计（2级内存，1级文件）。
+Fresco 中设计有一个叫做 **Image Pipeline** 的模块。它负责从网络，从本地文件系统，本地资源加载图片。为了最大限度节省空间和CPU时间，它含有3级缓存设计（2级内存，1级磁盘）。
 
 </div>
 <div class="featureBlock twoByGridBlock" markdown="1">
