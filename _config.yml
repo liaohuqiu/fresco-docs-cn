@@ -1,7 +1,8 @@
 ---
 permalink: /blog/:categories/:year/:month/:day/:title.html
-url: "http://frescolib.org"
+url: "http://desmond1121.github.io/fresco-docs-cn"
 baseurl: ""
+origin_url: "http://frescolib.org"
 title: Fresco
 tagline: 专为ANDROID加载图片
 fbappid: "1615782811974223"
