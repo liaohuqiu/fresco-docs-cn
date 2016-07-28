@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://frescolib.org/blog/2015/03/26/Introducing-Fresco.html" />
+  <meta property="og:site_name" content="Fresco"/>
+  <meta property="og:title" content="Introducing Fresco: A new image library for Android" />
+  <meta property="og:image" content="http://frescolib.org/static/og_image.png" />
+  <meta property="og:description" content="Displaying images quickly and efficiently on Facebook for Android is important. Yet we have had many problems storing images effectively over the years. Imag..." />
+
+  <link rel="stylesheet" href="/static/css/main.css" media="screen">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+
+  <script src="/static/react-with-addons-0.13.1.min.js"></script>
+
+  <title>Introducing Fresco: A new image library for Android | Fresco</title>
+  <meta name="description" content="Displaying images quickly and efficiently on Facebook for Android is important. Yet we have had many problems storing images effectively over the years. Imag...">
+
+  <link rel="canonical" href="http://frescolib.org/blog/2015/03/26/Introducing-Fresco.html">
+  <link rel="alternate" type="application/rss+xml" title="Fresco" href="http://frescolib.org/feed.xml" />
+</head>
+
+  <body class="docsNavVisible">
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <div class="headerWrapper wrapper">
+    <header>
+      <a href="/">
+        <img src="/static/logo.png">
+        <h2>Fresco</h2>
+      </a>
+
+      <div class="navigationWrapper navigationFull" id="flat_nav">
+        <nav class="navigation">
+          <ul>
+            
+            <li class="navItem">
+              <a href="docs/">文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/support.html">支持</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/javadoc/">API</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://github.com/facebook/fresco">GITHUB</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/about.html">关于本文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/">ENGLISH</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://fresco.recrack.com/">한국어</a>
+            </li>
+            
+            <li class="navSearchWrapper">
+  <input id="search_input" type="search" />
+</li>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript" src="/static/js/docsearch.js"></script>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+    </header>
+  </div>
+  <script>
+  var event = document.createEvent('Event');
+  event.initEvent('slide', true, true);
+  document.addEventListener('slide', function (e) {
+    document.body.classList.toggle('sliderActive');
+  }, false);
+  var navData = [
+    
+    {
+      href       : "docs/",
+      text       : "文档",
+    },
+    
+    {
+      href       : "/support.html",
+      text       : "支持",
+    },
+    
+    {
+      href       : "http://frescolib.org/javadoc/",
+      text       : "API",
+    },
+    
+    {
+      href       : "http://github.com/facebook/fresco",
+      text       : "GITHUB",
+    },
+    
+    {
+      href       : "/about.html",
+      text       : "关于本文档",
+    },
+    
+    {
+      href       : "http://frescolib.org/",
+      text       : "ENGLISH",
+    },
+    
+    {
+      href       : "http://fresco.recrack.com/",
+      text       : "한국어",
+    },
+    
+  ];
+</script>
+<script type="text/javascript">
+  var Nav = React.createClass({displayName: "Nav",
+    getInitialState: function() {
+      return {
+        currentPath: window.location.pathname,
+        slideoutActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        data: navData,
+      }
+    },
+    handleClick: function(id) {
+      this.setState({
+        slideoutActive: false,
+      });
+      document.dispatchEvent(event);
+    },
+    handleSlide: function(id) {
+      this.setState({
+        slideoutActive: !this.state.slideoutActive,
+      });
+      document.dispatchEvent(event);
+    },
+    componentDidMount: function() {
+      docsearch({
+        apiKey: '57436460790d750ed488518dfb6d41f9',
+        indexName: 'frescolib',
+        inputSelector: '#search_input_react',
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navSlideout': true,
+        'navSlideoutActive': this.state.slideoutActive,
+      });
+      var navClasses = React.addons.classSet({
+        'slidingNav': true,
+        'slidingNavActive': this.state.slideoutActive,
+      });
+      return (
+        React.createElement("div", null,
+          React.createElement("div", {className: classes, onClick: this.handleSlide},
+            React.createElement("i", {className: "menuExpand"},
+              React.createElement("span"),
+              React.createElement("span"),
+              React.createElement("span")
+            )
+          ),
+          React.createElement("nav", {className: navClasses},
+            React.createElement("ul", null,
+              this.props.data.map(this.renderNavItems),
+              React.createElement("li", {className: "navSearchWrapper reactNavSearchWrapper"},
+                React.createElement("input", {id: "search_input_react"})
+              )
+            )
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.state.currentPath === child.href,
+      });
+      return (
+        React.createElement("li", {key: index, className: classes},
+          React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+        )
+      );
+    },
+  });
+
+  function render(navData) {
+    React.render(
+      React.createElement(Nav, {data: navData}),
+      document.getElementById('navigation_wrap')
+    );
+  }
+  render(navData);
+</script>
+</div>
+
+    <div class="navPusher">
+      <div class="docMainWrapper wrapper">
+      <script>
+  var docnavData = [
+    {
+      group: "Recent Posts",
+      items: [
+        
+        {
+          key : "/blog/2015/03/26/Introducing-Fresco.html",
+          title : "Introducing Fresco: A new image library for Android",
+          url : "/blog/2015/03/26/Introducing-Fresco.html"
+        }
+        
+      ]
+    }
+  ];
+  var currentGroup = "Recent Posts";
+  var currentDoc = "Introducing Fresco: A new image library for Android";
+  var activeGroup = "Recent Posts";
+  var sectionTitle = "Blog";
+  var sectionPath = "/blog/";
+</script>
+<div class="docsNavContainer">
+  <nav class="toc" id="doc_nav"></nav>
+</div>
+<script type="text/javascript">
+  var docsevent = document.createEvent('Event');
+  docsevent.initEvent('docs_slide', true, true);
+  document.addEventListener('docs_slide', function (e) {
+    document.body.classList.toggle('docsSliderActive');
+  }, false);
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        activeGroup: activeGroup,
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: currentDoc,
+        currentGroup: currentGroup,
+        data: docnavData,
+        sectionTitle: sectionTitle,
+        sectionPath: sectionPath,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+      document.dispatchEvent(docsevent);
+    },
+    handleAccordion: function(group) {
+      this.setState({
+        activeGroup: group,
+      })
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses},
+          React.createElement("section", {className: 'navWrapper wrapper'},
+            React.createElement("div", {className: 'navBreadcrumb wrapper'},
+              React.createElement("div",
+                {
+                  className: classes,
+                  onClick: this.handleSlide
+                },
+                React.createElement("i")
+              ),
+              React.createElement("h2", null,
+                React.createElement(
+                  "a",
+                  {href: this.props.sectionPath},
+                  this.props.sectionTitle
+                ),
+                React.createElement("i", null, '›'),
+                React.createElement("span", null, this.props.currentGroup)
+              )
+            ),
+            React.createElement("div", {className: 'navGroups'},
+              this.props.data.map(this.renderNavGroups)
+            )
+          )
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupCurrent': this.props.currentGroup === child.group,
+        'navGroupActive': this.state.activeGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index, onClick: this.handleAccordion.bind(this, child.group)},
+          React.createElement("h3", null,
+            React.createElement(
+              "i",
+              null,
+              (this.state.activeGroup === child.group) ? "" : "+"
+            ),
+            React.createElement("span", null, child.group)
+          ),
+          React.createElement("ul", null,
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+
+
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div class="lonePost">
+<div class="post">
+  
+  <header class="post-header">
+    
+    <div class="authorPhoto">
+      <img src="http://graph.facebook.com/622549419/picture/" alt="" title="" />
+    </div>
+    
+    
+    <p class="post-authorName">Tyrone Nicholas</p>
+    
+    <h1 class="post-title">Introducing Fresco: A new image library for Android</h1>
+    <p class="post-meta">Posted March 26, 2015</p>
+  </header>
+
+  <article class="post-content">
+  
+    <p>Displaying images quickly and efficiently on Facebook for Android is important. Yet we have had many problems storing images effectively over the years. Images are large, but devices are small. Each pixel takes up 4 bytes of data — one for each of red, green, blue, and alpha. If a phone has a screen size of 480 x 800 pixels, a single full-screen image will take up 1.5 MB of memory. Phones often have very little memory, and Android devices divide up what memory they have among multiple apps. On some devices, the Facebook app is given as little as 16 MB — and just <em>one</em> image could take up a tenth of that!</p>
+
+<p>What happens when your app runs out of memory? It crashes. We set out to solve this by creating a library we’re calling Fresco — it manages images and the memory they use. Crashes begone.</p>
+
+<!--truncate-->
+
+<h2 id="regions-of-memory">Regions of memory</h2>
+
+<p>To understand what Facebook did here, we need to understand the different heaps of memory available on Android.</p>
+
+<p>The <strong><em>Java</em></strong> <strong>heap</strong> is the one subject to the strict, per-application limits set by the device manufacturer. All objects created using the Java language’s <code class="highlighter-rouge">new</code> operator go here. This is a relatively safe area of memory to use. Memory is <em>garbage-collected</em>, so when the app has finished with memory, the system will automatically reclaim it.</p>
+
+<p>Unfortunately, this process of garbage collection is precisely the problem. To do more than basic reclamations of memory, Android must halt the application completely while it carries out the garbage collection. This is one of the most common causes of an app appearing to freeze or stall briefly while you are using it. It’s frustrating for people using the app, and they may try to scroll or press a button — only to see the app wait inexplicably before responding.</p>
+
+<p>In contrast, the <strong><em>native</em></strong> <strong>heap</strong> is the one used by the C++ new operator. There is much more memory available here. The app is limited only by the physical memory available on the device. There is no garbage collection and nothing to slow things down. However, C++ programs are responsible for freeing every byte of memory they allocate, or they will leak memory and eventually crash.</p>
+
+<p>Android has another region of memory, called <strong><em>ashmem</em></strong>. This operates much like the native heap, but has additional system calls. Android can “unpin” the memory rather than freeing it. This is a lazy free; the memory is freed only if the system actually needs more memory. When Android “pins” the memory back, old data will still be there if it hasn’t been freed.</p>
+
+<h2 id="purgeable-bitmaps">Purgeable bitmaps</h2>
+
+<p>Ashmem is not directly accessible to Java applications, but there are a few exceptions, and images are one of them. When you create a decoded   (uncompressed) image, known as a <em>bitmap</em>, the Android API allows you to specify that the image be <em>purgeable</em>:</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre>BitmapFactory.Options = new BitmapFactory.Options();
+options.inPurgeable = true;
+Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length, options);
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>Purgeable bitmaps live in ashmem. However, the garbage collector does not automatically reclaim them. Android’s system libraries “pin” the memory when the draw system is rendering the image, and “unpin” it when it’s finished. Memory that is unpinned can be reclaimed by the system at any time. If an unpinned image ever needs to be drawn again, the system will just decode it again, on the fly.</p>
+
+<p>This might seem like a perfect solution, but the problem is that the on-the-fly decode happens on the UI thread. Decoding is a CPU-intensive operation, and the UI will stall while it is being carried out. For this reason, Google now <a href="http://developer.android.com/reference/android/graphics/BitmapFactory.Options.html#inPurgeable">advises against using the feature</a>. They now recommend using a different flag, <code class="highlighter-rouge">inBitmap</code>. However, this flag did not exist until Android 3.0. Even then, it was not useful unless most of the images in the app were the same size, which definitely isn’t the case for Facebook. It was not until Android 4.4 that this limitation was removed. However, we needed a solution that would work for everyone using Facebook, including those running Android 2.3.</p>
+
+<h2 id="having-our-cake-and-eating-it-too">Having our cake and eating it too</h2>
+
+<p>We found a solution that allows us to have the best of both worlds — both a fast UI and fast memory. If we pinned the memory in advance, off the UI thread, and made sure it was never unpinned, then we could keep the images in ashmem but not suffer the UI stalls. As luck would have it, the Android Native Development Kit (NDK) has a <a href="https://android.googlesource.com/platform/development.git/+/master/ndk/platforms/android-8/include/android/bitmap.h">function that does precisely this</a>, called <code class="highlighter-rouge">AndroidBitmap_lockPixels</code>. The function was originally intended to be followed by a call to <code class="highlighter-rouge">unlockPixels</code> to unpin the memory again.</p>
+
+<p>Our breakthrough came when we realized we didn’t have to do that. If we called lockPixels <em>without</em> a matching unlockPixels, we created an image that lived safely off the Java heap and yet never slowed down the UI thread. A few lines of C++   code, and we were home free.</p>
+
+<h2 id="write-code-in-java-but-think-like-c">Write code in Java, but think like C++</h2>
+
+<p>As we learned from Spider-Man, “With great power comes great responsibility.” Pinned purgeable bitmaps have neither the garbage collector’s nor ashmem’s built-in purging facility to protect them from memory leaks. We are truly on our own.</p>
+
+<p>In C++, the usual solution is to build smart pointer classes that implement reference counting. These make use of C++ language facilities — copy constructors, assignment operators, and deterministic destructors. This syntactic sugar does not exist in Java, where the garbage collector is assumed to be able to take care of everything. So we have to somehow find a way to implement C++-style guarantees in Java.</p>
+
+<p>We made use of two classes to do this. One is simply called <code class="highlighter-rouge">SharedReference</code>. This has two methods, addReference and deleteReference, which callers must call whenever they take the underlying object or let it out of scope. Once the reference count goes to zero, resource disposal (such as <code class="highlighter-rouge">Bitmap.recycle</code>) takes place.</p>
+
+<p>Yet, obviously, it would be highly error-prone to require Java developers to call these methods. Java was chosen as a language to <em>avoid</em> doing this! So on top of SharedReference, we built <code class="highlighter-rouge">CloseableReference</code>. This implements not only the Java <code class="highlighter-rouge">Closeable</code> interface, but <code class="highlighter-rouge">Cloneable</code> as well. The constructor and the <code class="highlighter-rouge">clone()</code> method call <code class="highlighter-rouge">addReference()</code>, and the <code class="highlighter-rouge">close()</code> method calls <code class="highlighter-rouge">deleteReference()</code>. So Java developers need only follow two simple rules:</p>
+
+<ol>
+  <li>On assigning a CloseableReference to a new object, call <code class="highlighter-rouge">.clone()</code>.</li>
+  <li>Before going out of scope, call <code class="highlighter-rouge">.close()</code>, usually in a finally block.</li>
+</ol>
+
+<p>These rules have been effective in preventing memory leaks, and have let us enjoy native memory management in large Java applications like Facebook for Android and Messenger for Android.</p>
+
+<h2 id="its-more-than-a-loader--its-a-pipeline">It’s more than a loader — it’s a <em>pipeline</em></h2>
+
+<p>There are many steps involved in showing an image on a mobile device:</p>
+
+<p><img src="/static/images/blog/image-pipeline-steps.png" alt="" /></p>
+
+<p>Several excellent open source libraries exist that perform these sequences — <a href="http://square.github.io/picasso">Picasso</a>, <a href="https://github.com/nostra13/Android-Universal-Image-Loader">Universal Image Loader</a>, <a href="https://github.com/bumptech/glide">Glide</a>, and <a href="https://android.googlesource.com/platform/frameworks/volley">Volley</a>, to name a few. All of these have made important contributions to Android development. We believe our new library goes further in several important ways.</p>
+
+<p>Thinking of the steps as a <em>pipeline</em> rather than as a <em>loader</em> in itself makes a difference. Each step should be as independent of the others as possible, taking an input and some parameters and producing an output. It should be possible to do some operations in parallel, others in serial. Some execute only in specific conditions. Several have particular requirements as to which threads they execute on. Moreover, the entire picture becomes more complex when we consider progressive images. Many people use Facebook over very slow Internet connections. We want these users to be able to see their images as quickly as possible, often even before the image has actually finished downloading.</p>
+
+<h2 id="stop-worrying-love-streaming">Stop worrying, love streaming</h2>
+
+<p>Asynchronous code on Java has traditionally been executed through mechanisms like <code class="highlighter-rouge">Future</code>. Code is submitted for execution on another thread, and an object like a Future can be checked to see if the result is ready. This, however, assumes that there is only one result. When dealing with progressive images, we want there to be an entire series of continuous results.</p>
+
+<p>Our solution was a more generalized version of Future, called <code class="highlighter-rouge">DataSource</code>. This offers a subscribe method, to which callers must pass a <code class="highlighter-rouge">DataSubscriber</code> and an <code class="highlighter-rouge">Executor</code>. The DataSubscriber receives notifications from the DataSource on both intermediate and final results, and offers a simple way to distinguish between them. Because we are so often dealing with objects that require an explicit <code class="highlighter-rouge">close</code> call, DataSource itself is a <code class="highlighter-rouge">Closeable</code>.</p>
+
+<p>Behind the scenes, each of the boxes above is implemented using a new framework, called Producer/Consumer. Here we drew inspiration from <a href="http://reactivex.io/">ReactiveX</a> frameworks. Our system has interfaces similar to <a href="https://github.com/ReactiveX/RxJava">RxJava</a>, but more appropriate for mobile and with built-in support for Closeables.</p>
+
+<p>The interfaces are kept simple. <code class="highlighter-rouge">Producer</code> has a single method, <code class="highlighter-rouge">produceResults</code>, which takes a <code class="highlighter-rouge">Consumer</code> object. Consumer, in turn, has an <code class="highlighter-rouge">onNewResult</code> method.</p>
+
+<p>We use a system like this to chain producers together. Suppose we have a producer whose job is to transform type I to type O. It would look like this:</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></td><td class="code"><pre>public class OutputProducer&lt;I, O&gt; implements Producer&lt;O&gt; {
+
+  private final Producer&lt;I&gt; mInputProducer;
+
+  public OutputProducer(Producer&lt;I&gt; inputProducer) {
+    this.mInputProducer = inputProducer;
+  }
+
+  public void produceResults(Consumer&lt;O&gt; outputConsumer, ProducerContext context) {
+    Consumer&lt;I&gt; inputConsumer = new InputConsumer(outputConsumer);
+    mInputProducer.produceResults(inputConsumer, context);
+  }
+
+  private static class InputConsumer implements Consumer&lt;I&gt; {
+    private final Consumer&lt;O&gt; mOutputConsumer;
+
+    public InputConsumer(Consumer&lt;O&gt; outputConsumer) {
+      mOutputConsumer = outputConsumer;
+    }
+
+    public void onNewResult(I newResult, boolean isLast) {
+      O output = doActualWork(newResult);
+      mOutputConsumer.onNewResult(output, isLast);      
+    }
+  }
+}
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>This lets us chain together a very complex series of steps and still keep them logically independent.</p>
+
+<h2 id="animations--from-one-to-many">Animations — from one to many</h2>
+
+<p>Stickers, which are animations stored in the GIF and WebP formats, are well liked by people who use Facebook. Supporting them poses new challenges. An animation is not one bitmap but a whole series of them, each of which must be decoded, stored in memory, and displayed. Storing every single frame in memory is not tenable for large animations.</p>
+
+<p>We built <code class="highlighter-rouge">AnimatedDrawable</code>, a Drawable capable of rendering animations, and two backends for it —   one for GIF, the other for WebP. AnimatedDrawable implements the standard Android <code class="highlighter-rouge">Animatable</code> interface, so callers can start and stop the animation whenever they want. To optimize memory usage, we cache all the frames in memory if they are small enough, but if they are too large for that, we decode on the fly. This behavior is fully tunable by the caller.</p>
+
+<p>Both backends are implemented in C++ code. We keep a copy of both the encoded data and parsed metadata, such as width and height. We reference count the data, which allows multiple Drawables on the Java side to access a single WebP image simultaneously.</p>
+
+<h2 id="how-do-i-love-thee-let-me-drawee-the-ways---">How do I love thee? Let me Drawee the ways . . .</h2>
+
+<p>When images are being downloaded from the network, we want to show a placeholder. If they fail to download, we show an error indicator. When the image does arrive, we do a quick fade-in animation. Often we scale the image, or even apply a display matrix, to render it at a desired size using hardware acceleration. And we don’t always scale around the center of the image — the useful focus point may well be elsewhere. Sometimes we want to show the image with rounded corners, or even as a circle. All of these operations need to be fast and smooth.</p>
+
+<p>Our previous implementation involved using Android <code class="highlighter-rouge">View</code> objects — swapping out a placeholder View for an <code class="highlighter-rouge">ImageView</code>   when the time came. This turned out to be quite slow. Changing Views forces Android to execute an entire layout pass, definitely not something you want to happen while users are scrolling. A more sensible approach would be to use Android’s Drawables, which can be swapped out on the fly.</p>
+
+<p>So we built Drawee. This is an MVC-like framework for the display of images. The model is called <code class="highlighter-rouge">DraweeHierarchy</code>. It is implemented as a hierarchy of Drawables, each of which applies a specific function — imaging, layering, fade-in, or scaling — to the underlying image.</p>
+
+<p><code class="highlighter-rouge">DraweeControllers</code> connect to the image pipeline — or to any image loader — and take care of backend image manipulation. They receive events back from the pipeline and decide how to handle them. They control what the DraweeHierarchy actually displays   — whether a placeholder, error condition, or finished image.</p>
+
+<p><code class="highlighter-rouge">DraweeViews</code>   have only limited functionality, but what they provide is decisive. They listen for Android system events that signal that the view is no longer being shown on-screen. When going off-screen, the DraweeView can tell the DraweeController to close the resources used by the image. This avoids memory leaks. In addition, the controller will tell the image pipeline to cancel the network request, if it hasn’t gone out yet. Thus, scrolling through a long list of images, as Facebook often does, will not break the network bank.</p>
+
+<p>With these facilities, the hard work of displaying images is gone. Calling code need only instantiate a DraweeView, specify a URI, and, optionally, name some other parameters. Everything else happens automatically. Developers don’t need to worry about managing image memory or streaming the updates to the image. Everything is done for them by the libraries.</p>
+
+<h2 id="fresco">Fresco</h2>
+
+<p>Having built this elaborate tool set for image display and manipulation, we wanted to share it with the Android developer community. We are pleased to announce that, as of today, this project is now available as <a href="http://github.com/facebook/fresco">open source</a>.</p>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Fresco"><em>fresco</em></a> is a painting technique that has been popular around the world for centuries. With this name, we honor the many great artists who have used this form, from Italian Renaissance masters like Raphael to the Sigiriya artists of Sri Lanka. We don’t pretend to be on that level. We do hope that Android app developers enjoy using our library as much as we’ve enjoyed building it.</p>
+
+<p><em>This post was first published on <a href="https://code.facebook.com/posts/366199913563917">code.facebook.com</a>.</em></p>
+
+  
+  
+    <div class="pluginBlock allShareBlock">
+  <div class="fb-like pluginWrapper likeButtonWrapper" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1615782811974223',
+    xfbml      : true,
+    version    : 'v2.3'
+  });
+  };
+
+  (function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script><div class="pluginWrapper twitterSharePlugin">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="Fresco">Tweet</a>
+</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><div class="pluginBlock">
+  <div class="g-plusone" data-size="medium"></div>
+</div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</div>
+  
+  </article>
+</div>
+
+</div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <div class="footerBlocks">
+      <div id="fb_oss" class="footerSection fbOpenSourceFooter">
+          <svg class="facebookOSSLogoSvg" viewBox="0 0 1133.9 1133.9" x="0px" y="0px">
+            <g>
+              <path class="logoRing outerRing" d="M 498.3 3.7 c 153.6 88.9 307.3 177.7 461.1 266.2 c 7.6 4.4 10.3 9.1 10.3 17.8 c -0.3 179.1 -0.2 358.3 0 537.4 c 0 8.1 -2.4 12.8 -9.7 17.1 c -154.5 88.9 -308.8 178.1 -462.9 267.5 c -9 5.2 -15.5 5.3 -24.6 0.1 c -153.9 -89.2 -307.9 -178 -462.1 -266.8 C 3 838.8 0 833.9 0 825.1 c 0.3 -179.1 0.2 -358.3 0 -537.4 c 0 -8.6 2.6 -13.6 10.2 -18 C 164.4 180.9 318.4 92 472.4 3 C 477 -1.5 494.3 -0.7 498.3 3.7 Z M 48.8 555.3 c 0 79.9 0.2 159.9 -0.2 239.8 c -0.1 10 3 15.6 11.7 20.6 c 137.2 78.8 274.2 157.8 411 237.3 c 9.9 5.7 17 5.7 26.8 0.1 c 137.5 -79.8 275.2 -159.2 412.9 -238.5 c 7.4 -4.3 10.5 -8.9 10.5 -17.8 c -0.3 -160.2 -0.3 -320.5 0 -480.7 c 0 -8.8 -2.8 -13.6 -10.3 -18 C 772.1 218 633.1 137.8 494.2 57.4 c -6.5 -3.8 -11.5 -4.5 -18.5 -0.5 C 336.8 137.4 197.9 217.7 58.8 297.7 c -7.7 4.4 -10.2 9.2 -10.2 17.9 C 48.9 395.5 48.8 475.4 48.8 555.3 Z" />
+              <path class="logoRing middleRing" d="M 184.4 555.9 c 0 -33.3 -1 -66.7 0.3 -100 c 1.9 -48 24.1 -86 64.7 -110.9 c 54.8 -33.6 110.7 -65.5 167 -96.6 c 45.7 -25.2 92.9 -24.7 138.6 1 c 54.4 30.6 108.7 61.5 162.2 93.7 c 44 26.5 67.3 66.8 68 118.4 c 0.9 63.2 0.9 126.5 0 189.7 c -0.7 50.6 -23.4 90.7 -66.6 116.9 c -55 33.4 -110.8 65.4 -167.1 96.5 c -43.4 24 -89 24.2 -132.3 0.5 c -57.5 -31.3 -114.2 -64 -170 -98.3 c -41 -25.1 -62.9 -63.7 -64.5 -112.2 C 183.5 621.9 184.3 588.9 184.4 555.9 Z M 232.9 556.3 c 0 29.5 0.5 59.1 -0.1 88.6 c -0.8 39.2 16.9 67.1 50.2 86.2 c 51.2 29.4 102.2 59.2 153.4 88.4 c 31.4 17.9 63.6 18.3 95 0.6 c 53.7 -30.3 107.1 -61.2 160.3 -92.5 c 29.7 -17.5 45 -44.5 45.3 -78.8 c 0.6 -61.7 0.5 -123.5 0 -185.2 c -0.3 -34.4 -15.3 -61.5 -44.9 -79 C 637.7 352.6 583 320.8 527.9 290 c -27.5 -15.4 -57.2 -16.1 -84.7 -0.7 c -56.9 31.6 -113.4 64 -169.1 97.6 c -26.4 15.9 -40.7 41.3 -41.1 72.9 C 232.6 491.9 232.9 524.1 232.9 556.3 Z" />
+              <path class="logoRing innerRing" d="M 484.9 424.4 c 69.8 -2.8 133.2 57.8 132.6 132 C 617 630 558.5 688.7 484.9 689.1 c -75.1 0.4 -132.6 -63.6 -132.7 -132.7 C 352.1 485 413.4 421.5 484.9 424.4 Z M 401.3 556.7 c -3.4 37.2 30.5 83.6 83 84.1 c 46.6 0.4 84.8 -37.6 84.9 -84 c 0.1 -46.6 -37.2 -84.4 -84.2 -84.6 C 432.2 472.1 397.9 518.3 401.3 556.7 Z" />
+            </g>
+          </svg>
+        <h2>Facebook Open Source</h2>
+      </div>
+      <div class="footerSection">
+        <a class="footerLink" href="https://code.facebook.com/projects/" target="_blank">Open Source Projects</a>
+        <a class="footerLink" href="https://github.com/facebook/" target="_blank">GitHub</a>
+        <a class="footerLink" href="https://twitter.com/fbOpenSource" target="_blank">Twitter</a>
+      </div>
+      <div class="footerSection rightAlign">
+        <a class="footerLink" href="https://github.com/facebook/fresco" target="_blank">Contribute to this project on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    </div>
+  </body>
+</html>

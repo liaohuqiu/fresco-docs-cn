@@ -1,314 +1,656 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
-<head>
-    <meta charset='utf-8'>
-    <title>Fresco | 缩放和旋转图片 | Fresco 中文文档</title>
-    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
-    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
-    <link rel='shortcut icon' href='/static/favicon.png'>
-    <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="缩放和旋转图片" />
-    <meta property="og:site_name" content="fresco">
-    <meta property='og:description' content='Fresco is an image management library.'>
-    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
-    <meta property='og:url' content="http://facebook.github.io/fresco/docs/resizing-rotating.html">
-    
-    <meta property='og:type' content='website'>
-    
-    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
-    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
-    <!-- Google Analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      ga('create', 'UA-43024238-8', 'auto');
-      ga('send', 'pageview');
+  <meta property="og:url" content="http://frescolib.org/docs/resizing-rotating.html" />
+  <meta property="og:site_name" content="Fresco"/>
+  <meta property="og:title" content="缩放和旋转图片" />
+  <meta property="og:image" content="http://frescolib.org/static/og_image.png" />
+  <meta property="og:description" content="使用这个功能需要直接创建 image request。" />
 
-    </script>
+  <link rel="stylesheet" href="/static/css/main.css" media="screen">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+
+  <script src="/static/react-with-addons-0.13.1.min.js"></script>
+
+  <title>缩放和旋转图片 | Fresco</title>
+  <meta name="description" content="使用这个功能需要直接创建 image request。">
+
+  <link rel="canonical" href="http://frescolib.org/docs/resizing-rotating.html">
+  <link rel="alternate" type="application/rss+xml" title="Fresco" href="http://frescolib.org/feed.xml" />
 </head>
-<body>
 
-<header class='topbar'><nav class='width'>
-<a href='/'>
-  <img src="/static/fresco-logo.png" class="logo">
-</a>
-    <ul>
-      <li><a href="/docs/index.html#_"
-          
-          class="active" >
-          文档
-      </a></li>
-      <li><a href="/"
-          >
-          关于
-      </a></li>
-      <li><a href="/support.html"
-          >
-          支持
-      </a></li>
-      <li><a href="/javadoc">
-          API
-      </a></li>
-      <li><a href="http://github.com/facebook/fresco">GitHub</a>
-      <li><a href="/about.html"
-          >
-      关于本文档</a></li>
-  <li><a href="http://frescolib.org/">English</a></li>
-  <li><a href="http://fresco.recrack.com/">한국어</a></li>
-    </ul>
-</nav></header>
+  <body class="docsNavVisible">
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <div class="headerWrapper wrapper">
+    <header>
+      <a href="/">
+        <img src="/static/logo.png">
+        <h2>Fresco</h2>
+      </a>
+
+      <div class="navigationWrapper navigationFull" id="flat_nav">
+        <nav class="navigation">
+          <ul>
+            
+            <li class="navItem navItemActive">
+              <a href="docs/">文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/support.html">支持</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/javadoc/">API</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://github.com/facebook/fresco">GITHUB</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/about.html">关于本文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/">ENGLISH</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://fresco.recrack.com/">한국어</a>
+            </li>
+            
+            <li class="navSearchWrapper">
+  <input id="search_input" type="search" />
+</li>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript" src="/static/js/docsearch.js"></script>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+    </header>
+  </div>
+  <script>
+  var event = document.createEvent('Event');
+  event.initEvent('slide', true, true);
+  document.addEventListener('slide', function (e) {
+    document.body.classList.toggle('sliderActive');
+  }, false);
+  var navData = [
+    
+    {
+      href       : "docs/",
+      text       : "文档",
+    },
+    
+    {
+      href       : "/support.html",
+      text       : "支持",
+    },
+    
+    {
+      href       : "http://frescolib.org/javadoc/",
+      text       : "API",
+    },
+    
+    {
+      href       : "http://github.com/facebook/fresco",
+      text       : "GITHUB",
+    },
+    
+    {
+      href       : "/about.html",
+      text       : "关于本文档",
+    },
+    
+    {
+      href       : "http://frescolib.org/",
+      text       : "ENGLISH",
+    },
+    
+    {
+      href       : "http://fresco.recrack.com/",
+      text       : "한국어",
+    },
+    
+  ];
+</script>
+<script type="text/javascript">
+  var Nav = React.createClass({displayName: "Nav",
+    getInitialState: function() {
+      return {
+        currentPath: window.location.pathname,
+        slideoutActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        data: navData,
+      }
+    },
+    handleClick: function(id) {
+      this.setState({
+        slideoutActive: false,
+      });
+      document.dispatchEvent(event);
+    },
+    handleSlide: function(id) {
+      this.setState({
+        slideoutActive: !this.state.slideoutActive,
+      });
+      document.dispatchEvent(event);
+    },
+    componentDidMount: function() {
+      docsearch({
+        apiKey: '57436460790d750ed488518dfb6d41f9',
+        indexName: 'frescolib',
+        inputSelector: '#search_input_react',
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navSlideout': true,
+        'navSlideoutActive': this.state.slideoutActive,
+      });
+      var navClasses = React.addons.classSet({
+        'slidingNav': true,
+        'slidingNavActive': this.state.slideoutActive,
+      });
+      return (
+        React.createElement("div", null,
+          React.createElement("div", {className: classes, onClick: this.handleSlide},
+            React.createElement("i", {className: "menuExpand"},
+              React.createElement("span"),
+              React.createElement("span"),
+              React.createElement("span")
+            )
+          ),
+          React.createElement("nav", {className: navClasses},
+            React.createElement("ul", null,
+              this.props.data.map(this.renderNavItems),
+              React.createElement("li", {className: "navSearchWrapper reactNavSearchWrapper"},
+                React.createElement("input", {id: "search_input_react"})
+              )
+            )
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.state.currentPath === child.href,
+      });
+      return (
+        React.createElement("li", {key: index, className: classes},
+          React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+        )
+      );
+    },
+  });
+
+  function render(navData) {
+    React.render(
+      React.createElement(Nav, {data: navData}),
+      document.getElementById('navigation_wrap')
+    );
+  }
+  render(navData);
+</script>
+</div>
+
+    <div class="navPusher">
+      <div class="docMainWrapper wrapper">
+      <script>
+  var docnavData = [
+    
+    {
+      group     : "快速开始",
+      items     : [
+        
+        
+        {
+          key : "/docs/index.html",
+          title : "引入Fresco",
+          url : "/docs/index.html",
+        },
+        
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用 Fresco",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+        {
+          key : "/docs/concepts.html",
+          title : "关键概念",
+          url : "/docs/concepts.html",
+        },
+        
+        
+        {
+          key : "/docs/supported-uris.html",
+          title : "支持的URI",
+          url : "/docs/supported-uris.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Drawee 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-drawees-xml.html",
+          title : "在XML中使用Drawees",
+          url : "/docs/using-drawees-xml.html",
+        },
+        
+        
+        {
+          key : "/docs/using-drawees-code.html",
+          title : "在JAVA代码中使用Drawees",
+          url : "/docs/using-drawees-code.html",
+        },
+        
+        
+        {
+          key : "/docs/drawee-branches.html",
+          title : "Drawee的各种效果配置",
+          url : "/docs/drawee-branches.html",
+        },
+        
+        
+        {
+          key : "/docs/progress-bars.html",
+          title : "进度条",
+          url : "/docs/progress-bars.html",
+        },
+        
+        
+        {
+          key : "/docs/scaling.html",
+          title : "缩放",
+          url : "/docs/scaling.html",
+        },
+        
+        
+        {
+          key : "/docs/rounded-corners-and-circles.html",
+          title : "圆角和圆圈",
+          url : "/docs/rounded-corners-and-circles.html",
+        },
+        
+        
+        {
+          key : "/docs/using-controllerbuilder.html",
+          title : "使用ControllerBuilder",
+          url : "/docs/using-controllerbuilder.html",
+        },
+        
+        
+        {
+          key : "/docs/progressive-jpegs.html",
+          title : "渐进式JPEG图",
+          url : "/docs/progressive-jpegs.html",
+        },
+        
+        
+        {
+          key : "/docs/animations.html",
+          title : "动画支持",
+          url : "/docs/animations.html",
+        },
+        
+        
+        {
+          key : "/docs/requesting-multiple-images.html",
+          title : "多图请求及图片复用",
+          url : "/docs/requesting-multiple-images.html",
+        },
+        
+        
+        {
+          key : "/docs/listening-download-events.html",
+          title : "监听下载事件",
+          url : "/docs/listening-download-events.html",
+        },
+        
+        
+        {
+          key : "/docs/resizing-rotating.html",
+          title : "缩放和旋转图片",
+          url : "/docs/resizing-rotating.html",
+        },
+        
+        
+        {
+          key : "/docs/modifying-image.html",
+          title : "修改图片",
+          url : "/docs/modifying-image.html",
+        },
+        
+        
+        {
+          key : "/docs/image-requests.html",
+          title : "图片请求(Image Requests)",
+          url : "/docs/image-requests.html",
+        },
+        
+        
+        {
+          key : "/docs/writing-custom-views.html",
+          title : "自定义View",
+          url : "/docs/writing-custom-views.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Image Pipeline 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/intro-image-pipeline.html",
+          title : "Image Pipeline介绍",
+          url : "/docs/intro-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/configure-image-pipeline.html",
+          title : "配置Image Pipeline",
+          url : "/docs/configure-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/caching.html",
+          title : "缓存",
+          url : "/docs/caching.html",
+        },
+        
+        
+        {
+          key : "/docs/using-image-pipeline.html",
+          title : "直接使用Image Pipeline",
+          url : "/docs/using-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/datasources-datasubscribers.html",
+          title : "数据源和数据订阅者",
+          url : "/docs/datasources-datasubscribers.html",
+        },
+        
+        
+        {
+          key : "/docs/closeable-references.html",
+          title : "可关闭的引用",
+          url : "/docs/closeable-references.html",
+        },
+        
+        
+        {
+          key : "/docs/webp-support.html",
+          title : "Webp支持",
+          url : "/docs/webp-support.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "问题处理",
+      items     : [
+        
+        
+        {
+          key : "/docs/troubleshooting.html",
+          title : "问题处理",
+          url : "/docs/troubleshooting.html",
+        },
+        
+        
+        {
+          key : "/docs/gotchas.html",
+          title : "一些陷阱",
+          url : "/docs/gotchas.html",
+        },
+        
+        
+        {
+          key : "/docs/wrap-content.html",
+          title : "wrap_content的限制",
+          url : "/docs/wrap-content.html",
+        },
+        
+        
+        {
+          key : "/docs/shared-transitions.html",
+          title : "共享元素动画",
+          url : "/docs/shared-transitions.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "第三方类库",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-other-network-layers.html",
+          title : "自定义网络加载",
+          url : "/docs/using-other-network-layers.html",
+        },
+        
+        
+        {
+          key : "/docs/using-other-image-loaders.html",
+          title : "使用其他的Image Loader",
+          url : "/docs/using-other-image-loaders.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "发布App",
+      items     : [
+        
+        
+        {
+          key : "/docs/proguard.html",
+          title : "混淆(Proguard)",
+          url : "/docs/proguard.html",
+        },
+        
+        
+        {
+          key : "/docs/multiple-apks.html",
+          title : "按需打包",
+          url : "/docs/multiple-apks.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "如何贡献代码？",
+      items     : [
+        
+        
+        {
+          key : "/docs/building-from-source.html",
+          title : "构建源码",
+          url : "/docs/building-from-source.html",
+        },
+        
+        
+        {
+          key : "/docs/sample-code.html",
+          title : "示例代码",
+          url : "/docs/sample-code.html",
+        }
+        
+      ],
+    },
+    
+  ];
+  var currentGroup = "Drawee 指南";
+  var currentDoc = "缩放和旋转图片";
+  var activeGroup = "Drawee 指南";
+  var sectionTitle = "Docs";
+  var sectionPath = "/docs/";
+</script>
+<div class="docsNavContainer">
+  <nav class="toc" id="doc_nav"></nav>
+</div>
+<script type="text/javascript">
+  var docsevent = document.createEvent('Event');
+  docsevent.initEvent('docs_slide', true, true);
+  document.addEventListener('docs_slide', function (e) {
+    document.body.classList.toggle('docsSliderActive');
+  }, false);
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        activeGroup: activeGroup,
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: currentDoc,
+        currentGroup: currentGroup,
+        data: docnavData,
+        sectionTitle: sectionTitle,
+        sectionPath: sectionPath,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+      document.dispatchEvent(docsevent);
+    },
+    handleAccordion: function(group) {
+      this.setState({
+        activeGroup: group,
+      })
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses},
+          React.createElement("section", {className: 'navWrapper wrapper'},
+            React.createElement("div", {className: 'navBreadcrumb wrapper'},
+              React.createElement("div",
+                {
+                  className: classes,
+                  onClick: this.handleSlide
+                },
+                React.createElement("i")
+              ),
+              React.createElement("h2", null,
+                React.createElement(
+                  "a",
+                  {href: this.props.sectionPath},
+                  this.props.sectionTitle
+                ),
+                React.createElement("i", null, '›'),
+                React.createElement("span", null, this.props.currentGroup)
+              )
+            ),
+            React.createElement("div", {className: 'navGroups'},
+              this.props.data.map(this.renderNavGroups)
+            )
+          )
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupCurrent': this.props.currentGroup === child.group,
+        'navGroupActive': this.state.activeGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index, onClick: this.handleAccordion.bind(this, child.group)},
+          React.createElement("h3", null,
+            React.createElement(
+              "i",
+              null,
+              (this.state.activeGroup === child.group) ? "" : "+"
+            ),
+            React.createElement("span", null, child.group)
+          ),
+          React.createElement("ul", null,
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
 
 
-<section class='content'><div class='width'>
-<nav class='toc'>
-  
-    <section>
-      <h3>配置和使用</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/index.html#_">
-              引入到项目
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/compile-in-android-studio.html#_">
-              关于在Android Studio中编译
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/getting-started.html#_">
-              配置和开始使用
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/concepts.html#_">
-              关键概念
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/supported-uris.html#_">
-              支持的 URIs
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>Drawee 指南</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/using-drawees-xml.html#_">
-              在XML中使用 Drawees
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-drawees-code.html#_">
-              在Java代码中使用 Drawees
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/drawee-components.html#_">
-              Drawee的各种效果配置
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/progress-bars.html#_">
-              进度条
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/scaling.html#_">
-              缩放
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/rounded-corners-and-circles.html#_">
-              圆角/圆圈
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-controllerbuilder.html#_">
-              使用ControllerBuilder
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/progressive-jpegs.html#_">
-              渐进式JPEG图
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/animations.html#_">
-              动画图(gif)
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/requesting-multiple-images.html#_">
-              多图请求及图片复用
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/listening-download-events.html#_">
-              监听下载事件
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/resizing-rotating.html#_" class="active">
-              缩放和旋转
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/modifying-image.html#_">
-              图片的修改
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/image-requests.html#_">
-              图片请求
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/writing-custom-views.html#_">
-              自定义View
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/gotchas.html#_">
-              一些陷阱
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>Image Pipeline 指南</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/intro-image-pipeline.html#_">
-              什么是Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/configure-image-pipeline.html#_">
-              配置Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/caching.html#_">
-              缓存的行为控制
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-image-pipeline.html#_">
-              直接使用Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/datasources-datasubscribers.html#_">
-              数据源/订阅数据源
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/closeable-references.html#_">
-              可关闭的引用
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>第三方类库</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/using-other-network-layers.html#_">
-              自定义网络加载
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-other-image-loaders.html#_">
-              使用其他的Image Loader
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-</nav>
+      <div class="mainContainer documentContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">缩放和旋转图片</h1>
+  </header>
 
+  <article class="post-content">
+   
+      <p>使用这个功能需要直接<a href="using-controllerbuilder.html#ImageRequest">创建 image request</a>。</p>
 
-<article class='withtoc'>
-    <h1>
-      缩放和旋转图片
-      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/01-resizing-rotating.md" target="_blank">编辑和纠错</a>
-    </h1>
-    <p></p>
-
-    <p>使用这个功能需要直接<a href="using-controllerbuilder.html#ImageRequest">创建 image request</a>。</p>
-
-<h3>术语</h3>
+<h2 id="section">术语</h2>
 
 <p><strong>Scaling</strong> 是一种画布操作，通常是由硬件加速的。图片实际大小保持不变，它只不过在绘制时被放大或缩小。</p>
 
@@ -316,98 +658,148 @@
 
 <p><strong>Downsampling</strong> 同样是软件实现的管道操作。它不是创建一张新的图片，而是在解码时改变图片的大小。</p>
 
-<h3>应该 <strong>resize</strong> 还是 <strong>scale</strong> ？</h3>
+<h2 id="section-1">应该使用哪种 ？</h2>
 
-<p>Resize 很少是必要的。Scale 是大部分情况下的优先选择，即使在用 resize 时。</p>
+<p>如果图片不是比 <code class="highlighter-rouge">View</code> 大出很多的情况下，只需要做 <strong>Scaling</strong>。 它更快，更容易书写代码，并且输出的图像质量更好。当然，图片比 <code class="highlighter-rouge">View</code>小的情况也是这样，这样你放大图片时，不会因为产生一张新的大图而浪费内存空间，却又没有带来更好的视觉提高。</p>
 
-<p>Resize 有以下几个限制：</p>
+<p>“大出很多”的定义是：</p>
+
+<blockquote>
+  <p>图片的像素数 &gt; 视图量级x 2</p>
+</blockquote>
 
 <ul>
-<li>修改尺寸是受限的，它不能返回一张更大的图片，只能让图片变小。</li>
-<li>目前，只有 JPEG 图片可以修改尺寸。</li>
-<li>对于产生的图片的尺寸，只能粗略地控制。图片不能修改为确定的尺寸，只能通过支持的修改选项来变化。这意味着即使是修改后的图片，也需要在展示前进行 <strong>scale</strong> 操作。</li>
-<li>只支持以下的修改选项： N / 8，1 &lt;= N &lt;= 8</li>
-<li>Resize 是由软件执行的，相比硬件加速的 scale 操作较慢。</li>
+  <li>视图量级 = 长 x 宽 *</li>
 </ul>
 
-<p>Scale 并没有以上的限制，它使用 Android 内置的功能使图片和显示边界相符。在 Android 4.0 及之后，它可以通过 GPU 进行加速。这在大部分情况下是最快，同时也是最高效地将图片显示为你想要的尺寸的方式。唯一的缺点是当图片远大于显示大小时，会浪费内存。</p>
+<p>这在大部分的照相机拍摄图片下是符合的。假设你的设备屏幕尺寸是1080 x 1920 （大概2MP），那么一个16MP的照相机产生的相片比屏幕尺寸量级大8倍。此时毫无疑问要选择 <strong>Resize</strong>。</p>
 
-<p>那么什么时候该使用 resize 呢？你应该只在需要展示一张远大于显示大小的图片时使用 resize 以节省内存。一个例子是当你想要在 1280*720(大约 1MP) 的 view 中显示一张 8MP 的照片时。一张 8MP 的图片当解码为 4字节/像素的 ARGB 图片时大约占 32MB 的内存。如果 resize 为显示大小，它只占用少于 4MB 内存。</p>
+<p>对于网络图片，在考虑 resize 之前，先尝试请求大小合适的图片。如果服务器能返回一张较小的图，就不要请求一张高解析度图片。你应该考虑用户的流量。同时，获取较小的图片可以减少你的 APP 的存储空间和 CPU 占用。</p>
 
-<p>对于网络图片，在考虑 resize 之前，先尝试请求大小合适的图片。如果服务器能返回一张较小的图，就不要请求一张 8MP 的高解析度图片。你应该考虑用户的流量。同时，获取较小的图片可以减少你的 APP 的存储空间和 CPU 占用。</p>
+<h3 id="scaling">Scaling</h3>
 
-<p>只有当服务器不提供可选的较小图片，或者你在使用本地图片时，你才应该采取 resize。在任何其他情况下，包括放大图片，都该使用 scale。对于 scale，只需要指定 <code>SimpleDraweeView</code> 中 <code>layout_width</code> 和 <code>layout_height</code> 的大小，就像在其他 Android View 中做的那样。然后指定<a href="scaling.html">缩放类型</a>。</p>
+<p>对于 scale，只需要指定 <code class="highlighter-rouge">SimpleDraweeView</code> 中 <code class="highlighter-rouge">layout_width</code> 和 <code class="highlighter-rouge">layout_height</code> 的大小，就像在其他 Android View 中做的那样。然后指定<a href="scaling.html">缩放类型</a>。</p>
 
-<h3><strong>Resizing</strong></h3>
+<p>Scaling 使用 Android 自身的机制来缩放图片。 在 Android 4.0 及以后，在配置 GPU 的设备上会启用硬件加速。</p>
+
+<h3 id="resizing">Resizing</h3>
 
 <p>Resize 并不改变原始图片，它只在解码前修改内存中的图片大小。</p>
 
-<p>相比 Android 内置的功能，这个方法可以进行更大范围的调整。尤其是通过相机拍摄的照片，对于 scale 来说通常太大，需要在显示前进行 resize。</p>
+<p>如果要 resize，创建<code class="highlighter-rouge">ImageRequest</code>时，提供一个 <a href="../javadoc/reference/com/facebook/imagepipeline/common/ResizeOptions.html">ResizeOptions</a> :</p>
 
-<p>目前仅支持 JPEG 格式图片的 resize 操作，但它是最常用的图片格式，且大多数安卓设备的相机照片存储为该格式。</p>
-
-<p>如果要 resize，创建<code>ImageRequest</code>时，提供一个 <a href="../javadoc/reference/com/facebook/imagepipeline/common/ResizeOptions.html">ResizeOptions</a> :</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="s">&quot;file:///mnt/sdcard/MyApp/myfile.jpg&quot;</span><span class="o">;</span>
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre></td><td class="code"><pre><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="s">"file:///mnt/sdcard/MyApp/myfile.jpg"</span><span class="o">;</span>
 <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">50</span><span class="o">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">50</span><span class="o">;</span>
 <span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">setResizeOptions</span><span class="o">(</span><span class="k">new</span> <span class="nf">ResizeOptions</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">setResizeOptions</span><span class="o">(</span><span class="k">new</span> <span class="n">ResizeOptions</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">))</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">PipelineDraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newDraweeControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mDraweeView</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
     <span class="o">.</span><span class="na">setImageRequest</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
-</code></pre></div>
-<h3>向下采样(Downsampling)</h3>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+<p>Resize 有以下几个限制：</p>
 
-<p>向下采样是一个最近添加到 Fresco 的特性。使用的话需要在设置 image pipeline 时进行设置：</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java">   <span class="o">.</span><span class="na">setDownsampleEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-</code></pre></div>
-<p>如果开启该选项，pipeline 会向下采样你的图片，代替 resize 操作。你仍然需要像上面那样在每个图片请求中调用 <code>setResizeOptions</code> 。</p>
+<ul>
+  <li>目前，只有 JPEG 图片可以修改尺寸。</li>
+  <li>对于产生的图片的尺寸，只能粗略地控制。图片不能修改为确定的尺寸，只能通过支持的修改选项来变化。这意味着即使是修改后的图片，也需要在展示前进行 <strong>scale</strong> 操作。</li>
+  <li>只支持以下的修改选项： N / 8，1 &lt;= N &lt;= 8</li>
+  <li>
+    <p>Resize 是由软件执行的，相比硬件加速的 scale 操作较慢。</p>
+  </li>
+  <li></li>
+  <li>the actual resize is carried out to the nearest 1/8 of the original size</li>
+  <li>it cannot make your image bigger, only smaller (not a real limitation though)</li>
+</ul>
+
+<h3 id="downsampling">向下采样(Downsampling)</h3>
+
+<p>向下采样是一个正在实验中的特性。使用的话需要在设置 image pipeline 时进行<a href="configure-image-pipeline.html#_">设置</a>：</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>   <span class="o">.</span><span class="na">setDownsampleEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>如果开启该选项，pipeline 会向下采样你的图片，代替 resize 操作。你仍然需要像上面那样在每个图片请求中调用 <code class="highlighter-rouge">setResizeOptions</code> 。</p>
 
 <p>向下采样在大部分情况下比 resize 更快。除了支持 JPEG 图片，它还支持 PNG 和 WebP(除动画外) 图片。</p>
 
-<p>我们希望在将来的版本中默认开启此选项。</p>
+<p>但是目前还有一个问题是它在 Android 4.4 上会在解码时造成更多的内存开销（相比于Resizing）。这在同时解码许多大图时会非常显著，我们希望在将来的版本中能够解决它并默认开启此选项。</p>
 
-<h3><a name="rotate"></a>自动旋转</h3>
+<h3 id="a-namerotatea"><a name="rotate"></a>自动旋转</h3>
 
 <p>如果看到的图片是侧着的，用户会非常难受。许多设备会在 JPEG 文件的 metadata 中记录下照片的方向。如果你想图片呈现的方向和设备屏幕的方向一致，你可以简单地这样做到:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequestBuilder</span><span class="o">.</span><span class="na">newBuilderWithSource</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setAutoRotateEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="c1">// as above</span>
-</code></pre></div>
+</pre></td></tr></tbody></table>
+</div>
+</div>
 
-    <div class="docs-prevnext">
-      
-        <a href="/docs/listening-download-events.html#_">&larr; 上一页</a>
-      
-      
-        <a class="right" href="/docs/modifying-image.html#_">下一页 &rarr;</a>
-      
+
+      <p><a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/tree/gh-pages/_docs/01-resizing-rotating.md" target="_blank">编辑和纠错</a></p>
+    
+  </article>
+  
+</div>
+
+  </div>
+</div>
+
+
+      </div>
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <div class="footerBlocks">
+      <div id="fb_oss" class="footerSection fbOpenSourceFooter">
+          <svg class="facebookOSSLogoSvg" viewBox="0 0 1133.9 1133.9" x="0px" y="0px">
+            <g>
+              <path class="logoRing outerRing" d="M 498.3 3.7 c 153.6 88.9 307.3 177.7 461.1 266.2 c 7.6 4.4 10.3 9.1 10.3 17.8 c -0.3 179.1 -0.2 358.3 0 537.4 c 0 8.1 -2.4 12.8 -9.7 17.1 c -154.5 88.9 -308.8 178.1 -462.9 267.5 c -9 5.2 -15.5 5.3 -24.6 0.1 c -153.9 -89.2 -307.9 -178 -462.1 -266.8 C 3 838.8 0 833.9 0 825.1 c 0.3 -179.1 0.2 -358.3 0 -537.4 c 0 -8.6 2.6 -13.6 10.2 -18 C 164.4 180.9 318.4 92 472.4 3 C 477 -1.5 494.3 -0.7 498.3 3.7 Z M 48.8 555.3 c 0 79.9 0.2 159.9 -0.2 239.8 c -0.1 10 3 15.6 11.7 20.6 c 137.2 78.8 274.2 157.8 411 237.3 c 9.9 5.7 17 5.7 26.8 0.1 c 137.5 -79.8 275.2 -159.2 412.9 -238.5 c 7.4 -4.3 10.5 -8.9 10.5 -17.8 c -0.3 -160.2 -0.3 -320.5 0 -480.7 c 0 -8.8 -2.8 -13.6 -10.3 -18 C 772.1 218 633.1 137.8 494.2 57.4 c -6.5 -3.8 -11.5 -4.5 -18.5 -0.5 C 336.8 137.4 197.9 217.7 58.8 297.7 c -7.7 4.4 -10.2 9.2 -10.2 17.9 C 48.9 395.5 48.8 475.4 48.8 555.3 Z" />
+              <path class="logoRing middleRing" d="M 184.4 555.9 c 0 -33.3 -1 -66.7 0.3 -100 c 1.9 -48 24.1 -86 64.7 -110.9 c 54.8 -33.6 110.7 -65.5 167 -96.6 c 45.7 -25.2 92.9 -24.7 138.6 1 c 54.4 30.6 108.7 61.5 162.2 93.7 c 44 26.5 67.3 66.8 68 118.4 c 0.9 63.2 0.9 126.5 0 189.7 c -0.7 50.6 -23.4 90.7 -66.6 116.9 c -55 33.4 -110.8 65.4 -167.1 96.5 c -43.4 24 -89 24.2 -132.3 0.5 c -57.5 -31.3 -114.2 -64 -170 -98.3 c -41 -25.1 -62.9 -63.7 -64.5 -112.2 C 183.5 621.9 184.3 588.9 184.4 555.9 Z M 232.9 556.3 c 0 29.5 0.5 59.1 -0.1 88.6 c -0.8 39.2 16.9 67.1 50.2 86.2 c 51.2 29.4 102.2 59.2 153.4 88.4 c 31.4 17.9 63.6 18.3 95 0.6 c 53.7 -30.3 107.1 -61.2 160.3 -92.5 c 29.7 -17.5 45 -44.5 45.3 -78.8 c 0.6 -61.7 0.5 -123.5 0 -185.2 c -0.3 -34.4 -15.3 -61.5 -44.9 -79 C 637.7 352.6 583 320.8 527.9 290 c -27.5 -15.4 -57.2 -16.1 -84.7 -0.7 c -56.9 31.6 -113.4 64 -169.1 97.6 c -26.4 15.9 -40.7 41.3 -41.1 72.9 C 232.6 491.9 232.9 524.1 232.9 556.3 Z" />
+              <path class="logoRing innerRing" d="M 484.9 424.4 c 69.8 -2.8 133.2 57.8 132.6 132 C 617 630 558.5 688.7 484.9 689.1 c -75.1 0.4 -132.6 -63.6 -132.7 -132.7 C 352.1 485 413.4 421.5 484.9 424.4 Z M 401.3 556.7 c -3.4 37.2 30.5 83.6 83 84.1 c 46.6 0.4 84.8 -37.6 84.9 -84 c 0.1 -46.6 -37.2 -84.4 -84.2 -84.6 C 432.2 472.1 397.9 518.3 401.3 556.7 Z" />
+            </g>
+          </svg>
+        <h2>Facebook Open Source</h2>
+      </div>
+      <div class="footerSection">
+        <a class="footerLink" href="https://code.facebook.com/projects/" target="_blank">Open Source Projects</a>
+        <a class="footerLink" href="https://github.com/facebook/" target="_blank">GitHub</a>
+        <a class="footerLink" href="https://twitter.com/fbOpenSource" target="_blank">Twitter</a>
+      </div>
+      <div class="footerSection rightAlign">
+        <a class="footerLink" href="https://github.com/facebook/fresco" target="_blank">Contribute to this project on GitHub</a>
+      </div>
     </div>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    <a id="_"></a>
-</article>
+  ga('create', 'UA-44373548-3', 'auto');
+  ga('send', 'pageview');
+</script>
 
-</div></section>
-
-        <div class='wechat-mp-qrcode'>
-            <p>----------
-            <a target='_blank' href='http://www.liaohuqiu.net/about/about-me/'>关于译者</a>
-            ---------</p>
-            <img src='http://www.liaohuqiu.net/assets/img/qrcode_for_wechat_mp.jpg' /><br/>
-            <p>欢迎关注我的微信公众号。</p>
-            <p>欢迎关注我的 <a href='http://weibo.com/liaohuqiu/'>新浪微博</a>，有问题随时交流。</p>
-            <p>欢迎关注我的 <a href='https://github.com/liaohuqiu'>GitHub </a>，了解我最近关注哪些优秀的项目。</p>
-        </div>
-<footer><div class='width'>
-            &copy; Copyright 2016, Facebook Inc.<br>
-                本文档遵从 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>协议， Demo代码协议在: <a href="/sample-license.html">这里</a>
-        </div></footer>
-
-<script src="/static/linkify.js"></script>
-<!-- Google Analytics -->
-</body>
+    </div>
+  </body>
 </html>
-

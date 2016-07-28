@@ -185,7 +185,7 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
     <li class="api apilevel-">
-  <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+  <a href="../../../../com/facebook/imagepipeline/backends/okhttp3/package-summary.html">com.facebook.imagepipeline.backends.okhttp3</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
@@ -526,10 +526,10 @@ Summary:
             
             
             
-            long
+            Context
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#getDefaultSizeLimit()">getDefaultSizeLimit</a></span>()
+        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#getContext()">getContext</a></span>()
         
   </td></tr>
 
@@ -542,10 +542,42 @@ Summary:
             
             
             
+            long
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#getDefaultSizeLimit()">getDefaultSizeLimit</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             <a href="../../../../com/facebook/common/disk/DiskTrimmableRegistry.html">DiskTrimmableRegistry</a>
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#getDiskTrimmableRegistry()">getDiskTrimmableRegistry</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            EntryEvictionComparatorSupplier
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#getEntryEvictionComparatorSupplier()">getEntryEvictionComparatorSupplier</a></span>()
         
   </td></tr>
 
@@ -609,8 +641,10 @@ Summary:
             <a href="../../../../com/facebook/cache/disk/DiskCacheConfig.Builder.html">DiskCacheConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#newBuilder()">newBuilder</a></span>()
+        <span class="sympad"><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.html#newBuilder(android.content.Context)">newBuilder</a></span>(Context context)
         
+        <div class="jd-descrdiv">Create a new builder.</div>
+  
   </td></tr>
 
 
@@ -787,7 +821,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>()
+        <span class="sympad">wait</span>(long arg0, int arg1)
         
   </td></tr>
 
@@ -803,7 +837,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0, int arg1)
+        <span class="sympad">wait</span>(long arg0)
         
   </td></tr>
 
@@ -819,7 +853,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0)
+        <span class="sympad">wait</span>()
         
   </td></tr>
 
@@ -996,6 +1030,37 @@ From class
 </div>
 
 
+<a id="getContext()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Context
+      </span>
+      <span class="sympad">getContext</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 <a id="getDefaultSizeLimit()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1040,6 +1105,37 @@ From class
         <a href="../../../../com/facebook/common/disk/DiskTrimmableRegistry.html">DiskTrimmableRegistry</a>
       </span>
       <span class="sympad">getDiskTrimmableRegistry</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="getEntryEvictionComparatorSupplier()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        EntryEvictionComparatorSupplier
+      </span>
+      <span class="sympad">getEntryEvictionComparatorSupplier</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1151,7 +1247,7 @@ From class
 </div>
 
 
-<a id="newBuilder()"></a>
+<a id="newBuilder(android.content.Context)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1164,7 +1260,7 @@ From class
         <a href="../../../../com/facebook/cache/disk/DiskCacheConfig.Builder.html">DiskCacheConfig.Builder</a>
       </span>
       <span class="sympad">newBuilder</span>
-      <span class="normal">()</span>
+      <span class="normal">(Context context)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1176,7 +1272,19 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Create a new builder.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>context</th>
+          <td>If this is null, you must explicitly call
+   <code><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.Builder.html#setBaseDirectoryPath(java.io.File)">setBaseDirectoryPath(File)</a></code> or
+   <code><a href="../../../../com/facebook/cache/disk/DiskCacheConfig.Builder.html#setBaseDirectoryPathSupplier(com.facebook.common.internal.Supplier<java.io.File>)">setBaseDirectoryPathSupplier(Supplier)</a></code>
+   or the config won't know where to physically locate the cache.</td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>

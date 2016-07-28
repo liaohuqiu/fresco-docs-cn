@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://frescolib.org/docs/troubleshooting.html" />
+  <meta property="og:site_name" content="Fresco"/>
+  <meta property="og:title" content="问题处理" />
+  <meta property="og:image" content="http://frescolib.org/static/og_image.png" />
+  <meta property="og:description" content="重复的边界" />
+
+  <link rel="stylesheet" href="/static/css/main.css" media="screen">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+
+  <script src="/static/react-with-addons-0.13.1.min.js"></script>
+
+  <title>问题处理 | Fresco</title>
+  <meta name="description" content="重复的边界">
+
+  <link rel="canonical" href="http://frescolib.org/docs/troubleshooting.html">
+  <link rel="alternate" type="application/rss+xml" title="Fresco" href="http://frescolib.org/feed.xml" />
+</head>
+
+  <body class="docsNavVisible">
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <div class="headerWrapper wrapper">
+    <header>
+      <a href="/">
+        <img src="/static/logo.png">
+        <h2>Fresco</h2>
+      </a>
+
+      <div class="navigationWrapper navigationFull" id="flat_nav">
+        <nav class="navigation">
+          <ul>
+            
+            <li class="navItem navItemActive">
+              <a href="docs/">文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/support.html">支持</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/javadoc/">API</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://github.com/facebook/fresco">GITHUB</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/about.html">关于本文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/">ENGLISH</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://fresco.recrack.com/">한국어</a>
+            </li>
+            
+            <li class="navSearchWrapper">
+  <input id="search_input" type="search" />
+</li>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript" src="/static/js/docsearch.js"></script>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+    </header>
+  </div>
+  <script>
+  var event = document.createEvent('Event');
+  event.initEvent('slide', true, true);
+  document.addEventListener('slide', function (e) {
+    document.body.classList.toggle('sliderActive');
+  }, false);
+  var navData = [
+    
+    {
+      href       : "docs/",
+      text       : "文档",
+    },
+    
+    {
+      href       : "/support.html",
+      text       : "支持",
+    },
+    
+    {
+      href       : "http://frescolib.org/javadoc/",
+      text       : "API",
+    },
+    
+    {
+      href       : "http://github.com/facebook/fresco",
+      text       : "GITHUB",
+    },
+    
+    {
+      href       : "/about.html",
+      text       : "关于本文档",
+    },
+    
+    {
+      href       : "http://frescolib.org/",
+      text       : "ENGLISH",
+    },
+    
+    {
+      href       : "http://fresco.recrack.com/",
+      text       : "한국어",
+    },
+    
+  ];
+</script>
+<script type="text/javascript">
+  var Nav = React.createClass({displayName: "Nav",
+    getInitialState: function() {
+      return {
+        currentPath: window.location.pathname,
+        slideoutActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        data: navData,
+      }
+    },
+    handleClick: function(id) {
+      this.setState({
+        slideoutActive: false,
+      });
+      document.dispatchEvent(event);
+    },
+    handleSlide: function(id) {
+      this.setState({
+        slideoutActive: !this.state.slideoutActive,
+      });
+      document.dispatchEvent(event);
+    },
+    componentDidMount: function() {
+      docsearch({
+        apiKey: '57436460790d750ed488518dfb6d41f9',
+        indexName: 'frescolib',
+        inputSelector: '#search_input_react',
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navSlideout': true,
+        'navSlideoutActive': this.state.slideoutActive,
+      });
+      var navClasses = React.addons.classSet({
+        'slidingNav': true,
+        'slidingNavActive': this.state.slideoutActive,
+      });
+      return (
+        React.createElement("div", null,
+          React.createElement("div", {className: classes, onClick: this.handleSlide},
+            React.createElement("i", {className: "menuExpand"},
+              React.createElement("span"),
+              React.createElement("span"),
+              React.createElement("span")
+            )
+          ),
+          React.createElement("nav", {className: navClasses},
+            React.createElement("ul", null,
+              this.props.data.map(this.renderNavItems),
+              React.createElement("li", {className: "navSearchWrapper reactNavSearchWrapper"},
+                React.createElement("input", {id: "search_input_react"})
+              )
+            )
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.state.currentPath === child.href,
+      });
+      return (
+        React.createElement("li", {key: index, className: classes},
+          React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+        )
+      );
+    },
+  });
+
+  function render(navData) {
+    React.render(
+      React.createElement(Nav, {data: navData}),
+      document.getElementById('navigation_wrap')
+    );
+  }
+  render(navData);
+</script>
+</div>
+
+    <div class="navPusher">
+      <div class="docMainWrapper wrapper">
+      <script>
+  var docnavData = [
+    
+    {
+      group     : "快速开始",
+      items     : [
+        
+        
+        {
+          key : "/docs/index.html",
+          title : "引入Fresco",
+          url : "/docs/index.html",
+        },
+        
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用 Fresco",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+        {
+          key : "/docs/concepts.html",
+          title : "关键概念",
+          url : "/docs/concepts.html",
+        },
+        
+        
+        {
+          key : "/docs/supported-uris.html",
+          title : "支持的URI",
+          url : "/docs/supported-uris.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Drawee 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-drawees-xml.html",
+          title : "在XML中使用Drawees",
+          url : "/docs/using-drawees-xml.html",
+        },
+        
+        
+        {
+          key : "/docs/using-drawees-code.html",
+          title : "在JAVA代码中使用Drawees",
+          url : "/docs/using-drawees-code.html",
+        },
+        
+        
+        {
+          key : "/docs/drawee-branches.html",
+          title : "Drawee的各种效果配置",
+          url : "/docs/drawee-branches.html",
+        },
+        
+        
+        {
+          key : "/docs/progress-bars.html",
+          title : "进度条",
+          url : "/docs/progress-bars.html",
+        },
+        
+        
+        {
+          key : "/docs/scaling.html",
+          title : "缩放",
+          url : "/docs/scaling.html",
+        },
+        
+        
+        {
+          key : "/docs/rounded-corners-and-circles.html",
+          title : "圆角和圆圈",
+          url : "/docs/rounded-corners-and-circles.html",
+        },
+        
+        
+        {
+          key : "/docs/using-controllerbuilder.html",
+          title : "使用ControllerBuilder",
+          url : "/docs/using-controllerbuilder.html",
+        },
+        
+        
+        {
+          key : "/docs/progressive-jpegs.html",
+          title : "渐进式JPEG图",
+          url : "/docs/progressive-jpegs.html",
+        },
+        
+        
+        {
+          key : "/docs/animations.html",
+          title : "动画支持",
+          url : "/docs/animations.html",
+        },
+        
+        
+        {
+          key : "/docs/requesting-multiple-images.html",
+          title : "多图请求及图片复用",
+          url : "/docs/requesting-multiple-images.html",
+        },
+        
+        
+        {
+          key : "/docs/listening-download-events.html",
+          title : "监听下载事件",
+          url : "/docs/listening-download-events.html",
+        },
+        
+        
+        {
+          key : "/docs/resizing-rotating.html",
+          title : "缩放和旋转图片",
+          url : "/docs/resizing-rotating.html",
+        },
+        
+        
+        {
+          key : "/docs/modifying-image.html",
+          title : "修改图片",
+          url : "/docs/modifying-image.html",
+        },
+        
+        
+        {
+          key : "/docs/image-requests.html",
+          title : "图片请求(Image Requests)",
+          url : "/docs/image-requests.html",
+        },
+        
+        
+        {
+          key : "/docs/writing-custom-views.html",
+          title : "自定义View",
+          url : "/docs/writing-custom-views.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Image Pipeline 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/intro-image-pipeline.html",
+          title : "Image Pipeline介绍",
+          url : "/docs/intro-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/configure-image-pipeline.html",
+          title : "配置Image Pipeline",
+          url : "/docs/configure-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/caching.html",
+          title : "缓存",
+          url : "/docs/caching.html",
+        },
+        
+        
+        {
+          key : "/docs/using-image-pipeline.html",
+          title : "直接使用Image Pipeline",
+          url : "/docs/using-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/datasources-datasubscribers.html",
+          title : "数据源和数据订阅者",
+          url : "/docs/datasources-datasubscribers.html",
+        },
+        
+        
+        {
+          key : "/docs/closeable-references.html",
+          title : "可关闭的引用",
+          url : "/docs/closeable-references.html",
+        },
+        
+        
+        {
+          key : "/docs/webp-support.html",
+          title : "Webp支持",
+          url : "/docs/webp-support.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "问题处理",
+      items     : [
+        
+        
+        {
+          key : "/docs/troubleshooting.html",
+          title : "问题处理",
+          url : "/docs/troubleshooting.html",
+        },
+        
+        
+        {
+          key : "/docs/gotchas.html",
+          title : "一些陷阱",
+          url : "/docs/gotchas.html",
+        },
+        
+        
+        {
+          key : "/docs/wrap-content.html",
+          title : "wrap_content的限制",
+          url : "/docs/wrap-content.html",
+        },
+        
+        
+        {
+          key : "/docs/shared-transitions.html",
+          title : "共享元素动画",
+          url : "/docs/shared-transitions.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "第三方类库",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-other-network-layers.html",
+          title : "自定义网络加载",
+          url : "/docs/using-other-network-layers.html",
+        },
+        
+        
+        {
+          key : "/docs/using-other-image-loaders.html",
+          title : "使用其他的Image Loader",
+          url : "/docs/using-other-image-loaders.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "发布App",
+      items     : [
+        
+        
+        {
+          key : "/docs/proguard.html",
+          title : "混淆(Proguard)",
+          url : "/docs/proguard.html",
+        },
+        
+        
+        {
+          key : "/docs/multiple-apks.html",
+          title : "按需打包",
+          url : "/docs/multiple-apks.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "如何贡献代码？",
+      items     : [
+        
+        
+        {
+          key : "/docs/building-from-source.html",
+          title : "构建源码",
+          url : "/docs/building-from-source.html",
+        },
+        
+        
+        {
+          key : "/docs/sample-code.html",
+          title : "示例代码",
+          url : "/docs/sample-code.html",
+        }
+        
+      ],
+    },
+    
+  ];
+  var currentGroup = "问题处理";
+  var currentDoc = "问题处理";
+  var activeGroup = "问题处理";
+  var sectionTitle = "Docs";
+  var sectionPath = "/docs/";
+</script>
+<div class="docsNavContainer">
+  <nav class="toc" id="doc_nav"></nav>
+</div>
+<script type="text/javascript">
+  var docsevent = document.createEvent('Event');
+  docsevent.initEvent('docs_slide', true, true);
+  document.addEventListener('docs_slide', function (e) {
+    document.body.classList.toggle('docsSliderActive');
+  }, false);
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        activeGroup: activeGroup,
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: currentDoc,
+        currentGroup: currentGroup,
+        data: docnavData,
+        sectionTitle: sectionTitle,
+        sectionPath: sectionPath,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+      document.dispatchEvent(docsevent);
+    },
+    handleAccordion: function(group) {
+      this.setState({
+        activeGroup: group,
+      })
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses},
+          React.createElement("section", {className: 'navWrapper wrapper'},
+            React.createElement("div", {className: 'navBreadcrumb wrapper'},
+              React.createElement("div",
+                {
+                  className: classes,
+                  onClick: this.handleSlide
+                },
+                React.createElement("i")
+              ),
+              React.createElement("h2", null,
+                React.createElement(
+                  "a",
+                  {href: this.props.sectionPath},
+                  this.props.sectionTitle
+                ),
+                React.createElement("i", null, '›'),
+                React.createElement("span", null, this.props.currentGroup)
+              )
+            ),
+            React.createElement("div", {className: 'navGroups'},
+              this.props.data.map(this.renderNavGroups)
+            )
+          )
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupCurrent': this.props.currentGroup === child.group,
+        'navGroupActive': this.state.activeGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index, onClick: this.handleAccordion.bind(this, child.group)},
+          React.createElement("h3", null,
+            React.createElement(
+              "i",
+              null,
+              (this.state.activeGroup === child.group) ? "" : "+"
+            ),
+            React.createElement("span", null, child.group)
+          ),
+          React.createElement("ul", null,
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+
+
+      <div class="mainContainer documentContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">问题处理</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <h3 id="section">重复的边界</h3>
+
+<p>这是使用圆角的一个缺陷。 参考<a href="rounded-corners-and-circles.html">圆角和圆圈</a> 来获取更多信息。</p>
+
+<h3 id="section-1">图片没有加载</h3>
+
+<p>你可以从 image pipeline 打出的<a href="#logcat">日志</a>来查看原因。 这里提供一些通常会导致问题的原因:</p>
+
+<h4 id="section-2">文件不可用</h4>
+
+<p>无效的路径、链接会导致这种情况。</p>
+
+<p>判断网络链接是否有效，你可以尝试在浏览器中打开它，看看是否图片会被加载。若图片依然加载不出来，那么这不是Fresco的问题。</p>
+
+<p>判断本地文件是否有效，你可以通过下面这段代码来校验：</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>FileInputStream fis = new FileInputStream(new File(localUri.getPath()));
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>如果这里抛出了异常，那么这不是Fresco的问题，可能是你的其他代码导致的。有可能是没有获取到SD卡读取权限、路径不合法、文件不存在等。</p>
+
+<h4 id="oom---">OOM - 无法分配图片空间</h4>
+
+<p>加载特别特别大的图片时最容易导致这种情况。如果你加载的图片比承载的View明显大出太多，那你应该考虑将它<a href="resizing-rotating.html#_">Resize</a>一下。</p>
+
+<h4 id="bitmap">Bitmap太大导致无法绘制</h4>
+
+<p>Android 无法绘制长或宽大于2048像素的图片。这是由OpenGL渲染系统限制的，如果它超过了这个界限，Fresco会对它进行<a href="resizing-rotating.html#_">Resize</a>。</p>
+
+<h3 id="a-namelogcata-logcat"><a name="logcat"></a> 通过Logcat来判断原因</h3>
+
+<p>在加载图片时会出现各种各样的原因导致加载失败。 在使用Fresco的时候，最直接的方式就是查看 image pipeline 打出的<code class="highlighter-rouge">VERBOSE</code>级别日志。</p>
+
+<h4 id="section-3">启动日志</h4>
+
+<p>默认情况下Fresco是关闭日志输出的，你可以<a href="configure-image-pipeline.html#_">配置image pipeline</a>让它启动.</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td class="code"><pre><span class="n">Set</span><span class="o">&lt;</span><span class="n">RequestListener</span><span class="o">&gt;</span> <span class="n">requestListeners</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+<span class="n">requestListeners</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">RequestLoggingListener</span><span class="o">());</span>
+<span class="n">ImagePipelineConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ImagePipelineConfig</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+   <span class="c1">// other setters</span>
+   <span class="o">.</span><span class="na">setRequestListeners</span><span class="o">(</span><span class="n">requestListeners</span><span class="o">)</span>
+   <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">config</span><span class="o">);</span>
+<span class="n">FLog</span><span class="o">.</span><span class="na">setMinimumLoggingLevel</span><span class="o">(</span><span class="n">FLog</span><span class="o">.</span><span class="na">VERBOSE</span><span class="o">);</span>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<h4 id="section-4">查看日志</h4>
+
+<p>你可以通过下面这条shell命令来查看Fresco日志：</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>adb logcat -v threadtime | grep -iE 'LoggingListener|AbstractDraweeController|BufferedDiskCache'
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>它的输出为如下格式：</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></td><td class="code"><pre>08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 0 -&gt; 1: initialize
+08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: onDetach
+08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: setHierarchy: null
+08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: setHierarchy: com.facebook.drawee.generic.GenericDraweeHierarchy@2bb88e4
+08-12 09:11:14.791 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: onAttach: request needs submit
+08-12 09:11:14.791 6690 6690 V unknown:PipelineDraweeController: controller 28ebe0eb: getDataSource
+08-12 09:11:14.791 6690 6690 V unknown:RequestLoggingListener: time 11201791: onRequestSubmit: {requestId: 1, callerContext: null, isPrefetch: false}
+08-12 09:11:14.792 6690 6690 V unknown:RequestLoggingListener: time 11201791: onProducerStart: {requestId: 1, producer: BitmapMemoryCacheGetProducer}
+08-12 09:11:14.792 6690 6690 V unknown:RequestLoggingListener: time 11201792: onProducerFinishWithSuccess: {requestId: 1, producer: BitmapMemoryCacheGetProducer, elapsedTime: 1 ms, extraMap: {cached_value_found=false}}
+08-12 09:11:14.792 6690 6690 V unknown:RequestLoggingListener: time 11201792: onProducerStart: {requestId: 1, producer: BackgroundThreadHandoffProducer}
+08-12 09:11:14.792 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: submitRequest: dataSource: 36e95857
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerFinishWithSuccess: {requestId: 1, producer: BackgroundThreadHandoffProducer, elapsedTime: 0 ms, extraMap: null}
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerStart: {requestId: 1, producer: BitmapMemoryCacheProducer}
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerFinishWithSuccess: {requestId: 1, producer: BitmapMemoryCacheProducer, elapsedTime: 0 ms, extraMap: {cached_value_found=false}}
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerStart: {requestId: 1, producer: EncodedMemoryCacheProducer}
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerFinishWithSuccess: {requestId: 1, producer: EncodedMemoryCacheProducer, elapsedTime: 0 ms, extraMap: {cached_value_found=false}}
+08-12 09:11:14.792 6690 6734 V unknown:RequestLoggingListener: time 11201792: onProducerStart: {requestId: 1, producer: DiskCacheProducer}
+08-12 09:11:14.792 6690 6735 V unknown:BufferedDiskCache: Did not find image for http://www.example.com/image.jpg in staging area
+08-12 09:11:14.793 6690 6735 V unknown:BufferedDiskCache: Disk cache read for http://www.example.com/image.jpg
+08-12 09:11:14.793 6690 6735 V unknown:BufferedDiskCache: Disk cache miss for http://www.example.com/image.jpg
+08-12 09:11:14.793 6690 6735 V unknown:RequestLoggingListener: time 11201793: onProducerFinishWithSuccess: {requestId: 1, producer: DiskCacheProducer, elapsedTime: 1 ms, extraMap: {cached_value_found=false}}
+08-12 09:11:14.793 6690 6735 V unknown:RequestLoggingListener: time 11201793: onProducerStart: {requestId: 1, producer: NetworkFetchProducer}
+08-12 09:11:15.161 6690 7358 V unknown:RequestLoggingListener: time 11202161: onProducerFinishWithSuccess: {requestId: 1, producer: NetworkFetchProducer, elapsedTime: 368 ms, extraMap: null}
+08-12 09:11:15.162 6690 6742 V unknown:BufferedDiskCache: About to write to disk-cache for key http://www.example.com/image.jpg
+08-12 09:11:15.162 6690 6734 V unknown:RequestLoggingListener: time 11202162: onProducerStart: {requestId: 1, producer: DecodeProducer}
+08-12 09:11:15.163 6690 6742 V unknown:BufferedDiskCache: Successful disk-cache write for key http://www.example.com/image.jpg
+08-12 09:11:15.169 6690 6734 V unknown:RequestLoggingListener: time 11202169: onProducerFinishWithSuccess: {requestId: 1, producer: DecodeProducer, elapsedTime: 7 ms, extraMap: {hasGoodQuality=true, queueTime=0, bitmapSize=600x400, isFinal=true}}
+08-12 09:11:15.169 6690 6734 V unknown:RequestLoggingListener: time 11202169: onRequestSuccess: {requestId: 1, elapsedTime: 378 ms}
+08-12 09:11:15.184 6690 6690 V unknown:AbstractDraweeController: controller 28ebe0eb 1: set_final_result @ onNewResult: image: CloseableReference 2fd41bb0
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>在这个示例中，我们发现名为<code class="highlighter-rouge">28ebe0eb</code>的 DraweeView 向名为<code class="highlighter-rouge">36e95857</code>的 DataSource 进行了图像请求。首先，图片没有在内存缓存中找到，也没有在磁盘缓存中找到，最后去网络上下载图片。下载成功后，图片被解码，之后请求结束。最后数据源通知 controller 图片就绪，显示图片(<code class="highlighter-rouge">set_final_result</code>）。</p>
+
+
+      <p><a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/tree/gh-pages/_docs/03-troubleshooting.md" target="_blank">编辑和纠错</a></p>
+    
+  </article>
+  
+</div>
+
+  </div>
+</div>
+
+
+      </div>
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <div class="footerBlocks">
+      <div id="fb_oss" class="footerSection fbOpenSourceFooter">
+          <svg class="facebookOSSLogoSvg" viewBox="0 0 1133.9 1133.9" x="0px" y="0px">
+            <g>
+              <path class="logoRing outerRing" d="M 498.3 3.7 c 153.6 88.9 307.3 177.7 461.1 266.2 c 7.6 4.4 10.3 9.1 10.3 17.8 c -0.3 179.1 -0.2 358.3 0 537.4 c 0 8.1 -2.4 12.8 -9.7 17.1 c -154.5 88.9 -308.8 178.1 -462.9 267.5 c -9 5.2 -15.5 5.3 -24.6 0.1 c -153.9 -89.2 -307.9 -178 -462.1 -266.8 C 3 838.8 0 833.9 0 825.1 c 0.3 -179.1 0.2 -358.3 0 -537.4 c 0 -8.6 2.6 -13.6 10.2 -18 C 164.4 180.9 318.4 92 472.4 3 C 477 -1.5 494.3 -0.7 498.3 3.7 Z M 48.8 555.3 c 0 79.9 0.2 159.9 -0.2 239.8 c -0.1 10 3 15.6 11.7 20.6 c 137.2 78.8 274.2 157.8 411 237.3 c 9.9 5.7 17 5.7 26.8 0.1 c 137.5 -79.8 275.2 -159.2 412.9 -238.5 c 7.4 -4.3 10.5 -8.9 10.5 -17.8 c -0.3 -160.2 -0.3 -320.5 0 -480.7 c 0 -8.8 -2.8 -13.6 -10.3 -18 C 772.1 218 633.1 137.8 494.2 57.4 c -6.5 -3.8 -11.5 -4.5 -18.5 -0.5 C 336.8 137.4 197.9 217.7 58.8 297.7 c -7.7 4.4 -10.2 9.2 -10.2 17.9 C 48.9 395.5 48.8 475.4 48.8 555.3 Z" />
+              <path class="logoRing middleRing" d="M 184.4 555.9 c 0 -33.3 -1 -66.7 0.3 -100 c 1.9 -48 24.1 -86 64.7 -110.9 c 54.8 -33.6 110.7 -65.5 167 -96.6 c 45.7 -25.2 92.9 -24.7 138.6 1 c 54.4 30.6 108.7 61.5 162.2 93.7 c 44 26.5 67.3 66.8 68 118.4 c 0.9 63.2 0.9 126.5 0 189.7 c -0.7 50.6 -23.4 90.7 -66.6 116.9 c -55 33.4 -110.8 65.4 -167.1 96.5 c -43.4 24 -89 24.2 -132.3 0.5 c -57.5 -31.3 -114.2 -64 -170 -98.3 c -41 -25.1 -62.9 -63.7 -64.5 -112.2 C 183.5 621.9 184.3 588.9 184.4 555.9 Z M 232.9 556.3 c 0 29.5 0.5 59.1 -0.1 88.6 c -0.8 39.2 16.9 67.1 50.2 86.2 c 51.2 29.4 102.2 59.2 153.4 88.4 c 31.4 17.9 63.6 18.3 95 0.6 c 53.7 -30.3 107.1 -61.2 160.3 -92.5 c 29.7 -17.5 45 -44.5 45.3 -78.8 c 0.6 -61.7 0.5 -123.5 0 -185.2 c -0.3 -34.4 -15.3 -61.5 -44.9 -79 C 637.7 352.6 583 320.8 527.9 290 c -27.5 -15.4 -57.2 -16.1 -84.7 -0.7 c -56.9 31.6 -113.4 64 -169.1 97.6 c -26.4 15.9 -40.7 41.3 -41.1 72.9 C 232.6 491.9 232.9 524.1 232.9 556.3 Z" />
+              <path class="logoRing innerRing" d="M 484.9 424.4 c 69.8 -2.8 133.2 57.8 132.6 132 C 617 630 558.5 688.7 484.9 689.1 c -75.1 0.4 -132.6 -63.6 -132.7 -132.7 C 352.1 485 413.4 421.5 484.9 424.4 Z M 401.3 556.7 c -3.4 37.2 30.5 83.6 83 84.1 c 46.6 0.4 84.8 -37.6 84.9 -84 c 0.1 -46.6 -37.2 -84.4 -84.2 -84.6 C 432.2 472.1 397.9 518.3 401.3 556.7 Z" />
+            </g>
+          </svg>
+        <h2>Facebook Open Source</h2>
+      </div>
+      <div class="footerSection">
+        <a class="footerLink" href="https://code.facebook.com/projects/" target="_blank">Open Source Projects</a>
+        <a class="footerLink" href="https://github.com/facebook/" target="_blank">GitHub</a>
+        <a class="footerLink" href="https://twitter.com/fbOpenSource" target="_blank">Twitter</a>
+      </div>
+      <div class="footerSection rightAlign">
+        <a class="footerLink" href="https://github.com/facebook/fresco" target="_blank">Contribute to this project on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    </div>
+  </body>
+</html>

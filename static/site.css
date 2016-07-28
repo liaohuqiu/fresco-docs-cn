@@ -578,12 +578,3 @@ input.gsc-input,
     line-height : normal;
     margin-top  : 0px;
 }
-
-.wechat-mp-qrcode {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: center;
-}
-.wechat-mp-qrcode img {
-  width: 150px;
-}

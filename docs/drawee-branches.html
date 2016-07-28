@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://frescolib.org/docs/drawee-branches.html" />
+  <meta property="og:site_name" content="Fresco"/>
+  <meta property="og:title" content="Drawee的各种效果配置" />
+  <meta property="og:image" content="http://frescolib.org/static/og_image.png" />
+  <meta property="og:description" content="内容导航" />
+
+  <link rel="stylesheet" href="/static/css/main.css" media="screen">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+
+  <script src="/static/react-with-addons-0.13.1.min.js"></script>
+
+  <title>Drawee的各种效果配置 | Fresco</title>
+  <meta name="description" content="内容导航">
+
+  <link rel="canonical" href="http://frescolib.org/docs/drawee-branches.html">
+  <link rel="alternate" type="application/rss+xml" title="Fresco" href="http://frescolib.org/feed.xml" />
+</head>
+
+  <body class="docsNavVisible">
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <div class="headerWrapper wrapper">
+    <header>
+      <a href="/">
+        <img src="/static/logo.png">
+        <h2>Fresco</h2>
+      </a>
+
+      <div class="navigationWrapper navigationFull" id="flat_nav">
+        <nav class="navigation">
+          <ul>
+            
+            <li class="navItem navItemActive">
+              <a href="docs/">文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/support.html">支持</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/javadoc/">API</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://github.com/facebook/fresco">GITHUB</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/about.html">关于本文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/">ENGLISH</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://fresco.recrack.com/">한국어</a>
+            </li>
+            
+            <li class="navSearchWrapper">
+  <input id="search_input" type="search" />
+</li>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript" src="/static/js/docsearch.js"></script>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+    </header>
+  </div>
+  <script>
+  var event = document.createEvent('Event');
+  event.initEvent('slide', true, true);
+  document.addEventListener('slide', function (e) {
+    document.body.classList.toggle('sliderActive');
+  }, false);
+  var navData = [
+    
+    {
+      href       : "docs/",
+      text       : "文档",
+    },
+    
+    {
+      href       : "/support.html",
+      text       : "支持",
+    },
+    
+    {
+      href       : "http://frescolib.org/javadoc/",
+      text       : "API",
+    },
+    
+    {
+      href       : "http://github.com/facebook/fresco",
+      text       : "GITHUB",
+    },
+    
+    {
+      href       : "/about.html",
+      text       : "关于本文档",
+    },
+    
+    {
+      href       : "http://frescolib.org/",
+      text       : "ENGLISH",
+    },
+    
+    {
+      href       : "http://fresco.recrack.com/",
+      text       : "한국어",
+    },
+    
+  ];
+</script>
+<script type="text/javascript">
+  var Nav = React.createClass({displayName: "Nav",
+    getInitialState: function() {
+      return {
+        currentPath: window.location.pathname,
+        slideoutActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        data: navData,
+      }
+    },
+    handleClick: function(id) {
+      this.setState({
+        slideoutActive: false,
+      });
+      document.dispatchEvent(event);
+    },
+    handleSlide: function(id) {
+      this.setState({
+        slideoutActive: !this.state.slideoutActive,
+      });
+      document.dispatchEvent(event);
+    },
+    componentDidMount: function() {
+      docsearch({
+        apiKey: '57436460790d750ed488518dfb6d41f9',
+        indexName: 'frescolib',
+        inputSelector: '#search_input_react',
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navSlideout': true,
+        'navSlideoutActive': this.state.slideoutActive,
+      });
+      var navClasses = React.addons.classSet({
+        'slidingNav': true,
+        'slidingNavActive': this.state.slideoutActive,
+      });
+      return (
+        React.createElement("div", null,
+          React.createElement("div", {className: classes, onClick: this.handleSlide},
+            React.createElement("i", {className: "menuExpand"},
+              React.createElement("span"),
+              React.createElement("span"),
+              React.createElement("span")
+            )
+          ),
+          React.createElement("nav", {className: navClasses},
+            React.createElement("ul", null,
+              this.props.data.map(this.renderNavItems),
+              React.createElement("li", {className: "navSearchWrapper reactNavSearchWrapper"},
+                React.createElement("input", {id: "search_input_react"})
+              )
+            )
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.state.currentPath === child.href,
+      });
+      return (
+        React.createElement("li", {key: index, className: classes},
+          React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+        )
+      );
+    },
+  });
+
+  function render(navData) {
+    React.render(
+      React.createElement(Nav, {data: navData}),
+      document.getElementById('navigation_wrap')
+    );
+  }
+  render(navData);
+</script>
+</div>
+
+    <div class="navPusher">
+      <div class="docMainWrapper wrapper">
+      <script>
+  var docnavData = [
+    
+    {
+      group     : "快速开始",
+      items     : [
+        
+        
+        {
+          key : "/docs/index.html",
+          title : "引入Fresco",
+          url : "/docs/index.html",
+        },
+        
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用 Fresco",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+        {
+          key : "/docs/concepts.html",
+          title : "关键概念",
+          url : "/docs/concepts.html",
+        },
+        
+        
+        {
+          key : "/docs/supported-uris.html",
+          title : "支持的URI",
+          url : "/docs/supported-uris.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Drawee 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-drawees-xml.html",
+          title : "在XML中使用Drawees",
+          url : "/docs/using-drawees-xml.html",
+        },
+        
+        
+        {
+          key : "/docs/using-drawees-code.html",
+          title : "在JAVA代码中使用Drawees",
+          url : "/docs/using-drawees-code.html",
+        },
+        
+        
+        {
+          key : "/docs/drawee-branches.html",
+          title : "Drawee的各种效果配置",
+          url : "/docs/drawee-branches.html",
+        },
+        
+        
+        {
+          key : "/docs/progress-bars.html",
+          title : "进度条",
+          url : "/docs/progress-bars.html",
+        },
+        
+        
+        {
+          key : "/docs/scaling.html",
+          title : "缩放",
+          url : "/docs/scaling.html",
+        },
+        
+        
+        {
+          key : "/docs/rounded-corners-and-circles.html",
+          title : "圆角和圆圈",
+          url : "/docs/rounded-corners-and-circles.html",
+        },
+        
+        
+        {
+          key : "/docs/using-controllerbuilder.html",
+          title : "使用ControllerBuilder",
+          url : "/docs/using-controllerbuilder.html",
+        },
+        
+        
+        {
+          key : "/docs/progressive-jpegs.html",
+          title : "渐进式JPEG图",
+          url : "/docs/progressive-jpegs.html",
+        },
+        
+        
+        {
+          key : "/docs/animations.html",
+          title : "动画支持",
+          url : "/docs/animations.html",
+        },
+        
+        
+        {
+          key : "/docs/requesting-multiple-images.html",
+          title : "多图请求及图片复用",
+          url : "/docs/requesting-multiple-images.html",
+        },
+        
+        
+        {
+          key : "/docs/listening-download-events.html",
+          title : "监听下载事件",
+          url : "/docs/listening-download-events.html",
+        },
+        
+        
+        {
+          key : "/docs/resizing-rotating.html",
+          title : "缩放和旋转图片",
+          url : "/docs/resizing-rotating.html",
+        },
+        
+        
+        {
+          key : "/docs/modifying-image.html",
+          title : "修改图片",
+          url : "/docs/modifying-image.html",
+        },
+        
+        
+        {
+          key : "/docs/image-requests.html",
+          title : "图片请求(Image Requests)",
+          url : "/docs/image-requests.html",
+        },
+        
+        
+        {
+          key : "/docs/writing-custom-views.html",
+          title : "自定义View",
+          url : "/docs/writing-custom-views.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Image Pipeline 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/intro-image-pipeline.html",
+          title : "Image Pipeline介绍",
+          url : "/docs/intro-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/configure-image-pipeline.html",
+          title : "配置Image Pipeline",
+          url : "/docs/configure-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/caching.html",
+          title : "缓存",
+          url : "/docs/caching.html",
+        },
+        
+        
+        {
+          key : "/docs/using-image-pipeline.html",
+          title : "直接使用Image Pipeline",
+          url : "/docs/using-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/datasources-datasubscribers.html",
+          title : "数据源和数据订阅者",
+          url : "/docs/datasources-datasubscribers.html",
+        },
+        
+        
+        {
+          key : "/docs/closeable-references.html",
+          title : "可关闭的引用",
+          url : "/docs/closeable-references.html",
+        },
+        
+        
+        {
+          key : "/docs/webp-support.html",
+          title : "Webp支持",
+          url : "/docs/webp-support.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "问题处理",
+      items     : [
+        
+        
+        {
+          key : "/docs/troubleshooting.html",
+          title : "问题处理",
+          url : "/docs/troubleshooting.html",
+        },
+        
+        
+        {
+          key : "/docs/gotchas.html",
+          title : "一些陷阱",
+          url : "/docs/gotchas.html",
+        },
+        
+        
+        {
+          key : "/docs/wrap-content.html",
+          title : "wrap_content的限制",
+          url : "/docs/wrap-content.html",
+        },
+        
+        
+        {
+          key : "/docs/shared-transitions.html",
+          title : "共享元素动画",
+          url : "/docs/shared-transitions.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "第三方类库",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-other-network-layers.html",
+          title : "自定义网络加载",
+          url : "/docs/using-other-network-layers.html",
+        },
+        
+        
+        {
+          key : "/docs/using-other-image-loaders.html",
+          title : "使用其他的Image Loader",
+          url : "/docs/using-other-image-loaders.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "发布App",
+      items     : [
+        
+        
+        {
+          key : "/docs/proguard.html",
+          title : "混淆(Proguard)",
+          url : "/docs/proguard.html",
+        },
+        
+        
+        {
+          key : "/docs/multiple-apks.html",
+          title : "按需打包",
+          url : "/docs/multiple-apks.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "如何贡献代码？",
+      items     : [
+        
+        
+        {
+          key : "/docs/building-from-source.html",
+          title : "构建源码",
+          url : "/docs/building-from-source.html",
+        },
+        
+        
+        {
+          key : "/docs/sample-code.html",
+          title : "示例代码",
+          url : "/docs/sample-code.html",
+        }
+        
+      ],
+    },
+    
+  ];
+  var currentGroup = "Drawee 指南";
+  var currentDoc = "Drawee的各种效果配置";
+  var activeGroup = "Drawee 指南";
+  var sectionTitle = "Docs";
+  var sectionPath = "/docs/";
+</script>
+<div class="docsNavContainer">
+  <nav class="toc" id="doc_nav"></nav>
+</div>
+<script type="text/javascript">
+  var docsevent = document.createEvent('Event');
+  docsevent.initEvent('docs_slide', true, true);
+  document.addEventListener('docs_slide', function (e) {
+    document.body.classList.toggle('docsSliderActive');
+  }, false);
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        activeGroup: activeGroup,
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: currentDoc,
+        currentGroup: currentGroup,
+        data: docnavData,
+        sectionTitle: sectionTitle,
+        sectionPath: sectionPath,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+      document.dispatchEvent(docsevent);
+    },
+    handleAccordion: function(group) {
+      this.setState({
+        activeGroup: group,
+      })
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses},
+          React.createElement("section", {className: 'navWrapper wrapper'},
+            React.createElement("div", {className: 'navBreadcrumb wrapper'},
+              React.createElement("div",
+                {
+                  className: classes,
+                  onClick: this.handleSlide
+                },
+                React.createElement("i")
+              ),
+              React.createElement("h2", null,
+                React.createElement(
+                  "a",
+                  {href: this.props.sectionPath},
+                  this.props.sectionTitle
+                ),
+                React.createElement("i", null, '›'),
+                React.createElement("span", null, this.props.currentGroup)
+              )
+            ),
+            React.createElement("div", {className: 'navGroups'},
+              this.props.data.map(this.renderNavGroups)
+            )
+          )
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupCurrent': this.props.currentGroup === child.group,
+        'navGroupActive': this.state.activeGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index, onClick: this.handleAccordion.bind(this, child.group)},
+          React.createElement("h3", null,
+            React.createElement(
+              "i",
+              null,
+              (this.state.activeGroup === child.group) ? "" : "+"
+            ),
+            React.createElement("span", null, child.group)
+          ),
+          React.createElement("ul", null,
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+
+
+      <div class="mainContainer documentContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Drawee的各种效果配置</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <h2 id="section">内容导航</h2>
+
+<ul>
+  <li><a href="#what-are-branches">定义</a></li>
+  <li><a href="#Actual">设置要加载的图片</a></li>
+  <li><a href="#Placeholder">占位图</a></li>
+  <li><a href="#Failure">加载失败时的占位图</a></li>
+  <li><a href="#Retry">点击重新加载</a></li>
+  <li><a href="#ProgressBar">显示一个进度条</a></li>
+  <li><a href="#Backgrounds">背景</a></li>
+  <li><a href="#Overlays">叠加图 </a></li>
+  <li><a href="#PressedStateOverlay">按压状态下的叠加图</a></li>
+</ul>
+
+<h2 id="a-namewhat-are-branchesa"><a name="what-are-branches"></a>定义</h2>
+
+<p>Drawee 是由很多图片层组成的，每个阶段会有不同的显示状态。我们将在这里介绍其中每一层的作用与如何显示。</p>
+
+<p>除了最终要显示的目标图片，所有的图片层都可以在 XML 里面设置，他们的值可以是一个 <code class="highlighter-rouge">@drawable/</code> 图片资源 或者 <code class="highlighter-rouge">@color</code> 颜色资源。</p>
+
+<p>他们同样可以通过 <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchyBuilder.html">GenericDraweeHierarchyBuilder</a> 来设置，请参考 <a href="using-drawees-code.html">在JAVA代码中使用Drawees</a> 。此时他们可以是任何<code class="highlighter-rouge">Drawable</code>的子类或者资源。</p>
+
+<p>它们中有一些可以在运行时动态修改，也是通过 <a href="../javadoc/reference/com/facebook/drawee/generic/GenericDraweeHierarchy.html">GenericDraweeHierarchy</a> 来实现。</p>
+
+<p>其中有部分层可以被 <a href="scaling.html">缩放</a>.</p>
+
+<h2 id="a-nameactuala"><a name="Actual"></a>设置要加载的图</h2>
+
+<p>除了需要加载的图片是真正必须的，其他的都是可选的。如前所述，图片可以来自多个地方。</p>
+
+<p>所需加载的图片实际是 DraweeController 的一个属性，而不是 DraweeHierarchy 的属性。</p>
+
+<p>可使用<code class="highlighter-rouge">setImageURI</code>方法或者<a href="using-controllerbuilder.html">通过设置DraweeController</a> 来进行设置。</p>
+
+<p>对于要加载的图片，除了可以设置缩放类型外，DraweeHierarchy 还公开出一些其他方法用来控制显示效果:</p>
+
+<ul>
+  <li>focus point (居中焦点, 用于<a href="scaling.html#FocusCrop">focusCrop缩放模式</a>)</li>
+  <li>color filter</li>
+</ul>
+
+<p>默认的缩放类型是: <code class="highlighter-rouge">centerCrop</code></p>
+
+<h2 id="a-nameplaceholderaplaceholder"><a name="Placeholder"></a>占位图(Placeholder)</h2>
+
+<p>在调用<code class="highlighter-rouge">setController</code> 或者 <code class="highlighter-rouge">setImageURI</code> 之后，占位图开始显示，直到图片加载完成。</p>
+
+<p>对于渐进式格式的JPEG图片，占位图会显示直到满足已加载的图片解析度到达设定值。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">placeholderImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setPlaceholderImage</code>  <br />
+Hierarchy method: <code class="highlighter-rouge">setPlaceholderImage</code>  <br />
+默认值: 透明的<a href="http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html">ColorDrawable</a>  <br />
+默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
+
+<h2 id="a-namefailure-a"><a name="Failure"></a>设置加载失败占位图</h2>
+
+<p>如果URI是无效的，或者下载过程中网络不可用，将会导致加载失败。当加载图片出错时，你可以设置一个出错提示图片。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">failureImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setFailureImage</code>  <br />
+默认值: 无<br />
+默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
+
+<h2 id="a-nameretrya"><a name="Retry"></a>点击重新加载图</h2>
+
+<p>在加载失败时，可以设置点击重新加载。这时提供一个图片，加载失败时，会显示这个图片（而不是失败提示图片），提示用户点击重试。</p>
+
+<p>在<a href="using-controllerbuilder.html">ControllerBuilder</a> 中如下设置:</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">.</span><span class="na">setTapToRetryEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>加载失败时，image pipeline 会重试四次；如果还是加载失败，则显示加载失败提示图片。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">retryImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setRetryImage</code>  <br />
+默认值: 无<br />
+默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
+
+<h2 id="a-nameprogressbara"><a name="ProgressBar"></a>显示进度条</h2>
+
+<p>如果设置一个进度条图片，提示用户正在加载。该图片会覆盖在 Drawee 上直到图片加载完成。</p>
+
+<p>如果需要自定义，更详细的情况，请参考 <a href="progress-bars.html">进度条页面</a></p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">progressBarImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setProgressBarImage</code>  <br />
+默认值: None   <br />
+默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
+
+<h2 id="a-namebackgroundsa"><a name="Backgrounds"></a>背景</h2>
+
+<p>背景图会最先绘制，在XML中只可以指定一个背景图，但是在JAVA代码中，可以指定多个背景图。</p>
+
+<p>当指定一个背景图列表的时候，列表中的第一项会被首先绘制，绘制在最下层，然后依次往上绘制。</p>
+
+<p>背景图片不支持缩放类型，会被强制到<code class="highlighter-rouge">Drawee</code>尺寸大小。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">backgroundImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setBackground,</code> <code class="highlighter-rouge">setBackgrounds</code>    <br />
+默认值: None   <br />
+默认缩放类型: N/A</p>
+
+<h2 id="a-nameoverlaysaoverlay"><a name="Overlays"></a>设置叠加图(Overlay)</h2>
+
+<p>叠加图会最后被绘制。</p>
+
+<p>和背景图一样，XML中只可以指定一个，如果想指定多个，可以通过JAVA代码实现。</p>
+
+<p>当指定的叠加图是一个列表的时候，列表第一个元素会被先绘制，最后一个元素最后被绘制到最上层。</p>
+
+<p>同样的，不支持各种缩放类型。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">overlayImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setOverlay,</code> <code class="highlighter-rouge">setOverlays</code>    <br />
+默认值: None   <br />
+默认缩放类型: N/A</p>
+
+<h2 id="a-namepressedstateoverlaya"><a name="PressedStateOverlay"></a>设置按压状态下的叠加图</h2>
+
+<p>同样不支持缩放，用户按压DraweeView时呈现。</p>
+
+<p>XML 中属性值: <code class="highlighter-rouge">pressedStateOverlayImage</code>  <br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setPressedStateOverlay</code>    <br />
+默认值: None   <br />
+默认缩放类型: N/A</p>
+
+
+      <p><a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/tree/gh-pages/_docs/01-drawee-branches.md" target="_blank">编辑和纠错</a></p>
+    
+  </article>
+  
+</div>
+
+  </div>
+</div>
+
+
+      </div>
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <div class="footerBlocks">
+      <div id="fb_oss" class="footerSection fbOpenSourceFooter">
+          <svg class="facebookOSSLogoSvg" viewBox="0 0 1133.9 1133.9" x="0px" y="0px">
+            <g>
+              <path class="logoRing outerRing" d="M 498.3 3.7 c 153.6 88.9 307.3 177.7 461.1 266.2 c 7.6 4.4 10.3 9.1 10.3 17.8 c -0.3 179.1 -0.2 358.3 0 537.4 c 0 8.1 -2.4 12.8 -9.7 17.1 c -154.5 88.9 -308.8 178.1 -462.9 267.5 c -9 5.2 -15.5 5.3 -24.6 0.1 c -153.9 -89.2 -307.9 -178 -462.1 -266.8 C 3 838.8 0 833.9 0 825.1 c 0.3 -179.1 0.2 -358.3 0 -537.4 c 0 -8.6 2.6 -13.6 10.2 -18 C 164.4 180.9 318.4 92 472.4 3 C 477 -1.5 494.3 -0.7 498.3 3.7 Z M 48.8 555.3 c 0 79.9 0.2 159.9 -0.2 239.8 c -0.1 10 3 15.6 11.7 20.6 c 137.2 78.8 274.2 157.8 411 237.3 c 9.9 5.7 17 5.7 26.8 0.1 c 137.5 -79.8 275.2 -159.2 412.9 -238.5 c 7.4 -4.3 10.5 -8.9 10.5 -17.8 c -0.3 -160.2 -0.3 -320.5 0 -480.7 c 0 -8.8 -2.8 -13.6 -10.3 -18 C 772.1 218 633.1 137.8 494.2 57.4 c -6.5 -3.8 -11.5 -4.5 -18.5 -0.5 C 336.8 137.4 197.9 217.7 58.8 297.7 c -7.7 4.4 -10.2 9.2 -10.2 17.9 C 48.9 395.5 48.8 475.4 48.8 555.3 Z" />
+              <path class="logoRing middleRing" d="M 184.4 555.9 c 0 -33.3 -1 -66.7 0.3 -100 c 1.9 -48 24.1 -86 64.7 -110.9 c 54.8 -33.6 110.7 -65.5 167 -96.6 c 45.7 -25.2 92.9 -24.7 138.6 1 c 54.4 30.6 108.7 61.5 162.2 93.7 c 44 26.5 67.3 66.8 68 118.4 c 0.9 63.2 0.9 126.5 0 189.7 c -0.7 50.6 -23.4 90.7 -66.6 116.9 c -55 33.4 -110.8 65.4 -167.1 96.5 c -43.4 24 -89 24.2 -132.3 0.5 c -57.5 -31.3 -114.2 -64 -170 -98.3 c -41 -25.1 -62.9 -63.7 -64.5 -112.2 C 183.5 621.9 184.3 588.9 184.4 555.9 Z M 232.9 556.3 c 0 29.5 0.5 59.1 -0.1 88.6 c -0.8 39.2 16.9 67.1 50.2 86.2 c 51.2 29.4 102.2 59.2 153.4 88.4 c 31.4 17.9 63.6 18.3 95 0.6 c 53.7 -30.3 107.1 -61.2 160.3 -92.5 c 29.7 -17.5 45 -44.5 45.3 -78.8 c 0.6 -61.7 0.5 -123.5 0 -185.2 c -0.3 -34.4 -15.3 -61.5 -44.9 -79 C 637.7 352.6 583 320.8 527.9 290 c -27.5 -15.4 -57.2 -16.1 -84.7 -0.7 c -56.9 31.6 -113.4 64 -169.1 97.6 c -26.4 15.9 -40.7 41.3 -41.1 72.9 C 232.6 491.9 232.9 524.1 232.9 556.3 Z" />
+              <path class="logoRing innerRing" d="M 484.9 424.4 c 69.8 -2.8 133.2 57.8 132.6 132 C 617 630 558.5 688.7 484.9 689.1 c -75.1 0.4 -132.6 -63.6 -132.7 -132.7 C 352.1 485 413.4 421.5 484.9 424.4 Z M 401.3 556.7 c -3.4 37.2 30.5 83.6 83 84.1 c 46.6 0.4 84.8 -37.6 84.9 -84 c 0.1 -46.6 -37.2 -84.4 -84.2 -84.6 C 432.2 472.1 397.9 518.3 401.3 556.7 Z" />
+            </g>
+          </svg>
+        <h2>Facebook Open Source</h2>
+      </div>
+      <div class="footerSection">
+        <a class="footerLink" href="https://code.facebook.com/projects/" target="_blank">Open Source Projects</a>
+        <a class="footerLink" href="https://github.com/facebook/" target="_blank">GitHub</a>
+        <a class="footerLink" href="https://twitter.com/fbOpenSource" target="_blank">Twitter</a>
+      </div>
+      <div class="footerSection rightAlign">
+        <a class="footerLink" href="https://github.com/facebook/fresco" target="_blank">Contribute to this project on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    </div>
+  </body>
+</html>

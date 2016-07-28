@@ -185,7 +185,7 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
     <li class="api apilevel-">
-  <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+  <a href="../../../../com/facebook/imagepipeline/backends/okhttp3/package-summary.html">com.facebook.imagepipeline.backends.okhttp3</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
@@ -450,10 +450,42 @@ Summary:
             
             
             
+            ImagePipelineExperiments.Builder
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#experiment()">experiment</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#isDownsampleEnabled()">isDownsampleEnabled</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setAnimatedImageFactory(com.facebook.imagepipeline.animated.factory.AnimatedImageFactory)">setAnimatedImageFactory</a></span>(AnimatedImageFactory animatedImageFactory)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setAnimatedImageFactory(AnimatedImageFactory)">setAnimatedImageFactory</a></span>(AnimatedImageFactory animatedImageFactory)
         
   </td></tr>
 
@@ -485,7 +517,7 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setCacheKeyFactory(com.facebook.imagepipeline.cache.CacheKeyFactory)">setCacheKeyFactory</a></span>(<a href="../../../../com/facebook/imagepipeline/cache/CacheKeyFactory.html">CacheKeyFactory</a> cacheKeyFactory)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setBitmapsConfig(android.graphics.Bitmap.Config)">setBitmapsConfig</a></span>(Bitmap.Config config)
         
   </td></tr>
 
@@ -501,7 +533,7 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setDownsampleEnabled(boolean)">setDownsampleEnabled</a></span>(boolean downsampleEnabled)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setCacheKeyFactory(com.facebook.imagepipeline.cache.CacheKeyFactory)">setCacheKeyFactory</a></span>(<a href="../../../../com/facebook/imagepipeline/cache/CacheKeyFactory.html">CacheKeyFactory</a> cacheKeyFactory)
         
   </td></tr>
 
@@ -517,7 +549,7 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setEncodedMemoryCacheParamsSupplier(com.facebook.common.internal.Supplier<com.facebook.imagepipeline.cache.MemoryCacheParams>)">setEncodedMemoryCacheParamsSupplier</a></span>(<a href="../../../../com/facebook/common/internal/Supplier.html">Supplier</a>&lt;<a href="../../../../com/facebook/imagepipeline/cache/MemoryCacheParams.html">MemoryCacheParams</a>&gt; encodedMemoryCacheParamsSupplier)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setDecodeMemoryFileEnabled(boolean)">setDecodeMemoryFileEnabled</a></span>(boolean decodeMemoryFileEnabled)
         
   </td></tr>
 
@@ -533,7 +565,77 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setDiskStorageFactory(DiskStorageFactory)">setDiskStorageFactory</a></span>(DiskStorageFactory diskStorageFactory)
+        
+        <div class="jd-descrdiv">
+      <em>
+  This method is deprecated.
+      use <code><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setFileCacheFactory(FileCacheFactory)">setFileCacheFactory(FileCacheFactory)</a></code> instead
+</em></div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setDownsampleEnabled(boolean)">setDownsampleEnabled</a></span>(boolean downsampleEnabled)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setEncodedMemoryCacheParamsSupplier(com.facebook.common.internal.Supplier<com.facebook.imagepipeline.cache.MemoryCacheParams>)">setEncodedMemoryCacheParamsSupplier</a></span>(<a href="../../../../com/facebook/common/internal/Supplier.html">Supplier</a>&lt;<a href="../../../../com/facebook/imagepipeline/cache/MemoryCacheParams.html">MemoryCacheParams</a>&gt; encodedMemoryCacheParamsSupplier)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setExecutorSupplier(com.facebook.imagepipeline.core.ExecutorSupplier)">setExecutorSupplier</a></span>(<a href="../../../../com/facebook/imagepipeline/core/ExecutorSupplier.html">ExecutorSupplier</a> executorSupplier)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setFileCacheFactory(FileCacheFactory)">setFileCacheFactory</a></span>(FileCacheFactory fileCacheFactory)
         
   </td></tr>
 
@@ -903,7 +1005,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>()
+        <span class="sympad">wait</span>(long arg0, int arg1)
         
   </td></tr>
 
@@ -919,7 +1021,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0, int arg1)
+        <span class="sympad">wait</span>(long arg0)
         
   </td></tr>
 
@@ -935,7 +1037,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0)
+        <span class="sympad">wait</span>()
         
   </td></tr>
 
@@ -1019,7 +1121,69 @@ From class
 </div>
 
 
-<a id="setAnimatedImageFactory(com.facebook.imagepipeline.animated.factory.AnimatedImageFactory)"></a>
+<a id="experiment()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ImagePipelineExperiments.Builder
+      </span>
+      <span class="sympad">experiment</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="isDownsampleEnabled()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isDownsampleEnabled</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setAnimatedImageFactory(AnimatedImageFactory)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1081,6 +1245,37 @@ From class
 </div>
 
 
+<a id="setBitmapsConfig(android.graphics.Bitmap.Config)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+      </span>
+      <span class="sympad">setBitmapsConfig</span>
+      <span class="normal">(Bitmap.Config config)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 <a id="setCacheKeyFactory(com.facebook.imagepipeline.cache.CacheKeyFactory)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1106,6 +1301,73 @@ From class
       </div>
     <div class="jd-details-descr">
       
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setDecodeMemoryFileEnabled(boolean)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+      </span>
+      <span class="sympad">setDecodeMemoryFileEnabled</span>
+      <span class="normal">(boolean decodeMemoryFileEnabled)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setDiskStorageFactory(DiskStorageFactory)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+      </span>
+      <span class="sympad">setDiskStorageFactory</span>
+      <span class="normal">(DiskStorageFactory diskStorageFactory)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      <p>
+  <p class="caution">
+      <strong>
+  This method is deprecated.</strong><br/> use <code><a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html#setFileCacheFactory(FileCacheFactory)">setFileCacheFactory(FileCacheFactory)</a></code> instead
+
+  </p>
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
@@ -1188,6 +1450,37 @@ From class
       </span>
       <span class="sympad">setExecutorSupplier</span>
       <span class="normal">(<a href="../../../../com/facebook/imagepipeline/core/ExecutorSupplier.html">ExecutorSupplier</a> executorSupplier)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setFileCacheFactory(FileCacheFactory)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.Builder.html">ImagePipelineConfig.Builder</a>
+      </span>
+      <span class="sympad">setFileCacheFactory</span>
+      <span class="normal">(FileCacheFactory fileCacheFactory)</span>
     </h4>
       <div class="api-level">
         <div>

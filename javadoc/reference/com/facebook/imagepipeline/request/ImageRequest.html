@@ -185,7 +185,7 @@
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
     <li class="api apilevel-">
-  <a href="../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+  <a href="../../../../com/facebook/imagepipeline/backends/okhttp3/package-summary.html">com.facebook.imagepipeline.backends.okhttp3</a></li>
     <li class="api apilevel-">
   <a href="../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
@@ -234,7 +234,7 @@
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.ImageType.html">ImageRequest.ImageType</a></li>
+          <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.CacheChoice.html">ImageRequest.CacheChoice</a></li>
           <li class="api apilevel-"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.RequestLevel.html">ImageRequest.RequestLevel</a></li>
       </ul>
     </li>
@@ -432,8 +432,8 @@ Summary:
          
         
         enum</td>
-      <td class="jd-linkcol"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.ImageType.html">ImageRequest.ImageType</a></td>
-      <td class="jd-descrcol" width="100%">An enum describing type of the image.&nbsp;</td>
+      <td class="jd-linkcol"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.CacheChoice.html">ImageRequest.CacheChoice</a></td>
+      <td class="jd-descrcol" width="100%">An enum describing the cache choice.&nbsp;</td>
     </tr>
     
     
@@ -513,12 +513,12 @@ Summary:
             
             
             
-            static
             
-            <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html">ImageRequest</a>
+            
+            boolean
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#fromUri(android.net.Uri)">fromUri</a></span>(Uri uri)
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#equals(java.lang.Object)">equals</a></span>(Object o)
         
   </td></tr>
 
@@ -534,7 +534,39 @@ Summary:
             <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html">ImageRequest</a>
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#fromUri(android.net.Uri)">fromUri</a></span>(Uri uri)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            static
+            
+            <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html">ImageRequest</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#fromUri(java.lang.String)">fromUri</a></span>(String uriString)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#getAutoRotateEnabled()">getAutoRotateEnabled</a></span>()
         
   </td></tr>
 
@@ -547,10 +579,10 @@ Summary:
             
             
             
-            boolean
+            <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.CacheChoice.html">ImageRequest.CacheChoice</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#getAutoRotateEnabled()">getAutoRotateEnabled</a></span>()
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#getCacheChoice()">getCacheChoice</a></span>()
         
   </td></tr>
 
@@ -579,22 +611,6 @@ Summary:
             
             
             
-            <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.ImageType.html">ImageRequest.ImageType</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#getImageType()">getImageType</a></span>()
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
             boolean
         </td>
         <td class="jd-linkcol" width="100%">
@@ -604,7 +620,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -620,7 +636,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -636,7 +652,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -652,7 +668,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -668,7 +684,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -684,7 +700,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -700,7 +716,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -716,7 +732,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             synchronized
@@ -732,7 +748,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -743,6 +759,22 @@ Summary:
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#getSourceUri()">getSourceUri</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            int
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/facebook/imagepipeline/request/ImageRequest.html#hashCode()">hashCode</a></span>()
         
   </td></tr>
 
@@ -936,7 +968,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>()
+        <span class="sympad">wait</span>(long arg0, int arg1)
         
   </td></tr>
 
@@ -952,7 +984,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0, int arg1)
+        <span class="sympad">wait</span>(long arg0)
         
   </td></tr>
 
@@ -968,7 +1000,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0)
+        <span class="sympad">wait</span>()
         
   </td></tr>
 
@@ -1055,6 +1087,37 @@ From class
 
 <h2>Public Methods</h2>
 
+
+
+<a id="equals(java.lang.Object)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">equals</span>
+      <span class="normal">(Object o)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
 
 
 <a id="fromUri(android.net.Uri)"></a>
@@ -1150,7 +1213,7 @@ From class
 </div>
 
 
-<a id="getImageDecodeOptions()"></a>
+<a id="getCacheChoice()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1160,9 +1223,9 @@ From class
          
          
          
-        ImageDecodeOptions
+        <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.CacheChoice.html">ImageRequest.CacheChoice</a>
       </span>
-      <span class="sympad">getImageDecodeOptions</span>
+      <span class="sympad">getCacheChoice</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1181,7 +1244,7 @@ From class
 </div>
 
 
-<a id="getImageType()"></a>
+<a id="getImageDecodeOptions()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1191,9 +1254,9 @@ From class
          
          
          
-        <a href="../../../../com/facebook/imagepipeline/request/ImageRequest.ImageType.html">ImageRequest.ImageType</a>
+        ImageDecodeOptions
       </span>
-      <span class="sympad">getImageType</span>
+      <span class="sympad">getImageDecodeOptions</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1504,6 +1567,37 @@ From class
         Uri
       </span>
       <span class="sympad">getSourceUri</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="hashCode()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        int
+      </span>
+      <span class="sympad">hashCode</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">

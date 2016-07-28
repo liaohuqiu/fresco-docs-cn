@@ -185,7 +185,7 @@
     <li class="api apilevel-">
   <a href="../../../../../com/facebook/imagepipeline/animated/util/package-summary.html">com.facebook.imagepipeline.animated.util</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../com/facebook/imagepipeline/backends/okhttp/package-summary.html">com.facebook.imagepipeline.backends.okhttp</a></li>
+  <a href="../../../../../com/facebook/imagepipeline/backends/okhttp3/package-summary.html">com.facebook.imagepipeline.backends.okhttp3</a></li>
     <li class="api apilevel-">
   <a href="../../../../../com/facebook/imagepipeline/bitmaps/package-summary.html">com.facebook.imagepipeline.bitmaps</a></li>
     <li class="api apilevel-">
@@ -219,6 +219,7 @@
       <ul>
           <li class="selected api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/Fresco.html">Fresco</a></li>
           <li class="api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/PipelineDraweeController.html">PipelineDraweeController</a></li>
+          <li class="api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/PipelineDraweeController.Experiment.html">PipelineDraweeController.Experiment</a></li>
           <li class="api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilder.html">PipelineDraweeControllerBuilder</a></li>
           <li class="api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/PipelineDraweeControllerBuilderSupplier.html">PipelineDraweeControllerBuilderSupplier</a></li>
           <li class="api apilevel-"><a href="../../../../../com/facebook/drawee/backends/pipeline/PipelineDraweeControllerFactory.html">PipelineDraweeControllerFactory</a></li>
@@ -492,9 +493,9 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../../com/facebook/drawee/backends/pipeline/Fresco.html#initialize(android.content.Context)">initialize</a></span>(Context context)
+        <span class="sympad"><a href="../../../../../com/facebook/drawee/backends/pipeline/Fresco.html#initialize(android.content.Context, com.facebook.imagepipeline.core.ImagePipelineConfig)">initialize</a></span>(Context context, <a href="../../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.html">ImagePipelineConfig</a> imagePipelineConfig)
         
-        <div class="jd-descrdiv">Initializes Fresco with the default config.</div>
+        <div class="jd-descrdiv">Initializes Fresco with the specified config.</div>
   
   </td></tr>
 
@@ -510,9 +511,9 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../../com/facebook/drawee/backends/pipeline/Fresco.html#initialize(android.content.Context, com.facebook.imagepipeline.core.ImagePipelineConfig)">initialize</a></span>(Context context, <a href="../../../../../com/facebook/imagepipeline/core/ImagePipelineConfig.html">ImagePipelineConfig</a> imagePipelineConfig)
+        <span class="sympad"><a href="../../../../../com/facebook/drawee/backends/pipeline/Fresco.html#initialize(android.content.Context)">initialize</a></span>(Context context)
         
-        <div class="jd-descrdiv">Initializes Fresco with the specified config.</div>
+        <div class="jd-descrdiv">Initializes Fresco with the default config.</div>
   
   </td></tr>
 
@@ -726,7 +727,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>()
+        <span class="sympad">wait</span>(long arg0, int arg1)
         
   </td></tr>
 
@@ -742,7 +743,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0, int arg1)
+        <span class="sympad">wait</span>(long arg0)
         
   </td></tr>
 
@@ -758,7 +759,7 @@ From class
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">wait</span>(long arg0)
+        <span class="sympad">wait</span>()
         
   </td></tr>
 
@@ -904,37 +905,6 @@ From class
 </div>
 
 
-<a id="initialize(android.content.Context)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">initialize</span>
-      <span class="normal">(Context context)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Initializes Fresco with the default config. </p></div>
-
-    </div>
-</div>
-
-
 <a id="initialize(android.content.Context, com.facebook.imagepipeline.core.ImagePipelineConfig)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -961,6 +931,37 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Initializes Fresco with the specified config. </p></div>
+
+    </div>
+</div>
+
+
+<a id="initialize(android.content.Context)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">initialize</span>
+      <span class="normal">(Context context)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Initializes Fresco with the default config. </p></div>
 
     </div>
 </div>

@@ -1,503 +1,967 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
-<head>
-    <meta charset='utf-8'>
-    <title>Fresco | 自定义View | Fresco 中文文档</title>
-    <link rel='stylesheet' href='/static/site.css' type='text/css'/>
-    <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
-    <link rel='shortcut icon' href='/static/favicon.png'>
-    <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="自定义View" />
-    <meta property="og:site_name" content="fresco">
-    <meta property='og:description' content='Fresco is an image management library.'>
-    <meta property='og:image' content='http://facebook.github.io/fresco/static/fresco-og-image.png'>
-    <meta property='og:url' content="http://facebook.github.io/fresco/docs/writing-custom-views.html">
-    
-    <meta property='og:type' content='website'>
-    
-    <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
-    <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
-    <!-- Google Analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      ga('create', 'UA-43024238-8', 'auto');
-      ga('send', 'pageview');
+  <meta property="og:url" content="http://frescolib.org/docs/writing-custom-views.html" />
+  <meta property="og:site_name" content="Fresco"/>
+  <meta property="og:title" content="自定义View" />
+  <meta property="og:image" content="http://frescolib.org/static/og_image.png" />
+  <meta property="og:description" content="DraweeHolders" />
 
-    </script>
+  <link rel="stylesheet" href="/static/css/main.css" media="screen">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+
+  <script src="/static/react-with-addons-0.13.1.min.js"></script>
+
+  <title>自定义View | Fresco</title>
+  <meta name="description" content="DraweeHolders">
+
+  <link rel="canonical" href="http://frescolib.org/docs/writing-custom-views.html">
+  <link rel="alternate" type="application/rss+xml" title="Fresco" href="http://frescolib.org/feed.xml" />
 </head>
-<body>
 
-<header class='topbar'><nav class='width'>
-<a href='/'>
-  <img src="/static/fresco-logo.png" class="logo">
-</a>
-    <ul>
-      <li><a href="/docs/index.html#_"
-          
-          class="active" >
-          文档
-      </a></li>
-      <li><a href="/"
-          >
-          关于
-      </a></li>
-      <li><a href="/support.html"
-          >
-          支持
-      </a></li>
-      <li><a href="/javadoc">
-          API
-      </a></li>
-      <li><a href="http://github.com/facebook/fresco">GitHub</a>
-      <li><a href="/about.html"
-          >
-      关于本文档</a></li>
-  <li><a href="http://frescolib.org/">English</a></li>
-  <li><a href="http://fresco.recrack.com/">한국어</a></li>
-    </ul>
-</nav></header>
+  <body class="docsNavVisible">
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <div class="headerWrapper wrapper">
+    <header>
+      <a href="/">
+        <img src="/static/logo.png">
+        <h2>Fresco</h2>
+      </a>
+
+      <div class="navigationWrapper navigationFull" id="flat_nav">
+        <nav class="navigation">
+          <ul>
+            
+            <li class="navItem navItemActive">
+              <a href="docs/">文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/support.html">支持</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/javadoc/">API</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://github.com/facebook/fresco">GITHUB</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="/about.html">关于本文档</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://frescolib.org/">ENGLISH</a>
+            </li>
+            
+            <li class="navItem">
+              <a href="http://fresco.recrack.com/">한국어</a>
+            </li>
+            
+            <li class="navSearchWrapper">
+  <input id="search_input" type="search" />
+</li>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript" src="/static/js/docsearch.js"></script>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+    </header>
+  </div>
+  <script>
+  var event = document.createEvent('Event');
+  event.initEvent('slide', true, true);
+  document.addEventListener('slide', function (e) {
+    document.body.classList.toggle('sliderActive');
+  }, false);
+  var navData = [
+    
+    {
+      href       : "docs/",
+      text       : "文档",
+    },
+    
+    {
+      href       : "/support.html",
+      text       : "支持",
+    },
+    
+    {
+      href       : "http://frescolib.org/javadoc/",
+      text       : "API",
+    },
+    
+    {
+      href       : "http://github.com/facebook/fresco",
+      text       : "GITHUB",
+    },
+    
+    {
+      href       : "/about.html",
+      text       : "关于本文档",
+    },
+    
+    {
+      href       : "http://frescolib.org/",
+      text       : "ENGLISH",
+    },
+    
+    {
+      href       : "http://fresco.recrack.com/",
+      text       : "한국어",
+    },
+    
+  ];
+</script>
+<script type="text/javascript">
+  var Nav = React.createClass({displayName: "Nav",
+    getInitialState: function() {
+      return {
+        currentPath: window.location.pathname,
+        slideoutActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        data: navData,
+      }
+    },
+    handleClick: function(id) {
+      this.setState({
+        slideoutActive: false,
+      });
+      document.dispatchEvent(event);
+    },
+    handleSlide: function(id) {
+      this.setState({
+        slideoutActive: !this.state.slideoutActive,
+      });
+      document.dispatchEvent(event);
+    },
+    componentDidMount: function() {
+      docsearch({
+        apiKey: '57436460790d750ed488518dfb6d41f9',
+        indexName: 'frescolib',
+        inputSelector: '#search_input_react',
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navSlideout': true,
+        'navSlideoutActive': this.state.slideoutActive,
+      });
+      var navClasses = React.addons.classSet({
+        'slidingNav': true,
+        'slidingNavActive': this.state.slideoutActive,
+      });
+      return (
+        React.createElement("div", null,
+          React.createElement("div", {className: classes, onClick: this.handleSlide},
+            React.createElement("i", {className: "menuExpand"},
+              React.createElement("span"),
+              React.createElement("span"),
+              React.createElement("span")
+            )
+          ),
+          React.createElement("nav", {className: navClasses},
+            React.createElement("ul", null,
+              this.props.data.map(this.renderNavItems),
+              React.createElement("li", {className: "navSearchWrapper reactNavSearchWrapper"},
+                React.createElement("input", {id: "search_input_react"})
+              )
+            )
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.state.currentPath === child.href,
+      });
+      return (
+        React.createElement("li", {key: index, className: classes},
+          React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+        )
+      );
+    },
+  });
+
+  function render(navData) {
+    React.render(
+      React.createElement(Nav, {data: navData}),
+      document.getElementById('navigation_wrap')
+    );
+  }
+  render(navData);
+</script>
+</div>
+
+    <div class="navPusher">
+      <div class="docMainWrapper wrapper">
+      <script>
+  var docnavData = [
+    
+    {
+      group     : "快速开始",
+      items     : [
+        
+        
+        {
+          key : "/docs/index.html",
+          title : "引入Fresco",
+          url : "/docs/index.html",
+        },
+        
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用 Fresco",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+        {
+          key : "/docs/concepts.html",
+          title : "关键概念",
+          url : "/docs/concepts.html",
+        },
+        
+        
+        {
+          key : "/docs/supported-uris.html",
+          title : "支持的URI",
+          url : "/docs/supported-uris.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Drawee 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-drawees-xml.html",
+          title : "在XML中使用Drawees",
+          url : "/docs/using-drawees-xml.html",
+        },
+        
+        
+        {
+          key : "/docs/using-drawees-code.html",
+          title : "在JAVA代码中使用Drawees",
+          url : "/docs/using-drawees-code.html",
+        },
+        
+        
+        {
+          key : "/docs/drawee-branches.html",
+          title : "Drawee的各种效果配置",
+          url : "/docs/drawee-branches.html",
+        },
+        
+        
+        {
+          key : "/docs/progress-bars.html",
+          title : "进度条",
+          url : "/docs/progress-bars.html",
+        },
+        
+        
+        {
+          key : "/docs/scaling.html",
+          title : "缩放",
+          url : "/docs/scaling.html",
+        },
+        
+        
+        {
+          key : "/docs/rounded-corners-and-circles.html",
+          title : "圆角和圆圈",
+          url : "/docs/rounded-corners-and-circles.html",
+        },
+        
+        
+        {
+          key : "/docs/using-controllerbuilder.html",
+          title : "使用ControllerBuilder",
+          url : "/docs/using-controllerbuilder.html",
+        },
+        
+        
+        {
+          key : "/docs/progressive-jpegs.html",
+          title : "渐进式JPEG图",
+          url : "/docs/progressive-jpegs.html",
+        },
+        
+        
+        {
+          key : "/docs/animations.html",
+          title : "动画支持",
+          url : "/docs/animations.html",
+        },
+        
+        
+        {
+          key : "/docs/requesting-multiple-images.html",
+          title : "多图请求及图片复用",
+          url : "/docs/requesting-multiple-images.html",
+        },
+        
+        
+        {
+          key : "/docs/listening-download-events.html",
+          title : "监听下载事件",
+          url : "/docs/listening-download-events.html",
+        },
+        
+        
+        {
+          key : "/docs/resizing-rotating.html",
+          title : "缩放和旋转图片",
+          url : "/docs/resizing-rotating.html",
+        },
+        
+        
+        {
+          key : "/docs/modifying-image.html",
+          title : "修改图片",
+          url : "/docs/modifying-image.html",
+        },
+        
+        
+        {
+          key : "/docs/image-requests.html",
+          title : "图片请求(Image Requests)",
+          url : "/docs/image-requests.html",
+        },
+        
+        
+        {
+          key : "/docs/writing-custom-views.html",
+          title : "自定义View",
+          url : "/docs/writing-custom-views.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Image Pipeline 指南",
+      items     : [
+        
+        
+        {
+          key : "/docs/intro-image-pipeline.html",
+          title : "Image Pipeline介绍",
+          url : "/docs/intro-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/configure-image-pipeline.html",
+          title : "配置Image Pipeline",
+          url : "/docs/configure-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/caching.html",
+          title : "缓存",
+          url : "/docs/caching.html",
+        },
+        
+        
+        {
+          key : "/docs/using-image-pipeline.html",
+          title : "直接使用Image Pipeline",
+          url : "/docs/using-image-pipeline.html",
+        },
+        
+        
+        {
+          key : "/docs/datasources-datasubscribers.html",
+          title : "数据源和数据订阅者",
+          url : "/docs/datasources-datasubscribers.html",
+        },
+        
+        
+        {
+          key : "/docs/closeable-references.html",
+          title : "可关闭的引用",
+          url : "/docs/closeable-references.html",
+        },
+        
+        
+        {
+          key : "/docs/webp-support.html",
+          title : "Webp支持",
+          url : "/docs/webp-support.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "问题处理",
+      items     : [
+        
+        
+        {
+          key : "/docs/troubleshooting.html",
+          title : "问题处理",
+          url : "/docs/troubleshooting.html",
+        },
+        
+        
+        {
+          key : "/docs/gotchas.html",
+          title : "一些陷阱",
+          url : "/docs/gotchas.html",
+        },
+        
+        
+        {
+          key : "/docs/wrap-content.html",
+          title : "wrap_content的限制",
+          url : "/docs/wrap-content.html",
+        },
+        
+        
+        {
+          key : "/docs/shared-transitions.html",
+          title : "共享元素动画",
+          url : "/docs/shared-transitions.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "第三方类库",
+      items     : [
+        
+        
+        {
+          key : "/docs/using-other-network-layers.html",
+          title : "自定义网络加载",
+          url : "/docs/using-other-network-layers.html",
+        },
+        
+        
+        {
+          key : "/docs/using-other-image-loaders.html",
+          title : "使用其他的Image Loader",
+          url : "/docs/using-other-image-loaders.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "发布App",
+      items     : [
+        
+        
+        {
+          key : "/docs/proguard.html",
+          title : "混淆(Proguard)",
+          url : "/docs/proguard.html",
+        },
+        
+        
+        {
+          key : "/docs/multiple-apks.html",
+          title : "按需打包",
+          url : "/docs/multiple-apks.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "如何贡献代码？",
+      items     : [
+        
+        
+        {
+          key : "/docs/building-from-source.html",
+          title : "构建源码",
+          url : "/docs/building-from-source.html",
+        },
+        
+        
+        {
+          key : "/docs/sample-code.html",
+          title : "示例代码",
+          url : "/docs/sample-code.html",
+        }
+        
+      ],
+    },
+    
+  ];
+  var currentGroup = "Drawee 指南";
+  var currentDoc = "自定义View";
+  var activeGroup = "Drawee 指南";
+  var sectionTitle = "Docs";
+  var sectionPath = "/docs/";
+</script>
+<div class="docsNavContainer">
+  <nav class="toc" id="doc_nav"></nav>
+</div>
+<script type="text/javascript">
+  var docsevent = document.createEvent('Event');
+  docsevent.initEvent('docs_slide', true, true);
+  document.addEventListener('docs_slide', function (e) {
+    document.body.classList.toggle('docsSliderActive');
+  }, false);
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        activeGroup: activeGroup,
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: currentDoc,
+        currentGroup: currentGroup,
+        data: docnavData,
+        sectionTitle: sectionTitle,
+        sectionPath: sectionPath,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+      document.dispatchEvent(docsevent);
+    },
+    handleAccordion: function(group) {
+      this.setState({
+        activeGroup: group,
+      })
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses},
+          React.createElement("section", {className: 'navWrapper wrapper'},
+            React.createElement("div", {className: 'navBreadcrumb wrapper'},
+              React.createElement("div",
+                {
+                  className: classes,
+                  onClick: this.handleSlide
+                },
+                React.createElement("i")
+              ),
+              React.createElement("h2", null,
+                React.createElement(
+                  "a",
+                  {href: this.props.sectionPath},
+                  this.props.sectionTitle
+                ),
+                React.createElement("i", null, '›'),
+                React.createElement("span", null, this.props.currentGroup)
+              )
+            ),
+            React.createElement("div", {className: 'navGroups'},
+              this.props.data.map(this.renderNavGroups)
+            )
+          )
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupCurrent': this.props.currentGroup === child.group,
+        'navGroupActive': this.state.activeGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index, onClick: this.handleAccordion.bind(this, child.group)},
+          React.createElement("h3", null,
+            React.createElement(
+              "i",
+              null,
+              (this.state.activeGroup === child.group) ? "" : "+"
+            ),
+            React.createElement("span", null, child.group)
+          ),
+          React.createElement("ul", null,
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
 
 
-<section class='content'><div class='width'>
-<nav class='toc'>
-  
-    <section>
-      <h3>配置和使用</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/index.html#_">
-              引入到项目
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/compile-in-android-studio.html#_">
-              关于在Android Studio中编译
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/getting-started.html#_">
-              配置和开始使用
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/concepts.html#_">
-              关键概念
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/supported-uris.html#_">
-              支持的 URIs
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>Drawee 指南</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/using-drawees-xml.html#_">
-              在XML中使用 Drawees
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-drawees-code.html#_">
-              在Java代码中使用 Drawees
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/drawee-components.html#_">
-              Drawee的各种效果配置
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/progress-bars.html#_">
-              进度条
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/scaling.html#_">
-              缩放
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/rounded-corners-and-circles.html#_">
-              圆角/圆圈
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-controllerbuilder.html#_">
-              使用ControllerBuilder
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/progressive-jpegs.html#_">
-              渐进式JPEG图
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/animations.html#_">
-              动画图(gif)
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/requesting-multiple-images.html#_">
-              多图请求及图片复用
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/listening-download-events.html#_">
-              监听下载事件
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/resizing-rotating.html#_">
-              缩放和旋转
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/modifying-image.html#_">
-              图片的修改
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/image-requests.html#_">
-              图片请求
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/writing-custom-views.html#_" class="active">
-              自定义View
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/gotchas.html#_">
-              一些陷阱
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>Image Pipeline 指南</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/intro-image-pipeline.html#_">
-              什么是Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/configure-image-pipeline.html#_">
-              配置Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/caching.html#_">
-              缓存的行为控制
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-image-pipeline.html#_">
-              直接使用Image Pipeline
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/datasources-datasubscribers.html#_">
-              数据源/订阅数据源
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/closeable-references.html#_">
-              可关闭的引用
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-    <section>
-      <h3>第三方类库</h3>
-      <ul>
-        
-          <li>
-            <a href="/docs/using-other-network-layers.html#_">
-              自定义网络加载
-            </a>
-            
-          </li>
-        
-          <li>
-            <a href="/docs/using-other-image-loaders.html#_">
-              使用其他的Image Loader
-            </a>
-            
-          </li>
-        
-      </ul>
-    </section>
-  
-</nav>
+      <div class="mainContainer documentContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">自定义View</h1>
+  </header>
 
+  <article class="post-content">
+   
+      <h3 id="draweeholders">DraweeHolders</h3>
 
-<article class='withtoc'>
-    <h1>
-      自定义View
-      <a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/blob/docs/docs/01-writing-custom-views.md" target="_blank">编辑和纠错</a>
-    </h1>
-    <p></p>
-
-    <h3>DraweeHolders</h3>
-
-<p>总有一些时候，<code>DraweeViews</code>是满足不了需求的，在展示图片的时候，我们还需要展示一些其他的内容，或者支持一些其他的操作。在同一个View里，我们可能会想显示一张或者多张图。</p>
+<p>总有一些时候，<code class="highlighter-rouge">DraweeViews</code>是满足不了需求的，在展示图片的时候，我们还需要展示一些其他的内容，或者支持一些其他的操作。在同一个View里，我们可能会想显示一张或者多张图。</p>
 
 <p>在自定义View中，Fresco 提供了两个类来负责图片的展现:</p>
 
 <ul>
-<li><code>DraweeHolder</code> 单图情况下用。</li>
-<li><code>MultiDraweeHolder</code> 多图情况下用。</li>
+  <li><code class="highlighter-rouge">DraweeHolder</code> 单图情况下用。</li>
+  <li><code class="highlighter-rouge">MultiDraweeHolder</code> 多图情况下用。</li>
 </ul>
 
-<h3>自定义View需要完成的事情</h3>
+<p><code class="highlighter-rouge">DraweeHolder</code> 是持有 DraweeHierarchy 的一个类，它和 DraweeController 紧密相关。它允许你在自定义View中也能够使用所有Drawee的特性！ 你只需要通过 <code class="highlighter-rouge">mDraweeHolder.getTopLevelDrawable()</code> 就能够获取Drawable。你需要知道 Android Drawable 需要一些特殊照顾，所以请仔细阅读下面的内容。</p>
 
-<p>Android 呈现View对象，只有View对象才能得到一些系统事件的通知。<code>DraweeViews</code>
-处理这些事件通知，高效地管理内存。使用<code>DraweeHolder</code>时，你需要自己实现这几个方法。</p>
+<p><code class="highlighter-rouge">MultiDraweeHolder</code> 仅仅是 <code class="highlighter-rouge">DraweeHolder</code> 的一个列表，它其实是一个语法糖：）</p>
 
-<h4>处理 attach/detach 事件</h4>
+<h3 id="view">自定义View需要完成的事情</h3>
+
+<p>Android 呈现View对象，只有View对象才能得到一些系统事件的通知。<code class="highlighter-rouge">DraweeViews</code><br />
+处理这些事件通知，高效地管理内存。使用<code class="highlighter-rouge">DraweeHolder</code>时，你需要自己实现这几个方法。</p>
+
+<h4 id="attachdetach-">处理 attach/detach 事件</h4>
 
 <p><strong>如果没按照以下步骤实现的话，很可能会引起内存泄露</strong></p>
 
 <p>当图片不再在View上显示时，比如滑动时View滑动到屏幕外，或者不再绘制，图片就不应该再存在在内存中。Drawees 监听这些事情，并负责释放内存。当图片又需要显示时，重新加载。</p>
 
-<p>这些在<code>DraweeView</code>中是自动的，但是在自定义View中，需要我们自己去操作，如下:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DraweeHolder</span> <span class="n">mDraweeHolder</span><span class="o">;</span>
+<p>这些在<code class="highlighter-rouge">DraweeView</code>中是自动的，但是在自定义View中，需要我们自己去操作，如下:</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></td><td class="code"><pre><span class="n">DraweeHolder</span> <span class="n">mDraweeHolder</span><span class="o">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDetachedFromWindow</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDetachedFromWindow</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onDetachedFromWindow</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onDetach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartTemporaryDetach</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartTemporaryDetach</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onStartTemporaryDetach</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onDetach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onAttach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinishTemporaryDetach</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinishTemporaryDetach</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onFinishTemporaryDetach</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onAttach</span><span class="o">();</span>
 <span class="o">}</span>
-</code></pre></div>
-<h4>处理触摸事件</h4>
+</pre></td></tr></tbody></table>
+</div>
+</div>
 
-<p>如果你启用了<a href="drawee-components.html#Retry">点击重新加载</a>，在自定义View中，需要这样:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<p>在View获取到 attach/detach 时间时通知 <code class="highlighter-rouge">Holder</code> 是一件非常重要的事情！如果 Holder 错过了一个attach事件，那么图片很可能不会被正常加载，因为它认为此时不是加载图片的时机。同理如果 Holder 错过了一个detach事件，那么不需要显示的图片依然会被保留在内存中，因为它认为此时图片仍然显示。</p>
+
+<h4 id="section">处理触摸事件</h4>
+
+<p>如果你启用了<a href="drawee-branch.html#Retry">点击重新加载</a>，在自定义View中，需要这样:</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="p">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
   <span class="k">return</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">)</span> <span class="o">||</span> <span class="kd">super</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div>
-<h4>自定义onDraw</h4>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<h4 id="ondraw">自定义onDraw</h4>
 
 <p>你必须调用</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">().</span><span class="na">getTopLevelDrawable</span><span class="o">();</span>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">();</span>
 <span class="n">drawable</span><span class="o">.</span><span class="na">setBounds</span><span class="o">(...);</span>
-</code></pre></div>
+<span class="o">...</span>
+<span class="n">drawable</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
 <p>否则图片将不会出现。</p>
 
 <ul>
-<li>不要向下转换这个Drawable</li>
-<li>不要变换这个Drawable</li>
+  <li>不要向下转换这个Drawable</li>
+  <li>不要变换这个Drawable</li>
+  <li>如果你需要对Canvas做变换，请确认你在 invalidate 的时候正确刷新了图片所在区域。</li>
 </ul>
 
-<h4>其他应该做的</h4>
+<h4 id="section-1">其他应该做的</h4>
 
 <ul>
-<li>设置 <code>Drawable.Callback</code></li>
+  <li>设置<a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.Callback.html">Drawable.Callback</a></li>
 </ul>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// When a holder is set to the view for the first time,</span>
-<span class="c1">// don&#39;t forget to set the callback to its top-level drawable:</span>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7</pre></td><td class="code"><pre><span class="c1">// 当设置Holder时，不要忘记将顶层Drawable的Callback设置为它。</span>
 <span class="n">mDraweeHolder</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">().</span><span class="na">setCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 
-<span class="c1">// In case the old holder is no longer needed,</span>
-<span class="c1">// don&#39;t forget to clear the callback from its top-level drawable:</span>
+<span class="c1">// 当不使用Holder时，不要忘记将顶层Drawable的Callback设置为null。</span>
 <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">().</span><span class="na">setCallback</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
 <span class="n">mDraweeHolder</span> <span class="o">=</span> <span class="o">...</span>
-</code></pre></div>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
 <ul>
-<li>重写 <code>verifyDrawable:</code></li>
+  <li>重写 <code class="highlighter-rouge">verifyDrawable:</code></li>
 </ul>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">verifyDrawable</span><span class="o">(</span><span class="n">Drawable</span> <span class="n">who</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">who</span> <span class="o">==</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">().</span><span class="na">getTopLevelDrawable</span><span class="o">())</span> <span class="o">{</span>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7</pre></td><td class="code"><pre><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">verifyDrawable</span><span class="p">(</span><span class="n">Drawable</span> <span class="n">who</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">who</span> <span class="o">==</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">())</span> <span class="o">{</span>
     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
   <span class="o">}</span>
   <span class="c1">// 对其他Drawable的验证逻辑</span>
 <span class="o">}</span>
-</code></pre></div>
-<ul>
-<li>确保 <code>invalidateDrawable</code> 处理了图片占用的那块区域。</li>
-</ul>
+</pre></td></tr></tbody></table>
+</div>
+</div>
 
-<h3>创建 DraweeHolder</h3>
+<blockquote>
+  <p>确保 <code class="highlighter-rouge">invalidateDrawable</code> 处理了图片占用的那块区域。如果你在图片显示前对Canvas应用了一些变换逻辑，那么invalidate 的时候需要考虑到这些变换。最简单的就是参考 Android ImageView 的<a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4.4_r1/android/widget/ImageView.java#192">做法</a></p>
+</blockquote>
+
+<h3 id="view--draweeholder">初始化 View 和 DraweeHolder</h3>
 
 <p>这同样需要非常小心和细致</p>
 
-<h4>构造函数</h4>
+<h4 id="section-2">构造函数</h4>
 
 <p>我们推荐如下实现构造函数:</p>
 
 <ul>
-<li>重写所有构造函数，共 3 个</li>
-<li>在每个构造函数中调用同等签名的父类构造函数，和一个私有的 <code>init</code> 方法。</li>
-<li>在 <code>init</code> 方法中执行初始化操作。</li>
+  <li>重写所有构造函数，共 3 个</li>
+  <li>在每个构造函数中调用同等签名的父类构造函数，和一个私有的 <code class="highlighter-rouge">init</code> 方法。</li>
+  <li>在 <code class="highlighter-rouge">init</code> 方法中执行初始化操作。</li>
 </ul>
 
-<p>即，不要在构造函数中用 <code>this</code> 来调用另外一个构造。</p>
+<p>即，不要在构造函数中用 <code class="highlighter-rouge">this</code> 来调用另外一个构造。</p>
 
-<p>这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。holder 在 <code>init</code> 方法中被创建。</p>
+<p>这样可以保证，不管调用哪个构造，都可以正确地执行初始化流程。holder 在 <code class="highlighter-rouge">init</code> 方法中被创建。</p>
 
-<h4>创建 Holder</h4>
+<h4 id="holder">创建 Holder</h4>
 
 <p>如果有可能，只在 View 创建时，创建 Drawees。创建 DraweeHierarchy 开销较大，最好只做一次。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">CustomView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre></td><td class="code"><pre><span class="kd">class</span> <span class="nc">CustomView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
   <span class="n">DraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mDraweeHolder</span><span class="o">;</span>
 
   <span class="c1">// constructors following above pattern</span>
 
-  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
+  <span class="kd">private</span> <span class="kt">void</span> <span class="n">init</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
       <span class="o">.</span><span class="na">set</span><span class="o">...</span>
       <span class="o">.</span><span class="na">set</span><span class="o">...</span>
       <span class="o">.</span><span class="na">build</span><span class="o">();</span>
     <span class="n">mDraweeHolder</span> <span class="o">=</span> <span class="n">DraweeHolder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">hierarchy</span><span class="o">,</span> <span class="n">context</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>
-<h4>设置要显示的图片</h4>
+</pre></td></tr></tbody></table>
+</div>
+</div>
 
-<p>使用 <a href="using-controllerbuilder.html">controller builder</a> 创建DraweeController，然后调用holder的 <code>setController</code> 方法，而不是设置给自定义 View。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
+<h4 id="section-3">设置要显示的图片</h4>
+
+<p>使用 <a href="using-controllerbuilder.html">controller builder</a> 创建DraweeController，然后调用holder的 <code class="highlighter-rouge">setController</code> 方法，而不是设置给自定义 View。</p>
+
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="n">DraweeController</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">newControllerBuilder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">setUri</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setOldController</span><span class="o">(</span><span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getController</span><span class="o">())</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">setController</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
-</code></pre></div>
-<h3>MultiDraweeHolder</h3>
+</pre></td></tr></tbody></table>
+</div>
+</div>
 
-<p>和 <code>DraweeHolder</code> 相比，<code>MultiDraweeHolder</code> 有 <code>add</code>, <code>remove</code>, <code>clear</code>
+<h3 id="multidraweeholder">MultiDraweeHolder</h3>
+
+<p>和 <code class="highlighter-rouge">DraweeHolder</code> 相比，<code class="highlighter-rouge">MultiDraweeHolder</code> 有 <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">remove</code>, <code class="highlighter-rouge">clear</code><br />
 等方法可以操作 Drawees。如下:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">MultiDraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mMultiDraweeHolder</span><span class="o">;</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
-  <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
+<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre></td><td class="code"><pre><span class="n">MultiDraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mMultiDraweeHolder</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
     <span class="o">.</span><span class="na">set</span><span class="o">...</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
   <span class="n">mMultiDraweeHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiDraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;();</span>
   <span class="n">mMultiDraweeHolder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">DraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;(</span><span class="n">hierarchy</span><span class="o">,</span> <span class="n">context</span><span class="o">));</span>
   <span class="c1">// repeat for more hierarchies</span>
 <span class="o">}</span>
-</code></pre></div>
-<p>同样，也需要处理系统事件，设置声音等等，就像处理单个<code>DraweeHolder</code>那样。</p>
+</pre></td></tr></tbody></table>
+</div>
+</div>
+
+<p>同样，也需要处理系统事件，设置声音等等，就像处理单个<code class="highlighter-rouge">DraweeHolder</code>那样。</p>
 
 
-    <div class="docs-prevnext">
-      
-        <a href="/docs/image-requests.html#_">&larr; 上一页</a>
-      
-      
-        <a class="right" href="/docs/gotchas.html#_">下一页 &rarr;</a>
-      
+
+      <p><a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/tree/gh-pages/_docs/01-writing-custom-views.md" target="_blank">编辑和纠错</a></p>
+    
+  </article>
+  
+</div>
+
+  </div>
+</div>
+
+
+      </div>
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <div class="footerBlocks">
+      <div id="fb_oss" class="footerSection fbOpenSourceFooter">
+          <svg class="facebookOSSLogoSvg" viewBox="0 0 1133.9 1133.9" x="0px" y="0px">
+            <g>
+              <path class="logoRing outerRing" d="M 498.3 3.7 c 153.6 88.9 307.3 177.7 461.1 266.2 c 7.6 4.4 10.3 9.1 10.3 17.8 c -0.3 179.1 -0.2 358.3 0 537.4 c 0 8.1 -2.4 12.8 -9.7 17.1 c -154.5 88.9 -308.8 178.1 -462.9 267.5 c -9 5.2 -15.5 5.3 -24.6 0.1 c -153.9 -89.2 -307.9 -178 -462.1 -266.8 C 3 838.8 0 833.9 0 825.1 c 0.3 -179.1 0.2 -358.3 0 -537.4 c 0 -8.6 2.6 -13.6 10.2 -18 C 164.4 180.9 318.4 92 472.4 3 C 477 -1.5 494.3 -0.7 498.3 3.7 Z M 48.8 555.3 c 0 79.9 0.2 159.9 -0.2 239.8 c -0.1 10 3 15.6 11.7 20.6 c 137.2 78.8 274.2 157.8 411 237.3 c 9.9 5.7 17 5.7 26.8 0.1 c 137.5 -79.8 275.2 -159.2 412.9 -238.5 c 7.4 -4.3 10.5 -8.9 10.5 -17.8 c -0.3 -160.2 -0.3 -320.5 0 -480.7 c 0 -8.8 -2.8 -13.6 -10.3 -18 C 772.1 218 633.1 137.8 494.2 57.4 c -6.5 -3.8 -11.5 -4.5 -18.5 -0.5 C 336.8 137.4 197.9 217.7 58.8 297.7 c -7.7 4.4 -10.2 9.2 -10.2 17.9 C 48.9 395.5 48.8 475.4 48.8 555.3 Z" />
+              <path class="logoRing middleRing" d="M 184.4 555.9 c 0 -33.3 -1 -66.7 0.3 -100 c 1.9 -48 24.1 -86 64.7 -110.9 c 54.8 -33.6 110.7 -65.5 167 -96.6 c 45.7 -25.2 92.9 -24.7 138.6 1 c 54.4 30.6 108.7 61.5 162.2 93.7 c 44 26.5 67.3 66.8 68 118.4 c 0.9 63.2 0.9 126.5 0 189.7 c -0.7 50.6 -23.4 90.7 -66.6 116.9 c -55 33.4 -110.8 65.4 -167.1 96.5 c -43.4 24 -89 24.2 -132.3 0.5 c -57.5 -31.3 -114.2 -64 -170 -98.3 c -41 -25.1 -62.9 -63.7 -64.5 -112.2 C 183.5 621.9 184.3 588.9 184.4 555.9 Z M 232.9 556.3 c 0 29.5 0.5 59.1 -0.1 88.6 c -0.8 39.2 16.9 67.1 50.2 86.2 c 51.2 29.4 102.2 59.2 153.4 88.4 c 31.4 17.9 63.6 18.3 95 0.6 c 53.7 -30.3 107.1 -61.2 160.3 -92.5 c 29.7 -17.5 45 -44.5 45.3 -78.8 c 0.6 -61.7 0.5 -123.5 0 -185.2 c -0.3 -34.4 -15.3 -61.5 -44.9 -79 C 637.7 352.6 583 320.8 527.9 290 c -27.5 -15.4 -57.2 -16.1 -84.7 -0.7 c -56.9 31.6 -113.4 64 -169.1 97.6 c -26.4 15.9 -40.7 41.3 -41.1 72.9 C 232.6 491.9 232.9 524.1 232.9 556.3 Z" />
+              <path class="logoRing innerRing" d="M 484.9 424.4 c 69.8 -2.8 133.2 57.8 132.6 132 C 617 630 558.5 688.7 484.9 689.1 c -75.1 0.4 -132.6 -63.6 -132.7 -132.7 C 352.1 485 413.4 421.5 484.9 424.4 Z M 401.3 556.7 c -3.4 37.2 30.5 83.6 83 84.1 c 46.6 0.4 84.8 -37.6 84.9 -84 c 0.1 -46.6 -37.2 -84.4 -84.2 -84.6 C 432.2 472.1 397.9 518.3 401.3 556.7 Z" />
+            </g>
+          </svg>
+        <h2>Facebook Open Source</h2>
+      </div>
+      <div class="footerSection">
+        <a class="footerLink" href="https://code.facebook.com/projects/" target="_blank">Open Source Projects</a>
+        <a class="footerLink" href="https://github.com/facebook/" target="_blank">GitHub</a>
+        <a class="footerLink" href="https://twitter.com/fbOpenSource" target="_blank">Twitter</a>
+      </div>
+      <div class="footerSection rightAlign">
+        <a class="footerLink" href="https://github.com/facebook/fresco" target="_blank">Contribute to this project on GitHub</a>
+      </div>
     </div>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    <a id="_"></a>
-</article>
+  ga('create', 'UA-44373548-3', 'auto');
+  ga('send', 'pageview');
+</script>
 
-</div></section>
-
-        <div class='wechat-mp-qrcode'>
-            <p>----------
-            <a target='_blank' href='http://www.liaohuqiu.net/about/about-me/'>关于译者</a>
-            ---------</p>
-            <img src='http://www.liaohuqiu.net/assets/img/qrcode_for_wechat_mp.jpg' /><br/>
-            <p>欢迎关注我的微信公众号。</p>
-            <p>欢迎关注我的 <a href='http://weibo.com/liaohuqiu/'>新浪微博</a>，有问题随时交流。</p>
-            <p>欢迎关注我的 <a href='https://github.com/liaohuqiu'>GitHub </a>，了解我最近关注哪些优秀的项目。</p>
-        </div>
-<footer><div class='width'>
-            &copy; Copyright 2016, Facebook Inc.<br>
-                本文档遵从 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>协议， Demo代码协议在: <a href="/sample-license.html">这里</a>
-        </div></footer>
-
-<script src="/static/linkify.js"></script>
-<!-- Google Analytics -->
-</body>
+    </div>
+  </body>
 </html>
-
