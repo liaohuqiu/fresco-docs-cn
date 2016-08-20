@@ -6,7 +6,7 @@ origin_url: "http://frescolib.org"
 title: Fresco
 tagline: 专为ANDROID加载图片
 fbappid: "1615782811974223"
-gacode: "UA-44373548-3"
+gacode: "UA-43024238-8"
 relative_permalinks: false
 description: >
   Fresco 是一个强大的图片加载组件。使用它之后，你不需要再去关心图片的加载和显示这些繁琐的事情！ 支持 Android 2.3 及以后的版本。
