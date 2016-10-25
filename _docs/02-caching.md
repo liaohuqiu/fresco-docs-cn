@@ -111,4 +111,6 @@ Fresco的缓存实现了[DiskTrimmable](http://frescolib.org/javadoc/reference/c
 
 在应用中，可以给Image pipeline配置上实现了[DiskTrimmableRegistry](http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmableRegistry.html) 和 [MemoryTrimmableRegistry](http://frescolib.org/javadoc/reference/com/facebook/common/memory/MemoryTrimmableRegistry.html) 接口的对象。
 
-实现了这两个接口的对象保持着一个列表，列表中的各个元素在内存不够时，缩减各自的内存用量。
+实现了这两个接口的对象要持有一个列表，这个列表以[DiskTrimmable](http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html) 或 [MemoryTrimmable](../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html) 对象为元素。当应用程序判定当前状态下需要削减资源使用时，这些对象才会通知列表中的[DiskTrimmable](http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html) 或 [MemoryTrimmable](../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html) 元素缩减各自的资源占用。
+
+
