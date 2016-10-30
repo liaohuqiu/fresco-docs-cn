@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -656,7 +656,7 @@
 
 <p>下面的例子给图片加了红色网格：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -686,12 +686,12 @@
 28</pre></td><td class="code"><pre><span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
 <span class="n">Postprocessor</span> <span class="n">redMeshPostprocessor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasePostprocessor</span><span class="o">()</span> <span class="o">{</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="n">getName</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"redMeshPostprocessor"</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="n">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">bitmap</span><span class="o">.</span><span class="na">getWidth</span><span class="o">();</span> <span class="n">x</span><span class="o">+=</span><span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">bitmap</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span> <span class="n">y</span><span class="o">+=</span><span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">bitmap</span><span class="o">.</span><span class="na">setPixel</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
@@ -727,7 +727,7 @@
 
 <p>可能会出现即时的后处理无法实现的情况。如果出现该情况，<code class="highlighter-rouge">BasePostprocessor</code> 还有一个接收两个参数的 process 方法。下面的例子实现了水平翻转图片：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -735,7 +735,7 @@
 6
 7
 8</pre></td><td class="code"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="p">(</span><span class="n">Bitmap</span> <span class="n">destBitmap</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">sourceBitmap</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">destBitmap</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">sourceBitmap</span><span class="o">)</span> <span class="o">{</span>
   <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">destBitmap</span><span class="o">.</span><span class="na">getWidth</span><span class="o">();</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">destBitmap</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
       <span class="n">destBitmap</span><span class="o">.</span><span class="na">setPixel</span><span class="o">(</span><span class="n">destBitmap</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">-</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">sourceBitmap</span><span class="o">.</span><span class="na">getPixel</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">));</span>
@@ -758,7 +758,7 @@
 
 <p>下面的例子将源图片复制为 1 / 4 大小。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -777,7 +777,7 @@
 17
 18
 19</pre></td><td class="code"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Bitmap</span><span class="o">&gt;</span> <span class="n">process</span><span class="o">(</span>
+<span class="kd">public</span> <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Bitmap</span><span class="o">&gt;</span> <span class="nf">process</span><span class="o">(</span>
     <span class="n">Bitmap</span> <span class="n">sourceBitmap</span><span class="o">,</span>
     <span class="n">PlatformBitmapFactory</span> <span class="n">bitmapFactory</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Bitmap</span><span class="o">&gt;</span> <span class="n">bitmapRef</span> <span class="o">=</span> <span class="n">bitmapFactory</span><span class="o">.</span><span class="na">createBitmap</span><span class="o">(</span>
@@ -817,7 +817,7 @@
 
 <p>例子：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -834,16 +834,16 @@
 15</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OperationPostprocessor</span> <span class="kd">extends</span> <span class="n">BasePostprocessor</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kt">int</span> <span class="n">myParameter</span><span class="o">;</span>
 
-  <span class="kd">public</span> <span class="n">OperationPostprocessor</span><span class="o">(</span><span class="kt">int</span> <span class="n">param</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">OperationPostprocessor</span><span class="o">(</span><span class="kt">int</span> <span class="n">param</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">myParameter</span> <span class="o">=</span> <span class="n">param</span><span class="o">;</span>
   <span class="o">}</span>
 
-  <span class="kd">public</span> <span class="kt">void</span> <span class="n">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">doSomething</span><span class="o">(</span><span class="n">myParameter</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">public</span> <span class="n">CacheKey</span> <span class="n">getPostprocessorCacheKey</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">MyCacheKey</span><span class="o">(</span><span class="n">myParameter</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="n">CacheKey</span> <span class="nf">getPostprocessorCacheKey</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">MyCacheKey</span><span class="o">(</span><span class="n">myParameter</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </pre></td></tr></tbody></table>
@@ -858,7 +858,7 @@
 
 <p>下面的例子展示了在运行时，后处理改变图片网格的颜色:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -889,18 +889,18 @@
 29</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MeshPostprocessor</span> <span class="kd">extends</span> <span class="n">BaseRepeatedPostprocessor</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kt">int</span> <span class="n">mColor</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">TRANSPARENT</span><span class="o">;</span>
 
-  <span class="kd">public</span> <span class="kt">void</span> <span class="n">setColor</span><span class="o">(</span><span class="kt">int</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="kt">int</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">mColor</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
     <span class="n">update</span><span class="o">();</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="n">getName</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"meshPostprocessor"</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="n">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">bitmap</span><span class="o">.</span><span class="na">getWidth</span><span class="o">();</span> <span class="n">x</span><span class="o">+=</span><span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">bitmap</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span> <span class="n">y</span><span class="o">+=</span><span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">bitmap</span><span class="o">.</span><span class="na">setPixel</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">mColor</span><span class="o">);</span>

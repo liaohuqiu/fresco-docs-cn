@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -670,18 +670,18 @@
 <p>编辑<code class="highlighter-rouge">gradle.properties</code>文件。它通常在你的<code class="highlighter-rouge">~/.gradle/</code>目录下。如果没找到，那么创建它。</p>
 
 <ol>
-  <li>添加NDK路径<br />
+  <li>添加NDK路径
 Unix系统下，添加：</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">ndk</span><span class="o">.</span><span class="na">path</span><span class="o">=</span><span class="s">/path/</span><span class="n">to</span><span class="s">/android_ndk/</span><span class="n">r10e</span>
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">ndk</span><span class="o">.</span><span class="na">path</span><span class="o">=</span><span class="s">/path/</span><span class="n">to</span><span class="s">/android_ndk/</span><span class="n">r10e</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>Windows系统下，添加：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">ndk</span><span class="o">.</span><span class="na">path</span><span class="o">=</span><span class="n">C</span><span class="err">\</span><span class="o">:</span><span class="err">\\</span><span class="n">path</span><span class="err">\\</span><span class="n">to</span><span class="err">\\</span><span class="n">android_ndk</span><span class="err">\\</span><span class="n">r10e</span>
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">ndk</span><span class="o">.</span><span class="na">path</span><span class="o">=</span><span class="n">C</span><span class="err">\</span><span class="o">:</span><span class="err">\\</span><span class="n">path</span><span class="err">\\</span><span class="n">to</span><span class="err">\\</span><span class="n">android_ndk</span><span class="err">\\</span><span class="n">r10e</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
@@ -690,7 +690,7 @@ Unix系统下，添加：</li>
   <li>添加一些基础gradle配置</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3</pre></td><td class="code"><pre><span class="n">org</span><span class="o">.</span><span class="na">gradle</span><span class="o">.</span><span class="na">daemon</span><span class="o">=</span><span class="kc">true</span>
 <span class="n">org</span><span class="o">.</span><span class="na">gradle</span><span class="o">.</span><span class="na">parallel</span><span class="o">=</span><span class="kc">true</span>
@@ -701,7 +701,7 @@ Unix系统下，添加：</li>
 
 <h3 id="section-1">获取源码</h3>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>git clone https://github.com/facebook/fresco.git
+<div class="language-sh highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>git clone https://github.com/facebook/fresco.git
 </pre></td></tr></tbody></table>
 </div>
 </div>
@@ -710,7 +710,7 @@ Unix系统下，添加：</li>
 
 <p>在Unix系统下，<code class="highlighter-rouge">cd</code> 至 Fresco 代码目录下，输入下面的命令:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>./gradlew build
+<div class="language-sh highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>./gradlew build
 </pre></td></tr></tbody></table>
 </div>
 </div>

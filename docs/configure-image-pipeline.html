@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -650,7 +650,7 @@
    
       <p>对于大多数的应用，Fresco的初始化，只需要以下一句代码:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">Fresco</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
@@ -659,7 +659,7 @@
 
 <p>以下是一个示例配置，列出了所有可配置的选项。几乎没有应用是需要以下这所有的配置的，列出来仅仅是为了作为参考。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -706,7 +706,7 @@
 
 <p>如果你需要动态改变参数，那就是用Supplier每次都返回同一个对象。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -715,7 +715,7 @@
 7
 8</pre></td><td class="code"><pre><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="n">xSupplier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;()</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="n">X</span> <span class="n">mX</span> <span class="o">=</span> <span class="k">new</span> <span class="n">X</span><span class="o">(</span><span class="n">xparam1</span><span class="o">,</span> <span class="n">xparam2</span><span class="o">...);</span>
-  <span class="kd">public</span> <span class="n">X</span> <span class="n">get</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">X</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">mX</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">);</span>
@@ -755,7 +755,7 @@
 
 <p>你可使用Builder模式创建一个 <a href="http://frescolib.org/javadoc/reference/com/facebook/cache/disk/DiskCacheConfig.Builder.html">DiskCacheConfig</a>:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4

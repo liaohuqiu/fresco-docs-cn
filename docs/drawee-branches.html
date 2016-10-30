@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -697,19 +697,19 @@
 
 <p>对于渐进式格式的JPEG图片，占位图会显示直到满足已加载的图片解析度到达设定值。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">placeholderImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setPlaceholderImage</code>  <br />
-Hierarchy method: <code class="highlighter-rouge">setPlaceholderImage</code>  <br />
-默认值: 透明的<a href="http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html">ColorDrawable</a>  <br />
+<p>XML 中属性值: <code class="highlighter-rouge">placeholderImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setPlaceholderImage</code><br />
+Hierarchy method: <code class="highlighter-rouge">setPlaceholderImage</code><br />
+默认值: 透明的<a href="http://developer.android.com/reference/android/graphics/drawable/ColorDrawable.html">ColorDrawable</a><br />
 默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
 
 <h2 id="a-namefailure-a"><a name="Failure"></a>设置加载失败占位图</h2>
 
 <p>如果URI是无效的，或者下载过程中网络不可用，将会导致加载失败。当加载图片出错时，你可以设置一个出错提示图片。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">failureImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setFailureImage</code>  <br />
-默认值: 无<br />
+<p>XML 中属性值: <code class="highlighter-rouge">failureImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setFailureImage</code><br />
+默认值: 无
 默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
 
 <h2 id="a-nameretrya"><a name="Retry"></a>点击重新加载图</h2>
@@ -718,16 +718,16 @@ Hierarchy builder中的方法: <code class="highlighter-rouge">setFailureImage</
 
 <p>在<a href="using-controllerbuilder.html">ControllerBuilder</a> 中如下设置:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">.</span><span class="na">setTapToRetryEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">.</span><span class="na">setTapToRetryEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>加载失败时，image pipeline 会重试四次；如果还是加载失败，则显示加载失败提示图片。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">retryImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setRetryImage</code>  <br />
-默认值: 无<br />
+<p>XML 中属性值: <code class="highlighter-rouge">retryImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setRetryImage</code><br />
+默认值: 无
 默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
 
 <h2 id="a-nameprogressbara"><a name="ProgressBar"></a>显示进度条</h2>
@@ -736,9 +736,9 @@ Hierarchy builder中的方法: <code class="highlighter-rouge">setRetryImage</co
 
 <p>如果需要自定义，更详细的情况，请参考 <a href="progress-bars.html">进度条页面</a></p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">progressBarImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setProgressBarImage</code>  <br />
-默认值: None   <br />
+<p>XML 中属性值: <code class="highlighter-rouge">progressBarImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setProgressBarImage</code><br />
+默认值: None <br />
 默认缩放类型: <code class="highlighter-rouge">centerInside</code></p>
 
 <h2 id="a-namebackgroundsa"><a name="Backgrounds"></a>背景</h2>
@@ -749,9 +749,9 @@ Hierarchy builder中的方法: <code class="highlighter-rouge">setProgressBarIma
 
 <p>背景图片不支持缩放类型，会被强制到<code class="highlighter-rouge">Drawee</code>尺寸大小。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">backgroundImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setBackground,</code> <code class="highlighter-rouge">setBackgrounds</code>    <br />
-默认值: None   <br />
+<p>XML 中属性值: <code class="highlighter-rouge">backgroundImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setBackground,</code> <code class="highlighter-rouge">setBackgrounds</code>  <br />
+默认值: None <br />
 默认缩放类型: N/A</p>
 
 <h2 id="a-nameoverlaysaoverlay"><a name="Overlays"></a>设置叠加图(Overlay)</h2>
@@ -764,18 +764,18 @@ Hierarchy builder中的方法: <code class="highlighter-rouge">setBackground,</c
 
 <p>同样的，不支持各种缩放类型。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">overlayImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setOverlay,</code> <code class="highlighter-rouge">setOverlays</code>    <br />
-默认值: None   <br />
+<p>XML 中属性值: <code class="highlighter-rouge">overlayImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setOverlay,</code> <code class="highlighter-rouge">setOverlays</code>  <br />
+默认值: None <br />
 默认缩放类型: N/A</p>
 
 <h2 id="a-namepressedstateoverlaya"><a name="PressedStateOverlay"></a>设置按压状态下的叠加图</h2>
 
 <p>同样不支持缩放，用户按压DraweeView时呈现。</p>
 
-<p>XML 中属性值: <code class="highlighter-rouge">pressedStateOverlayImage</code>  <br />
-Hierarchy builder中的方法: <code class="highlighter-rouge">setPressedStateOverlay</code>    <br />
-默认值: None   <br />
+<p>XML 中属性值: <code class="highlighter-rouge">pressedStateOverlayImage</code><br />
+Hierarchy builder中的方法: <code class="highlighter-rouge">setPressedStateOverlay</code>  <br />
+默认值: None <br />
 默认缩放类型: N/A</p>
 
 

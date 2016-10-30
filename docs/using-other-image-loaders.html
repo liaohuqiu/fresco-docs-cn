@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -650,7 +650,7 @@
    
       <p>Drawee 并不是吊死在特定的一种图片加载机制上，它同样适用于其他image loader。</p>
 
-<p>不过有一些特性，只有Fresco image pipeline才有。前面的提到的需要使用<a href="image-requests.html">ImageRequest</a>和<a href="configure-image-pipeline.html">配置image<br />
+<p>不过有一些特性，只有Fresco image pipeline才有。前面的提到的需要使用<a href="image-requests.html">ImageRequest</a>和<a href="configure-image-pipeline.html">配置image
 pipeline</a>的特性，使用其他image loader时都有可能不起作用。</p>
 
 <h3 id="drawee--volley-imageloader">Drawee 和 Volley ImageLoader配合使用</h3>
@@ -661,7 +661,7 @@ pipeline</a>的特性，使用其他image loader时都有可能不起作用。</
 
 <p>同样地，如要使用，使用下面的依赖，而不是<a href="download-fresco.html">下载</a>页面给出的依赖:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="n">dependencies</span> <span class="o">{</span>
@@ -676,7 +676,7 @@ pipeline</a>的特性，使用其他image loader时都有可能不起作用。</
 
 <p>这时，不需要再调用<code class="highlighter-rouge">Fresco.initialize</code>了，需要的是初始化Volley。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -695,7 +695,7 @@ pipeline</a>的特性，使用其他image loader时都有可能不起作用。</
 
 <p>不是调用<code class="highlighter-rouge">Fresco.newControllerBuilder</code>, 而是:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4

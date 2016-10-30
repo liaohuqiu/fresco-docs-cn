@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -666,10 +666,10 @@
 
 <p>我们创建一个引用，但我们传递给了一个调用者，调用者将持有这个引用。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
-4</pre></td><td class="code"><pre><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="n">foo</span><span class="o">()</span> <span class="o">{</span>
+4</pre></td><td class="code"><pre><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{</span>
   <span class="n">Val</span> <span class="n">val</span><span class="o">;</span>
   <span class="k">return</span> <span class="n">CloseableReference</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
 <span class="o">}</span>
@@ -681,14 +681,14 @@
 
 <p>创建了一个引用，但是没有传递给其他调用者，在结束时，需要关闭：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-8</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">gee</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+8</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">gee</span><span class="o">()</span> <span class="o">{</span>
   <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">foo</span><span class="o">();</span>
   <span class="k">try</span> <span class="o">{</span>
     <span class="n">haa</span><span class="o">(</span><span class="n">ref</span><span class="o">);</span>
@@ -706,7 +706,7 @@
 
 <p><code class="highlighter-rouge">CloseableReference</code> 会在没有活跃引用时释放资源，它通过一个内部的计数器来追踪活跃引用数。当它降为0时，<code class="highlighter-rouge">CloseableReference</code>就会释放持有的资源。你使用<code class="highlighter-rouge">CloseableReference</code>时的职责就是使用它来释放资源，而不是自己去手动释放资源！如果你这么做了，所有指向对应资源的<code class="highlighter-rouge">CloseableReference</code>在刷新时都会抛出异常。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -733,9 +733,9 @@
 
 <p>作为一个参数传递，调用者持有这个引用，在下面的函数体中，不能关闭引用。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">haa</span><span class="p">(</span><span class="n">CloseableReference</span><span class="o">&lt;?&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
+3</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">haa</span><span class="o">(</span><span class="n">CloseableReference</span><span class="o">&lt;?&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">Log</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Haa: "</span> <span class="o">+</span> <span class="n">ref</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
 <span class="o">}</span>
 </pre></td></tr></tbody></table>
@@ -748,7 +748,7 @@
 
 <p>在类中使用:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -762,11 +762,11 @@
 12</pre></td><td class="code"><pre><span class="kd">class</span> <span class="nc">MyClass</span> <span class="o">{</span>
   <span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="n">myValRef</span><span class="o">;</span>
 
-  <span class="kt">void</span> <span class="n">mmm</span><span class="o">(</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">mmm</span><span class="o">(</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">Val</span><span class="o">&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">myValRef</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
   <span class="o">};</span>
 
-  <span class="kt">void</span> <span class="n">close</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
     <span class="c1">// MyClass的调用者需要关闭myValRef</span>
     <span class="n">CloseableReference</span><span class="o">.</span><span class="na">closeSafely</span><span class="o">(</span><span class="n">myValRef</span><span class="o">);</span>
   <span class="o">}</span>
@@ -777,7 +777,7 @@
 
 <p>在内部中使用:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -789,10 +789,10 @@
 10
 11
 12
-13</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">haa</span><span class="p">(</span><span class="n">CloseableReference</span><span class="o">&lt;?&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
+13</pre></td><td class="code"><pre><span class="kt">void</span> <span class="nf">haa</span><span class="o">(</span><span class="n">CloseableReference</span><span class="o">&lt;?&gt;</span> <span class="n">ref</span><span class="o">)</span> <span class="o">{</span>
   <span class="kd">final</span> <span class="n">CloseableReference</span><span class="o">&lt;?&gt;</span> <span class="n">refClone</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
   <span class="n">executor</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
       <span class="k">try</span> <span class="o">{</span>
         <span class="n">Log</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Haa Async: "</span> <span class="o">+</span> <span class="n">refClone</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
       <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>

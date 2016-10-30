@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -652,7 +652,7 @@
 
 <p>不同点在于，数据源对于一个调用会返回一系列结果，Future只返回一个。</p>
 
-<p>提交一个Image request之后，Image<br />
+<p>提交一个Image request之后，Image
 pipeline返回一个数据源。从中获取数据需要使用<a href="http://frescolib.org/javadoc/reference/com/facebook/datasource/DataSubscriber.html">数据订阅者(DataSubscriber)</a>。</p>
 
 <h3 id="executor">执行器（Executor）</h3>
@@ -669,7 +669,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>这里展示了从数据源中获取目标类型为<code class="highlighter-rouge">T</code>的<code class="highlighter-rouge">CloseableReference&lt;T&gt;</code>的例子，注意此时获取结果对象仅仅在<code class="highlighter-rouge">onNewResultImpl</code>有使用意义。当回调结束之后，这个对象就不能被使用了！（如果你希望保持这个对象并在外部使用，请继续往下看）</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -702,7 +702,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
     <span class="n">DataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
         <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
           <span class="nd">@Override</span>
-          <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onNewResultImpl</span><span class="o">(</span>
+          <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span>
               <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(!</span><span class="n">dataSource</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
               <span class="k">return</span><span class="o">;</span>
@@ -719,7 +719,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
           <span class="o">}</span>
 
           <span class="nd">@Override</span>
-          <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+          <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">Throwable</span> <span class="n">t</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getFailureCause</span><span class="o">();</span>
             <span class="c1">// handle failure</span>
           <span class="o">}</span>
@@ -734,7 +734,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>上面的例子中我们在回调执行完就将对象释放了。如果你需要保持这个对象有效，那么你可以不在这里<code class="highlighter-rouge">close</code>它，参照如下例子：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -761,7 +761,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
     <span class="n">DataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSubscriber</span> <span class="o">=</span>
         <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
           <span class="nd">@Override</span>
-          <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onNewResultImpl</span><span class="o">(</span>
+          <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span>
               <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(!</span><span class="n">dataSource</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
               <span class="k">return</span><span class="o">;</span>
@@ -772,7 +772,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
           <span class="o">}</span>
 
           <span class="nd">@Override</span>
-          <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+          <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">Throwable</span> <span class="n">t</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getFailureCause</span><span class="o">();</span>
             <span class="c1">// handle failure</span>
           <span class="o">}</span>
@@ -787,7 +787,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>参考<a href="closeable-references.html">可关闭的引用</a> 来获取更多信息。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre>    <span class="n">CloseableReference</span><span class="o">.</span><span class="na">closeSafely</span><span class="o">(</span><span class="n">mRef</span><span class="o">);</span>
     <span class="n">mRef</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 </pre></td></tr></tbody></table>
@@ -796,7 +796,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <h3 id="section-2">获取未解码的图片</h3>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre>    <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">PooledByteBuffer</span><span class="o">&gt;&gt;</span> <span class="n">dataSource</span> <span class="o">=</span>
         <span class="n">mImagePipeline</span><span class="o">.</span><span class="na">fetchEncodedImage</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">CALLER_CONTEXT</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
@@ -805,7 +805,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>Image pipeline 使用 <code class="highlighter-rouge">PooledByteBuffer</code> 来存储未解码的图片。 此处我们继续使用上面的目标类型 <code class="highlighter-rouge">T</code>来举个例子， 通过创建<code class="highlighter-rouge">InputStream</code> 来读取图片字节流:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -828,7 +828,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <h3 id="section-3">获取已解码的图片</h3>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span>
     <span class="n">dataSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">fetchDecodedImage</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
@@ -837,7 +837,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>Image pipeline <code class="highlighter-rouge">CloseableImage</code> 来承载已解码的图片。下面例子描述如何从<code class="highlighter-rouge">CloseableImage</code>拿出一个<code class="highlighter-rouge">Bitmap</code>对象:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -856,7 +856,7 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 
 <p>如果你向ImagePipeline请求一个<a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a>, 你可以使用我们的 <a href="http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/datasource/BaseBitmapDataSubscriber">BaseBitmapDataSubscriber</a>:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -868,12 +868,12 @@ pipeline返回一个数据源。从中获取数据需要使用<a href="http://fr
 10
 11</pre></td><td class="code"><pre><span class="n">dataSource</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">BaseBitmapDataSubscriber</span><span class="o">()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">onNewResultImpl</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">)</span> <span class="o">{</span>
       <span class="c1">// 你可以直接在这里使用Bitmap，没有别的限制要求，也不需要回收</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailureImpl</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
     <span class="o">}</span>
   <span class="o">},</span>
   <span class="n">executor</span><span class="o">);</span>

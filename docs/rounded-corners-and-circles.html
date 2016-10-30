@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -667,7 +667,7 @@
 
 <ol>
   <li>默认使用一个 shader 绘制圆角，但是仅仅占位图和所要显示的图有圆角效果。失败示意图和重下载示意图无圆角效果，且这种圆角方式不支持动画。</li>
-  <li>叠加一个<code class="highlighter-rouge">solid color</code>来绘制圆角。但是背景需要固定成指定的颜色。<br />
+  <li>叠加一个<code class="highlighter-rouge">solid color</code>来绘制圆角。但是背景需要固定成指定的颜色。
  在XML中指定 <code class="highlighter-rouge">roundWithOverlayColor</code>, 或者通过调用<code class="highlighter-rouge">setOverlayColor</code>来完成此设定。</li>
 </ol>
 
@@ -675,7 +675,7 @@
 
 <p><code class="highlighter-rouge">SimpleDraweeView</code> 支持如下几种圆角配置:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-xml highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -698,7 +698,7 @@
 
 <p>在创建 <a href="using-drawees-code.html">DraweeHierarchy</a> 时，可以给 <code class="highlighter-rouge">GenericDraweeHierarchyBuilder</code> 指定一个<a href="../javadoc/reference/com/facebook/drawee/generic/RoundingParams.html">RoundingParams</a> 用来绘制圆角效果。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -713,7 +713,7 @@
 
 <p>你也可以在运行时，改变圆角效果</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="n">RoundingParams</span> <span class="n">roundingParams</span> <span class="o">=</span> <span class="n">RoundingParams</span><span class="o">.</span><span class="na">fromCornersRadius</span><span class="o">(</span><span class="mi">5</span><span class="n">f</span><span class="o">);</span>

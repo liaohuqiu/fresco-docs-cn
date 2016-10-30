@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -676,7 +676,7 @@
 
 <p>你可以使用<a href="http://frescolib.org/javadoc/reference/com/facebook/imagepipeline/core/ImagePipeline.html">ImagePipeline</a>检查bitmap是否在缓存中。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3</pre></td><td class="code"><pre><span class="n">ImagePipeline</span> <span class="n">imagePipeline</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">getImagePipeline</span><span class="o">();</span>
 <span class="n">Uri</span> <span class="n">uri</span><span class="o">;</span>
@@ -687,7 +687,7 @@
 
 <p>查询内存缓存的操作是同步的， 不过查询缓存的操作是异步的。因为这个操作可以使用另一个线程操作。你可以这样使用：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -701,7 +701,7 @@
 12</pre></td><td class="code"><pre><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">inDiskCacheSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">isInDiskCache</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
 <span class="n">DataSubscriber</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">subscriber</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaseDataSubscriber</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">onNewResultImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onNewResultImpl</span><span class="o">(</span><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">if</span> <span class="o">(!</span><span class="n">dataSource</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">return</span><span class="o">;</span>
       <span class="o">}</span>
@@ -720,7 +720,7 @@
 
 <p>ImagePipeline现有函数可以根据Uri删除缓存。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -741,7 +741,7 @@
 
 <h3 id="section-3">清除缓存</h3>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -764,7 +764,7 @@
 
 <p>至于什么是小文件，这个由应用来区分，在<a href="image-requests.html">创建image request</a>, 设置 <a href="../javadoc/reference/com/facebook/imagepipeline/request/ImageRequest.ImageType.html">ImageType</a> 即可:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">ImageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">ImageRequest</span><span class="o">.</span><span class="na">newBuilderWithSourceUri</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setImageType</span><span class="o">(</span><span class="n">ImageType</span><span class="o">.</span><span class="na">SMALL</span><span class="o">)</span>
 </pre></td></tr></tbody></table>
@@ -775,14 +775,15 @@
 
 <h3 id="section-5">内存用量的缩减</h3>
 
-<p>在 <a href="configure-image-pipeline.html">配置Image pipeline</a> 时，我们可以指定每个缓存最大的内存用量。但是有时我们可能会想缩小内存用量。比如应用中有其他数据需要占用内存，不得不把图片缓存清除或者减小<br />
+<p>在 <a href="configure-image-pipeline.html">配置Image pipeline</a> 时，我们可以指定每个缓存最大的内存用量。但是有时我们可能会想缩小内存用量。比如应用中有其他数据需要占用内存，不得不把图片缓存清除或者减小
 或者我们想检查看看手机是否已经内存不够了。</p>
 
 <p>Fresco的缓存实现了<a href="http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html">DiskTrimmable</a> 或者 <a href="../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html">MemoryTrimmable</a> 接口。这两个接口负责从各自的缓存中移除内容。</p>
 
 <p>在应用中，可以给Image pipeline配置上实现了<a href="http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmableRegistry.html">DiskTrimmableRegistry</a> 和 <a href="http://frescolib.org/javadoc/reference/com/facebook/common/memory/MemoryTrimmableRegistry.html">MemoryTrimmableRegistry</a> 接口的对象。</p>
 
-<p>实现了这两个接口的对象保持着一个列表，列表中的各个元素在内存不够时，缩减各自的内存用量。</p>
+<p>实现了这两个接口的对象要持有一个列表，这个列表以<a href="http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html">DiskTrimmable</a> 或 <a href="../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html">MemoryTrimmable</a> 对象为元素。当应用程序判定当前状态下需要削减资源使用时，这些对象才会通知列表中的<a href="http://frescolib.org/javadoc/reference/com/facebook/common/disk/DiskTrimmable.html">DiskTrimmable</a> 或 <a href="../javadoc/reference/com/facebook/common/memory/MemoryTrimmable.html">MemoryTrimmable</a> 元素缩减各自的资源占用。</p>
+
 
 
       <p><a class="edit-page-link" href="https://github.com/liaohuqiu/fresco-docs-cn/tree/docs/_docs/02-caching.md" target="_blank">编辑和纠错</a></p>

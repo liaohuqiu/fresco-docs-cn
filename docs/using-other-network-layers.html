@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -652,15 +652,15 @@
 
 <h3 id="okhttp">OkHttp</h3>
 
-<p><a href="http://square.github.io/okhttp">OkHttp</a> 是一个流行的开源网络请求库。Image<br />
+<p><a href="http://square.github.io/okhttp">OkHttp</a> 是一个流行的开源网络请求库。Image
 pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充。</p>
 
-<p>如果需要使用OkHttp,<br />
+<p>如果需要使用OkHttp,
 不要使用这个<a href="download-fresco.html">下载</a>页面的gradle依赖配置，应该使用下面的依赖配置</p>
 
 <p>For OkHttp2:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="n">dependencies</span> <span class="o">{</span>
@@ -673,7 +673,7 @@ pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充�
 
 <p>For OkHttp3:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-groovy highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="n">dependencies</span> <span class="o">{</span>
@@ -690,10 +690,10 @@ pipeline有一个使用OkHttp替换掉了Android默认的网络请求的补充�
 
 <h4 id="image-pipeline">配置 image pipeline</h4>
 
-<p>配置Image<br />
+<p>配置Image
 pipeline这时也有一些不同，不再使用<code class="highlighter-rouge">ImagePipelineConfig.newBuilder</code>,而是使用<code class="highlighter-rouge">OkHttpImagePipelineConfigFactory</code>:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -726,7 +726,7 @@ pipeline这时也有一些不同，不再使用<code class="highlighter-rouge">I
 
 <p>在<a href="configuring-image-pipeline.html">配置Image pipeline</a>时，把producer传递给Image pipeline。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4

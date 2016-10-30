@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -665,7 +665,7 @@
 
 <p>创建一个 builder 然后设置给 DraweeView:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -678,7 +678,7 @@
 11</pre></td><td class="code"><pre><span class="n">List</span><span class="o">&lt;</span><span class="n">Drawable</span><span class="o">&gt;</span> <span class="n">backgroundsList</span><span class="o">;</span>
 <span class="n">List</span><span class="o">&lt;</span><span class="n">Drawable</span><span class="o">&gt;</span> <span class="n">overlaysList</span><span class="o">;</span>
 <span class="n">GenericDraweeHierarchyBuilder</span> <span class="n">builder</span> <span class="o">=</span>
-    <span class="k">new</span> <span class="n">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
+    <span class="k">new</span> <span class="nf">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
 <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">builder</span>
     <span class="o">.</span><span class="na">setFadeDuration</span><span class="o">(</span><span class="mi">300</span><span class="o">)</span>
     <span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCustomDrawable</span><span class="o">())</span>
@@ -704,7 +704,7 @@
 
 <p>要改变这些属性，首先获取一个引用:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">mSimpleDraweeView</span><span class="o">.</span><span class="na">getHierarchy</span><span class="o">();</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
@@ -713,14 +713,14 @@
 
 <p>修改占位图为资源id:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">placeholderId</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">placeholderId</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>你也可以将它修改为一个 <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a>:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">Drawable</span> <span class="n">placeholderImage</span> <span class="o">=</span> <span class="o">...;</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setPlaceholderImage</span><span class="o">(</span><span class="n">placeholderImage</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
@@ -729,7 +729,7 @@
 
 <p>其他图层也可以修改：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">Drawable</span> <span class="n">failureImage</span> <span class="o">=</span> <span class="o">...;</span>
 <span class="n">hierarchy</span><span class="o">.</span><span class="na">setFailureImage</span><span class="o">(</span><span class="n">failureImage</span><span class="o">,</span> <span class="n">ScaleType</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
@@ -740,21 +740,21 @@
 
 <p>修改<a href="scaling.html">缩放类型</a>:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageScaleType</span><span class="o">(</span><span class="n">ScalingUtils</span><span class="o">.</span><span class="na">ScaleType</span><span class="o">.</span><span class="na">CENTER_INSIDE</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageScaleType</span><span class="o">(</span><span class="n">ScalingUtils</span><span class="o">.</span><span class="na">ScaleType</span><span class="o">.</span><span class="na">CENTER_INSIDE</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>如果你选择缩放类型为 <code class="highlighter-rouge">focusCrop</code>，需要指定一个居中点:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageFocusPoint</span><span class="o">(</span><span class="n">point</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">hierarchy</span><span class="o">.</span><span class="na">setActualImageFocusPoint</span><span class="o">(</span><span class="n">point</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>你可以为图像添加一个 color filter:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3</pre></td><td class="code"><pre><span class="n">ColorFilter</span> <span class="n">filter</span><span class="o">;</span>
 <span class="c1">// 创建filter</span>
@@ -769,7 +769,7 @@
 
 <p>如下: 获取DraweeHierarchy的圆角显示参数，修改圆角半径为10。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3</pre></td><td class="code"><pre><span class="n">RoundingParams</span> <span class="n">roundingParams</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="na">getRoundingParams</span><span class="o">();</span>
 <span class="n">roundingParams</span><span class="o">.</span><span class="na">setCornersRadius</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>

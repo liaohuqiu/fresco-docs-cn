@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -656,7 +656,7 @@
 
 <p>如果你希望图片下载完之后自动播放，同时，当View从屏幕移除时，停止播放，只需要在 <a href="image-requests.html">image request</a> 中简单设置，如下:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -672,11 +672,11 @@
 </pre></td></tr></tbody></table>
 </div>
 </div>
-<p>### 手动控制动画图播放</p>
+<h3 id="section-1">手动控制动画图播放</h3>
 
 <p>也许你希望在代码中直接控制动画的播放。这种情况下，你需要监听图片是否加载完毕，然后才能控制动画的播放：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -697,7 +697,7 @@
 19
 20</pre></td><td class="code"><pre><span class="n">ControllerListener</span> <span class="n">controllerListener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaseControllerListener</span><span class="o">&lt;</span><span class="n">ImageInfo</span><span class="o">&gt;()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">onFinalImageSet</span><span class="o">(</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinalImageSet</span><span class="o">(</span>
         <span class="n">String</span> <span class="n">id</span><span class="o">,</span>
         <span class="nd">@Nullable</span> <span class="n">ImageInfo</span> <span class="n">imageInfo</span><span class="o">,</span>
         <span class="nd">@Nullable</span> <span class="n">Animatable</span> <span class="n">anim</span><span class="o">)</span> <span class="o">{</span>
@@ -723,7 +723,7 @@
 
 <p>如果有可用动画的话，可对动画进行灵活的控制:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -738,7 +738,7 @@
 </div>
 </div>
 
-<h3 id="section-1">限制</h3>
+<h3 id="section-2">限制</h3>
 
 <p>动画现在还不支持 <a href="modifying-image.html">postprocessors</a> 。</p>
 

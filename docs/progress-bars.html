@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -650,7 +650,7 @@
    
       <p>要显示进度，最简单的办法就是在 <a href="using-drawees-code.html">构建 hierarchy</a> 时使用 <a href="../javadoc/reference/com/facebook/drawee/drawable/ProgressBarDrawable.html">ProgressBarDrawable</a>，如下：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">.</span><span class="na">setProgressBarImage</span><span class="o">(</span><span class="k">new</span> <span class="n">ProgressBarDrawable</span><span class="o">())</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">.</span><span class="na">setProgressBarImage</span><span class="o">(</span><span class="k">new</span> <span class="n">ProgressBarDrawable</span><span class="o">())</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
@@ -661,7 +661,7 @@
 
 <p>如果你想自定义进度条，请注意，如果想精确显示加载进度，需要重写  <a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.html#onLevelChange\(int\)">Drawable.onLevelChange</a>：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -672,7 +672,7 @@
 9
 10</pre></td><td class="code"><pre><span class="kd">class</span> <span class="nc">CustomProgressBar</span> <span class="kd">extends</span> <span class="n">Drawable</span> <span class="o">{</span>
    <span class="nd">@Override</span>
-   <span class="kd">protected</span> <span class="kt">boolean</span> <span class="n">onLevelChange</span><span class="o">(</span><span class="kt">int</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">onLevelChange</span><span class="o">(</span><span class="kt">int</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
      <span class="c1">// level is on a scale of 0-10,000</span>
      <span class="c1">// where 10,000 means fully downloaded</span>
 

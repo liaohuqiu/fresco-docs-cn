@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -704,8 +704,8 @@
 <p>唯一不支持的缩放类型是 <code class="highlighter-rouge">matrix</code>。Fresco 提供了 <code class="highlighter-rouge">focusCrop</code> 作为补充，通常这个使用效果更佳。</p>
 
 <h3 id="section-1">怎样设置</h3>
-<p>实际图片，占位图，重试图和失败图都可以在 xml 中进行设置，用 <code class="highlighter-rouge">fresco:actualImageScaleType</code> 这样的属性。你也可以使用 <code class="highlighter-rouge">GenericDraweeHierarchyBuilder</code> 类在代码中进行设置。<br />
-即使显示效果已经构建完成，实际图片的缩放类型仍然可以通过 <code class="highlighter-rouge">GenericDraweeHierarchy</code> 类在运行中进行修改。<br />
+<p>实际图片，占位图，重试图和失败图都可以在 xml 中进行设置，用 <code class="highlighter-rouge">fresco:actualImageScaleType</code> 这样的属性。你也可以使用 <code class="highlighter-rouge">GenericDraweeHierarchyBuilder</code> 类在代码中进行设置。
+即使显示效果已经构建完成，实际图片的缩放类型仍然可以通过 <code class="highlighter-rouge">GenericDraweeHierarchy</code> 类在运行中进行修改。
 不要使用 <code class="highlighter-rouge">android:scaleType</code> 属性，也不要使用 <code class="highlighter-rouge">setScaleType()</code> 方法，它们对 Drawees 无效。</p>
 
 <h3 id="focuscrop">focusCrop</h3>
@@ -724,14 +724,14 @@
 
 <p>如果要使用此缩放模式，首先在 XML 中指定缩放模式:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>  fresco:actualImageScaleType="focusCrop"
+<div class="language-xml highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>  fresco:actualImageScaleType="focusCrop"
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>在Java代码中，给你的图片指定居中点：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -764,7 +764,7 @@
 
 <p>我们需要进一步处理，我们可以算一下高度还剩余的空间 <code class="highlighter-rouge">300 - 200 = 100</code>。我们可以将他们平均分配在上下两侧，这样图片就被居中了，真棒！你可以通过实现 <code class="highlighter-rouge">FIT_CENTER</code> 来让它做到这点。那么来看代码吧：</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -783,7 +783,7 @@
 17
 18</pre></td><td class="code"><pre>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractScaleType</span> <span class="kd">implements</span> <span class="n">ScaleType</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Matrix</span> <span class="n">getTransform</span><span class="o">(</span><span class="n">Matrix</span> <span class="n">outTransform</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">parentRect</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childHeight</span><span class="o">,</span> <span class="kt">float</span> <span class="n">focusX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">focusY</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Matrix</span> <span class="nf">getTransform</span><span class="o">(</span><span class="n">Matrix</span> <span class="n">outTransform</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">parentRect</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">childHeight</span><span class="o">,</span> <span class="kt">float</span> <span class="n">focusX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">focusY</span><span class="o">)</span> <span class="o">{</span>
       <span class="c1">// 取宽度和高度需要缩放的倍数中最大的一个</span>
       <span class="kd">final</span> <span class="kt">float</span> <span class="n">sX</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">parentRect</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">/</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">childWidth</span><span class="o">;</span>
       <span class="kd">final</span> <span class="kt">float</span> <span class="n">sY</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">parentRect</span><span class="o">.</span><span class="na">height</span><span class="o">()</span> <span class="o">/</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">childHeight</span><span class="o">;</span>

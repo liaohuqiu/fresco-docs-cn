@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -650,7 +650,7 @@
    
       <p>本页介绍Image pipeline的高级用法，大部分的应用使用<a href="using-drawees-xml.html">Drawees</a> 和image pipeline打交道就好了。</p>
 
-<p>直接使用Image pipeline是较为有挑战的事情，这意味着要维护图片的内存使用。Drawees<br />
+<p>直接使用Image pipeline是较为有挑战的事情，这意味着要维护图片的内存使用。Drawees
 会根据各种情况确定图片是否需要在内存缓存中，在需要时加载，在不需要时移除。直接使用的话，你需要自己完成这些逻辑。</p>
 
 <p>Image pipeline返回的是一个<a href="closeable-references.html">CloseableReference</a>对象。在这些对象不需要时，Drawees会调用<code class="highlighter-rouge">.close()</code>方法。如果你的应用不使用Drawees，那你需要自己完成这个事情。</p>
@@ -661,7 +661,7 @@
 
 <p>首先<a href="image-requests.html">创建一个image request</a>. 然后传递给 <code class="highlighter-rouge">ImagePipeline:</code></p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3</pre></td><td class="code"><pre><span class="n">ImagePipeline</span> <span class="n">imagePipeline</span> <span class="o">=</span> <span class="n">Fresco</span><span class="o">.</span><span class="na">getImagePipeline</span><span class="o">();</span>
 <span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">CloseableImage</span><span class="o">&gt;&gt;</span>
@@ -676,7 +676,7 @@
 
 <p>如果你不保持图片原始格式，不执行解码，使用<code class="highlighter-rouge">fetchEncodedImage</code>即可:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">CloseableReference</span><span class="o">&lt;</span><span class="n">PooledByteBuffer</span><span class="o">&gt;&gt;</span>
     <span class="n">dataSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">fetchEncodedImage</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
@@ -687,7 +687,7 @@
 
 <p>不像其他缓存，如果图片在内存缓存中有的话，可以在UI线程立刻拿到结果。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -738,21 +738,21 @@
 
 <p>预加载到磁盘缓存:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToDiskCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToDiskCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>预加载到内存缓存:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToBitmapCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchToBitmapCache</span><span class="o">(</span><span class="n">imageRequest</span><span class="o">,</span> <span class="n">callerContext</span><span class="o">);</span>
 </pre></td></tr></tbody></table>
 </div>
 </div>
 
 <p>取消预加载:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2</pre></td><td class="code"><pre><span class="n">DataSource</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">prefetchDataSource</span> <span class="o">=</span> <span class="n">imagePipeline</span><span class="o">.</span><span class="na">prefetchTo</span><span class="o">...;</span>
 <span class="n">prefetchDataSource</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
 </pre></td></tr></tbody></table>

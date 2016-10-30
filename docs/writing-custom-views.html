@@ -38,7 +38,7 @@
           <ul>
             
             <li class="navItem navItemActive">
-              <a href="http://fresco-cn.org/docs/">文档</a>
+              <a href="/docs/">文档</a>
             </li>
             
             <li class="navItem">
@@ -86,7 +86,7 @@
   var navData = [
     
     {
-      href       : "http://fresco-cn.org/docs/",
+      href       : "/docs/",
       text       : "文档",
     },
     
@@ -665,7 +665,7 @@
 
 <h3 id="view">自定义View需要完成的事情</h3>
 
-<p>Android 呈现View对象，只有View对象才能得到一些系统事件的通知。<code class="highlighter-rouge">DraweeViews</code><br />
+<p>Android 呈现View对象，只有View对象才能得到一些系统事件的通知。<code class="highlighter-rouge">DraweeViews</code>
 处理这些事件通知，高效地管理内存。使用<code class="highlighter-rouge">DraweeHolder</code>时，你需要自己实现这几个方法。</p>
 
 <h4 id="attachdetach-">处理 attach/detach 事件</h4>
@@ -676,7 +676,7 @@
 
 <p>这些在<code class="highlighter-rouge">DraweeView</code>中是自动的，但是在自定义View中，需要我们自己去操作，如下:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -703,25 +703,25 @@
 25</pre></td><td class="code"><pre><span class="n">DraweeHolder</span> <span class="n">mDraweeHolder</span><span class="o">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDetachedFromWindow</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDetachedFromWindow</span><span class="o">()</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onDetachedFromWindow</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onDetach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartTemporaryDetach</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartTemporaryDetach</span><span class="o">()</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onStartTemporaryDetach</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onDetach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onAttach</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinishTemporaryDetach</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFinishTemporaryDetach</span><span class="o">()</span> <span class="o">{</span>
   <span class="kd">super</span><span class="o">.</span><span class="na">onFinishTemporaryDetach</span><span class="o">();</span>
   <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onAttach</span><span class="o">();</span>
 <span class="o">}</span>
@@ -735,11 +735,11 @@
 
 <p>如果你启用了<a href="drawee-branch.html#Retry">点击重新加载</a>，在自定义View中，需要这样:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="p">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
   <span class="k">return</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">)</span> <span class="o">||</span> <span class="kd">super</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></td></tr></tbody></table>
@@ -750,7 +750,7 @@
 
 <p>你必须调用</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4</pre></td><td class="code"><pre><span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">();</span>
@@ -775,7 +775,7 @@
   <li>设置<a href="http://developer.android.com/reference/android/graphics/drawable/Drawable.Callback.html">Drawable.Callback</a></li>
 </ul>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -796,14 +796,14 @@
   <li>重写 <code class="highlighter-rouge">verifyDrawable:</code></li>
 </ul>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
 5
 6
 7</pre></td><td class="code"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">verifyDrawable</span><span class="p">(</span><span class="n">Drawable</span> <span class="n">who</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">verifyDrawable</span><span class="o">(</span><span class="n">Drawable</span> <span class="n">who</span><span class="o">)</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">who</span> <span class="o">==</span> <span class="n">mDraweeHolder</span><span class="o">.</span><span class="na">getTopLevelDrawable</span><span class="o">())</span> <span class="o">{</span>
     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
   <span class="o">}</span>
@@ -839,7 +839,7 @@
 
 <p>如果有可能，只在 View 创建时，创建 Drawees。创建 DraweeHierarchy 开销较大，最好只做一次。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -856,7 +856,7 @@
 
   <span class="c1">// constructors following above pattern</span>
 
-  <span class="kd">private</span> <span class="kt">void</span> <span class="n">init</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
       <span class="o">.</span><span class="na">set</span><span class="o">...</span>
       <span class="o">.</span><span class="na">set</span><span class="o">...</span>
@@ -872,7 +872,7 @@
 
 <p>使用 <a href="using-controllerbuilder.html">controller builder</a> 创建DraweeController，然后调用holder的 <code class="highlighter-rouge">setController</code> 方法，而不是设置给自定义 View。</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -887,10 +887,10 @@
 
 <h3 id="multidraweeholder">MultiDraweeHolder</h3>
 
-<p>和 <code class="highlighter-rouge">DraweeHolder</code> 相比，<code class="highlighter-rouge">MultiDraweeHolder</code> 有 <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">remove</code>, <code class="highlighter-rouge">clear</code><br />
+<p>和 <code class="highlighter-rouge">DraweeHolder</code> 相比，<code class="highlighter-rouge">MultiDraweeHolder</code> 有 <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">remove</code>, <code class="highlighter-rouge">clear</code>
 等方法可以操作 Drawees。如下:</p>
 
-<div class="highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="language-java highlighter-rouge"><div class="rougeHighlight"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
 2
 3
 4
@@ -901,7 +901,7 @@
 9
 10</pre></td><td class="code"><pre><span class="n">MultiDraweeHolder</span><span class="o">&lt;</span><span class="n">GenericDraweeHierarchy</span><span class="o">&gt;</span> <span class="n">mMultiDraweeHolder</span><span class="o">;</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
   <span class="n">GenericDraweeHierarchy</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GenericDraweeHierarchyBuilder</span><span class="o">(</span><span class="n">getResources</span><span class="o">());</span>
     <span class="o">.</span><span class="na">set</span><span class="o">...</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
