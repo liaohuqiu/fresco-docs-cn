@@ -14,6 +14,8 @@ timezone: Asia/Shanghai
 ghrepo: "facebook/fresco"
 ghrepo_doc: "liaohuqiu/fresco-docs-cn"
 
+exclude:        ['base.sh', 'manager.sh', '_docker']
+
 current_version: 0.12.0
 
 markdown: kramdown
