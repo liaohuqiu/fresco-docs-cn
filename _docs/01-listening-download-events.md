@@ -43,12 +43,12 @@ ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() 
 
     @Override
     public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-      FLog.d("Intermediate image received");
+      FLog.d("onIntermediateImageSet", "Intermediate image received");
     }
 
     @Override
     public void onFailure(String id, Throwable throwable) {
-      FLog.e(getClass(), throwable, "Error loading %s", id)
+      FLog.e(getClass(), throwable, "Error loading %s", id);
     }
 };
 
