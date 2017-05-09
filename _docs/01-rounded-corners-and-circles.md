@@ -48,7 +48,7 @@ next: using-controllerbuilder.html
 ```java
 RoundingParams roundingParams = RoundingParams.fromCornersRadius(7f);
 // alternatively use fromCornersRadii or asCircle
-roundingParams.setOverlayColor(R.color.green);
+roundingParams.setOverlayColor(getResources().getColor(R.color.green));
 genericDraweeHierarchyBuilder
     .setRoundingParams(roundingParams);
 ```
@@ -57,7 +57,7 @@ genericDraweeHierarchyBuilder
 
 ```java
 RoundingParams roundingParams = RoundingParams.fromCornersRadius(5f);
-roundingParams.setBorder(R.color.red, 1.0);
+roundingParams.setBorder(getResources().getColor(R.color.red), 1.0f);
 roundingParams.setRoundAsCircle(true);
 mSimpleDraweeView.getHierarchy().setRoundingParams(roundingParams);
 ```
