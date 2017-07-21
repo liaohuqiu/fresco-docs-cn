@@ -89,9 +89,9 @@ public CloseableReference<Bitmap> process(
       sourceBitmap.getHeight() / 2);
   try {
     Bitmap destBitmap = bitmapRef.get();
-	 for (int x = 0; x < destBitmap.getWidth(); x+=2) {
-	   for (int y = 0; y < destBitmap.getHeight(); y+=2) {
-	     destBitmap.setPixel(x, y, sourceBitmap.getPixel(x, y));
+	 for (int x = 0; x < destBitmap.getWidth(); x++) {
+	   for (int y = 0; y < destBitmap.getHeight(); y++) {
+	     destBitmap.setPixel(x, y, sourceBitmap.getPixel(x*2, y*2));
 	   }
 	 }
 	 return CloseableReference.cloneOrNull(bitmapRef);
