@@ -9,7 +9,7 @@ next: multiple-apks.html
 
 Fresco的体积可能有点庞大，所以我们强烈推荐你在发布App时进行混淆(Proguard)。
 
-你可以下载 Fresco 的 ProGuard 文件：[proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/proguard-fresco.pro), 并将它添加到你的项目中。
+你可以下载 Fresco 的 ProGuard 文件：[proguard-fresco.pro](https://raw.githubusercontent.com/facebook/fresco/master/fbcore/proguard-fresco.pro), 并将它添加到你的项目中。
 
 ### Android Studio / Gradle 示例
 
