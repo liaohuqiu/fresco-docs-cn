@@ -15,7 +15,7 @@ function run_blog_container() {
     args=''
     args="$args -v $prj_path:/opt/app"
     args="$args -w /opt/app"
-    run_cmd "docker run -it $args --rm --name $app_container $app_image $cmd"
+    run_cmd "docker run --net=host -it $args --rm --name $app_container $app_image $cmd"
 }
 
 function stop_blog_container() {
@@ -29,6 +29,11 @@ function into_blog() {
 function build_log() {
     run_blog_container 'jekyll build -w'
 }
+
+function serve() {
+    run_blog_container 'jekyll serve'
+}
+
 
 function show_usage() {
 	cat <<-EOF
@@ -55,6 +60,10 @@ while :; do
             ;;
         build)
             build_log
+            exit
+            ;;
+        serve)
+            serve
             exit
             ;;
         into-blog)
