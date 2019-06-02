@@ -3,6 +3,7 @@ docid: index
 title: 开始使用 Fresco
 layout: docs
 permalink: /docs/index.html
+next: 00-proguard.html
 ---
 
 本文档将引导你完成在你的应用中开始使用 Fresco 所需的步骤，包括使用 Fresco 加载第一张图片。
