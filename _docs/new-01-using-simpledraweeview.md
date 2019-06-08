@@ -3,8 +3,8 @@ docid: using-simpledraweeview
 title: 使用 SimpleDraweeView
 layout: docs
 permalink: /docs/using-simpledraweeview.html
-prev: 00-proguard.html
-next: 01-rounded-corners-and-circles.html
+prev: proguard.html
+next: rounded-corners-and-circles.html
 redirect_from:
   - /docs/using-drawees-xml.html
   - /docs/using-drawees-code.htm

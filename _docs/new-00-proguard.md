@@ -4,8 +4,8 @@ title: 发布使用了 Fresco 的 App
 layout: docs
 redirect_from: /docs/proguard.html
 permalink: /docs/shipping.html
-prev: 00-index.html
-next: 01-using-simpledraweeview.html
+prev: index.html
+next: using-simpledraweeview.html
 ---
 
 Fresco 的体积可能有点庞大，所以我们强烈推荐你使用 ProGuard 工具，并分包构建多 APK 以使得你的应用程序保持较小体积。
