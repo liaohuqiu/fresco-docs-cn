@@ -4,7 +4,7 @@ title: 占位图，失败图与重试图
 layout: docs
 permalink: /docs/placeholder-failure-retry.html
 prev: scaletypes.html
-next: 
+next: rotation.html
 ---
 
 当你使用网络加载图片时，可能会遇到一些问题：加载时间过长、或者甚至图片本身就不可用。我们已经看到过如何使用 [进度条](progress-bars.html)。本节中，我们会看到当实际图不可用时（或者根本没有时）还能显示哪些其他内容。请注意，这些内容都有可以自定义的、不同的缩放类型。
