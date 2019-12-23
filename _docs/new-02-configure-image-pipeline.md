@@ -37,7 +37,7 @@ ImagePipelineConfig config = ImagePipelineConfig.newBuilder(context)
 Fresco.initialize(context, config);
 ```
 
-请记得将配置好的 `ImagePipelineConfig` 传递给 `Fresco.initialize()`！ 否则 Fresco 仍旧是使用默认配置。
+请记得将配置好的 `ImagePipelineConfig` 传递给 `Fresco.initialize`！ 否则 Fresco 仍旧是使用默认配置。
 
 ### 理解 Suppliers
 
@@ -58,11 +58,11 @@ Supplier<X> xSupplier = new Supplier<X>() {
 
 ### 线程池
 
-Image Pipeline 默认有 3 个线程池：
+Image Pipeline 默认使用了 3 个线程池：
 
 1. 3 个线程用于网络下载
-2. 2 个线程用于磁盘操作: 本地文件、磁盘缓存。
-3. 2 个线程用于 CPU 相关的操作: 解码、转换，以及后处理等后台操作。
+2. 2 个线程用于磁盘操作：本地文件、磁盘缓存。
+3. 2 个线程用于 CPU 相关的操作：解码、转换，以及后处理等后台操作。
 
 你能通过[设置网络层](using-other-network-layers.html) 来自定义网络的相关特性。
 
@@ -70,7 +70,7 @@ Image Pipeline 默认有 3 个线程池：
 
 ### 使用 MemoryTrimmableRegistry
 
-如果你的应用监听了系统的内存事件，那会传递给 Fresco 来调整内存。
+如果你的应用监听了系统的内存事件，可以将它们传递给 Fresco 来调整内存缓存。
 
 对大多数应用而言，最简单的监听方式就是复写 [Activity.onTrimMemory](http://developer.android.com/reference/android/app/Activity.html#onTrimMemory(int))。 你也可以使用任何 [ComponentCallbacks2](http://developer.android.com/reference/android/content/ComponentCallbacks2.html) 的子类。
 
