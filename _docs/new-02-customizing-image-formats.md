@@ -156,7 +156,7 @@ public static class CustomDrawableFactory implements DrawableFactory {
 
 为了使用你的可绘制对象工厂，你也可以采用全局或局部替代。
 
-### 自定义 drawable 全局替代
+### 全局替换自定义的可绘制对象
 
 你必须在 Fresco 初始化时注册所有全局的可绘制对象工厂：
 
@@ -170,7 +170,7 @@ DraweeConfig draweeConfig = DraweeConfig.newBuilder()
 Fresco.initialize(this, imagePipelineConfig, draweeConfig);
 ```
 
-### 自定义 drawable 局部替代
+### 局部替换自定义的可绘制对象
 
 为了实现局部替代，`PipelineDraweeControllerBuilder` 提供了设置自定义可绘制对象工厂的方法：
 
